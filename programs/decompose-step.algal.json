@@ -1,0 +1,583 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:decompose-step",
+  "name": "Decompose \u2014 one merge",
+  "note": "Inner round of the agglomerative decomposition. Each round merges the cluster pair with the highest AVERAGE linkage \u2014 cross-links divided by |a|\u00b7|b| (Alexander's 'internal interaction very dense, external interaction weak'). Normalization is load-bearing: raw cross-link count degenerates into one giant cluster (bigger clusters always have more boundary links) \u2014 measured on the Appendix I village graph (scripts/decompose-village.py): raw \u2192 [138,1,1,1], average \u2192 0.84 pairwise agreement with Alexander's 12-subset answer. Carried by the repeat cell in decompose. Bounded: one merge per round; the village's 141 misfits exceed the expr fuel ceiling and belong to offline tooling, as they did for Alexander's HIDECS.",
+  "budgets": {
+    "maxSteps": 8,
+    "maxAgentCalls": 0,
+    "maxWork": 60000
+  },
+  "interface": {
+    "inputs": {
+      "clusters": {
+        "cell": "in",
+        "port": "clusters"
+      },
+      "links": {
+        "cell": "in",
+        "port": "links"
+      },
+      "k": {
+        "cell": "in",
+        "port": "k"
+      }
+    },
+    "outputs": {
+      "clusters": {
+        "cell": "step",
+        "port": "out"
+      },
+      "links": {
+        "cell": "echo-links",
+        "port": "out"
+      },
+      "k": {
+        "cell": "echo-k",
+        "port": "out"
+      },
+      "done": {
+        "cell": "done",
+        "port": "out"
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "in",
+      "kind": "input",
+      "outputs": {
+        "clusters": "json",
+        "links": "json",
+        "k": "json"
+      }
+    },
+    {
+      "kind": "expr",
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "let",
+          "cs",
+          [
+            "get",
+            "clusters"
+          ],
+          [
+            "let",
+            "ls",
+            [
+              "get",
+              "links"
+            ],
+            [
+              "if",
+              [
+                "lte",
+                [
+                  "len",
+                  [
+                    "get",
+                    "cs"
+                  ]
+                ],
+                [
+                  "get",
+                  "k"
+                ]
+              ],
+              [
+                "get",
+                "cs"
+              ],
+              [
+                "let",
+                "pairs",
+                [
+                  "filter",
+                  [
+                    "flat",
+                    [
+                      "map",
+                      [
+                        "get",
+                        "cs"
+                      ],
+                      "ci",
+                      [
+                        "map",
+                        [
+                          "get",
+                          "cs"
+                        ],
+                        "cj",
+                        [
+                          "if",
+                          [
+                            "lt",
+                            [
+                              "nth",
+                              [
+                                "get",
+                                "ci"
+                              ],
+                              0
+                            ],
+                            [
+                              "nth",
+                              [
+                                "get",
+                                "cj"
+                              ],
+                              0
+                            ]
+                          ],
+                          [
+                            "list",
+                            [
+                              "get",
+                              "ci"
+                            ],
+                            [
+                              "get",
+                              "cj"
+                            ]
+                          ],
+                          [
+                            "list"
+                          ]
+                        ]
+                      ]
+                    ]
+                  ],
+                  "pp",
+                  [
+                    "gte",
+                    [
+                      "len",
+                      [
+                        "get",
+                        "pp"
+                      ]
+                    ],
+                    2
+                  ]
+                ],
+                [
+                  "let",
+                  "scored",
+                  [
+                    "map",
+                    [
+                      "get",
+                      "pairs"
+                    ],
+                    "pp",
+                    {
+                      "p": [
+                        "get",
+                        "pp"
+                      ],
+                      "s": [
+                        "div",
+                        [
+                          "len",
+                          [
+                            "filter",
+                          [
+                            "get",
+                            "ls"
+                          ],
+                          "l",
+                          [
+                            "or",
+                            [
+                              "and",
+                              [
+                                "contains",
+                                [
+                                  "nth",
+                                  [
+                                    "get",
+                                    "pp"
+                                  ],
+                                  0
+                                ],
+                                [
+                                  "get",
+                                  "l",
+                                  "a"
+                                ]
+                              ],
+                              [
+                                "contains",
+                                [
+                                  "nth",
+                                  [
+                                    "get",
+                                    "pp"
+                                  ],
+                                  1
+                                ],
+                                [
+                                  "get",
+                                  "l",
+                                  "b"
+                                ]
+                              ]
+                            ],
+                            [
+                              "and",
+                              [
+                                "contains",
+                                [
+                                  "nth",
+                                  [
+                                    "get",
+                                    "pp"
+                                  ],
+                                  0
+                                ],
+                                [
+                                  "get",
+                                  "l",
+                                  "b"
+                                ]
+                              ],
+                              [
+                                "contains",
+                                [
+                                  "nth",
+                                  [
+                                    "get",
+                                    "pp"
+                                  ],
+                                  1
+                                ],
+                                [
+                                  "get",
+                                  "l",
+                                  "a"
+                                ]
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        "mul",
+                          [
+                            "len",
+                            [
+                              "nth",
+                              [
+                                "get",
+                                "pp"
+                              ],
+                              0
+                            ]
+                          ],
+                          [
+                            "len",
+                            [
+                              "nth",
+                              [
+                                "get",
+                                "pp"
+                              ],
+                              1
+                            ]
+                          ]
+                        ]
+                      ]
+                    }
+                  ],
+                  [
+                    "let",
+                    "best",
+                    [
+                      "fold",
+                      [
+                        "get",
+                        "scored"
+                      ],
+                      {
+                        "p": [
+                          "list"
+                        ],
+                        "s": -1
+                      },
+                      "acc",
+                      "e",
+                      [
+                        "if",
+                        [
+                          "gt",
+                          [
+                            "get",
+                            "e",
+                            "s"
+                          ],
+                          [
+                            "get",
+                            "acc",
+                            "s"
+                          ]
+                        ],
+                        [
+                          "get",
+                          "e"
+                        ],
+                        [
+                          "get",
+                          "acc"
+                        ]
+                      ]
+                    ],
+                    [
+                      "let",
+                      "ba",
+                      [
+                        "nth",
+                        [
+                          "get",
+                          "best",
+                          "p"
+                        ],
+                        0
+                      ],
+                      [
+                        "let",
+                        "bb",
+                        [
+                          "nth",
+                          [
+                            "get",
+                            "best",
+                            "p"
+                          ],
+                          1
+                        ],
+                        [
+                          "concat",
+                          [
+                            "list",
+                            [
+                              "concat",
+                              [
+                                "get",
+                                "ba"
+                              ],
+                              [
+                                "get",
+                                "bb"
+                              ]
+                            ]
+                          ],
+                          [
+                            "filter",
+                            [
+                              "get",
+                              "cs"
+                            ],
+                            "c",
+                            [
+                              "and",
+                              [
+                                "neq",
+                                [
+                                  "get",
+                                  "c"
+                                ],
+                                [
+                                  "get",
+                                  "ba"
+                                ]
+                              ],
+                              [
+                                "neq",
+                                [
+                                  "get",
+                                  "c"
+                                ],
+                                [
+                                  "get",
+                                  "bb"
+                                ]
+                              ]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      },
+      "id": "step",
+      "inputs": {
+        "clusters": "json",
+        "links": "json",
+        "k": "json"
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "kind": "expr",
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "get",
+          "links"
+        ]
+      },
+      "id": "echo-links",
+      "inputs": {
+        "links": "json"
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "kind": "expr",
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "get",
+          "k"
+        ]
+      },
+      "id": "echo-k",
+      "inputs": {
+        "k": "json"
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "number"
+        }
+      }
+    },
+    {
+      "kind": "expr",
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "if",
+          [
+            "lte",
+            [
+              "len",
+              [
+                "get",
+                "cs"
+              ]
+            ],
+            [
+              "get",
+              "k"
+            ]
+          ],
+          "done",
+          "more"
+        ]
+      },
+      "id": "done",
+      "inputs": {
+        "cs": "json",
+        "k": "json"
+      },
+      "output": {
+        "kind": "choice",
+        "labels": [
+          "done",
+          "more"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "cell": "in",
+        "port": "clusters"
+      },
+      "to": {
+        "cell": "step",
+        "port": "clusters"
+      }
+    },
+    {
+      "from": {
+        "cell": "in",
+        "port": "links"
+      },
+      "to": {
+        "cell": "step",
+        "port": "links"
+      }
+    },
+    {
+      "from": {
+        "cell": "in",
+        "port": "k"
+      },
+      "to": {
+        "cell": "step",
+        "port": "k"
+      }
+    },
+    {
+      "from": {
+        "cell": "in",
+        "port": "links"
+      },
+      "to": {
+        "cell": "echo-links",
+        "port": "links"
+      }
+    },
+    {
+      "from": {
+        "cell": "in",
+        "port": "k"
+      },
+      "to": {
+        "cell": "echo-k",
+        "port": "k"
+      }
+    },
+    {
+      "from": {
+        "cell": "step",
+        "port": "out"
+      },
+      "to": {
+        "cell": "done",
+        "port": "cs"
+      }
+    },
+    {
+      "from": {
+        "cell": "in",
+        "port": "k"
+      },
+      "to": {
+        "cell": "done",
+        "port": "k"
+      }
+    }
+  ]
+}

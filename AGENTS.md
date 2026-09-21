@@ -21,6 +21,9 @@ Same shape under `programs/`. If it embeds a sub-manifest by digest
 
 ## Gates
 
+- `bash scripts/verify.sh` is the full gate: `check` on every manifest,
+  replay of every fixture, village data integrity, and the decompose
+  benchmark (agreement ≥ 0.6 vs. Alexander's published partition).
 - `bunx github:hraness/algal check <manifest>` must pass before commit.
 - Deterministic manifests (no agent/decide cells) must run with `--args`
   alone. Judgment manifests must replay with `--responses`.
@@ -29,5 +32,12 @@ Same shape under `programs/`. If it embeds a sub-manifest by digest
   receipted `correlate` run re-derives them — keep the `why` honest.
 - Everything is bounded: declare `budgets`; ensembles over 8 misfits exceed
   `correlate`'s `maxItems` and should be decomposed first.
+- `expr` fuel ceiling is 1M per activation — decomposition-scale math on
+  the village graph (141 misfits × 1434 links) does not fit; score it
+  offline via `scripts/decompose-village.py`, which mirrors the manifest's
+  step rule exactly. Keep the two implementations' scoring in sync.
+- Digest discipline: editing an embedded manifest changes its digest —
+  rewire every parent (`algal digest`, then update `manifest` fields in
+  `decompose`, `synthesize`, `correlate`) before committing.
 - Mark proposals as proposals. A manifest that needs a host fn or tool that
   doesn't exist yet is a proposal, not a pattern.

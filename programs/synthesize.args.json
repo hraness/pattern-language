@@ -1,0 +1,6 @@
+{
+  "ctx": {
+    "context": "Design the terminal status surface for a long-running job: an operator must see verdict, provenance, and bounded evidence at a glance, in a pipe as well as a TTY.",
+    "k": 2
+  }
+}

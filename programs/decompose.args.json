@@ -1,0 +1,17 @@
+{
+  "src": {
+    "misfits": [
+      { "id": "m1", "text": "verdict not visible" },
+      { "id": "m2", "text": "no checkable evidence" },
+      { "id": "m3", "text": "unbounded tail" },
+      { "id": "m4", "text": "color-only signal" }
+    ],
+    "links": [
+      { "a": "m1", "b": "m2", "sign": "+" },
+      { "a": "m1", "b": "m3", "sign": "-" },
+      { "a": "m2", "b": "m3", "sign": "-" },
+      { "a": "m3", "b": "m4", "sign": "-" }
+    ],
+    "k": 2
+  }
+}

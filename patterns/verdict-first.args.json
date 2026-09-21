@@ -1,0 +1,6 @@
+{
+  "src": {
+    "verdict": "MISFIT",
+    "body": "chk: assert.v1 failed on port 'value'"
+  }
+}

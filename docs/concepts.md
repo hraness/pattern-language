@@ -44,10 +44,15 @@ Two more correspondences worth naming:
 - **Interaction judgments are judgments.** "Do these misfits interact?" is
   irreducibly a `decide` cell. The gain: interaction claims become typed,
   receipted decisions rather than intuition slush.
-- **HIDECS won't fit in `expr`.** The expression language is bounded-pure;
-  real graph partition is host `fn` territory or offline tooling.
-  Historically accurate — Alexander's math was offline too, and he later
-  called it unnecessary.
+- **HIDECS won't fit in `expr` — but a greedy approximation does.**
+  `programs/decompose.algal.json` runs agglomerative merging (fuse the
+  cluster pair sharing the most cross-links, repeat to *k*) as a bounded
+  `repeat` over a pure-expr step. It demonstrably finds locally-dense
+  cuts, but it is not Alexander's information-theoretic partition, and on
+  the Appendix I village graph it should be *expected* to diverge from
+  his published decomposition — that oracle (`village.decomposition.json`)
+  exists to measure exactly that. Alexander's own verdict applies: the
+  formal machinery was never the point; the diagrams are.
 - **DAG beats tree.** Alexander's decomposition yields a strict tree, and he
   spent "A City is Not a Tree" (1965) regretting that the world is a
   semilattice. algal embedding is a DAG with content-addressed sharing —

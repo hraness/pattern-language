@@ -1,0 +1,172 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:decompose",
+  "name": "Decompose the program",
+  "note": "Method step between correlate and diagram. Agglomerative clustering over the signed interaction graph: each misfit starts alone; each round merges the two clusters with the most cross-links until at most k subsystems remain or maxRounds runs out. This is the honest minimum \u2014 greedy single-step density, not Alexander's information-theoretic HIDECS. For the village-scale oracle see ensembles/village.decomposition.json.",
+  "budgets": {
+    "maxSteps": 96,
+    "maxAgentCalls": 0,
+    "maxWork": 400000
+  },
+  "interface": {
+    "inputs": {
+      "misfits": {
+        "cell": "src",
+        "port": "misfits"
+      },
+      "links": {
+        "cell": "src",
+        "port": "links"
+      },
+      "k": {
+        "cell": "src",
+        "port": "k"
+      }
+    },
+    "outputs": {
+      "subsystems": {
+        "cell": "out",
+        "port": "out"
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "src",
+      "kind": "input",
+      "outputs": {
+        "misfits": "json",
+        "links": "json",
+        "k": "json"
+      }
+    },
+    {
+      "id": "init",
+      "kind": "expr",
+      "inputs": {
+        "misfits": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "map",
+          [
+            "get",
+            "misfits"
+          ],
+          "m",
+          [
+            "list",
+            [
+              "get",
+              "m",
+              "id"
+            ]
+          ]
+        ]
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "id": "loop",
+      "kind": "repeat",
+      "manifest": "sha256:2ee2e6416d3144c6ed952bb256d492f4e87a013548a3ce1da13f34571bbeda46",
+      "maxRounds": 12,
+      "carry": {
+        "clusters": "clusters",
+        "links": "links",
+        "k": "k"
+      },
+      "until": {
+        "output": "done",
+        "equals": "done"
+      }
+    },
+    {
+      "id": "out",
+      "kind": "expr",
+      "inputs": {
+        "cs": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": {
+          "subsystems": [
+            "get",
+            "cs"
+          ],
+          "count": [
+            "len",
+            [
+              "get",
+              "cs"
+            ]
+          ]
+        }
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "object"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "cell": "src",
+        "port": "misfits"
+      },
+      "to": {
+        "cell": "init",
+        "port": "misfits"
+      }
+    },
+    {
+      "from": {
+        "cell": "init",
+        "port": "out"
+      },
+      "to": {
+        "cell": "loop",
+        "port": "clusters"
+      }
+    },
+    {
+      "from": {
+        "cell": "src",
+        "port": "links"
+      },
+      "to": {
+        "cell": "loop",
+        "port": "links"
+      }
+    },
+    {
+      "from": {
+        "cell": "src",
+        "port": "k"
+      },
+      "to": {
+        "cell": "loop",
+        "port": "k"
+      }
+    },
+    {
+      "from": {
+        "cell": "loop",
+        "port": "clusters"
+      },
+      "to": {
+        "cell": "out",
+        "port": "cs"
+      }
+    }
+  ]
+}

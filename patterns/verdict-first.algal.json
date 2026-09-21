@@ -1,0 +1,88 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:verdict-first",
+  "name": "Verdict first",
+  "note": "Pattern. Context: a surface read by someone skimming between meetings. Forces: the reader's attention is the scarcest resource (-); the verdict must differ in kind from the evidence (+); completeness still matters (+). Resolution: the first line IS the verdict, marked so failure cannot read as success; the body follows and may be clipped under bounded-slice. This pattern was first produced by the diagram program's spawned child; the catalog admits it as a first-class diagram.",
+  "budgets": {
+    "maxSteps": 8,
+    "maxAgentCalls": 0,
+    "maxWork": 20000
+  },
+  "interface": {
+    "inputs": {
+      "verdict": {
+        "cell": "src",
+        "port": "verdict"
+      },
+      "body": {
+        "cell": "src",
+        "port": "body"
+      }
+    },
+    "outputs": {
+      "surface": {
+        "cell": "fmt",
+        "port": "out"
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "src",
+      "kind": "input",
+      "outputs": {
+        "verdict": "text",
+        "body": "text"
+      }
+    },
+    {
+      "id": "fmt",
+      "kind": "expr",
+      "inputs": {
+        "verdict": "text",
+        "body": "text"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "sconcat",
+          "== ",
+          [
+            "get",
+            "verdict"
+          ],
+          " ==\n",
+          [
+            "get",
+            "body"
+          ]
+        ]
+      },
+      "output": {
+        "kind": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "cell": "src",
+        "port": "verdict"
+      },
+      "to": {
+        "cell": "fmt",
+        "port": "verdict"
+      }
+    },
+    {
+      "from": {
+        "cell": "src",
+        "port": "body"
+      },
+      "to": {
+        "cell": "fmt",
+        "port": "body"
+      }
+    }
+  ]
+}

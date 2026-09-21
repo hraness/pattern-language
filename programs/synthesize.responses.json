@@ -1,0 +1,42 @@
+{
+  "enum": {
+    "misfits": [
+      { "id": "m1", "text": "the verdict is not visible at a glance" },
+      { "id": "m2", "text": "claims cite no checkable evidence" },
+      { "id": "m3", "text": "the tail is unbounded" },
+      { "id": "m4", "text": "color carries meaning a pipe loses" }
+    ]
+  },
+  "probe": [
+    { "answers": { "interact": { "noul": 0.9 }, "sign": { "choice": "concord", "confidence": 0.8, "probabilities": { "concord": 0.8, "conflict": 0.2 } } } },
+    { "answers": { "interact": { "noul": 0.85 }, "sign": { "choice": "conflict", "confidence": 0.7, "probabilities": { "concord": 0.3, "conflict": 0.7 } } } },
+    { "answers": { "interact": { "noul": 0.2 }, "sign": { "choice": "concord", "confidence": 0.5, "probabilities": { "concord": 0.5, "conflict": 0.5 } } } },
+    { "answers": { "interact": { "noul": 0.8 }, "sign": { "choice": "conflict", "confidence": 0.66, "probabilities": { "concord": 0.34, "conflict": 0.66 } } } },
+    { "answers": { "interact": { "noul": 0.3 }, "sign": { "choice": "concord", "confidence": 0.5, "probabilities": { "concord": 0.5, "conflict": 0.5 } } } },
+    { "answers": { "interact": { "noul": 0.75 }, "sign": { "choice": "conflict", "confidence": 0.6, "probabilities": { "concord": 0.4, "conflict": 0.6 } } } }
+  ],
+  "designer": [
+    {
+      "contract": "algal.organism.v1",
+      "key": "organism:verdict-banner",
+      "name": "Verdict banner",
+      "note": "Diagram for the verdict/evidence subsystem: the first line is the verdict word, evidence follows.",
+      "budgets": { "maxSteps": 4, "maxAgentCalls": 0, "maxWork": 10000 },
+      "interface": { "outputs": { "out": { "cell": "c", "port": "out" } } },
+      "cells": [
+        { "id": "c", "kind": "const", "outputs": { "out": { "type": "text", "value": "VERDICT: <fit|misfit> leads; evidence lines follow" } } }
+      ]
+    },
+    {
+      "contract": "algal.organism.v1",
+      "key": "organism:plain-banner",
+      "name": "Plain banner",
+      "note": "Diagram for the pipe-survival subsystem: no color, ASCII markers only.",
+      "budgets": { "maxSteps": 4, "maxAgentCalls": 0, "maxWork": 10000 },
+      "interface": { "outputs": { "out": { "cell": "c", "port": "out" } } },
+      "cells": [
+        { "id": "c", "kind": "const", "outputs": { "out": { "type": "text", "value": "ASCII markers only; no color-carried meaning" } } }
+      ]
+    }
+  ]
+}

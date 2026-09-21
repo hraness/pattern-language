@@ -1,0 +1,327 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:synthesize",
+  "name": "Synthesize the form",
+  "note": "The whole method as one organism: enumerate the ensemble, correlate the interaction graph, decompose into subsystems, construct a spawned diagram per subsystem, realize the fused form. Every stage is a digest-embedded organism cell \u2014 Alexander's 'program' as a DAG of content-addressed parts, and every intermediate (ensemble, links, subsystems, child digests) is an output you can inspect, not a hidden chain of thought.",
+  "budgets": {
+    "maxSteps": 256,
+    "maxAgentCalls": 32,
+    "maxWork": 800000
+  },
+  "interface": {
+    "inputs": {
+      "context": {
+        "cell": "ctx",
+        "port": "context"
+      },
+      "k": {
+        "cell": "ctx",
+        "port": "k"
+      }
+    },
+    "outputs": {
+      "ensemble": {
+        "cell": "en",
+        "port": "ensemble"
+      },
+      "links": {
+        "cell": "co",
+        "port": "links"
+      },
+      "subsystems": {
+        "cell": "dc",
+        "port": "subsystems"
+      },
+      "children": {
+        "cell": "dg",
+        "port": "child"
+      },
+      "misfits": {
+        "cell": "dg",
+        "port": "misfit"
+      },
+      "form": {
+        "cell": "rz",
+        "port": "fused"
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "ctx",
+      "kind": "input",
+      "outputs": {
+        "context": "text",
+        "k": "json"
+      }
+    },
+    {
+      "id": "en",
+      "kind": "organism",
+      "manifest": "sha256:fe4c1d01ec32aaca7b96d601fdcc7d79fdbbe7d4d299ef5f993a7ba889b1aec6"
+    },
+    {
+      "id": "pm",
+      "kind": "expr",
+      "inputs": {
+        "e": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "get",
+          "e",
+          "misfits"
+        ]
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "id": "co",
+      "kind": "organism",
+      "manifest": "sha256:e8b696500e57cc47eb9cdb01ddd18fd5ff29a1fa9030844430857d9c2804bf7c"
+    },
+    {
+      "id": "dc",
+      "kind": "organism",
+      "manifest": "sha256:30bbafd2552727f6af1766151ab1cbfb45fa54faf1d029b155bd7e4fd68605e8"
+    },
+    {
+      "id": "sub",
+      "kind": "expr",
+      "inputs": {
+        "d": "json",
+        "ls": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "map",
+          [
+            "get",
+            "d",
+            "subsystems"
+          ],
+          "c",
+          {
+            "misfits": [
+              "get",
+              "c"
+            ],
+            "links": [
+              "filter",
+              [
+                "get",
+                "ls"
+              ],
+              "l",
+              [
+                "and",
+                [
+                  "contains",
+                  [
+                    "get",
+                    "c"
+                  ],
+                  [
+                    "get",
+                    "l",
+                    "a"
+                  ]
+                ],
+                [
+                  "contains",
+                  [
+                    "get",
+                    "c"
+                  ],
+                  [
+                    "get",
+                    "l",
+                    "b"
+                  ]
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "id": "dg",
+      "kind": "each",
+      "manifest": "sha256:828404fa4dc6d9028da654dce90c0f5c400ede0add02352fbb23697ef307ab8f",
+      "over": "forces",
+      "maxItems": 16
+    },
+    {
+      "id": "frags",
+      "kind": "expr",
+      "inputs": {
+        "forms": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "map",
+          [
+            "filter",
+            [
+              "get",
+              "forms"
+            ],
+            "f",
+            [
+              "isText",
+              [
+                "get",
+                "f",
+                "out"
+              ]
+            ]
+          ],
+          "f",
+          [
+            "get",
+            "f",
+            "out"
+          ]
+        ]
+      },
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "id": "rz",
+      "kind": "organism",
+      "manifest": "sha256:6b8821db9d344f1d1544eb90c0f8d1b2b63a01ab7e7903c78bd2b1084b5ba213"
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "cell": "ctx",
+        "port": "context"
+      },
+      "to": {
+        "cell": "en",
+        "port": "context"
+      }
+    },
+    {
+      "from": {
+        "cell": "en",
+        "port": "ensemble"
+      },
+      "to": {
+        "cell": "pm",
+        "port": "e"
+      }
+    },
+    {
+      "from": {
+        "cell": "pm",
+        "port": "out"
+      },
+      "to": {
+        "cell": "co",
+        "port": "misfits"
+      }
+    },
+    {
+      "from": {
+        "cell": "pm",
+        "port": "out"
+      },
+      "to": {
+        "cell": "dc",
+        "port": "misfits"
+      }
+    },
+    {
+      "from": {
+        "cell": "co",
+        "port": "links"
+      },
+      "to": {
+        "cell": "dc",
+        "port": "links"
+      }
+    },
+    {
+      "from": {
+        "cell": "co",
+        "port": "links"
+      },
+      "to": {
+        "cell": "sub",
+        "port": "ls"
+      }
+    },
+    {
+      "from": {
+        "cell": "ctx",
+        "port": "k"
+      },
+      "to": {
+        "cell": "dc",
+        "port": "k"
+      }
+    },
+    {
+      "from": {
+        "cell": "dc",
+        "port": "subsystems"
+      },
+      "to": {
+        "cell": "sub",
+        "port": "d"
+      }
+    },
+    {
+      "from": {
+        "cell": "sub",
+        "port": "out"
+      },
+      "to": {
+        "cell": "dg",
+        "port": "forces"
+      }
+    },
+    {
+      "from": {
+        "cell": "dg",
+        "port": "form"
+      },
+      "to": {
+        "cell": "frags",
+        "port": "forms"
+      }
+    },
+    {
+      "from": {
+        "cell": "frags",
+        "port": "out"
+      },
+      "to": {
+        "cell": "rz",
+        "port": "fragments"
+      }
+    }
+  ]
+}

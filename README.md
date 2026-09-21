@@ -18,10 +18,16 @@ it deliberately doesn't stretch.
 
 ```
 patterns/    the diagrams — one *.algal.json per pattern, runnable today
-programs/    the method — enumerate → correlate → diagram → realize
-ensembles/   seed problem sets: misfit variables + claimed links, as data
+programs/    the method — enumerate → correlate → decompose → diagram → realize
+             (plus synthesize: the whole pipeline as one digest-wired organism)
+ensembles/   seed problem sets: misfit variables + claimed links, as data —
+             including village.ensemble.json, Alexander's Appendix I worked
+             example (141 misfits, his published interaction table) with its
+             decomposition oracle
 catalog/     patterns.json — the language index with larger/smaller links
 docs/        the concept map
+scripts/     extract-village.py (rebuilds the Appendix I data from the OCR),
+             verify.sh (the repo gate)
 ```
 
 ## Run it
@@ -55,6 +61,19 @@ bunx github:hraness/algal run programs/correlate.algal.json \
 bunx github:hraness/algal run programs/diagram.algal.json \
   --args programs/diagram.args.json \
   --responses programs/diagram.responses.json
+
+# decomposition as a bounded repeat of pure-expr merge rounds
+bunx github:hraness/algal run programs/decompose.algal.json \
+  --args programs/decompose.args.json --modules programs/
+
+# the whole book's method as one organism — enumerates, correlates,
+# decomposes, spawns a diagram per subsystem, fuses the form
+bunx github:hraness/algal run programs/synthesize.algal.json \
+  --args programs/synthesize.args.json \
+  --responses programs/synthesize.responses.json --modules programs/
+
+# everything at once
+bash scripts/verify.sh
 ```
 
 Live runs replace `--responses` with a real executor
@@ -70,14 +89,62 @@ manifests changes — executors are host-supplied.
 | `declared-failure-path` | misfit as routed data, not silent death | completes `piecemeal-tradition` |
 | `context-view` | judgment sees its subsystem and nothing else | completes `piecemeal-tradition` |
 | `piecemeal-tradition` | improvement without in-place mutation | the champion slot; contains the two above |
+| `verdict-first` | verdict vs. attention vs. pipe-survival | completes `provenance-line` |
+
+## The Appendix I benchmark
+
+`ensembles/village.ensemble.json` carries Alexander's own worked example
+from *Notes*, Appendix I: 141 Indian-village misfit variables and the
+unsigned interaction table he published (1434 normalized links after
+OCR cleanup — the 52 residual asymmetries are recorded, not silently
+fixed). `ensembles/village.decomposition.json` is his published answer:
+four major groups (A–D) over twelve minor groups covering all 141
+variables. Rebuild both with `python3 scripts/extract-village.py`.
+
+This is the repo's oracle: any `decompose` variant can be scored against
+Alexander's own partition, and the first measurement already paid off.
+Raw cross-link count — the naive rule — degenerates into `[138,1,1,1]`:
+one giant cluster plus singletons, agreement 0.272. Switching the score
+to **average linkage** (cross-links ÷ |a|·|b|, still pure `expr`) gives
+`[4,36,46,55]` at k=4 — **0.707 agreement** with Alexander's A–D majors —
+and **0.840** at k=12 against his twelve subsets:
+
+```sh
+python3 scripts/decompose-village.py 4 avg   # oracle comparison
+python3 scripts/decompose-village.py 12 raw  # watch it degenerate
+```
+
+The greedy step is receipted in-manifest at small scale; at 141 nodes it
+exceeds the 1M `expr` fuel ceiling and runs offline — which is exactly
+what Alexander did: his partition came from HIDECS, an IBM program.
+**Not** a HIDECS reproduction, but a measured approximation.
 
 ## Status
 
-Seed skeleton. The ensemble `links` are claimed judgments — running
-`correlate` against an ensemble with a live decision executor is how a link
-earns its receipt. Decomposition (HIDECS-style graph partition) is a
-deliberate gap: it wants a host `fn` or offline tooling, which Alexander
-himself later called unnecessary — the diagrams are the point.
+Working skeleton with a real end-to-end run: `synthesize` enumerates an
+ensemble, receipts six per-pair interaction judgments, decomposes to
+subsystems, spawns a runnable diagram per subsystem, and fuses the form —
+all inside one receipted organism.
+
+What is proven:
+
+- Alexander's vocabulary is *executable*, not just analogous: ensembles,
+  interaction graphs, decomposition, diagrams, and fusion are all data +
+  runnable manifests under one receipt.
+- Interaction claims can be typed, per-pair `decide` calls with recorded
+  confidence — inspectable data, not intuition slush.
+- The method composes: each stage is a content-addressed organism cell;
+  `synthesize` wires five digests into a DAG.
+
+What is not proven:
+
+- The ensembles' `links` are claimed judgments — only a live `correlate`
+  earns them receipts. No live executor is wired in CI yet.
+- Greedy `decompose` ≠ Alexander's HIDECS partition. The village oracle
+  exists precisely to measure that gap.
+- Nothing yet shows the method improves real code or visual design
+  outcomes. It is a mechanically demonstrated prototype, not a validated
+  design tool.
 
 > "No one will become a better designer by blindly following this method...
 > if you try to understand the idea that you can create abstract patterns by
