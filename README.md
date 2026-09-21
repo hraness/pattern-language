@@ -119,6 +119,37 @@ exceeds the 1M `expr` fuel ceiling and runs offline — which is exactly
 what Alexander did: his partition came from HIDECS, an IBM program.
 **Not** a HIDECS reproduction, but a measured approximation.
 
+## The transfer test
+
+`ensembles/algal-src.ensemble.json` asks the harder question: does the
+method find real structure in a real codebase? Misfits are the 48
+non-test modules of `algal/src/` (each one's design obligation, from the
+repo's AGENTS.md tour); links are import edges — "changing one's contract
+can misfit the other." The oracle is AGENTS.md's own subsystem grouping.
+
+```sh
+python3 scripts/extract-algal-src.py                     # rebuild the ensemble
+python3 scripts/decompose-village.py 10 avg \
+  ensembles/algal-src.ensemble.json ensembles/algal-src.decomposition.json
+```
+
+Result, honestly mixed (agreement vs. the documented grouping):
+
+| algorithm | village k=4 | village k=12 | algal-src k=10 |
+| --- | --- | --- | --- |
+| raw cross-links | 0.272 (degenerate) | 0.214 (degenerate) | — |
+| average linkage | 0.707 | **0.840** | **0.760** |
+| CNM modularity | **0.791** (3 clusters) | — (discovers k) | 0.737 (4 clusters) |
+
+What transfers: peripheral modularity is real and found — `source-*`,
+`coding-*`/`xcb`, `github`/`github-cli` cluster cleanly. What doesn't:
+hub modules (`run.ts` imports ~15 things) absorb their neighbors into an
+18-module blob; CNM discovers only 4 communities where the docs name 10.
+Import density is a coarser signal than conceptual subsystem boundaries —
+which is exactly Alexander's point that the *quality of the link
+judgments* bounds the quality of the decomposition. Mechanical links are
+cheap and honest; judged links are what `correlate` is for.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an
@@ -135,16 +166,21 @@ What is proven:
   confidence — inspectable data, not intuition slush.
 - The method composes: each stage is a content-addressed organism cell;
   `synthesize` wires five digests into a DAG.
+- The measurement loop *discriminates*: the oracle benchmark caught a real
+  criterion bug (raw count degenerates; average linkage doesn't), and the
+  transfer test quantifies how much structure mechanical links recover in
+  a real codebase (0.76) and where they fail (hubs).
 
 What is not proven:
 
 - The ensembles' `links` are claimed judgments — only a live `correlate`
   earns them receipts. No live executor is wired in CI yet.
-- Greedy `decompose` ≠ Alexander's HIDECS partition. The village oracle
-  exists precisely to measure that gap.
+- Greedy `decompose` ≠ Alexander's HIDECS partition. 0.84 agreement on
+  *his* graph is encouraging, not conclusive; on algal-src the same rule
+  blurs hub-centered subsystems.
 - Nothing yet shows the method improves real code or visual design
-  outcomes. It is a mechanically demonstrated prototype, not a validated
-  design tool.
+  outcomes. It is a mechanically demonstrated prototype with a working
+  measurement loop — not a validated design tool.
 
 > "No one will become a better designer by blindly following this method...
 > if you try to understand the idea that you can create abstract patterns by

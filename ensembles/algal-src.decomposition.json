@@ -1,0 +1,75 @@
+{
+  "contract": "pattern.decomposition.v1",
+  "ensemble": "algal-src",
+  "source": "logical subsystem groupings documented in the algal repo's AGENTS.md module tour",
+  "subsets": {
+    "contract": [
+      "contract",
+      "graph",
+      "digest",
+      "errors",
+      "values",
+      "expr"
+    ],
+    "scheduler": [
+      "run"
+    ],
+    "effects": [
+      "effects",
+      "tools",
+      "capabilities",
+      "registry",
+      "tool-context",
+      "io"
+    ],
+    "store": [
+      "store",
+      "transport",
+      "bundle"
+    ],
+    "verify": [
+      "verify",
+      "bench-verify",
+      "foundry-verify",
+      "search-verify"
+    ],
+    "decisions": [
+      "gateway",
+      "jev",
+      "decisions",
+      "credentials"
+    ],
+    "memory": [
+      "embeddings",
+      "semantic",
+      "mailbox",
+      "process",
+      "process-journal",
+      "process-evidence"
+    ],
+    "foundry": [
+      "foundry",
+      "search",
+      "bench"
+    ],
+    "surface": [
+      "diagram",
+      "repair",
+      "source",
+      "source-diagnostics",
+      "source-errors",
+      "source-project",
+      "source-trace"
+    ],
+    "coding": [
+      "coding-jobs",
+      "coding-operations",
+      "github",
+      "github-cli",
+      "shepherd",
+      "xcb",
+      "host-events",
+      "host-state"
+    ]
+  }
+}

@@ -1,0 +1,1934 @@
+{
+  "contract": "pattern.ensemble.v1",
+  "name": "algal-src",
+  "context": "the algal runtime's own src/ \u2014 a real codebase as the problem: 48 modules, each with a design obligation; links are import edges (changing one's contract can misfit the other). Transfer test for decompose: do mechanically derived links recover the subsystems AGENTS.md documents?",
+  "source": {
+    "repo": "hraness/algal",
+    "snapshot": "/Users/bg/.bun/install/cache/@GH@hraness-algal-132e2d2@@@1",
+    "method": "import edges parsed from src/*.ts (non-test); obligations written from the AGENTS.md module tour"
+  },
+  "misfits": [
+    {
+      "id": "bench",
+      "text": "benchmarks compare variants on the same cases"
+    },
+    {
+      "id": "bench-verify",
+      "text": "bench receipts verify like any run"
+    },
+    {
+      "id": "bundle",
+      "text": "manifests pack and unpack losslessly"
+    },
+    {
+      "id": "capabilities",
+      "text": "capability handles cannot be minted by manifests"
+    },
+    {
+      "id": "coding-jobs",
+      "text": "coding jobs execute as bounded delegated work"
+    },
+    {
+      "id": "coding-operations",
+      "text": "coding operations are typed job steps"
+    },
+    {
+      "id": "contract",
+      "text": "the manifest schema must admit only well-formed organisms"
+    },
+    {
+      "id": "credentials",
+      "text": "credential custody stays outside manifests and receipts"
+    },
+    {
+      "id": "decisions",
+      "text": "decisions are typed nouls/choices, not free text"
+    },
+    {
+      "id": "diagram",
+      "text": "manifests render to inspectable diagrams"
+    },
+    {
+      "id": "digest",
+      "text": "every value must have a canonical content address"
+    },
+    {
+      "id": "effects",
+      "text": "effects cross the seam declared, typed, and logged"
+    },
+    {
+      "id": "embeddings",
+      "text": "embedding vectors derive from stored content"
+    },
+    {
+      "id": "errors",
+      "text": "failures must be typed, never thrown bare"
+    },
+    {
+      "id": "expr",
+      "text": "expr programs interpret under fuel \u2014 bounded by construction"
+    },
+    {
+      "id": "foundry",
+      "text": "candidate organisms evaluate on labeled cases"
+    },
+    {
+      "id": "foundry-verify",
+      "text": "foundry receipts verify like any run"
+    },
+    {
+      "id": "gateway",
+      "text": "model calls resolve through the gateway executor only"
+    },
+    {
+      "id": "github",
+      "text": "GitHub access goes through typed calls"
+    },
+    {
+      "id": "github-cli",
+      "text": "gh CLI wraps as a typed tool"
+    },
+    {
+      "id": "graph",
+      "text": "the cell graph must stay acyclic and port-typed"
+    },
+    {
+      "id": "host-events",
+      "text": "host events are typed and bounded"
+    },
+    {
+      "id": "host-state",
+      "text": "host state persists only through declared slots"
+    },
+    {
+      "id": "io",
+      "text": "host I/O stays behind declared effects"
+    },
+    {
+      "id": "jev",
+      "text": "decide cells execute through the typed-decision provider"
+    },
+    {
+      "id": "mailbox",
+      "text": "the durable mailbox bounds messages and ids"
+    },
+    {
+      "id": "process",
+      "text": "named processes supervise under replayable journaling"
+    },
+    {
+      "id": "process-evidence",
+      "text": "process evidence is positive derivation from facts"
+    },
+    {
+      "id": "process-journal",
+      "text": "process events append; nothing rewrites history"
+    },
+    {
+      "id": "registry",
+      "text": "host functions resolve by name, never by manifest code"
+    },
+    {
+      "id": "repair",
+      "text": "repair applies bounded fixes to admitted manifests"
+    },
+    {
+      "id": "run",
+      "text": "the scheduler must replay deterministically under budgets"
+    },
+    {
+      "id": "search",
+      "text": "organism search stays within declared budgets"
+    },
+    {
+      "id": "search-verify",
+      "text": "search receipts verify like any run"
+    },
+    {
+      "id": "semantic",
+      "text": "recall queries resolve against the derived index"
+    },
+    {
+      "id": "shepherd",
+      "text": "delegated runs supervise without hidden state"
+    },
+    {
+      "id": "source",
+      "text": "source manifests track their origin"
+    },
+    {
+      "id": "source-diagnostics",
+      "text": "source problems surface as diagnostics"
+    },
+    {
+      "id": "source-errors",
+      "text": "source errors are typed like runtime errors"
+    },
+    {
+      "id": "source-project",
+      "text": "source collections resolve as a project"
+    },
+    {
+      "id": "source-trace",
+      "text": "source traces link back to origin"
+    },
+    {
+      "id": "store",
+      "text": "committed values must be durable and content-addressed"
+    },
+    {
+      "id": "tool-context",
+      "text": "tool invocations carry their bounded context"
+    },
+    {
+      "id": "tools",
+      "text": "external tools run only through typed calls"
+    },
+    {
+      "id": "transport",
+      "text": "bytes move between stores without interpretation"
+    },
+    {
+      "id": "values",
+      "text": "canonical values must round-trip byte-identical"
+    },
+    {
+      "id": "verify",
+      "text": "a receipt must replay bit-for-bit or fail loudly"
+    },
+    {
+      "id": "xcb",
+      "text": "subscription custody settles through xcb"
+    }
+  ],
+  "links": [
+    {
+      "a": "bench",
+      "b": "bench-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "contract",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "effects",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "expr",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "contract",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "expr",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bench-verify",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "contract",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "graph",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "process-evidence",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "bundle",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "effects",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "host-events",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "mailbox",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "capabilities",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "coding-operations",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "host-state",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "repair",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-jobs",
+      "b": "xcb",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-operations",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-operations",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-operations",
+      "b": "io",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "coding-operations",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "decisions",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "diagram",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "effects",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "embeddings",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "expr",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "foundry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "foundry-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "gateway",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "graph",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "mailbox",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "process-evidence",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "repair",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "search",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "source",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "source-trace",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "tool-context",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "contract",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "credentials",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "decisions",
+      "b": "effects",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "decisions",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "decisions",
+      "b": "jev",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "decisions",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "decisions",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "digest",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "graph",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "source",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "source-trace",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "diagram",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "effects",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "foundry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "foundry-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "gateway",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "github",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "graph",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "host-events",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "jev",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "mailbox",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "process-evidence",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "process-journal",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "repair",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "search",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "semantic",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "source",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "source-diagnostics",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "source-errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "source-trace",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "tool-context",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "digest",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "foundry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "gateway",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "io",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "jev",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "process-journal",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "search",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "semantic",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "effects",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "embeddings",
+      "b": "errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "embeddings",
+      "b": "io",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "embeddings",
+      "b": "semantic",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "embeddings",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "expr",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "foundry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "foundry-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "gateway",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "github",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "github-cli",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "graph",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "host-events",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "host-state",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "io",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "jev",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "mailbox",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "process-evidence",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "process-journal",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "repair",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "search",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "semantic",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "source",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "source-diagnostics",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "errors",
+      "b": "xcb",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "expr",
+      "b": "foundry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "expr",
+      "b": "foundry-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "expr",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "expr",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "foundry-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "search",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry-verify",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry-verify",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry-verify",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry-verify",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry-verify",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry-verify",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "foundry-verify",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "gateway",
+      "b": "io",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "gateway",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "github",
+      "b": "github-cli",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "github",
+      "b": "io",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "github",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "github",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "github-cli",
+      "b": "io",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "github-cli",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "process-evidence",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "graph",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-events",
+      "b": "host-state",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-events",
+      "b": "mailbox",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-events",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-events",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-state",
+      "b": "mailbox",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-state",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-state",
+      "b": "process-journal",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-state",
+      "b": "repair",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-state",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "host-state",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "io",
+      "b": "jev",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "io",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "io",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "io",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "io",
+      "b": "xcb",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "jev",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "mailbox",
+      "b": "process",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "mailbox",
+      "b": "process-evidence",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "mailbox",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "mailbox",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "mailbox",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "process-evidence",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "process-journal",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "repair",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "shepherd",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process-evidence",
+      "b": "registry",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process-evidence",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process-evidence",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process-evidence",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process-evidence",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process-journal",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "process-journal",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "registry",
+      "b": "run",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "registry",
+      "b": "search",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "registry",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "registry",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "registry",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "repair",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "repair",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "repair",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "repair",
+      "b": "xcb",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "semantic",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "source-diagnostics",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "tool-context",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "run",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search",
+      "b": "search-verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search",
+      "b": "transport",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search-verify",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search-verify",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search-verify",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "search-verify",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "semantic",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "shepherd",
+      "b": "store",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "shepherd",
+      "b": "tools",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "shepherd",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "source",
+      "b": "source-diagnostics",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "source",
+      "b": "source-errors",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "source",
+      "b": "source-project",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "source",
+      "b": "source-trace",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "source",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "source-diagnostics",
+      "b": "source-trace",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "store",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "store",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "tool-context",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "tools",
+      "b": "values",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "tools",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "transport",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "values",
+      "b": "verify",
+      "sign": "u",
+      "why": "import edge"
+    },
+    {
+      "a": "values",
+      "b": "xcb",
+      "sign": "u",
+      "why": "import edge"
+    }
+  ]
+}

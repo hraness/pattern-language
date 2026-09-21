@@ -55,4 +55,10 @@ python3 -c "import sys; sys.exit(0 if float('$agree') >= 0.6 else 1)" \
   && echo "bench  OK  village decompose agreement=$agree" \
   || { echo "bench  FAIL village decompose agreement=$agree"; fail=1; }
 
+# Transfer test (report-only): mechanical import links on a real codebase.
+if [ -f ensembles/algal-src.ensemble.json ]; then
+  python3 scripts/decompose-village.py 10 avg \
+    ensembles/algal-src.ensemble.json ensembles/algal-src.decomposition.json | head -3
+fi
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

@@ -167,6 +167,12 @@
       "manifest": "ensembles/village.ensemble.json",
       "does": "Alexander's Appendix I worked example: 141 Indian-village misfits + his published unsigned interaction table (1434 normalized links)",
       "oracle": "ensembles/village.decomposition.json"
+    },
+    {
+      "name": "algal-src",
+      "manifest": "ensembles/algal-src.ensemble.json",
+      "does": "transfer test: the algal runtime's own src/ — 48 modules as misfit obligations, import edges as links, AGENTS.md subsystem tour as oracle",
+      "oracle": "ensembles/algal-src.decomposition.json"
     }
   ]
 }
