@@ -1,0 +1,48 @@
+{
+  "contract": "pattern.catalog.v1",
+  "name": "pattern-language",
+  "note": "The pattern-language index. Each pattern is an algal manifest — a constructive diagram resolving a small, declared system of forces. Links point to larger patterns the pattern helps complete and smaller patterns it contains, as in A Pattern Language. The index is data; the diagrams are runnable.",
+  "patterns": [
+    {
+      "name": "bounded-slice",
+      "manifest": "patterns/bounded-slice.algal.json",
+      "context": "reading evidence from an artifact too large for the window",
+      "forces": ["evidence must be real", "the window is bounded", "truncation must be declared"],
+      "links": { "larger": ["provenance-line"], "smaller": [] }
+    },
+    {
+      "name": "provenance-line",
+      "manifest": "patterns/provenance-line.algal.json",
+      "context": "an emitted report whose reader must judge how much to trust it",
+      "forces": ["trust requires provenance", "the header competes with the body", "silent clipping is worse than no extract"],
+      "links": { "larger": [], "smaller": ["bounded-slice"] }
+    },
+    {
+      "name": "declared-failure-path",
+      "manifest": "patterns/declared-failure-path.algal.json",
+      "context": "a step whose result can fail to fit its invariant",
+      "forces": ["the step may misfit", "the run must not die silently", "a misfit must be inspectable"],
+      "links": { "larger": ["piecemeal-tradition"], "smaller": [] }
+    },
+    {
+      "name": "context-view",
+      "manifest": "patterns/context-view.algal.json",
+      "context": "a judgment cell working inside a decomposed subsystem",
+      "forces": ["the judge needs the subsystem's evidence", "outside forces must not leak in", "what was seen must be replayable"],
+      "links": { "larger": ["piecemeal-tradition"], "smaller": [] }
+    },
+    {
+      "name": "piecemeal-tradition",
+      "manifest": "patterns/piecemeal-tradition.algal.json",
+      "context": "a working form challenged by a candidate variant",
+      "forces": ["the form must improve over generations", "what runs is never rewritten in place", "promotion requires measured fit"],
+      "links": { "larger": [], "smaller": ["declared-failure-path", "context-view"] }
+    }
+  ],
+  "programs": [
+    { "name": "enumerate", "manifest": "programs/enumerate.algal.json", "step": 1, "does": "context -> misfit ensemble" },
+    { "name": "correlate", "manifest": "programs/correlate.algal.json", "step": 2, "does": "ensemble -> signed interaction graph (pair-probe per pair)" },
+    { "name": "diagram", "manifest": "programs/diagram.algal.json", "step": 3, "does": "subsystem -> spawned constructive diagram" },
+    { "name": "realize", "manifest": "programs/realize.algal.json", "step": 4, "does": "diagram fragments -> fused form" }
+  ]
+}

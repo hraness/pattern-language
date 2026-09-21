@@ -1,0 +1,6 @@
+{
+  "src": {
+    "public": { "subsystem": "diff-surface", "forces": ["evidence-real", "window-bounded"] },
+    "internal": { "draft": "unrelated subsystem state the probe must never see" }
+  }
+}

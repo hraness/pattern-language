@@ -1,0 +1,38 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:context-view",
+  "name": "Context is a view",
+  "note": "Pattern. Context: a judgment cell working inside a decomposed subsystem. Forces: the judge needs the subsystem's evidence (+); forces outside the subsystem must not leak in (-); what the judge saw must be replayable (+). Resolution: the graph declares the slice — wire only the subsystem's ports into the judgment and name ancestors through view.cells with explicit port lists. The decide cell can never read a record it was not wired to, so the boundary is enforced at admission, not by discipline. Larger pattern: piecemeal-tradition.",
+  "budgets": { "maxSteps": 8, "maxAgentCalls": 2, "maxWork": 40000 },
+  "interface": {
+    "inputs": {
+      "public": { "cell": "src", "port": "public" },
+      "internal": { "cell": "src", "port": "internal" }
+    },
+    "outputs": { "verdict": { "cell": "probe", "port": "out" } }
+  },
+  "cells": [
+    { "id": "src", "kind": "input", "outputs": { "public": "json", "internal": "json" } },
+    {
+      "id": "probe",
+      "kind": "decide",
+      "inputs": { "evidence": "json" },
+      "prompt": "Judge whether this evidence slice resolves the subsystem's forces. You see only what the graph wired to you.",
+      "questions": {
+        "resolution": {
+          "type": "noul",
+          "instructions": "Probability that this slice alone suffices to resolve the subsystem's forces."
+        },
+        "dominant": {
+          "type": "choice",
+          "instructions": "Which force dominates this subsystem?",
+          "criteria": { "coverage": null, "budget": null, "leakage": null }
+        }
+      },
+      "view": { "inputs": "*", "cells": [{ "cell": "src", "ports": ["public"] }] }
+    }
+  ],
+  "edges": [
+    { "from": { "cell": "src", "port": "public" }, "to": { "cell": "probe", "port": "evidence" } }
+  ]
+}

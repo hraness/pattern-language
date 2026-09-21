@@ -1,0 +1,8 @@
+{
+  "sub": {
+    "forces": {
+      "misfits": ["m1: verdict not visible at a glance", "m5: failure reads like success"],
+      "links": [{ "a": "m1", "b": "m5", "sign": "+" }]
+    }
+  }
+}

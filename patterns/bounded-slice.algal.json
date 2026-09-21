@@ -1,0 +1,39 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:bounded-slice",
+  "name": "Bounded slice",
+  "note": "Pattern. Context: reading evidence from an artifact too large for the window. Forces: the evidence must be real and load-bearing (+); the context window is bounded (-); the reader must know what was withheld (+). Resolution: never emit the artifact — emit a counted slice of it, lead with the count, and flag truncation as part of the form. Larger pattern: provenance-line.",
+  "budgets": { "maxSteps": 8, "maxAgentCalls": 0, "maxWork": 20000 },
+  "interface": {
+    "inputs": {
+      "text": { "cell": "src", "port": "text" },
+      "cap": { "cell": "src", "port": "cap" }
+    },
+    "outputs": { "report": { "cell": "slice", "port": "out" } }
+  },
+  "cells": [
+    { "id": "src", "kind": "input", "outputs": { "text": "text", "cap": "json" } },
+    {
+      "id": "slice",
+      "kind": "expr",
+      "inputs": { "text": "text", "cap": "json" },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "let", "lines", ["split", ["get", "text"], "\n"],
+          ["let", "kept", ["take", ["get", "lines"], ["get", "cap"]],
+            ["sconcat",
+              "[", ["toText", ["len", ["get", "kept"]]], "/", ["toText", ["len", ["get", "lines"]]], " lines",
+              ["if", ["gt", ["len", ["get", "lines"]], ["len", ["get", "kept"]]], ", clipped", ""],
+              "]\n",
+              ["join", ["get", "kept"], "\n"]]]
+        ]
+      },
+      "output": { "kind": "text" }
+    }
+  ],
+  "edges": [
+    { "from": { "cell": "src", "port": "text" }, "to": { "cell": "slice", "port": "text" } },
+    { "from": { "cell": "src", "port": "cap" }, "to": { "cell": "slice", "port": "cap" } }
+  ]
+}

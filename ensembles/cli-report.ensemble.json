@@ -1,0 +1,23 @@
+{
+  "contract": "pattern.ensemble.v1",
+  "name": "cli-report",
+  "context": "Designing the terminal status report of a long-running job — the visual surface an operator reads.",
+  "misfits": [
+    { "id": "m1", "text": "the verdict is not visible at a glance" },
+    { "id": "m2", "text": "the numbers carry no provenance" },
+    { "id": "m3", "text": "the tail is unbounded" },
+    { "id": "m4", "text": "color carries meaning a pipe loses" },
+    { "id": "m5", "text": "failure reads identical to success" },
+    { "id": "m6", "text": "wide lines break on narrow terminals" },
+    { "id": "m7", "text": "the report cannot be diffed across runs" },
+    { "id": "m8", "text": "clipped evidence pretends to be complete" }
+  ],
+  "links": [
+    { "a": "m1", "b": "m5", "sign": "+", "why": "a verdict-first layout separates failure from success by position" },
+    { "a": "m2", "b": "m8", "sign": "+", "why": "the provenance line is where truncation is declared" },
+    { "a": "m3", "b": "m6", "sign": "+", "why": "a bounded tail is a bounded width's sibling" },
+    { "a": "m4", "b": "m7", "sign": "+", "why": "dropping color-only signal makes output diffable as text" },
+    { "a": "m1", "b": "m6", "sign": "-", "why": "glanceable banners want width; narrow terminals deny it" },
+    { "a": "m3", "b": "m7", "sign": "-", "why": "a clipped tail aids diffing only if the clip marker is stable" }
+  ]
+}

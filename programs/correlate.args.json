@@ -1,0 +1,10 @@
+{
+  "src": {
+    "misfits": [
+      { "id": "m1", "text": "the verdict is not visible at a glance" },
+      { "id": "m2", "text": "claims cite no checkable evidence" },
+      { "id": "m3", "text": "the tail is unbounded" },
+      { "id": "m4", "text": "color carries meaning a pipe loses" }
+    ]
+  }
+}

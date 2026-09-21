@@ -1,0 +1,10 @@
+{
+  "src": {
+    "report": {
+      "status": 200,
+      "bytes": 41217,
+      "clipped": true,
+      "body": "first kept lines of the fetched page ..."
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "probe": [
+    { "answers": { "interact": { "noul": 0.9 }, "sign": { "choice": "concord", "confidence": 0.8, "probabilities": { "concord": 0.8, "conflict": 0.2 } } } },
+    { "answers": { "interact": { "noul": 0.85 }, "sign": { "choice": "conflict", "confidence": 0.7, "probabilities": { "concord": 0.3, "conflict": 0.7 } } } },
+    { "answers": { "interact": { "noul": 0.2 }, "sign": { "choice": "concord", "confidence": 0.5, "probabilities": { "concord": 0.5, "conflict": 0.5 } } } },
+    { "answers": { "interact": { "noul": 0.8 }, "sign": { "choice": "conflict", "confidence": 0.66, "probabilities": { "concord": 0.34, "conflict": 0.66 } } } },
+    { "answers": { "interact": { "noul": 0.3 }, "sign": { "choice": "concord", "confidence": 0.5, "probabilities": { "concord": 0.5, "conflict": 0.5 } } } },
+    { "answers": { "interact": { "noul": 0.75 }, "sign": { "choice": "conflict", "confidence": 0.6, "probabilities": { "concord": 0.4, "conflict": 0.6 } } } }
+  ]
+}

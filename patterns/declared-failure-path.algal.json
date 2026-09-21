@@ -1,0 +1,45 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:declared-failure-path",
+  "name": "Declared failure path",
+  "note": "Pattern. Context: a step whose result can fail to fit its invariant. Forces: the step may misfit (-); the run must not die silently (-); a misfit must become inspectable evidence (+). Resolution: route the failure through a declared on:fail edge so the misfit record is data in the form, not an absence of form. An unhandled failure kills the run — that is correct: an unrouted misfit is not a fit. Larger pattern: piecemeal-tradition.",
+  "budgets": { "maxSteps": 8, "maxAgentCalls": 0, "maxWork": 20000 },
+  "interface": {
+    "inputs": { "value": { "cell": "src", "port": "value" } },
+    "outputs": { "verdict": { "cell": "verdict", "port": "value" } }
+  },
+  "cells": [
+    { "id": "src", "kind": "input", "outputs": { "value": "json" } },
+    { "id": "want", "kind": "const", "outputs": { "expect": { "type": "json", "value": "ok" } } },
+    { "id": "chk", "kind": "fn", "fn": "assert.v1" },
+    {
+      "id": "ok",
+      "kind": "expr",
+      "inputs": { "v": "json" },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": ["sconcat", "FIT — invariant held: ", ["toText", ["get", "v"]]]
+      },
+      "output": { "kind": "text" }
+    },
+    {
+      "id": "bad",
+      "kind": "expr",
+      "inputs": { "f": "json" },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": ["sconcat", "MISFIT — ", ["get", "f", "code"], ": ", ["get", "f", "message"]]
+      },
+      "output": { "kind": "text" }
+    },
+    { "id": "verdict", "kind": "fn", "fn": "coalesce.v1" }
+  ],
+  "edges": [
+    { "from": { "cell": "src", "port": "value" }, "to": { "cell": "chk", "port": "value" } },
+    { "from": { "cell": "want", "port": "expect" }, "to": { "cell": "chk", "port": "expect" } },
+    { "from": { "cell": "chk", "port": "value" }, "to": { "cell": "ok", "port": "v" } },
+    { "from": { "cell": "chk", "port": "value" }, "to": { "cell": "bad", "port": "f" }, "on": "fail" },
+    { "from": { "cell": "ok", "port": "out" }, "to": { "cell": "verdict", "port": "a" } },
+    { "from": { "cell": "bad", "port": "out" }, "to": { "cell": "verdict", "port": "b" } }
+  ]
+}

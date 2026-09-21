@@ -1,0 +1,60 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:piecemeal-tradition",
+  "name": "Piecemeal tradition",
+  "note": "Pattern. Context: a working form (champion) challenged by a candidate variant. Forces: the form must improve over generations (+); what runs must never be rewritten in place (-); promotion requires measured fit, not novelty (+). Resolution: the champion is durable named state — a slot, not a mutable manifest. A candidate replaces it only by beating its recorded score; every promotion is a receipt, so the tradition is the fossil record of measured improvements. This is Alexander's unselfconscious adaptation, mechanized: variation (candidate) + selection pressure (score) + inherited constraints (slot).",
+  "budgets": { "maxSteps": 8, "maxAgentCalls": 0, "maxWork": 20000 },
+  "interface": {
+    "inputs": { "candidate": { "cell": "cand", "port": "candidate" } },
+    "outputs": {
+      "champion": { "cell": "write", "port": "data" },
+      "verdict": { "cell": "verdict", "port": "out" }
+    }
+  },
+  "cells": [
+    {
+      "id": "champ",
+      "kind": "slot",
+      "name": "pl-champion",
+      "mode": "read",
+      "default": { "digest": "", "score": 0 }
+    },
+    { "id": "cand", "kind": "input", "outputs": { "candidate": "json" } },
+    {
+      "id": "pick",
+      "kind": "expr",
+      "inputs": { "c": "json", "h": "json" },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "if", ["gt", ["get", "c", "score"], ["get", "h", "score"]],
+          ["get", "c"],
+          ["get", "h"]
+        ]
+      },
+      "output": { "kind": "json", "schema": { "type": "object" } }
+    },
+    { "id": "write", "kind": "slot", "name": "pl-champion", "mode": "write" },
+    {
+      "id": "verdict",
+      "kind": "expr",
+      "inputs": { "next": "json", "c": "json" },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "if", ["eq", ["get", "next", "digest"], ["get", "c", "digest"]],
+          ["sconcat", "PROMOTED ", ["get", "next", "digest"], " (score ", ["toText", ["get", "next", "score"]], ")"],
+          ["sconcat", "KEPT ", ["get", "next", "digest"], " (score ", ["toText", ["get", "next", "score"]], ")"]
+        ]
+      },
+      "output": { "kind": "text" }
+    }
+  ],
+  "edges": [
+    { "from": { "cell": "cand", "port": "candidate" }, "to": { "cell": "pick", "port": "c" } },
+    { "from": { "cell": "cand", "port": "candidate" }, "to": { "cell": "verdict", "port": "c" } },
+    { "from": { "cell": "champ", "port": "data" }, "to": { "cell": "pick", "port": "h" } },
+    { "from": { "cell": "pick", "port": "out" }, "to": { "cell": "write", "port": "data" } },
+    { "from": { "cell": "pick", "port": "out" }, "to": { "cell": "verdict", "port": "next" } }
+  ]
+}

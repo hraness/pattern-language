@@ -1,0 +1,24 @@
+{
+  "contract": "pattern.ensemble.v1",
+  "name": "review-surface",
+  "context": "Designing the surface an agent uses to report a code change to a human reviewer.",
+  "misfits": [
+    { "id": "m1", "text": "the reviewer cannot tell what actually changed" },
+    { "id": "m2", "text": "the verdict asserts what it cannot evidence" },
+    { "id": "m3", "text": "the review reads files outside the change's subsystem" },
+    { "id": "m4", "text": "the review costs more than the change warrants" },
+    { "id": "m5", "text": "the verdict cannot be replayed or audited" },
+    { "id": "m6", "text": "one failing check silently voids the whole review" },
+    { "id": "m7", "text": "style noise drowns the change's substance" },
+    { "id": "m8", "text": "the review process cannot improve its own criteria" }
+  ],
+  "links": [
+    { "a": "m1", "b": "m3", "sign": "+", "why": "a sliced context helps both visibility and isolation" },
+    { "a": "m1", "b": "m4", "sign": "-", "why": "clipping for cost can hide the context that shows what changed" },
+    { "a": "m2", "b": "m5", "sign": "+", "why": "evidence and replay are the same requirement viewed twice" },
+    { "a": "m3", "b": "m7", "sign": "+", "why": "excluding out-of-subsystem files removes most style noise" },
+    { "a": "m2", "b": "m7", "sign": "+", "why": "evidenced claims leave no room for unevidenced nits" },
+    { "a": "m5", "b": "m8", "sign": "+", "why": "replayable verdicts are the fossil record criteria evolve against" },
+    { "a": "m6", "b": "m8", "sign": "-", "why": "a review that survives failed checks can silently weaken its own bar" }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:provenance-line",
+  "name": "Provenance line",
+  "note": "Pattern. Context: an emitted report whose reader must judge how much to trust it. Forces: trust requires provenance (+); the header competes with the body for attention (-); a clipped extract that looks complete is worse than no extract (-). Resolution: the first line of every emitted artifact carries its source status, byte count, and truncation flag — provenance is part of the form, not metadata about it. Contains: bounded-slice.",
+  "budgets": { "maxSteps": 8, "maxAgentCalls": 0, "maxWork": 20000 },
+  "interface": {
+    "inputs": { "report": { "cell": "src", "port": "report" } },
+    "outputs": { "surface": { "cell": "fmt", "port": "out" } }
+  },
+  "cells": [
+    { "id": "src", "kind": "input", "outputs": { "report": "json" } },
+    {
+      "id": "fmt",
+      "kind": "expr",
+      "inputs": { "report": "json" },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "sconcat",
+          "[", ["toText", ["get", "report", "status"]], " ",
+          ["toText", ["get", "report", "bytes"]], "B source",
+          ["if", ["eq", ["get", "report", "clipped"], true], ", clipped", ""],
+          "]\n",
+          ["get", "report", "body"]
+        ]
+      },
+      "output": { "kind": "text" }
+    }
+  ],
+  "edges": [
+    { "from": { "cell": "src", "port": "report" }, "to": { "cell": "fmt", "port": "report" } }
+  ]
+}

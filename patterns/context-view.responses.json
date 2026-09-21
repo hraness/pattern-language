@@ -1,0 +1,12 @@
+{
+  "probe": {
+    "answers": {
+      "resolution": { "noul": 0.9 },
+      "dominant": {
+        "choice": "budget",
+        "confidence": 0.71,
+        "probabilities": { "coverage": 0.2, "budget": 0.71, "leakage": 0.09 }
+      }
+    }
+  }
+}

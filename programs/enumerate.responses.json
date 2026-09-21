@@ -1,0 +1,12 @@
+{
+  "enum": {
+    "misfits": [
+      { "id": "m1", "text": "the verdict is not visible in the first two lines" },
+      { "id": "m2", "text": "claims cite no file or receipt the reader can check" },
+      { "id": "m3", "text": "the summary restates the diff instead of judging it" },
+      { "id": "m4", "text": "unverified speculation reads with the same weight as evidence" },
+      { "id": "m5", "text": "the comment exceeds what a skim can absorb" },
+      { "id": "m6", "text": "a failed check is absent from the summary entirely" }
+    ]
+  }
+}

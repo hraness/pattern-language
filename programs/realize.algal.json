@@ -1,0 +1,30 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:realize",
+  "name": "Realize the program",
+  "note": "Method step 4 — fusion. The fragments produced by independent diagrams are joined into the whole form. In composition this is a `many` port collecting every diagram's output; standalone, it is the join that makes the parts one surface. Alexander: 'create designs which are whole by fusing these relationships.'",
+  "budgets": { "maxSteps": 8, "maxAgentCalls": 0, "maxWork": 20000 },
+  "interface": {
+    "inputs": { "fragments": { "cell": "src", "port": "fragments" } },
+    "outputs": { "fused": { "cell": "fuse", "port": "out" } }
+  },
+  "cells": [
+    { "id": "src", "kind": "input", "outputs": { "fragments": "json" } },
+    {
+      "id": "fuse",
+      "kind": "expr",
+      "inputs": { "fragments": "json" },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": {
+          "pieces": ["len", ["get", "fragments"]],
+          "form": ["join", ["get", "fragments"], "\n"]
+        }
+      },
+      "output": { "kind": "json", "schema": { "type": "object" } }
+    }
+  ],
+  "edges": [
+    { "from": { "cell": "src", "port": "fragments" }, "to": { "cell": "fuse", "port": "fragments" } }
+  ]
+}

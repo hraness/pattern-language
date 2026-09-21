@@ -1,0 +1,9 @@
+{
+  "src": {
+    "fragments": [
+      "[3/5 lines, clipped]\nline one\nline two\nline three",
+      "VERDICT FIRST — 'MISFIT:' or 'FIT:' leads every surface; the body follows.",
+      "MISFIT — assert.v1: value drifted != expect ok"
+    ]
+  }
+}

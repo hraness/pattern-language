@@ -1,0 +1,21 @@
+{
+  "designer": {
+    "contract": "algal.organism.v1",
+    "key": "organism:verdict-banner",
+    "name": "Verdict banner",
+    "note": "Diagram resolving m1+m5: the first emitted line IS the verdict, and a failure word differs from a success word — glanceable, unambiguous.",
+    "budgets": { "maxSteps": 4, "maxAgentCalls": 0, "maxWork": 10000 },
+    "interface": {
+      "outputs": { "out": { "cell": "c", "port": "out" } }
+    },
+    "cells": [
+      {
+        "id": "c",
+        "kind": "const",
+        "outputs": {
+          "out": { "type": "text", "value": "VERDICT FIRST — 'MISFIT:' or 'FIT:' leads every surface; the body follows." }
+        }
+      }
+    ]
+  }
+}

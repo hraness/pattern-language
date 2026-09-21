@@ -1,0 +1,4 @@
+.algal/
+promoted/
+*.bundle.json
+node_modules/
