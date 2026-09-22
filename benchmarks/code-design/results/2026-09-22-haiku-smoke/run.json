@@ -1,0 +1,644 @@
+{
+  "schema": "pattern-language.code-smoke.v1",
+  "protocol": {
+    "schema": "pattern-language.code-pilot-generation.v1",
+    "status": "exploratory-single-pair-per-arm",
+    "time": "2026-09-22T15:17:21Z",
+    "requestedModel": "claude-haiku-4-5",
+    "samplingSeed": null,
+    "cliVersion": "2.1.278 (Claude Code)",
+    "command": [
+      "claude",
+      "-p",
+      "--model",
+      "claude-haiku-4-5",
+      "--safe-mode",
+      "--tools",
+      "",
+      "--strict-mcp-config",
+      "--disable-slash-commands",
+      "--no-session-persistence",
+      "--output-format",
+      "json",
+      "--max-budget-usd",
+      "0.50",
+      "--system-prompt",
+      "You generate correct JavaScript modules from supplied requirements. Return only the requested source code."
+    ],
+    "maxCalls": 6,
+    "maxUsdPerCall": 0.5,
+    "timeoutSecondsPerCall": 240,
+    "retryBudget": 0,
+    "armOrder": [
+      "direct",
+      "checklist",
+      "pattern"
+    ],
+    "stages": [
+      "base",
+      "change"
+    ],
+    "tools": [],
+    "feedback": "none",
+    "denominatorPerStage": 3,
+    "missingOrSkippedStageCountsAsFailure": true,
+    "deviationsFromSixReplicatePilot": [
+      "one replication rather than six",
+      "fixed arm order, not balanced across repetitions",
+      "240-second rather than 180-second call deadline",
+      "USD budget cap; CLI exposes no enforced input/output token caps",
+      "sampling seeds and immutable provider revision unavailable; record resolved modelUsage"
+    ],
+    "inputSha256": {
+      "benchmarks/code-design/README.md": "a9c131fa5e002cb8fc644db80c0785b93b948a9ad9812a36fc8ffbe253c78d79",
+      "benchmarks/code-design/cases.mjs": "8aaa63472f43d3453be9b38e326f1279ce0a51e10026dc791c768724a606b1b2",
+      "benchmarks/code-design/evaluate.mjs": "446e62d2861dc67289aefb4d36556f08e17effcd4707129a6496007106c19468",
+      "benchmarks/code-design/fixtures/mutants/completion-order.mjs": "1284af720a25293a238fd6a3e63a6f87895369de8051df644d849ae660b59972",
+      "benchmarks/code-design/fixtures/mutants/fail-fast.mjs": "145fef573f46aa139b22c6864f9e690ac761e00ad9c2fbc4172156b24f84aca0",
+      "benchmarks/code-design/fixtures/mutants/falsy-sync-throw.mjs": "4423fc74f8f3993125fb33406a3141cd04e13f9123506a4d8187a071d99d648c",
+      "benchmarks/code-design/fixtures/mutants/ignore-abort.mjs": "9572c39a439c1c3854a67eb24889f4d4d84ba91ef602d854a5f067d74c4c9e1c",
+      "benchmarks/code-design/fixtures/mutants/late-snapshot.mjs": "24aed36d02a00705f849d76db6d269dbeec18cdada053bcedfb73e6b650fbd5a",
+      "benchmarks/code-design/fixtures/mutants/serial.mjs": "3ffb828571db2715ca56fa36f1b0d381b360bddcdd687bf6393e0501535d5ca5",
+      "benchmarks/code-design/fixtures/mutants/unbounded.mjs": "7b5e0962b1f74e3e04f098485198f0a7057c762f04e082cd67e10e35523859ca",
+      "benchmarks/code-design/fixtures/reference.mjs": "0e5617497ebaaacb2a00cdbac209d80b6ab0b3ccd98c5e578121d93ce56574f9",
+      "benchmarks/code-design/pattern.md": "d551f8dfe93f5b4b7dc00919a60ffa106ffebf301b22448d1d1cd0a4c18c67e4",
+      "benchmarks/code-design/preregistration.json": "4804665936ddfb16116af80578df5be4054f3a8062c4dc4476f4593c6870f49f",
+      "benchmarks/code-design/prompt.mjs": "cba2a7fc84cfbbc602edc9e514b2fdc738abe00870d948f331f7f413019eca80",
+      "benchmarks/code-design/prompts/checklist.md": "7d73aae7a3148c5a4e723f4a83cd18685da939314f68414fc6785f7a98320770",
+      "benchmarks/code-design/prompts/direct.md": "7419f5dd20ffd5a1fe86e83c168bf4767f9f9e52bafbd494c4f4b4e0e8134257",
+      "benchmarks/code-design/prompts/pattern.md": "9942eb5d0c503146f2d86a2022f85ea9c4f58e95a495a076acd47a57caa25629",
+      "benchmarks/code-design/self-test.mjs": "5916284247eed9081f5443670fdef585e0ee029fef4003be55aa9563496b3732",
+      "benchmarks/code-design/tasks/base.md": "e4b3385d17a1e88a6f1330f49b51d75d7685ef28533b82f235cfc8e47856e18e",
+      "benchmarks/code-design/tasks/change.md": "c837d549c68f4e72a5974d8e2fd12e998f06ed8a2e8eedd5e666d95d8c9b40ee",
+      "benchmarks/code-design/worker.mjs": "3204baed8c3738bc0a2343dc64247172952e81e17c45d25f70fc9978505c1c15"
+    },
+    "runnerSha256": "0b8313b4f35362c24ac8120cf1a98bfaf87a8f0c4455aa086f0373aef501cefd"
+  },
+  "runnerSource": "#!/usr/bin/env python3\n\"\"\"Generate one paired, three-arm code pilot without exposing evaluator outputs.\n\nUses the existing Claude CLI authentication. Six calls maximum, $0.50 per call,\n240 seconds each. This is an exploratory smoke comparison, not a powered study.\nDoes not execute generated code. Review candidates, then invoke evaluate.mjs.\n\"\"\"\nimport argparse\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport signal\nimport subprocess\nimport time\n\nROOT = Path(__file__).resolve().parents[1]\nBENCH = ROOT / 'benchmarks/code-design'\nMODEL = 'claude-haiku-4-5'\nSYSTEM = 'You generate correct JavaScript modules from supplied requirements. Return only the requested source code.'\n\n\ndef digest(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef run(command, prompt, cwd):\n    started = time.monotonic()\n    proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,\n                            stderr=subprocess.PIPE, text=True, cwd=cwd, start_new_session=True)\n    timed_out = False\n    try:\n        stdout, stderr = proc.communicate(prompt, timeout=240)\n    except subprocess.TimeoutExpired:\n        timed_out = True\n        os.killpg(proc.pid, signal.SIGTERM)\n        try:\n            stdout, stderr = proc.communicate(timeout=5)\n        except subprocess.TimeoutExpired:\n            os.killpg(proc.pid, signal.SIGKILL)\n            stdout, stderr = proc.communicate()\n    return proc.returncode, stdout, stderr, time.monotonic() - started, timed_out\n\n\ndef main():\n    parser = argparse.ArgumentParser(description=__doc__)\n    parser.add_argument('output', type=Path, help='new private output directory; must not exist')\n    args = parser.parse_args()\n    output = args.output.resolve()\n    output.mkdir(mode=0o700, parents=False, exist_ok=False)\n    command = ['claude', '-p', '--model', MODEL, '--safe-mode', '--tools', '',\n               '--strict-mcp-config', '--disable-slash-commands', '--no-session-persistence',\n               '--output-format', 'json', '--max-budget-usd', '0.50', '--system-prompt', SYSTEM]\n    inputs = sorted(p for p in BENCH.rglob('*') if p.is_file() and 'results' not in p.parts)\n    protocol = {\n        'schema': 'pattern-language.code-pilot-generation.v1',\n        'status': 'exploratory-single-pair-per-arm',\n        'time': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),\n        'requestedModel': MODEL, 'samplingSeed': None,\n        'cliVersion': subprocess.check_output(['claude', '--version'], text=True).strip(),\n        'command': command, 'maxCalls': 6, 'maxUsdPerCall': 0.50,\n        'timeoutSecondsPerCall': 240, 'retryBudget': 0,\n        'armOrder': ['direct', 'checklist', 'pattern'],\n        'stages': ['base', 'change'], 'tools': [], 'feedback': 'none',\n        'denominatorPerStage': 3,\n        'missingOrSkippedStageCountsAsFailure': True,\n        'deviationsFromSixReplicatePilot': [\n            'one replication rather than six',\n            'fixed arm order, not balanced across repetitions',\n            '240-second rather than 180-second call deadline',\n            'USD budget cap; CLI exposes no enforced input/output token caps',\n            'sampling seeds and immutable provider revision unavailable; record resolved modelUsage',\n        ],\n        'inputSha256': {str(p.relative_to(ROOT)): digest(p.read_bytes()) for p in inputs},\n        'runnerSha256': digest(Path(__file__).read_bytes()),\n    }\n    (output / 'protocol.json').write_text(json.dumps(protocol, indent=2) + '\\n')\n    records = []\n    # All base artifacts are frozen before any change prompt or evaluator call.\n    for stage in protocol['stages']:\n        for arm in protocol['armOrder']:\n            prior = output / f'{arm}-base.mjs'\n            if stage == 'change' and not prior.exists():\n                records.append({'arm': arm, 'stage': stage, 'status': 'skipped-no-base-artifact', 'countAsFailure': True})\n                continue\n            prompt_command = ['node', str(BENCH / 'prompt.mjs'), arm, stage]\n            if stage == 'change':\n                prompt_command.append(str(prior))\n            prompt = subprocess.check_output(prompt_command, text=True)\n            (output / f'{arm}-{stage}.prompt.txt').write_text(prompt)\n            rc, stdout, stderr, elapsed, timed_out = run(command, prompt, output)\n            record = {'arm': arm, 'stage': stage, 'exitCode': rc, 'timeout': timed_out,\n                      'elapsedSeconds': round(elapsed, 3), 'promptSha256': digest(prompt.encode()),\n                      'status': 'failed'}\n            # Local raw CLI response is private; public reports use selected metadata only.\n            (output / f'{arm}-{stage}.raw.json').write_text(stdout)\n            (output / f'{arm}-{stage}.stderr.txt').write_text(stderr)\n            try:\n                response = json.loads(stdout)\n                record.update({key: response[key] for key in ['total_cost_usd', 'usage', 'modelUsage',\n                               'num_turns', 'is_error', 'subtype', 'duration_api_ms'] if key in response})\n                source = response.get('result', '').strip()\n                if rc != 0 or timed_out or response.get('is_error') or not source:\n                    raise ValueError('CLI failed or did not return source')\n                if source.startswith('```') and source.endswith('```'):\n                    source = source.split('\\n', 1)[1].rsplit('```', 1)[0].strip()\n                    record['strippedOuterFence'] = True\n                source += '\\n'\n                candidate = output / f'{arm}-{stage}.mjs'\n                candidate.write_text(source)\n                record.update(status='generated-not-evaluated', candidate=candidate.name,\n                              candidateSha256=digest(source.encode()))\n            except (ValueError, TypeError, AttributeError) as exc:\n                record['error'] = str(exc)\n            records.append(record)\n            (output / 'generation.json').write_text(json.dumps(records, indent=2) + '\\n')\n            print(f\"{arm} {stage}: {record['status']} ({elapsed:.1f}s)\", flush=True)\n    (output / 'generation.json').write_text(json.dumps(records, indent=2) + '\\n')\n    print('Generation finished. Review candidates before separate evaluation.', flush=True)\n\n\nif __name__ == '__main__':\n    main()\n",
+  "generation": [
+    {
+      "arm": "direct",
+      "stage": "base",
+      "exitCode": 0,
+      "timeout": false,
+      "elapsedSeconds": 122.135,
+      "promptSha256": "55274ed09a2fb6afc781ed9436d7ae92ac3b66789fc3a49a9cb13aed3bbef99d",
+      "status": "generated-not-evaluated",
+      "total_cost_usd": 0.07148900000000001,
+      "usage": {
+        "input_tokens": 1279,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 14042,
+        "output_tokens_details": {
+          "thinking_tokens": 13372
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 1279,
+            "output_tokens": 14042,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-haiku-4-5": {
+          "inputTokens": 1279,
+          "outputTokens": 14042,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.07148900000000001,
+          "contextWindow": 200000,
+          "maxOutputTokens": 32000,
+          "thinkingTokens": 13372,
+          "canonicalModel": "claude-haiku-4-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "num_turns": 1,
+      "is_error": false,
+      "subtype": "success",
+      "duration_api_ms": 120960,
+      "strippedOuterFence": true,
+      "candidate": "direct-base.mjs",
+      "candidateSha256": "e0345c6874c629499a0e5e2c9370f4dcf6634d99cd6f0531b4250766f3d19c22"
+    },
+    {
+      "arm": "checklist",
+      "stage": "base",
+      "exitCode": 0,
+      "timeout": false,
+      "elapsedSeconds": 106.794,
+      "promptSha256": "73307295e6377bf5af85028def83d02d472361de1d77131d989863d1a684d0b6",
+      "status": "generated-not-evaluated",
+      "total_cost_usd": 0.059543,
+      "usage": {
+        "input_tokens": 1048,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 11699,
+        "output_tokens_details": {
+          "thinking_tokens": 11129
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 1048,
+            "output_tokens": 11699,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-haiku-4-5": {
+          "inputTokens": 1048,
+          "outputTokens": 11699,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.059543,
+          "contextWindow": 200000,
+          "maxOutputTokens": 32000,
+          "thinkingTokens": 11129,
+          "canonicalModel": "claude-haiku-4-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "num_turns": 1,
+      "is_error": false,
+      "subtype": "success",
+      "duration_api_ms": 105011,
+      "strippedOuterFence": true,
+      "candidate": "checklist-base.mjs",
+      "candidateSha256": "b8151dc45edad7655e740f9ad1f2a11b051d4904e9fc40c822e8f00b07a32feb"
+    },
+    {
+      "arm": "pattern",
+      "stage": "base",
+      "exitCode": 0,
+      "timeout": false,
+      "elapsedSeconds": 97.734,
+      "promptSha256": "b7b8f5573cb28af98672b9ea6090840d497b3fb86f7eac4bc90bef550c675654",
+      "status": "generated-not-evaluated",
+      "total_cost_usd": 0.059032999999999995,
+      "usage": {
+        "input_tokens": 1068,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 11593,
+        "output_tokens_details": {
+          "thinking_tokens": 10979
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 1068,
+            "output_tokens": 11593,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-haiku-4-5": {
+          "inputTokens": 1068,
+          "outputTokens": 11593,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.059032999999999995,
+          "contextWindow": 200000,
+          "maxOutputTokens": 32000,
+          "thinkingTokens": 10979,
+          "canonicalModel": "claude-haiku-4-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "num_turns": 1,
+      "is_error": false,
+      "subtype": "success",
+      "duration_api_ms": 96754,
+      "strippedOuterFence": true,
+      "candidate": "pattern-base.mjs",
+      "candidateSha256": "9712d363203f42d5000706466f00cca2f7aace81abe6fc7e6b4b2e630289b675"
+    },
+    {
+      "arm": "direct",
+      "stage": "change",
+      "exitCode": 0,
+      "timeout": false,
+      "elapsedSeconds": 115.024,
+      "promptSha256": "5c1a86f32315b31af8efb622388b84de513ca290ab8dc2bf0ab4f5316fa47ba7",
+      "status": "generated-not-evaluated",
+      "total_cost_usd": 0.064989,
+      "usage": {
+        "input_tokens": 2074,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 12583,
+        "output_tokens_details": {
+          "thinking_tokens": 11589
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 2074,
+            "output_tokens": 12583,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-haiku-4-5": {
+          "inputTokens": 2074,
+          "outputTokens": 12583,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.064989,
+          "contextWindow": 200000,
+          "maxOutputTokens": 32000,
+          "thinkingTokens": 11589,
+          "canonicalModel": "claude-haiku-4-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "num_turns": 1,
+      "is_error": false,
+      "subtype": "success",
+      "duration_api_ms": 113665,
+      "strippedOuterFence": true,
+      "candidate": "direct-change.mjs",
+      "candidateSha256": "2bf460f5ca4473ebbe99bcf9e533087d4213cdb2c69405c0057523da0ef5a327"
+    },
+    {
+      "arm": "checklist",
+      "stage": "change",
+      "exitCode": 0,
+      "timeout": false,
+      "elapsedSeconds": 112.364,
+      "promptSha256": "5a02f83ac9f23fc3afbc910b88b9503dc88bd9e8952ffba82667b853bc6a4d7c",
+      "status": "generated-not-evaluated",
+      "total_cost_usd": 0.06556200000000001,
+      "usage": {
+        "input_tokens": 1977,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 12717,
+        "output_tokens_details": {
+          "thinking_tokens": 11852
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 1977,
+            "output_tokens": 12717,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-haiku-4-5": {
+          "inputTokens": 1977,
+          "outputTokens": 12717,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.06556200000000001,
+          "contextWindow": 200000,
+          "maxOutputTokens": 32000,
+          "thinkingTokens": 11852,
+          "canonicalModel": "claude-haiku-4-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "num_turns": 1,
+      "is_error": false,
+      "subtype": "success",
+      "duration_api_ms": 110915,
+      "strippedOuterFence": true,
+      "candidate": "checklist-change.mjs",
+      "candidateSha256": "45082d23d78e39a6ef905977d6559e4da98404047b55f1dea8acde19ada92164"
+    },
+    {
+      "arm": "pattern",
+      "stage": "change",
+      "exitCode": 0,
+      "timeout": false,
+      "elapsedSeconds": 100.808,
+      "promptSha256": "1a3a92237e5469bc9b62650bd049b1162341e91b4c2678693ea4b4aa5bd62973",
+      "status": "generated-not-evaluated",
+      "total_cost_usd": 0.058615,
+      "usage": {
+        "input_tokens": 2040,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 11315,
+        "output_tokens_details": {
+          "thinking_tokens": 10402
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 2040,
+            "output_tokens": 11315,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-haiku-4-5": {
+          "inputTokens": 2040,
+          "outputTokens": 11315,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.058615,
+          "contextWindow": 200000,
+          "maxOutputTokens": 32000,
+          "thinkingTokens": 10402,
+          "canonicalModel": "claude-haiku-4-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "num_turns": 1,
+      "is_error": false,
+      "subtype": "success",
+      "duration_api_ms": 99590,
+      "strippedOuterFence": true,
+      "candidate": "pattern-change.mjs",
+      "candidateSha256": "7bb451b83a90cf9a4cf09683a1c29524df89bf31e4d0866e199f6c20c8a788c8"
+    }
+  ],
+  "artifacts": {
+    "direct-base": {
+      "source": "export async function mapLimit(items, limit, worker) {\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  if (typeof limit !== 'number' || limit <= 0 || !Number.isSafeInteger(limit)) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n\n  if (items.length === 0) {\n    return [];\n  }\n\n  const snapshot = Array.from(items);\n  const results = new Array(snapshot.length);\n  let firstError = null;\n  let nextIndex = 0;\n  let stopped = false;\n  let activeCount = 0;\n\n  return new Promise((resolve, reject) => {\n    function tryStartWorker() {\n      if (stopped || nextIndex >= snapshot.length || activeCount >= limit) {\n        return;\n      }\n\n      activeCount++;\n      const index = nextIndex;\n      const value = snapshot[index];\n      nextIndex++;\n\n      let result;\n      try {\n        result = worker(value, index);\n      } catch (error) {\n        activeCount--;\n        if (firstError === null) {\n          firstError = error;\n          stopped = true;\n        }\n        checkComplete();\n        return;\n      }\n\n      if (result && typeof result.then === 'function') {\n        try {\n          result.then(\n            value => {\n              results[index] = value;\n              activeCount--;\n              if (!stopped) {\n                tryStartWorker();\n              }\n              checkComplete();\n            },\n            error => {\n              activeCount--;\n              if (firstError === null) {\n                firstError = error;\n                stopped = true;\n              }\n              checkComplete();\n            }\n          );\n        } catch (error) {\n          activeCount--;\n          if (firstError === null) {\n            firstError = error;\n            stopped = true;\n          }\n          checkComplete();\n        }\n      } else {\n        results[index] = result;\n        activeCount--;\n        if (!stopped) {\n          tryStartWorker();\n        }\n        checkComplete();\n      }\n    }\n\n    function checkComplete() {\n      if (activeCount === 0) {\n        if (firstError !== null) {\n          reject(firstError);\n        } else if (nextIndex >= snapshot.length) {\n          resolve(results);\n        }\n      }\n    }\n\n    const initialWorkers = Math.min(limit, snapshot.length);\n    for (let i = 0; i < initialWorkers; i++) {\n      tryStartWorker();\n    }\n  });\n}\n",
+      "sourceSha256": "e0345c6874c629499a0e5e2c9370f4dcf6634d99cd6f0531b4250766f3d19c22",
+      "prompt": "Solve the task below. Use only the supplied prompt. Do not use tools, browse, or inspect repository files. Return one complete ES module with no Markdown fences.\n\nImplement the requested contract directly. Use the provided observable behavior specification as the authority for every observable result. Before writing the final module, consider its inputs, ordinary execution, exceptional execution, and completion. Choose your own internal representation and control flow. Use the available reasoning budget to check that the program satisfies the specification for empty input, multiple items, synchronous results, asynchronous results, and failures. Keep the exported interface exactly as requested. Prefer clear executable code that another programmer could understand and revise. Avoid adding features that were not requested. After constructing the solution, inspect each requirement again and make any corrections needed before returning the complete module. The result will be evaluated through execution, including behavior when completion orders differ from admission orders. Do not include explanatory prose, tests, usage demonstrations, external dependencies, or access to files and services. Make reasonable implementation decisions within the specified contract and return only the requested complete code.\n\n# Ordered bounded work\n\nImplement a single, self-contained ES module exporting\n`async function mapLimit(items, limit, worker)` using only JavaScript and Node\nbuilt-ins. Return executable code, without Markdown fences or commentary.\n\n`items` must be an Array, `limit` a positive safe integer, and `worker` a function.\nInvalid arguments reject with `TypeError` before invoking any worker, including\nfor empty input. Empty valid input resolves to `[]`.\n\nSnapshot the array's values when called. Invoke `worker(value, index)` exactly\nonce for each admitted item, admitting items in increasing index order. Start\nup to `min(limit, items.length)` workers without waiting for one to finish. When\na worker succeeds, promptly fill its slot if work remains. Never exceed `limit`\nunsettled worker calls. Support ordinary return values, promises, thenables, and\nsynchronous throws. Resolve with results in input order, regardless of completion\norder. The inputs and their values must not be modified by the implementation.\n\nOn the first observed worker failure, stop admitting items. A synchronous throw\nis observed immediately, so it can stop the initial admissions. Already admitted\nworkers must all settle before the returned promise rejects. Reject with the\nexact first failure value, even if it is `undefined`, `null`, or a non-Error\nobject. Observe secondary failures so they produce no unhandled rejections.\nObservation order is JavaScript's normal synchronous/microtask execution order.\n\nThe implementation may allocate O(n) result storage. It must not depend on\nwall-clock delays, outside services, or third-party packages. Behavior and\nsubsequent changeability will be evaluated; no particular internal architecture\nor naming convention is required.\n",
+      "promptSha256": "55274ed09a2fb6afc781ed9436d7ae92ac3b66789fc3a49a9cb13aed3bbef99d"
+    },
+    "checklist-base": {
+      "source": "export async function mapLimit(items, limit, worker) {\n  // Validate inputs\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  \n  if (!Number.isSafeInteger(limit) || limit <= 0) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  \n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n  \n  // Handle empty input\n  if (items.length === 0) {\n    return [];\n  }\n  \n  // Snapshot input array\n  const snapshot = Array.from(items);\n  const n = snapshot.length;\n  const results = new Array(n);\n  \n  return new Promise((resolve, reject) => {\n    let outstanding = 0;\n    let nextIndex = 0;\n    let failure = null;\n    let admissionOpen = true;\n    let settled = false;\n    \n    const trySettle = () => {\n      if (settled || outstanding > 0) {\n        return;\n      }\n      settled = true;\n      \n      if (failure !== null) {\n        reject(failure);\n      } else {\n        resolve(results);\n      }\n    };\n    \n    const tryAdmitNext = () => {\n      while (admissionOpen && nextIndex < n && outstanding < limit) {\n        const index = nextIndex++;\n        outstanding++;\n        \n        let result;\n        try {\n          result = worker(snapshot[index], index);\n        } catch (error) {\n          outstanding--;\n          if (failure === null) {\n            failure = error;\n            admissionOpen = false;\n          }\n          trySettle();\n          break;\n        }\n        \n        // Handle promise/thenable result\n        Promise.resolve(result).then(\n          (value) => {\n            results[index] = value;\n            outstanding--;\n            tryAdmitNext();\n            trySettle();\n          },\n          (error) => {\n            outstanding--;\n            if (failure === null) {\n              failure = error;\n              admissionOpen = false;\n            }\n            trySettle();\n          }\n        );\n      }\n      \n      trySettle();\n    };\n    \n    tryAdmitNext();\n  });\n}\n",
+      "sourceSha256": "b8151dc45edad7655e740f9ad1f2a11b051d4904e9fc40c822e8f00b07a32feb",
+      "prompt": "Solve the task below. Use only the supplied prompt. Do not use tools, browse, or inspect repository files. Return one complete ES module with no Markdown fences.\n\nUse this implementation checklist. Snapshot inputs and give every item a stable result address. Maintain a shared admission boundary and a count of outstanding obligations. Admit only while capacity is available, and give every admitted worker one slot until it settles. Store each successful result at its input address. Return a slot when its worker settles, then admit the next item if admission remains open. Record the first terminal cause separately from the outstanding count. On failure, close admission immediately; keep observing workers already admitted. Complete only after obligations drain, either returning ordered results or rejecting with the recorded cause. Check synchronous throws and promise assimilation. Keep the same completion accounting available for a future termination cause. The tradeoffs are coordination state, linear result storage, and waiting for workers that never settle. Apply these checks where useful; any behaviorally equivalent implementation is acceptable. Return only the final complete executable module requested by the contract.\n\n# Ordered bounded work\n\nImplement a single, self-contained ES module exporting\n`async function mapLimit(items, limit, worker)` using only JavaScript and Node\nbuilt-ins. Return executable code, without Markdown fences or commentary.\n\n`items` must be an Array, `limit` a positive safe integer, and `worker` a function.\nInvalid arguments reject with `TypeError` before invoking any worker, including\nfor empty input. Empty valid input resolves to `[]`.\n\nSnapshot the array's values when called. Invoke `worker(value, index)` exactly\nonce for each admitted item, admitting items in increasing index order. Start\nup to `min(limit, items.length)` workers without waiting for one to finish. When\na worker succeeds, promptly fill its slot if work remains. Never exceed `limit`\nunsettled worker calls. Support ordinary return values, promises, thenables, and\nsynchronous throws. Resolve with results in input order, regardless of completion\norder. The inputs and their values must not be modified by the implementation.\n\nOn the first observed worker failure, stop admitting items. A synchronous throw\nis observed immediately, so it can stop the initial admissions. Already admitted\nworkers must all settle before the returned promise rejects. Reject with the\nexact first failure value, even if it is `undefined`, `null`, or a non-Error\nobject. Observe secondary failures so they produce no unhandled rejections.\nObservation order is JavaScript's normal synchronous/microtask execution order.\n\nThe implementation may allocate O(n) result storage. It must not depend on\nwall-clock delays, outside services, or third-party packages. Behavior and\nsubsequent changeability will be evaluated; no particular internal architecture\nor naming convention is required.\n",
+      "promptSha256": "73307295e6377bf5af85028def83d02d472361de1d77131d989863d1a684d0b6"
+    },
+    "pattern-base": {
+      "source": "export async function mapLimit(items, limit, worker) {\n  // Validate arguments\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  if (!Number.isSafeInteger(limit) || limit <= 0) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n  \n  // Handle empty array\n  if (items.length === 0) {\n    return [];\n  }\n  \n  // Snapshot the input array\n  const snapshot = Array.from(items);\n  const results = new Array(snapshot.length);\n  \n  // State management\n  let nextIndex = 0;\n  let activeCount = 0;\n  let failure = null;\n  let settled = false;\n  \n  return new Promise((resolve, reject) => {\n    const settle = () => {\n      if (settled) return;\n      settled = true;\n      if (failure !== null) {\n        reject(failure);\n      } else {\n        resolve(results);\n      }\n    };\n    \n    const startWork = (index) => {\n      activeCount++;\n      \n      let workPromise;\n      try {\n        workPromise = Promise.resolve(worker(snapshot[index], index));\n      } catch (error) {\n        if (failure === null) {\n          failure = error;\n        }\n        activeCount--;\n        tryAdmitNext();\n        return;\n      }\n      \n      workPromise.then(\n        (result) => {\n          results[index] = result;\n          activeCount--;\n          tryAdmitNext();\n        },\n        (error) => {\n          if (failure === null) {\n            failure = error;\n          }\n          activeCount--;\n          tryAdmitNext();\n        }\n      );\n    };\n    \n    const tryAdmitNext = () => {\n      if (failure === null && nextIndex < snapshot.length) {\n        startWork(nextIndex++);\n      } else if (activeCount === 0) {\n        settle();\n      }\n    };\n    \n    // Admit initial batch of work\n    while (nextIndex < snapshot.length && activeCount < limit && failure === null) {\n      startWork(nextIndex++);\n    }\n    \n    // Settle if no work was admitted\n    if (activeCount === 0) {\n      settle();\n    }\n  });\n}\n",
+      "sourceSha256": "9712d363203f42d5000706466f00cca2f7aace81abe6fc7e6b4b2e630289b675",
+      "prompt": "Solve the task below. Use only the supplied prompt. Do not use tools, browse, or inspect repository files. Return one complete ES module with no Markdown fences.\n\nConsider the pattern Bounded Work Court. Context: ordered finite work shares scarce capacity. Forces: concurrency reduces idle capacity but unrestricted admission exhausts resources; completion order differs from identity; stopping new obligations competes with owning existing obligations. Resolution: establish one admission boundary, stable result addresses from snapshotted inputs, and one slot per admitted worker. A returning slot admits the next item only while the boundary remains open. Record the first terminal cause separately from outstanding obligations. Close admission immediately on failure; observe existing workers until they drain, then return ordered results or reject with that cause. Sequence: establish identity, bound admission, conserve slots, close, drain. Consequences: coordination state, linear result storage, and potentially unending drainage. Check synchronous throws and promise assimilation. The same completion accounting can accommodate a future termination cause. Countercontext: unrestricted streams or forced termination need another design. Use the relationship where helpful; any equivalent implementation is acceptable. Return only the requested module.\n\n# Ordered bounded work\n\nImplement a single, self-contained ES module exporting\n`async function mapLimit(items, limit, worker)` using only JavaScript and Node\nbuilt-ins. Return executable code, without Markdown fences or commentary.\n\n`items` must be an Array, `limit` a positive safe integer, and `worker` a function.\nInvalid arguments reject with `TypeError` before invoking any worker, including\nfor empty input. Empty valid input resolves to `[]`.\n\nSnapshot the array's values when called. Invoke `worker(value, index)` exactly\nonce for each admitted item, admitting items in increasing index order. Start\nup to `min(limit, items.length)` workers without waiting for one to finish. When\na worker succeeds, promptly fill its slot if work remains. Never exceed `limit`\nunsettled worker calls. Support ordinary return values, promises, thenables, and\nsynchronous throws. Resolve with results in input order, regardless of completion\norder. The inputs and their values must not be modified by the implementation.\n\nOn the first observed worker failure, stop admitting items. A synchronous throw\nis observed immediately, so it can stop the initial admissions. Already admitted\nworkers must all settle before the returned promise rejects. Reject with the\nexact first failure value, even if it is `undefined`, `null`, or a non-Error\nobject. Observe secondary failures so they produce no unhandled rejections.\nObservation order is JavaScript's normal synchronous/microtask execution order.\n\nThe implementation may allocate O(n) result storage. It must not depend on\nwall-clock delays, outside services, or third-party packages. Behavior and\nsubsequent changeability will be evaluated; no particular internal architecture\nor naming convention is required.\n",
+      "promptSha256": "b7b8f5573cb28af98672b9ea6090840d497b3fb86f7eac4bc90bef550c675654"
+    },
+    "direct-change": {
+      "source": "export async function mapLimit(items, limit, worker, options = {}) {\n  // Validate options\n  if (typeof options !== 'object' || options === null) {\n    throw new TypeError('options must be a non-null object');\n  }\n\n  // Validate items\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n\n  // Validate limit\n  if (typeof limit !== 'number' || limit <= 0 || !Number.isSafeInteger(limit)) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n\n  // Validate worker\n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n\n  // Validate signal if present\n  const signal = options.signal;\n  if (signal !== undefined && !(signal instanceof AbortSignal)) {\n    throw new TypeError('options.signal must be a native AbortSignal');\n  }\n\n  // Check if already aborted\n  if (signal && signal.aborted) {\n    throw signal.reason;\n  }\n\n  // Handle empty input\n  if (items.length === 0) {\n    return [];\n  }\n\n  const snapshot = Array.from(items);\n  const results = new Array(snapshot.length);\n  let firstError = null;\n  let nextIndex = 0;\n  let stopped = false;\n  let activeCount = 0;\n  let abortHandler = null;\n\n  return new Promise((resolve, reject) => {\n    // Set up abort listener\n    if (signal) {\n      abortHandler = () => {\n        if (firstError === null) {\n          firstError = signal.reason;\n          stopped = true;\n        }\n        checkComplete();\n      };\n      signal.addEventListener('abort', abortHandler);\n    }\n\n    function tryStartWorker() {\n      if (stopped || nextIndex >= snapshot.length || activeCount >= limit) {\n        return;\n      }\n\n      // Check if signal was aborted\n      if (signal && signal.aborted) {\n        if (firstError === null) {\n          firstError = signal.reason;\n          stopped = true;\n        }\n        return;\n      }\n\n      activeCount++;\n      const index = nextIndex;\n      const value = snapshot[index];\n      nextIndex++;\n\n      let result;\n      try {\n        result = worker(value, index, signal);\n      } catch (error) {\n        activeCount--;\n        if (firstError === null) {\n          firstError = error;\n          stopped = true;\n        }\n        checkComplete();\n        return;\n      }\n\n      if (result && typeof result.then === 'function') {\n        try {\n          result.then(\n            value => {\n              results[index] = value;\n              activeCount--;\n              if (!stopped) {\n                tryStartWorker();\n              }\n              checkComplete();\n            },\n            error => {\n              activeCount--;\n              if (firstError === null) {\n                firstError = error;\n                stopped = true;\n              }\n              checkComplete();\n            }\n          );\n        } catch (error) {\n          activeCount--;\n          if (firstError === null) {\n            firstError = error;\n            stopped = true;\n          }\n          checkComplete();\n        }\n      } else {\n        results[index] = result;\n        activeCount--;\n        if (!stopped) {\n          tryStartWorker();\n        }\n        checkComplete();\n      }\n    }\n\n    function checkComplete() {\n      if (activeCount === 0) {\n        if (signal && abortHandler) {\n          signal.removeEventListener('abort', abortHandler);\n        }\n\n        if (firstError !== null) {\n          reject(firstError);\n        } else if (nextIndex >= snapshot.length) {\n          resolve(results);\n        }\n      }\n    }\n\n    const initialWorkers = Math.min(limit, snapshot.length);\n    for (let i = 0; i < initialWorkers; i++) {\n      tryStartWorker();\n    }\n  });\n}\n",
+      "sourceSha256": "2bf460f5ca4473ebbe99bcf9e533087d4213cdb2c69405c0057523da0ef5a327",
+      "prompt": "Solve the task below. Use only the supplied prompt. Do not use tools, browse, or inspect repository files. Return one complete ES module with no Markdown fences.\n\nImplement the requested contract directly. Use the provided observable behavior specification as the authority for every observable result. Before writing the final module, consider its inputs, ordinary execution, exceptional execution, and completion. Choose your own internal representation and control flow. Use the available reasoning budget to check that the program satisfies the specification for empty input, multiple items, synchronous results, asynchronous results, and failures. Keep the exported interface exactly as requested. Prefer clear executable code that another programmer could understand and revise. Avoid adding features that were not requested. After constructing the solution, inspect each requirement again and make any corrections needed before returning the complete module. The result will be evaluated through execution, including behavior when completion orders differ from admission orders. Do not include explanatory prose, tests, usage demonstrations, external dependencies, or access to files and services. Make reasonable implementation decisions within the specified contract and return only the requested complete code.\n\n# Ordered bounded work\n\nImplement a single, self-contained ES module exporting\n`async function mapLimit(items, limit, worker)` using only JavaScript and Node\nbuilt-ins. Return executable code, without Markdown fences or commentary.\n\n`items` must be an Array, `limit` a positive safe integer, and `worker` a function.\nInvalid arguments reject with `TypeError` before invoking any worker, including\nfor empty input. Empty valid input resolves to `[]`.\n\nSnapshot the array's values when called. Invoke `worker(value, index)` exactly\nonce for each admitted item, admitting items in increasing index order. Start\nup to `min(limit, items.length)` workers without waiting for one to finish. When\na worker succeeds, promptly fill its slot if work remains. Never exceed `limit`\nunsettled worker calls. Support ordinary return values, promises, thenables, and\nsynchronous throws. Resolve with results in input order, regardless of completion\norder. The inputs and their values must not be modified by the implementation.\n\nOn the first observed worker failure, stop admitting items. A synchronous throw\nis observed immediately, so it can stop the initial admissions. Already admitted\nworkers must all settle before the returned promise rejects. Reject with the\nexact first failure value, even if it is `undefined`, `null`, or a non-Error\nobject. Observe secondary failures so they produce no unhandled rejections.\nObservation order is JavaScript's normal synchronous/microtask execution order.\n\nThe implementation may allocate O(n) result storage. It must not depend on\nwall-clock delays, outside services, or third-party packages. Behavior and\nsubsequent changeability will be evaluated; no particular internal architecture\nor naming convention is required.\n\n# Change: cooperative cancellation\n\nRevise the supplied implementation, retaining every base requirement. Return a\ncomplete self-contained ES module, without Markdown fences or commentary.\n\nExtend the signature to `mapLimit(items, limit, worker, options = {})`, where\n`options` must be a non-null object and `options.signal`, when present, must be\na native `AbortSignal`. Reject invalid options with `TypeError` before calling a\nworker. Validate all arguments before acting on cancellation. Omitted or\n`undefined` signal means cancellation is unavailable.\n\nPass that same signal as the worker's third argument. On an already aborted\nsignal, admit nothing and reject with `signal.reason`, including for empty\ninput. On a later abort, stop admitting work immediately. Existing workers may\ncooperate through the signal; wait for every admitted worker to settle before\nrejecting. Do not force-settle or abandon a worker. Preserve the exact first\nterminal cause: the first observed abort or worker failure wins, even if its\nreason is falsy. A later abort must not replace an earlier worker failure, nor\nmay a later worker failure replace an earlier abort. Aborting during a worker's\nsynchronous invocation must prevent the next admission.\n\nSuccessful completion is final; an abort after settlement cannot change it.\nRelease any abort listener installed by this call when the returned promise\nsettles, including on success and on failure. Calls are independent even when\nthey share a signal. No particular scheduling or state representation is\nrequired. Cooperative workers that never settle can keep the call pending;\ncancellation does not promise a time bound.\n\nPrior implementation:\nexport async function mapLimit(items, limit, worker) {\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  if (typeof limit !== 'number' || limit <= 0 || !Number.isSafeInteger(limit)) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n\n  if (items.length === 0) {\n    return [];\n  }\n\n  const snapshot = Array.from(items);\n  const results = new Array(snapshot.length);\n  let firstError = null;\n  let nextIndex = 0;\n  let stopped = false;\n  let activeCount = 0;\n\n  return new Promise((resolve, reject) => {\n    function tryStartWorker() {\n      if (stopped || nextIndex >= snapshot.length || activeCount >= limit) {\n        return;\n      }\n\n      activeCount++;\n      const index = nextIndex;\n      const value = snapshot[index];\n      nextIndex++;\n\n      let result;\n      try {\n        result = worker(value, index);\n      } catch (error) {\n        activeCount--;\n        if (firstError === null) {\n          firstError = error;\n          stopped = true;\n        }\n        checkComplete();\n        return;\n      }\n\n      if (result && typeof result.then === 'function') {\n        try {\n          result.then(\n            value => {\n              results[index] = value;\n              activeCount--;\n              if (!stopped) {\n                tryStartWorker();\n              }\n              checkComplete();\n            },\n            error => {\n              activeCount--;\n              if (firstError === null) {\n                firstError = error;\n                stopped = true;\n              }\n              checkComplete();\n            }\n          );\n        } catch (error) {\n          activeCount--;\n          if (firstError === null) {\n            firstError = error;\n            stopped = true;\n          }\n          checkComplete();\n        }\n      } else {\n        results[index] = result;\n        activeCount--;\n        if (!stopped) {\n          tryStartWorker();\n        }\n        checkComplete();\n      }\n    }\n\n    function checkComplete() {\n      if (activeCount === 0) {\n        if (firstError !== null) {\n          reject(firstError);\n        } else if (nextIndex >= snapshot.length) {\n          resolve(results);\n        }\n      }\n    }\n\n    const initialWorkers = Math.min(limit, snapshot.length);\n    for (let i = 0; i < initialWorkers; i++) {\n      tryStartWorker();\n    }\n  });\n}\n\n",
+      "promptSha256": "5c1a86f32315b31af8efb622388b84de513ca290ab8dc2bf0ab4f5316fa47ba7"
+    },
+    "checklist-change": {
+      "source": "export async function mapLimit(items, limit, worker, options = {}) {\n  // Validate inputs\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  \n  if (!Number.isSafeInteger(limit) || limit <= 0) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  \n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n  \n  // Validate options\n  if (options === null || typeof options !== 'object') {\n    throw new TypeError('options must be a non-null object');\n  }\n  \n  // Validate signal if present\n  const signal = options.signal;\n  if (signal !== undefined && !(signal instanceof AbortSignal)) {\n    throw new TypeError('options.signal must be an AbortSignal');\n  }\n  \n  // Act on cancellation: check if signal is already aborted\n  if (signal?.aborted) {\n    throw signal.reason;\n  }\n  \n  // Handle empty input\n  if (items.length === 0) {\n    return [];\n  }\n  \n  // Snapshot input array\n  const snapshot = Array.from(items);\n  const n = snapshot.length;\n  const results = new Array(n);\n  const NO_FAILURE = Symbol('no failure');\n  \n  return new Promise((resolve, reject) => {\n    let outstanding = 0;\n    let nextIndex = 0;\n    let failure = NO_FAILURE;\n    let admissionOpen = true;\n    let settled = false;\n    \n    // Abort handler\n    const abortHandler = () => {\n      if (failure === NO_FAILURE) {\n        failure = signal.reason;\n        admissionOpen = false;\n      }\n    };\n    \n    // Add abort listener if signal is present\n    if (signal) {\n      signal.addEventListener('abort', abortHandler);\n    }\n    \n    const cleanup = () => {\n      if (signal) {\n        signal.removeEventListener('abort', abortHandler);\n      }\n    };\n    \n    const trySettle = () => {\n      if (settled || outstanding > 0) {\n        return;\n      }\n      settled = true;\n      cleanup();\n      \n      if (failure !== NO_FAILURE) {\n        reject(failure);\n      } else {\n        resolve(results);\n      }\n    };\n    \n    const tryAdmitNext = () => {\n      while (admissionOpen && nextIndex < n && outstanding < limit) {\n        const index = nextIndex++;\n        outstanding++;\n        \n        let result;\n        try {\n          result = worker(snapshot[index], index, signal);\n        } catch (error) {\n          outstanding--;\n          if (failure === NO_FAILURE) {\n            failure = error;\n            admissionOpen = false;\n          }\n          trySettle();\n          break;\n        }\n        \n        // Handle promise/thenable result\n        Promise.resolve(result).then(\n          (value) => {\n            results[index] = value;\n            outstanding--;\n            tryAdmitNext();\n            trySettle();\n          },\n          (error) => {\n            outstanding--;\n            if (failure === NO_FAILURE) {\n              failure = error;\n              admissionOpen = false;\n            }\n            trySettle();\n          }\n        );\n      }\n      \n      trySettle();\n    };\n    \n    tryAdmitNext();\n  });\n}\n",
+      "sourceSha256": "45082d23d78e39a6ef905977d6559e4da98404047b55f1dea8acde19ada92164",
+      "prompt": "Solve the task below. Use only the supplied prompt. Do not use tools, browse, or inspect repository files. Return one complete ES module with no Markdown fences.\n\nUse this implementation checklist. Snapshot inputs and give every item a stable result address. Maintain a shared admission boundary and a count of outstanding obligations. Admit only while capacity is available, and give every admitted worker one slot until it settles. Store each successful result at its input address. Return a slot when its worker settles, then admit the next item if admission remains open. Record the first terminal cause separately from the outstanding count. On failure, close admission immediately; keep observing workers already admitted. Complete only after obligations drain, either returning ordered results or rejecting with the recorded cause. Check synchronous throws and promise assimilation. Keep the same completion accounting available for a future termination cause. The tradeoffs are coordination state, linear result storage, and waiting for workers that never settle. Apply these checks where useful; any behaviorally equivalent implementation is acceptable. Return only the final complete executable module requested by the contract.\n\n# Ordered bounded work\n\nImplement a single, self-contained ES module exporting\n`async function mapLimit(items, limit, worker)` using only JavaScript and Node\nbuilt-ins. Return executable code, without Markdown fences or commentary.\n\n`items` must be an Array, `limit` a positive safe integer, and `worker` a function.\nInvalid arguments reject with `TypeError` before invoking any worker, including\nfor empty input. Empty valid input resolves to `[]`.\n\nSnapshot the array's values when called. Invoke `worker(value, index)` exactly\nonce for each admitted item, admitting items in increasing index order. Start\nup to `min(limit, items.length)` workers without waiting for one to finish. When\na worker succeeds, promptly fill its slot if work remains. Never exceed `limit`\nunsettled worker calls. Support ordinary return values, promises, thenables, and\nsynchronous throws. Resolve with results in input order, regardless of completion\norder. The inputs and their values must not be modified by the implementation.\n\nOn the first observed worker failure, stop admitting items. A synchronous throw\nis observed immediately, so it can stop the initial admissions. Already admitted\nworkers must all settle before the returned promise rejects. Reject with the\nexact first failure value, even if it is `undefined`, `null`, or a non-Error\nobject. Observe secondary failures so they produce no unhandled rejections.\nObservation order is JavaScript's normal synchronous/microtask execution order.\n\nThe implementation may allocate O(n) result storage. It must not depend on\nwall-clock delays, outside services, or third-party packages. Behavior and\nsubsequent changeability will be evaluated; no particular internal architecture\nor naming convention is required.\n\n# Change: cooperative cancellation\n\nRevise the supplied implementation, retaining every base requirement. Return a\ncomplete self-contained ES module, without Markdown fences or commentary.\n\nExtend the signature to `mapLimit(items, limit, worker, options = {})`, where\n`options` must be a non-null object and `options.signal`, when present, must be\na native `AbortSignal`. Reject invalid options with `TypeError` before calling a\nworker. Validate all arguments before acting on cancellation. Omitted or\n`undefined` signal means cancellation is unavailable.\n\nPass that same signal as the worker's third argument. On an already aborted\nsignal, admit nothing and reject with `signal.reason`, including for empty\ninput. On a later abort, stop admitting work immediately. Existing workers may\ncooperate through the signal; wait for every admitted worker to settle before\nrejecting. Do not force-settle or abandon a worker. Preserve the exact first\nterminal cause: the first observed abort or worker failure wins, even if its\nreason is falsy. A later abort must not replace an earlier worker failure, nor\nmay a later worker failure replace an earlier abort. Aborting during a worker's\nsynchronous invocation must prevent the next admission.\n\nSuccessful completion is final; an abort after settlement cannot change it.\nRelease any abort listener installed by this call when the returned promise\nsettles, including on success and on failure. Calls are independent even when\nthey share a signal. No particular scheduling or state representation is\nrequired. Cooperative workers that never settle can keep the call pending;\ncancellation does not promise a time bound.\n\nPrior implementation:\nexport async function mapLimit(items, limit, worker) {\n  // Validate inputs\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  \n  if (!Number.isSafeInteger(limit) || limit <= 0) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  \n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n  \n  // Handle empty input\n  if (items.length === 0) {\n    return [];\n  }\n  \n  // Snapshot input array\n  const snapshot = Array.from(items);\n  const n = snapshot.length;\n  const results = new Array(n);\n  \n  return new Promise((resolve, reject) => {\n    let outstanding = 0;\n    let nextIndex = 0;\n    let failure = null;\n    let admissionOpen = true;\n    let settled = false;\n    \n    const trySettle = () => {\n      if (settled || outstanding > 0) {\n        return;\n      }\n      settled = true;\n      \n      if (failure !== null) {\n        reject(failure);\n      } else {\n        resolve(results);\n      }\n    };\n    \n    const tryAdmitNext = () => {\n      while (admissionOpen && nextIndex < n && outstanding < limit) {\n        const index = nextIndex++;\n        outstanding++;\n        \n        let result;\n        try {\n          result = worker(snapshot[index], index);\n        } catch (error) {\n          outstanding--;\n          if (failure === null) {\n            failure = error;\n            admissionOpen = false;\n          }\n          trySettle();\n          break;\n        }\n        \n        // Handle promise/thenable result\n        Promise.resolve(result).then(\n          (value) => {\n            results[index] = value;\n            outstanding--;\n            tryAdmitNext();\n            trySettle();\n          },\n          (error) => {\n            outstanding--;\n            if (failure === null) {\n              failure = error;\n              admissionOpen = false;\n            }\n            trySettle();\n          }\n        );\n      }\n      \n      trySettle();\n    };\n    \n    tryAdmitNext();\n  });\n}\n\n",
+      "promptSha256": "5a02f83ac9f23fc3afbc910b88b9503dc88bd9e8952ffba82667b853bc6a4d7c"
+    },
+    "pattern-change": {
+      "source": "export async function mapLimit(items, limit, worker, options = {}) {\n  // Validate arguments\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  if (!Number.isSafeInteger(limit) || limit <= 0) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n  \n  // Validate options\n  if (typeof options !== 'object' || options === null) {\n    throw new TypeError('options must be a non-null object');\n  }\n  \n  const signal = options.signal;\n  if (signal !== undefined && !(signal instanceof AbortSignal)) {\n    throw new TypeError('options.signal must be a native AbortSignal');\n  }\n  \n  // Check if already aborted (after all validation)\n  if (signal?.aborted) {\n    throw signal.reason;\n  }\n  \n  // Handle empty array\n  if (items.length === 0) {\n    return [];\n  }\n  \n  // Snapshot the input array\n  const snapshot = Array.from(items);\n  const results = new Array(snapshot.length);\n  \n  // State management\n  const NO_FAILURE = Symbol('no failure');\n  let nextIndex = 0;\n  let activeCount = 0;\n  let failure = NO_FAILURE;\n  let settled = false;\n  \n  return new Promise((resolve, reject) => {\n    let abortListener = null;\n    \n    const cleanup = () => {\n      if (abortListener && signal) {\n        signal.removeEventListener('abort', abortListener);\n      }\n    };\n    \n    const settle = () => {\n      if (settled) return;\n      settled = true;\n      cleanup();\n      \n      if (failure !== NO_FAILURE) {\n        reject(failure);\n      } else {\n        resolve(results);\n      }\n    };\n    \n    const startWork = (index) => {\n      activeCount++;\n      \n      let workPromise;\n      try {\n        workPromise = Promise.resolve(worker(snapshot[index], index, signal));\n      } catch (error) {\n        if (failure === NO_FAILURE) {\n          failure = error;\n        }\n        activeCount--;\n        tryAdmitNext();\n        return;\n      }\n      \n      workPromise.then(\n        (result) => {\n          results[index] = result;\n          activeCount--;\n          tryAdmitNext();\n        },\n        (error) => {\n          if (failure === NO_FAILURE) {\n            failure = error;\n          }\n          activeCount--;\n          tryAdmitNext();\n        }\n      );\n    };\n    \n    const tryAdmitNext = () => {\n      if (failure === NO_FAILURE && nextIndex < snapshot.length) {\n        startWork(nextIndex++);\n      } else if (activeCount === 0) {\n        settle();\n      }\n    };\n    \n    // Setup abort listener if signal provided\n    if (signal) {\n      abortListener = () => {\n        if (failure === NO_FAILURE) {\n          failure = signal.reason;\n        }\n        tryAdmitNext();\n      };\n      signal.addEventListener('abort', abortListener);\n    }\n    \n    // Admit initial batch of work\n    while (nextIndex < snapshot.length && activeCount < limit && failure === NO_FAILURE) {\n      startWork(nextIndex++);\n    }\n    \n    // Settle if no work was admitted\n    if (activeCount === 0) {\n      settle();\n    }\n  });\n}\n",
+      "sourceSha256": "7bb451b83a90cf9a4cf09683a1c29524df89bf31e4d0866e199f6c20c8a788c8",
+      "prompt": "Solve the task below. Use only the supplied prompt. Do not use tools, browse, or inspect repository files. Return one complete ES module with no Markdown fences.\n\nConsider the pattern Bounded Work Court. Context: ordered finite work shares scarce capacity. Forces: concurrency reduces idle capacity but unrestricted admission exhausts resources; completion order differs from identity; stopping new obligations competes with owning existing obligations. Resolution: establish one admission boundary, stable result addresses from snapshotted inputs, and one slot per admitted worker. A returning slot admits the next item only while the boundary remains open. Record the first terminal cause separately from outstanding obligations. Close admission immediately on failure; observe existing workers until they drain, then return ordered results or reject with that cause. Sequence: establish identity, bound admission, conserve slots, close, drain. Consequences: coordination state, linear result storage, and potentially unending drainage. Check synchronous throws and promise assimilation. The same completion accounting can accommodate a future termination cause. Countercontext: unrestricted streams or forced termination need another design. Use the relationship where helpful; any equivalent implementation is acceptable. Return only the requested module.\n\n# Ordered bounded work\n\nImplement a single, self-contained ES module exporting\n`async function mapLimit(items, limit, worker)` using only JavaScript and Node\nbuilt-ins. Return executable code, without Markdown fences or commentary.\n\n`items` must be an Array, `limit` a positive safe integer, and `worker` a function.\nInvalid arguments reject with `TypeError` before invoking any worker, including\nfor empty input. Empty valid input resolves to `[]`.\n\nSnapshot the array's values when called. Invoke `worker(value, index)` exactly\nonce for each admitted item, admitting items in increasing index order. Start\nup to `min(limit, items.length)` workers without waiting for one to finish. When\na worker succeeds, promptly fill its slot if work remains. Never exceed `limit`\nunsettled worker calls. Support ordinary return values, promises, thenables, and\nsynchronous throws. Resolve with results in input order, regardless of completion\norder. The inputs and their values must not be modified by the implementation.\n\nOn the first observed worker failure, stop admitting items. A synchronous throw\nis observed immediately, so it can stop the initial admissions. Already admitted\nworkers must all settle before the returned promise rejects. Reject with the\nexact first failure value, even if it is `undefined`, `null`, or a non-Error\nobject. Observe secondary failures so they produce no unhandled rejections.\nObservation order is JavaScript's normal synchronous/microtask execution order.\n\nThe implementation may allocate O(n) result storage. It must not depend on\nwall-clock delays, outside services, or third-party packages. Behavior and\nsubsequent changeability will be evaluated; no particular internal architecture\nor naming convention is required.\n\n# Change: cooperative cancellation\n\nRevise the supplied implementation, retaining every base requirement. Return a\ncomplete self-contained ES module, without Markdown fences or commentary.\n\nExtend the signature to `mapLimit(items, limit, worker, options = {})`, where\n`options` must be a non-null object and `options.signal`, when present, must be\na native `AbortSignal`. Reject invalid options with `TypeError` before calling a\nworker. Validate all arguments before acting on cancellation. Omitted or\n`undefined` signal means cancellation is unavailable.\n\nPass that same signal as the worker's third argument. On an already aborted\nsignal, admit nothing and reject with `signal.reason`, including for empty\ninput. On a later abort, stop admitting work immediately. Existing workers may\ncooperate through the signal; wait for every admitted worker to settle before\nrejecting. Do not force-settle or abandon a worker. Preserve the exact first\nterminal cause: the first observed abort or worker failure wins, even if its\nreason is falsy. A later abort must not replace an earlier worker failure, nor\nmay a later worker failure replace an earlier abort. Aborting during a worker's\nsynchronous invocation must prevent the next admission.\n\nSuccessful completion is final; an abort after settlement cannot change it.\nRelease any abort listener installed by this call when the returned promise\nsettles, including on success and on failure. Calls are independent even when\nthey share a signal. No particular scheduling or state representation is\nrequired. Cooperative workers that never settle can keep the call pending;\ncancellation does not promise a time bound.\n\nPrior implementation:\nexport async function mapLimit(items, limit, worker) {\n  // Validate arguments\n  if (!Array.isArray(items)) {\n    throw new TypeError('items must be an Array');\n  }\n  if (!Number.isSafeInteger(limit) || limit <= 0) {\n    throw new TypeError('limit must be a positive safe integer');\n  }\n  if (typeof worker !== 'function') {\n    throw new TypeError('worker must be a function');\n  }\n  \n  // Handle empty array\n  if (items.length === 0) {\n    return [];\n  }\n  \n  // Snapshot the input array\n  const snapshot = Array.from(items);\n  const results = new Array(snapshot.length);\n  \n  // State management\n  let nextIndex = 0;\n  let activeCount = 0;\n  let failure = null;\n  let settled = false;\n  \n  return new Promise((resolve, reject) => {\n    const settle = () => {\n      if (settled) return;\n      settled = true;\n      if (failure !== null) {\n        reject(failure);\n      } else {\n        resolve(results);\n      }\n    };\n    \n    const startWork = (index) => {\n      activeCount++;\n      \n      let workPromise;\n      try {\n        workPromise = Promise.resolve(worker(snapshot[index], index));\n      } catch (error) {\n        if (failure === null) {\n          failure = error;\n        }\n        activeCount--;\n        tryAdmitNext();\n        return;\n      }\n      \n      workPromise.then(\n        (result) => {\n          results[index] = result;\n          activeCount--;\n          tryAdmitNext();\n        },\n        (error) => {\n          if (failure === null) {\n            failure = error;\n          }\n          activeCount--;\n          tryAdmitNext();\n        }\n      );\n    };\n    \n    const tryAdmitNext = () => {\n      if (failure === null && nextIndex < snapshot.length) {\n        startWork(nextIndex++);\n      } else if (activeCount === 0) {\n        settle();\n      }\n    };\n    \n    // Admit initial batch of work\n    while (nextIndex < snapshot.length && activeCount < limit && failure === null) {\n      startWork(nextIndex++);\n    }\n    \n    // Settle if no work was admitted\n    if (activeCount === 0) {\n      settle();\n    }\n  });\n}\n\n",
+      "promptSha256": "1a3a92237e5469bc9b62650bd049b1162341e91b4c2678693ea4b4aa5bd62973"
+    }
+  },
+  "expectedOutcomes": {
+    "direct-base": {
+      "allPassed": false,
+      "cases": {
+        "base.validation": true,
+        "base.empty": true,
+        "base.capacity_order": true,
+        "base.snapshot": true,
+        "base.values_thenables": false,
+        "base.failure_drains": true,
+        "base.synchronous_throw": true,
+        "base.falsy_reasons": false,
+        "base.then_getter_failure": true,
+        "base.scale_31_1": true,
+        "base.scale_31_50": true,
+        "base.scale_513_7": true
+      }
+    },
+    "checklist-base": {
+      "allPassed": false,
+      "cases": {
+        "base.validation": true,
+        "base.empty": true,
+        "base.capacity_order": true,
+        "base.snapshot": true,
+        "base.values_thenables": true,
+        "base.failure_drains": true,
+        "base.synchronous_throw": true,
+        "base.falsy_reasons": false,
+        "base.then_getter_failure": true,
+        "base.scale_31_1": true,
+        "base.scale_31_50": true,
+        "base.scale_513_7": true
+      }
+    },
+    "pattern-base": {
+      "allPassed": false,
+      "cases": {
+        "base.validation": true,
+        "base.empty": true,
+        "base.capacity_order": true,
+        "base.snapshot": true,
+        "base.values_thenables": true,
+        "base.failure_drains": true,
+        "base.synchronous_throw": true,
+        "base.falsy_reasons": false,
+        "base.then_getter_failure": true,
+        "base.scale_31_1": true,
+        "base.scale_31_50": true,
+        "base.scale_513_7": true
+      }
+    },
+    "direct-change": {
+      "allPassed": false,
+      "cases": {
+        "base.validation": true,
+        "base.empty": true,
+        "base.capacity_order": true,
+        "base.snapshot": true,
+        "base.values_thenables": false,
+        "base.failure_drains": true,
+        "base.synchronous_throw": true,
+        "base.falsy_reasons": false,
+        "base.then_getter_failure": true,
+        "base.scale_31_1": true,
+        "base.scale_31_50": true,
+        "base.scale_513_7": true,
+        "change.options_validation": true,
+        "change.preaborted": true,
+        "change.abort_drains": true,
+        "change.failure_before_abort": true,
+        "change.reentrant_abort": true,
+        "change.abort_then_sync_throw": true,
+        "change.listener_cleanup": true,
+        "change.independent_calls": true
+      }
+    },
+    "checklist-change": {
+      "allPassed": true,
+      "cases": {
+        "base.validation": true,
+        "base.empty": true,
+        "base.capacity_order": true,
+        "base.snapshot": true,
+        "base.values_thenables": true,
+        "base.failure_drains": true,
+        "base.synchronous_throw": true,
+        "base.falsy_reasons": true,
+        "base.then_getter_failure": true,
+        "base.scale_31_1": true,
+        "base.scale_31_50": true,
+        "base.scale_513_7": true,
+        "change.options_validation": true,
+        "change.preaborted": true,
+        "change.abort_drains": true,
+        "change.failure_before_abort": true,
+        "change.reentrant_abort": true,
+        "change.abort_then_sync_throw": true,
+        "change.listener_cleanup": true,
+        "change.independent_calls": true
+      }
+    },
+    "pattern-change": {
+      "allPassed": true,
+      "cases": {
+        "base.validation": true,
+        "base.empty": true,
+        "base.capacity_order": true,
+        "base.snapshot": true,
+        "base.values_thenables": true,
+        "base.failure_drains": true,
+        "base.synchronous_throw": true,
+        "base.falsy_reasons": true,
+        "base.then_getter_failure": true,
+        "base.scale_31_1": true,
+        "base.scale_31_50": true,
+        "base.scale_513_7": true,
+        "change.options_validation": true,
+        "change.preaborted": true,
+        "change.abort_drains": true,
+        "change.failure_before_abort": true,
+        "change.reentrant_abort": true,
+        "change.abort_then_sync_throw": true,
+        "change.listener_cleanup": true,
+        "change.independent_calls": true
+      }
+    }
+  },
+  "reportedCostUsd": 0.37923100000000004,
+  "interpretation": "One paired exploratory smoke comparison; no pattern-specific advantage established. All failed stages retained. Not the six-replicate pilot."
+}

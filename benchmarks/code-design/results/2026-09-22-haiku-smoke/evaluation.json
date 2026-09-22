@@ -1,0 +1,695 @@
+{
+  "schema": "pattern-language.code-smoke-replay.v1",
+  "reports": [
+    {
+      "schema": "code-design-evaluation.v1",
+      "stage": "base",
+      "candidate": "direct-base.mjs",
+      "entrySha256": "e0345c6874c629499a0e5e2c9370f4dcf6634d99cd6f0531b4250766f3d19c22",
+      "runtime": {
+        "node": "v24.20.0",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "timeoutMs": 2000,
+      "passed": 10,
+      "total": 12,
+      "allPassed": false,
+      "results": [
+        {
+          "id": "base.validation",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.empty",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.capacity_order",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.snapshot",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.values_thenables",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.failure_drains",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.synchronous_throw",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.falsy_reasons",
+          "passed": false,
+          "error": "Process exited 13; signal null; Warning: Detected unsettled top-level await at file:///Users/bg/src/pattern-language/benchmarks/code-design/worker.mjs:14",
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.then_getter_failure",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_1",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_50",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_513_7",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        }
+      ],
+      "arm": "direct"
+    },
+    {
+      "schema": "code-design-evaluation.v1",
+      "stage": "base",
+      "candidate": "checklist-base.mjs",
+      "entrySha256": "b8151dc45edad7655e740f9ad1f2a11b051d4904e9fc40c822e8f00b07a32feb",
+      "runtime": {
+        "node": "v24.20.0",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "timeoutMs": 2000,
+      "passed": 11,
+      "total": 12,
+      "allPassed": false,
+      "results": [
+        {
+          "id": "base.validation",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.empty",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.capacity_order",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.snapshot",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.values_thenables",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.failure_drains",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.synchronous_throw",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.falsy_reasons",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: must reject",
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.then_getter_failure",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_1",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_50",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_513_7",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        }
+      ],
+      "arm": "checklist"
+    },
+    {
+      "schema": "code-design-evaluation.v1",
+      "stage": "base",
+      "candidate": "pattern-base.mjs",
+      "entrySha256": "9712d363203f42d5000706466f00cca2f7aace81abe6fc7e6b4b2e630289b675",
+      "runtime": {
+        "node": "v24.20.0",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "timeoutMs": 2000,
+      "passed": 11,
+      "total": 12,
+      "allPassed": false,
+      "results": [
+        {
+          "id": "base.validation",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.empty",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.capacity_order",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.snapshot",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.values_thenables",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.failure_drains",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.synchronous_throw",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.falsy_reasons",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: must reject",
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.then_getter_failure",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_1",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_50",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_513_7",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        }
+      ],
+      "arm": "pattern"
+    },
+    {
+      "schema": "code-design-evaluation.v1",
+      "stage": "change",
+      "candidate": "direct-change.mjs",
+      "entrySha256": "2bf460f5ca4473ebbe99bcf9e533087d4213cdb2c69405c0057523da0ef5a327",
+      "runtime": {
+        "node": "v24.20.0",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "timeoutMs": 2000,
+      "passed": 18,
+      "total": 20,
+      "allPassed": false,
+      "results": [
+        {
+          "id": "base.validation",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.empty",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.capacity_order",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.snapshot",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.values_thenables",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.failure_drains",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.synchronous_throw",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.falsy_reasons",
+          "passed": false,
+          "error": "Process exited 13; signal null; Warning: Detected unsettled top-level await at file:///Users/bg/src/pattern-language/benchmarks/code-design/worker.mjs:14",
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.then_getter_failure",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_1",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_50",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_513_7",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.options_validation",
+          "passed": true,
+          "stage": "change",
+          "group": "contract"
+        },
+        {
+          "id": "change.preaborted",
+          "passed": true,
+          "stage": "change",
+          "group": "behavior"
+        },
+        {
+          "id": "change.abort_drains",
+          "passed": true,
+          "stage": "change",
+          "group": "behavior"
+        },
+        {
+          "id": "change.failure_before_abort",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.reentrant_abort",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.abort_then_sync_throw",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.listener_cleanup",
+          "passed": true,
+          "stage": "change",
+          "group": "resource"
+        },
+        {
+          "id": "change.independent_calls",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        }
+      ],
+      "arm": "direct"
+    },
+    {
+      "schema": "code-design-evaluation.v1",
+      "stage": "change",
+      "candidate": "checklist-change.mjs",
+      "entrySha256": "45082d23d78e39a6ef905977d6559e4da98404047b55f1dea8acde19ada92164",
+      "runtime": {
+        "node": "v24.20.0",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "timeoutMs": 2000,
+      "passed": 20,
+      "total": 20,
+      "allPassed": true,
+      "results": [
+        {
+          "id": "base.validation",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.empty",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.capacity_order",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.snapshot",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.values_thenables",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.failure_drains",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.synchronous_throw",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.falsy_reasons",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.then_getter_failure",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_1",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_50",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_513_7",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.options_validation",
+          "passed": true,
+          "stage": "change",
+          "group": "contract"
+        },
+        {
+          "id": "change.preaborted",
+          "passed": true,
+          "stage": "change",
+          "group": "behavior"
+        },
+        {
+          "id": "change.abort_drains",
+          "passed": true,
+          "stage": "change",
+          "group": "behavior"
+        },
+        {
+          "id": "change.failure_before_abort",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.reentrant_abort",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.abort_then_sync_throw",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.listener_cleanup",
+          "passed": true,
+          "stage": "change",
+          "group": "resource"
+        },
+        {
+          "id": "change.independent_calls",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        }
+      ],
+      "arm": "checklist"
+    },
+    {
+      "schema": "code-design-evaluation.v1",
+      "stage": "change",
+      "candidate": "pattern-change.mjs",
+      "entrySha256": "7bb451b83a90cf9a4cf09683a1c29524df89bf31e4d0866e199f6c20c8a788c8",
+      "runtime": {
+        "node": "v24.20.0",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "timeoutMs": 2000,
+      "passed": 20,
+      "total": 20,
+      "allPassed": true,
+      "results": [
+        {
+          "id": "base.validation",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.empty",
+          "passed": true,
+          "stage": "base",
+          "group": "contract"
+        },
+        {
+          "id": "base.capacity_order",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.snapshot",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.values_thenables",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.failure_drains",
+          "passed": true,
+          "stage": "base",
+          "group": "behavior"
+        },
+        {
+          "id": "base.synchronous_throw",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.falsy_reasons",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.then_getter_failure",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_1",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_31_50",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "base.scale_513_7",
+          "passed": true,
+          "stage": "base",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.options_validation",
+          "passed": true,
+          "stage": "change",
+          "group": "contract"
+        },
+        {
+          "id": "change.preaborted",
+          "passed": true,
+          "stage": "change",
+          "group": "behavior"
+        },
+        {
+          "id": "change.abort_drains",
+          "passed": true,
+          "stage": "change",
+          "group": "behavior"
+        },
+        {
+          "id": "change.failure_before_abort",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.reentrant_abort",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.abort_then_sync_throw",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        },
+        {
+          "id": "change.listener_cleanup",
+          "passed": true,
+          "stage": "change",
+          "group": "resource"
+        },
+        {
+          "id": "change.independent_calls",
+          "passed": true,
+          "stage": "change",
+          "group": "perturbation"
+        }
+      ],
+      "arm": "pattern"
+    }
+  ]
+}

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Appendix I benchmark: run the same agglomerative merge rule that
-programs/decompose-step.algal.json implements in `expr` — merge the cluster
-pair with the highest score, first-max wins ties, repeat to k — but offline,
-because 141 nodes x 1434 links exceeds algal's 1M per-activation fuel ceiling.
+"""Appendix I benchmark: agglomerative merging with the same scoring criterion
+as programs/decompose-step.algal.json, evaluated offline because 141 nodes x
+1434 links exceeds algal's 1M per-activation fuel ceiling. This implementation
+appends a merged cluster; the manifest prepends it. First-max tie resolution
+can therefore differ. Cross-implementation partition parity is not proven.
 
 This is historically faithful: Alexander's decomposition was computed by
 HIDECS, an IBM program — the partition was always offline tooling. What the
@@ -10,14 +11,21 @@ manifest proves is that the step rule is expressible and receipted at small
 scale; what this script measures is how close that rule comes to Alexander's
 published answer at real scale.
 
-Findings encoded here: the scoring criterion is load-bearing.
+Historical raw Rand findings (separation-heavy and not chance-corrected):
   raw     cross-link count         -> degenerates to [138,1,1,1]
   avg     cross-links / |a|*|b|    -> 0.707 agreement at k=4 (vs A-D majors)
                                      0.840 agreement at k=12 (vs 12 subsets)
 
-Usage: python3 scripts/decompose-village.py [k] [raw|avg]
+The report also includes adjusted Rand, pair precision/recall, and a seeded
+size-preserving permutation baseline. These compare partitions; they do not
+establish code-generation usefulness.
+
+Usage: python3 scripts/decompose-village.py [k] [raw|avg|cnm] [--json]
 """
-import json, sys, os
+import argparse, json, os
+
+from partition_metrics import (pairwise_agreement, partition_metrics,
+                               permutation_baseline, validate_partition)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,6 +33,10 @@ def load(ens_path=None, oracle_path=None):
     ens = json.load(open(ens_path or os.path.join(ROOT, "ensembles/village.ensemble.json")))
     oracle = json.load(open(oracle_path or os.path.join(ROOT, "ensembles/village.decomposition.json"))) if (oracle_path or ens_path is None) else None
     ids = [m["id"] for m in ens["misfits"]]
+    validate_partition([ids])
+    if oracle is not None:
+        # Validate before any major-group union can hide repeated membership.
+        validate_partition(oracle["subsets"], universe=ids)
     adj = {m: set() for m in ids}
     for l in ens["links"]:
         adj[l["a"]].add(l["b"]); adj[l["b"]].add(l["a"])
@@ -80,21 +92,6 @@ def cnm(ids, adj):
         rounds += 1
     return clusters, rounds
 
-def pairwise_agreement(a_parts, b_parts):
-    if isinstance(a_parts, dict): a_parts = a_parts.values()
-    if isinstance(b_parts, dict): b_parts = b_parts.values()
-    a = {x: i for i, p in enumerate(a_parts) for x in p}
-    b = {x: i for i, p in enumerate(b_parts) for x in p}
-    items = sorted(a)
-    same = diff = 0
-    for i in range(len(items)):
-        for j in range(i + 1, len(items)):
-            if (a[items[i]] == a[items[j]]) == (b[items[i]] == b[items[j]]):
-                same += 1
-            else:
-                diff += 1
-    return same / (same + diff)
-
 def best_match_report(mine, oracle_sets):
     oracle = [set(v) for v in oracle_sets.values()] if isinstance(oracle_sets, dict) else [set(v) for v in oracle_sets]
     for i, c in enumerate(sorted(mine, key=len, reverse=True)):
@@ -104,33 +101,63 @@ def best_match_report(mine, oracle_sets):
               f"{len(set(c) & ov)}/{len(ov)} of its members")
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.endswith(".json")]
-    paths = [a for a in sys.argv[1:] if a.endswith(".json")]
-    k = int(args[0]) if args else 4
-    norm = args[1] if len(args) > 1 else "avg"
-    ens_path = paths[0] if paths else None
-    oracle_path = paths[1] if len(paths) > 1 else None
-    ids, adj, oracle_sets = load(ens_path, oracle_path)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("k", type=int, nargs="?", default=4)
+    parser.add_argument("norm", choices=("raw", "avg", "cnm"), nargs="?", default="avg")
+    parser.add_argument("ensemble", nargs="?")
+    parser.add_argument("oracle", nargs="?")
+    parser.add_argument("--json", action="store_true", help="emit one machine-readable report")
+    parser.add_argument("--baseline-samples", type=int, default=256)
+    parser.add_argument("--seed", type=int, default=0)
+    args = parser.parse_args()
+    k, norm, ens_path, oracle_path = args.k, args.norm, args.ensemble, args.oracle
+    try:
+        ids, adj, oracle_sets = load(ens_path, oracle_path)
+    except ValueError as exc:
+        parser.error(str(exc))
+    if not 1 <= k <= len(ids):
+        parser.error("k must be between 1 and the number of items")
+    if args.baseline_samples < 1:
+        parser.error("--baseline-samples must be positive")
     label = os.path.basename(ens_path) if ens_path else "village graph"
-    print(f"{label}: {len(ids)} misfits, "
-          f"{sum(len(v) for v in adj.values())//2} links, k={k}, norm={norm}")
     mine, rounds = greedy(ids, adj, k, norm)
-    print(f"greedy decompose: {rounds} merge rounds -> "
-          f"{sorted(len(c) for c in mine)}")
+    oracle_label = "oracle partition"
+    if oracle_sets is not None and ens_path is None and k == 4:
+        oracle_sets = {g: set().union(*(oracle_sets[s] for s in oracle_sets if s.startswith(g)))
+                       for g in "ABCD"}
+        oracle_label = "Alexander's A-D partition"
+    report = {"contract": "pattern-language.partition-benchmark.v1", "dataset": label,
+              "items": len(ids), "links": sum(len(v) for v in adj.values()) // 2,
+              "requested_groups": k, "method": norm, "merge_rounds": rounds,
+              "group_sizes": sorted(map(len, mine)),
+              "partition": [sorted(group) for group in mine]}
+    if oracle_sets is not None:
+        try:
+            report["metrics"] = partition_metrics(mine, oracle_sets, universe=ids)
+            report["baseline"] = permutation_baseline(mine, oracle_sets, universe=ids,
+                                                        samples=args.baseline_samples, seed=args.seed)
+        except ValueError as exc:
+            parser.error(str(exc))
+        report["oracle"] = oracle_label
+        report["oracle_group_sizes"] = sorted(map(len, oracle_sets.values()))
+    if args.json:
+        print(json.dumps(report, sort_keys=True))
+        return
+    print(f"{label}: {report['items']} misfits, {report['links']} links, k={k}, norm={norm}")
+    print(f"greedy decompose: {rounds} merge rounds -> {report['group_sizes']}")
     if oracle_sets is None:
         for i, c in enumerate(sorted(mine, key=len, reverse=True)):
             print(f"  cluster {i} (n={len(c)}): {sorted(c)}")
         return
-    if ens_path is None and k == 4:
-        majors = {g: set().union(*(oracle_sets[s] for s in oracle_sets if s.startswith(g)))
-                  for g in "ABCD"}
-        print(f"pairwise agreement vs Alexander's A-D partition: "
-              f"{pairwise_agreement(mine, majors):.3f}")
-        best_match_report(mine, majors)
-    else:
-        print(f"pairwise agreement vs oracle partition: "
-              f"{pairwise_agreement(mine, oracle_sets):.3f}")
-        best_match_report(mine, oracle_sets)
+    metrics, baseline = report["metrics"], report["baseline"]
+    print(f"legacy pairwise agreement (unadjusted Rand) vs {oracle_label}: "
+          f"{metrics['rand_index']:.3f}")
+    print(f"adjusted Rand index: {metrics['adjusted_rand_index']:.4f}; "
+          f"size-preserving null mean={baseline['mean_adjusted_rand_index']:.4f}, "
+          f"p95={baseline['p95_adjusted_rand_index']:.4f}, "
+          f"upper-tail probability={baseline['upper_tail_probability']:.4f} "
+          f"({baseline['samples']} permutations, seed={baseline['seed']})")
+    best_match_report(mine, oracle_sets)
 
 if __name__ == "__main__":
     main()

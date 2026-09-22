@@ -1,5 +1,5 @@
 {
- "note": "human picks for identical pairs; a/b = position in combinations order",
+ "note": "Historical picks, originally labeled human; human provenance is unverified. Retained for audit only, excluded from validation. a/b = position in combinations order",
  "pairs": [
   "(verb-what,why-tail)",
   "(verb-what,stat-suffix)",
@@ -23,5 +23,6 @@
   "(stat-suffix,why-lead)": "b",
   "(stat-suffix,why-dash)": "b",
   "(why-lead,why-dash)": "a"
- }
+ },
+ "evidenceStatus": "excluded-unverified-human-provenance"
 }
