@@ -1,0 +1,367 @@
+{
+  "schema": "pattern-language.lifecycle-review.v1",
+  "assembledAt": "2026-09-22T17:06:47.575801+00:00",
+  "method": "Complete static source inspection and exact hash verification before candidate execution; no contract scoring or generator feedback during generation. This is not a security sandbox.",
+  "sources": [
+    {
+      "id": "mapper-direct-r1-base",
+      "sha256": "7c4706587cf0e1fc4876fea6a53f4bd3e5f76ff862d9186d1aae304f003573f1",
+      "notes": "Recorded source hash verified. Exported function declaration only at module scope. Uses standard arrays/promises and the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "mapper-checklist-r1-base",
+      "sha256": "52f25e983c712e89c4d74243349cc7b24c7f555d3dc053169dcd9867b96db50b",
+      "notes": "Recorded source hash verified. Exported function declaration only at module scope. Uses standard arrays/promises and the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "mapper-pattern-r1-base",
+      "sha256": "65d782883ed9012df207b965e9044c056d51880bb94dac0849effefa890629fa",
+      "notes": "Recorded source hash verified. Exported function declaration only at module scope. Uses standard arrays/promises and the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "retry-direct-r1-base",
+      "sha256": "20813e6ff344d5e55075ae0b5ee97efc424dcfb42b011962a0ac1954ae8950c6",
+      "notes": [
+        "Manually inspected complete source. Module only exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to calling the supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-checklist-r1-base",
+      "sha256": "ffed53cddd8db8bcdbeb6c059ade228ec8231d324de06a4b94aab206ef2025a0",
+      "notes": [
+        "Manually inspected complete source. Module only exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to calling the supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-pattern-r1-base",
+      "sha256": "4372bd07ca277974c8502fff659d35315d6727ff681678089bd178f9d2814bbb",
+      "notes": [
+        "Manually inspected complete source. Module only exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to calling the supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "atomic-direct-r1-base",
+      "sha256": "8fd5b5631229a8076803ac773eb74d3c2a6b29bdaeeac61a168c60692e123e94",
+      "notes": "Root inspected complete source statically: only exported createLedger, local data structures and synchronous methods; no imports, eval, network, filesystem, process, global mutation or top-level side effects. Not executed or performance-scored."
+    },
+    {
+      "id": "atomic-checklist-r1-base",
+      "sha256": "7add7c6042e06c5aec71e98cfb8753bc3aead143856ac131b91eebeedfe8b930",
+      "notes": "Root inspected complete source statically: only exported createLedger, local data structures and synchronous methods; no imports, eval, network, filesystem, process, global mutation or top-level side effects. Not executed or performance-scored."
+    },
+    {
+      "id": "atomic-pattern-r1-base",
+      "sha256": "7efd3c3fe24375470267e88d34fe79327c36d8712365d973739ca31b98913b26",
+      "notes": "Root inspected complete source statically: only exported createLedger, local data structures and synchronous methods; no imports, eval, network, filesystem, process, global mutation or top-level side effects. Not executed or performance-scored."
+    },
+    {
+      "id": "retry-checklist-r2-base",
+      "sha256": "56ac43e941de7c5efcd6d781da1c157d0e14477ce395f42192da11ab43dfa8dd",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-pattern-r2-base",
+      "sha256": "0ab0ab70359db17f48a1974cb8f6ae324512bf4f71a9a063ef75f6571fb17263",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-direct-r2-base",
+      "sha256": "b6152fdebf725d2b6e9736c3aed38973e6d8a1e69860fa10c9d1b515be0ccfd2",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "atomic-checklist-r2-base",
+      "sha256": "0f164f2ce94c74e6d49c68dd0d0db00d0f811c68cf6136af0b21c6c77a84dc22",
+      "notes": "Root inspected complete source statically: exported createLedger and local synchronous methods/data structures only; no imports, eval, external effects, global mutation or top-level side effects. No execution or performance scoring."
+    },
+    {
+      "id": "atomic-pattern-r2-base",
+      "sha256": "e96beb76ee80f42ba1d207910018311188eaa6b0750d6f7d1f3e873e1c5d50cb",
+      "notes": "Root inspected complete source statically: exported createLedger and local synchronous methods/data structures only; no imports, eval, external effects, global mutation or top-level side effects. No execution or performance scoring."
+    },
+    {
+      "id": "atomic-direct-r2-base",
+      "sha256": "d2dc875425f8418f842c555e55e40b4682c8ea4054fc0a1396ac9161b71aff1c",
+      "notes": "Root inspected complete source statically: exported createLedger and local synchronous methods/data structures only; no imports, eval, external effects, global mutation or top-level side effects. No execution or performance scoring."
+    },
+    {
+      "id": "mapper-checklist-r2-base",
+      "sha256": "893dbb51a1091b16da978c0f170c8d9e89321d86409a88cd5b00647e93fce648",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays, promises and local collection objects with the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "mapper-pattern-r2-base",
+      "sha256": "4f582e3a880a0f197d64aa9352007014015e6c2673a4d27a48c04ba9fdd3c4fb",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays, promises and local collection objects with the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "mapper-direct-r2-base",
+      "sha256": "37918eb7ad2a8f62906b50a8f03ad2f88000d58bbdea8f29f2b079fb5a976543",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays, promises and local collection objects with the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "atomic-pattern-r3-base",
+      "sha256": "d13d83eeee6fe0c579a3538c92f58c4f4c8aef9cb7453fe4f04773343e858e1b",
+      "notes": "Root inspected complete source statically: exported createLedger and local synchronous data operations only; no imports, eval, external effects, global mutation or top-level side effects. No execution or performance scoring."
+    },
+    {
+      "id": "atomic-direct-r3-base",
+      "sha256": "5c78b736c878625e2fd146260fcefcb6aa76e809fc32407bff5544e6c63956b8",
+      "notes": "Root inspected complete source statically: exported createLedger and local synchronous data operations only; no imports, eval, external effects, global mutation or top-level side effects. No execution or performance scoring."
+    },
+    {
+      "id": "atomic-checklist-r3-base",
+      "sha256": "b76242eb52234792f49c790df50b13854cee25ad49c0a0bade58910e30a9c70a",
+      "notes": "Root inspected complete source statically: exported createLedger and local synchronous data operations only; no imports, eval, external effects, global mutation or top-level side effects. No execution or performance scoring."
+    },
+    {
+      "id": "mapper-pattern-r3-base",
+      "sha256": "13e98338de6373b8b17173705f91c95d700b84a828940ae431b299abefc8d623",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises and the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "mapper-direct-r3-base",
+      "sha256": "32f42c5e140d214b1676755f68743992fffaaeac3a1f28fb4227ff9ff9e69211",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises and the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "mapper-checklist-r3-base",
+      "sha256": "595b8b3c2c1ad1f3ac4047de7a320853d9e457cc2c1de2aadb29dd4f56fb786b",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises and the supplied worker callback; no imports, dynamic evaluation, network, filesystem, process effects, global mutation, or suspicious external behavior observed."
+    },
+    {
+      "id": "retry-pattern-r3-base",
+      "sha256": "d332ef227b72ce6c1ad59a89d6b46fc094e5639feedeca22bf7eedfe424a6705",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-direct-r3-base",
+      "sha256": "96bb827bfe19b71ee066194fe1754291104e619244da4cf61c4a8af35bbe39db",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-checklist-r3-base",
+      "sha256": "c3ee53c35b4fb407a16e9924d685de09527ce0c041de7ef123f46a573ccb4c16",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "mapper-direct-r1-change",
+      "sha256": "dcb4c0a356e7686893fd737588a0db1855f031b785d918a3f23bfb8152e7f4f1",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, local collections, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "mapper-checklist-r1-change",
+      "sha256": "338053b8e08f05464932b34039be2968c61381224f03e72ce7628714cbbd7c64",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, local collections, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "mapper-pattern-r1-change",
+      "sha256": "b3c4ea6c29aed54b0278f56417cf46a612bb14b5cb3d29683c8163f834f3b479",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, local collections, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "retry-direct-r1-change",
+      "sha256": "fce8bb92d1a2316084f9d441615413d5f35ae0322781a4c20b0fd54b650cdd17",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-checklist-r1-change",
+      "sha256": "0f0c4f73fd7954c3ed63077c182c453860075da9640e0f62455e2a9df383f3d1",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-pattern-r1-change",
+      "sha256": "574cac4f7590e6d968504242a54e358b544a6eec4a63c0a50a1021a4e04e7783",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "atomic-direct-r1-change",
+      "sha256": "e66986ad6d8fb6a188e476a0ba82cd97f80768935a71d82c63c6c96a2f2b7131",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "atomic-checklist-r1-change",
+      "sha256": "9740a2f1d2650a1c4bd38f8cfd6943b37752179581ea428c455607c4eb43699b",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "atomic-pattern-r1-change",
+      "sha256": "8785299c77e3ef1d3e5cd649b59753b5e75ea86a5e0b7abbd3a476ffe4fd1511",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "retry-checklist-r2-change",
+      "sha256": "0339aff74f92853585238ee3a06261bae3a01ffe0a2a07d2b161364bcc1e7efd",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-pattern-r2-change",
+      "sha256": "a100cccc635d550e0486953388b258d5722d6bf249f3d2aeba5c11e50de4024b",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-direct-r2-change",
+      "sha256": "9a2266652e2fcb9e4e729ddc4f338e913fe8345a7bc52dfde64438ad7abea4d0",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "atomic-checklist-r2-change",
+      "sha256": "2636e462f5199d401cd1caabb6071ef20a24b989415b31fe7f41a03d969e28f8",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "atomic-pattern-r2-change",
+      "sha256": "f484123ad57251e823e935eb6fd65a87bbf11c0d2722c439333f4fe23c5fa669",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "atomic-direct-r2-change",
+      "sha256": "836f2512d47caa6902144d889fcd20dbfb2027911f1f49ed3e84825d06a3e34b",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "mapper-checklist-r2-change",
+      "sha256": "7b274867047a710a845ac1627c0dacabdf4e58199703e563d1bcdefb0a5e5e5b",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, local collections, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "mapper-pattern-r2-change",
+      "sha256": "7121ca5142468abe4340c7f2ea7c969253314dd7df4677bd2c81f3bc734da5e1",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, local collections, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "mapper-direct-r2-change",
+      "sha256": "eb45c094695b0ef9269097b08e5ea1913de58eb7693c5c73414fde687be3a5bd",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, local collections, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "atomic-pattern-r3-change",
+      "sha256": "97dd3d267b9ab3aad33583de0228db0017e1b92151a5deb5f4fa6c10ed0c40f6",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "atomic-direct-r3-change",
+      "sha256": "1f3d7f846fe93287244e2c0eb62cfec8852c3fcce155975bd811e599eb609a0e",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "atomic-checklist-r3-change",
+      "sha256": "d2b9bb892cda7c83fd972aa149c495a204647fec16546fc6cc34ca7c9e71a73b",
+      "notes": "Independent reviewer read complete source statically and verified inline source plus candidate-file bytes against sourceSha256. Exported createLedger with local synchronous data structures and methods only; no imports, dynamic code execution, network/filesystem/process access, global mutation, or unrelated top-level effects. Approved for local evaluator execution only; not executed, tested, or correctness-scored during this review."
+    },
+    {
+      "id": "mapper-pattern-r3-change",
+      "sha256": "2843eecb57264e9867229b8797079ef8a22c31a4b3bfc72c5a5db35f9d7bb232",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "mapper-direct-r3-change",
+      "sha256": "c86d76509fa8b8b123ef71b598c377ed8264bd12395bf8a382c07916ea0c903d",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "mapper-checklist-r3-change",
+      "sha256": "92f24e49278da8fdda940520a32d0ff11b06e9556ae3eef352a681c30d2c6baf",
+      "notes": "Recorded source hash and candidate bytes verified. Exported function declaration only at module scope. Uses standard arrays/promises, the supplied worker callback, and abort listener registration/removal on the supplied signal. No imports, dynamic evaluation, network, filesystem, process effects, global monkeypatching, or suspicious external behavior observed. Listener correctness and contract outcomes were not assessed."
+    },
+    {
+      "id": "retry-pattern-r3-change",
+      "sha256": "eb56b12d51372a4d38aa38b282a26d515c5c26463ec1461499364f7c5e336bea",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-direct-r3-change",
+      "sha256": "459975a225ccfc9234561fe327364098c61df9c21a410d04d1b0bddc8d272719",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    },
+    {
+      "id": "retry-checklist-r3-change",
+      "sha256": "95dd134da4907979987534449aa23f59950a2938a281cd38bfa6287ecb3592b2",
+      "notes": [
+        "Manually inspected complete source. Module only declares/exports a function; no top-level side effects.",
+        "No imports, eval or dynamic code generation, filesystem/network/process access, global mutation, or timers.",
+        "Effects limited to supplied operation/policy/wait hooks, supplied signal listener registration/removal, and local Promise/control flow.",
+        "No contract outcomes assessed."
+      ]
+    }
+  ]
+}
