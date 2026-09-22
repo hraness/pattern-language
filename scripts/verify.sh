@@ -279,4 +279,12 @@ study=benchmarks/lifecycle-v2/results/2026-09-22-transfer
 node benchmarks/lifecycle-v2/score.mjs "$study/plan.json" "$study/run.json" \
   "$study/reviewed.json" --replay "$study/evaluation.json" >/dev/null
 
+# Inspectable design models: offline reference/fault probes and study provenance.
+node benchmarks/design-decisions-v3/tasks/jobs/self-test.mjs
+node benchmarks/design-decisions-v3/tasks/batch/self-test.mjs
+node benchmarks/design-decisions-v3/test-artifact.mjs
+node benchmarks/design-decisions-v3/self-test.mjs
+python3 scripts/test_design_runner.py
+node benchmarks/design-decisions-v3/test-score.mjs
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

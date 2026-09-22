@@ -1,0 +1,12 @@
+{
+  "family": "jobs",
+  "states": ["absent", "queued", "active", "done"],
+  "events": ["submit", "claim", "complete", "restart"],
+  "effects": ["durable_write", "dispatch", "receipt_publish"],
+  "choices": {
+    "dispatch_order": ["fifo", "lifo"],
+    "storage_owner": ["durable_store"],
+    "publication_boundary": ["after_commit"],
+    "recovery": ["requeue_and_fence"]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "pattern-language.pre-generation-review-fixes.v1",
+  "recordedAt": "2026-09-22T17:48:55.744417+00:00",
+  "initialTaskFreezeSha256": "a7255f7d1ffcd1540d26a1aecd86e78054b00241f2ac16c75a8c672d2e409a37",
+  "guidanceUnchanged": true,
+  "generationCalls": 0,
+  "files": {
+    "benchmarks/design-decisions-v3/tasks/batch/cases.mjs": {
+      "initialSha256": "1ee98e145172d8ff93dce76adf375f70b94cfb86553ddf167321bc5fc081104c",
+      "sha256": "fc8d344d0fecfe8970f0f57981e4ea9bf5c4b76e21f2a2b51f84337b22c16ee4"
+    },
+    "benchmarks/design-decisions-v3/tasks/batch/self-test.mjs": {
+      "initialSha256": "7da3f8c44dedbf11d520c99c671ea6530b9ab8e0848b54cc5ba40d87fa4de01d",
+      "sha256": "9bd7f98ae86c09541afd558483ba48d41b2444ca156b11b0c9ff2fcfbace1ccd"
+    },
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/mutate-invalid.mjs": {
+      "initialSha256": null,
+      "sha256": "8c842c5485eec31dc75313e67dbf692aba16fff5c9c7609704948869dfb885b3"
+    },
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/empty-choice.mjs": {
+      "initialSha256": null,
+      "sha256": "6ff36d171b76282b87b0001497f092446169f5ad4b6cfeb05a143f7ec4e13bfb"
+    }
+  },
+  "reasons": [
+    "Independent review reproduced invalid-input mutation hidden by frozen-input TypeError; check mutable and frozen input plus error-path mutation mutant.",
+    "Independent review reproduced inconsistent returned policy only on empty inputs; compare empty/zero-capacity declarations against discriminating behavior and add empty-choice mutant."
+  ],
+  "validation": "batch self-test: 29/29 FIFO and LIFO; 12 causal mutants killed; 7 adequacy checks.",
+  "interpretation": "Pre-generation evaluator repairs, before full prospective plan preparation. Preserve initial task and guidance freezes; the full plan archives these corrected bytes. No generated study candidate or outcome informed the changes."
+}
