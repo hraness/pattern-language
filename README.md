@@ -48,8 +48,11 @@ now tests that next step: a machine-readable design precedes code, and host-obse
 transitions, effects and choices are checked against it. It includes a durable-job
 simulator and a pure batch planner where storage and scheduling must be omitted.
 Behavior, model adequacy and code/design agreement are scored separately. The
-36-request study is prepared for a new bounded authorization; no live v3 result
-or pattern advantage is claimed.
+original Claude plan remains prepared and unrun. The user selected a separate
+[SWE-2 provider study](benchmarks/design-decisions-swe2/README.md) using the
+existing account's free model offering, with the same 36-request experiment.
+The adapter is implemented and tested offline; provider qualification is pending.
+No live result or pattern advantage is claimed.
 
 ## What to keep from the prototype
 

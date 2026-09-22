@@ -287,4 +287,8 @@ node benchmarks/design-decisions-v3/self-test.mjs
 python3 scripts/test_design_runner.py
 node benchmarks/design-decisions-v3/test-score.mjs
 
+# Same frozen design tasks through the separately qualified SWE-2 provider.
+python3 scripts/test_design_swe2_runner.py
+node benchmarks/design-decisions-swe2/test-score.mjs
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }
