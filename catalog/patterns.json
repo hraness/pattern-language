@@ -171,8 +171,16 @@
     {
       "name": "algal-src",
       "manifest": "ensembles/algal-src.ensemble.json",
-      "does": "transfer test: the algal runtime's own src/ — 48 modules as misfit obligations, import edges as links, AGENTS.md subsystem tour as oracle",
+      "does": "transfer test: the algal runtime's own src/ \u2014 48 modules as misfit obligations, import edges as links, AGENTS.md subsystem tour as oracle",
       "oracle": "ensembles/algal-src.decomposition.json"
+    }
+  ],
+  "habitats": [
+    {
+      "name": "status-line",
+      "path": "habitat/status-line/",
+      "does": "4 verdict-line variants compete on 6 labeled cases (train/validation/holdout) under an expr scorer; report verifies offline",
+      "champion": "organism:verdict-line"
     }
   ]
 }

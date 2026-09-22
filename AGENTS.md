@@ -39,5 +39,13 @@ Same shape under `programs/`. If it embeds a sub-manifest by digest
 - Digest discipline: editing an embedded manifest changes its digest —
   rewire every parent (`algal digest`, then update `manifest` fields in
   `decompose`, `synthesize`, `correlate`) before committing.
+- Foundry configs are strict: `expect` names interface outputs only (put
+  extra criteria in `args` or the scorer); configs reject unknown keys
+  like `note`; candidates must run without executors if the report is to
+  `foundry verify` offline.
+- Live runs: `decide` cells route to Jev via `route.provider`; `agent`
+  cells go through `--executor-cmd scripts/agent-executor.py` (local
+  `claude -p`). Live receipts are execution evidence — they don't replay
+  deterministically, so keep scripted fixtures for `verify.sh`.
 - Mark proposals as proposals. A manifest that needs a host fn or tool that
   doesn't exist yet is a proposal, not a pattern.

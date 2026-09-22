@@ -184,6 +184,32 @@ Two honest observations from going live:
   Judgment ≠ taste: the pipeline composes and receipts; the quality of
   what flows through it is the model's problem — and now measurable.
 
+## The habitat
+
+`habitat/status-line/` is piecemeal evolution mechanized: four
+status-line pattern variants compete under `algal.foundry.config.v1` on
+six labeled cases (train / validation / holdout) with the fit criterion
+as an `expr` scorer — verdict leads, ≤72 chars, id present, no ANSI.
+
+```sh
+cd habitat/status-line
+bunx github:hraness/algal foundry foundry.config.json --out foundry.report.json
+bunx github:hraness/algal foundry verify foundry.report.json   # replays all 18 receipts
+```
+
+Result: `verdict-line` (header = token + id + executor only) promoted with
+2/2 train, 2/2 validation, **2/2 holdout** — all 18 run receipts verify
+offline. The instructive failure is in the first run's history:
+`greedy-line` passed every *train* case (short details fit under 72) and
+won promotion before the verdict-line fix, then failed both holdout
+cases — selection promoted a misfit because the evidence didn't cover
+it. Train/validation/holdout splits exist precisely for this.
+
+Alexander's mapping is literal here: candidates are the diagrams, cases
+are the misfits made testable, the scorer is the fit criterion, promotion
+is tradition selecting what runs — and the report is a content-addressed
+fossil record of the whole trial.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

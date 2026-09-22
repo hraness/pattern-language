@@ -1,0 +1,95 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:greedy-line",
+  "name": "Greedy line",
+  "note": "Variant: token first but detail unclipped \u2014 overflows on long evidence.",
+  "budgets": {
+    "maxSteps": 8,
+    "maxAgentCalls": 0,
+    "maxWork": 20000
+  },
+  "interface": {
+    "inputs": {
+      "job": {
+        "cell": "src",
+        "port": "job"
+      }
+    },
+    "outputs": {
+      "line": {
+        "cell": "line",
+        "port": "out"
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "src",
+      "kind": "input",
+      "outputs": {
+        "job": "json"
+      }
+    },
+    {
+      "id": "line",
+      "kind": "expr",
+      "inputs": {
+        "job": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "sconcat",
+          [
+            "if",
+            [
+              "eq",
+              [
+                "get",
+                "job",
+                "status"
+              ],
+              "fit"
+            ],
+            "FIT",
+            "MISFIT"
+          ],
+          " ",
+          [
+            "get",
+            "job",
+            "id"
+          ],
+          " \u2014 ",
+          [
+            "get",
+            "job",
+            "detail"
+          ],
+          " [executor:",
+          [
+            "get",
+            "job",
+            "executor"
+          ],
+          "]"
+        ]
+      },
+      "output": {
+        "kind": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "cell": "src",
+        "port": "job"
+      },
+      "to": {
+        "cell": "line",
+        "port": "job"
+      }
+    }
+  ]
+}

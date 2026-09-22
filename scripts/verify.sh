@@ -61,4 +61,13 @@ if [ -f ensembles/algal-src.ensemble.json ]; then
     ensembles/algal-src.ensemble.json ensembles/algal-src.decomposition.json | head -3
 fi
 
+# Habitat gate: the foundry must promote verdict-line and verify offline.
+out=$(cd habitat/status-line && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+prom=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("promoted",""))' 2>/dev/null)
+want=$(python3 -c 'import json,subprocess; print(json.loads(subprocess.run(["bunx","github:hraness/algal","digest","habitat/status-line/verdict-line.algal.json"],capture_output=True,text=True).stdout)["digest"])')
+if [ "$prom" = "$want" ]; then echo "foundry OK  verdict-line promoted"; else echo "foundry FAIL promoted=$prom"; fail=1; fi
+vout=$(cd habitat/status-line && $ALGAL foundry verify foundry.report.json --dir "$STORE" 2>&1 | tail -1)
+vok=$(printf '%s' "$vout" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
+[ "$vok" = "True" ] && echo "foundry OK  report verifies offline" || { echo "foundry FAIL verify"; fail=1; }
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

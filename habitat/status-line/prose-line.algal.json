@@ -1,0 +1,80 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:prose-line",
+  "name": "Prose line",
+  "note": "Variant: a sentence; the verdict is buried mid-line.",
+  "budgets": {
+    "maxSteps": 8,
+    "maxAgentCalls": 0,
+    "maxWork": 20000
+  },
+  "interface": {
+    "inputs": {
+      "job": {
+        "cell": "src",
+        "port": "job"
+      }
+    },
+    "outputs": {
+      "line": {
+        "cell": "line",
+        "port": "out"
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "src",
+      "kind": "input",
+      "outputs": {
+        "job": "json"
+      }
+    },
+    {
+      "id": "line",
+      "kind": "expr",
+      "inputs": {
+        "job": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "sconcat",
+          "job ",
+          [
+            "get",
+            "job",
+            "id"
+          ],
+          " finished with status ",
+          [
+            "get",
+            "job",
+            "status"
+          ],
+          " \u2014 ",
+          [
+            "get",
+            "job",
+            "detail"
+          ]
+        ]
+      },
+      "output": {
+        "kind": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "cell": "src",
+        "port": "job"
+      },
+      "to": {
+        "cell": "line",
+        "port": "job"
+      }
+    }
+  ]
+}

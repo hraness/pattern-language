@@ -1,0 +1,89 @@
+{
+  "contract": "algal.organism.v1",
+  "key": "organism:verdict-line",
+  "name": "Verdict line",
+  "note": "Variant: the first line is ONLY the verdict header \u2014 token, id, executor \u2014 bounded by construction since every field is short. Evidence belongs on following lines, not in the header.",
+  "budgets": {
+    "maxSteps": 8,
+    "maxAgentCalls": 0,
+    "maxWork": 20000
+  },
+  "interface": {
+    "inputs": {
+      "job": {
+        "cell": "src",
+        "port": "job"
+      }
+    },
+    "outputs": {
+      "line": {
+        "cell": "line",
+        "port": "out"
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "src",
+      "kind": "input",
+      "outputs": {
+        "job": "json"
+      }
+    },
+    {
+      "id": "line",
+      "kind": "expr",
+      "inputs": {
+        "job": "json"
+      },
+      "expr": {
+        "contract": "algal.expr.v1",
+        "program": [
+          "sconcat",
+          [
+            "if",
+            [
+              "eq",
+              [
+                "get",
+                "job",
+                "status"
+              ],
+              "fit"
+            ],
+            "FIT",
+            "MISFIT"
+          ],
+          " ",
+          [
+            "get",
+            "job",
+            "id"
+          ],
+          " [",
+          [
+            "get",
+            "job",
+            "executor"
+          ],
+          "]"
+        ]
+      },
+      "output": {
+        "kind": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "cell": "src",
+        "port": "job"
+      },
+      "to": {
+        "cell": "line",
+        "port": "job"
+      }
+    }
+  ]
+}
