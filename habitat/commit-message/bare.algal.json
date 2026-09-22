@@ -1,0 +1,93 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:bare",
+ "name": "Bare subject",
+ "note": "No body at all \u2014 the why goes unsupported.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": {
+     "subject": [
+      "sconcat",
+      [
+       "get",
+       "job",
+       "hint",
+       "Verb"
+      ],
+      " ",
+      [
+       "get",
+       "job",
+       "hint",
+       "what"
+      ]
+     ],
+     "body": ""
+    }
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object",
+     "required": [
+      "subject",
+      "body"
+     ],
+     "properties": {
+      "subject": {
+       "type": "string"
+      },
+      "body": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

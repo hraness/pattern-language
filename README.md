@@ -428,6 +428,38 @@ vs. field-completeness — and the arbitration policy is what stops it
 from inheriting. Meanwhile generation beats hand-writing 4/4 finals:
 every run ended with a variant the hand-written set didn't contain.
 
+### The structural habitat — fit with internal dependencies
+
+`habitat/commit-message/` is the first artifact that isn't a line: a
+commit message `{subject, body}` — two fields with a real internal
+dependency. The scorer is cross-field: the body must carry the `why`
+(`scontains body hint.why`), plus per-field constraints (subject caps,
+body non-empty, bounded). Four hand-written forms:
+
+| candidate | form | result |
+|---|---|---|
+| act-why | `Verb what` / `why — stats` | **promoted** — only survivor |
+| why-first | `why — Verb what` / `why — stats` | dies on subject caps |
+| bare | `Verb what` / `""` | dies on empty body |
+| stat-echo | `Verb what (stats)` / `stats + areas` | dies on **cross-field** term — body lacks why |
+
+The panel on holdout: `act-why` champions with **5/6 duels contested** —
+and the pattern exposes a *rubric misfit*: the skeptic (scan-fast)
+prefers `bare` — an empty body is maximally terse. The rubric's
+degenerate attractor is only visible because the panel reports
+contested duels; the contract's body-nonempty term exists precisely
+because a commit message without a body is a real misfit.
+
+Judged evolution live (`evolve.live.report.json`): generated
+`verb-what-why` (`Wire live claude+jev executors` / `prove the pipeline
+end-to-end`) dethroned the incumbent 3-0 and defended — the judges kept
+the why but **dropped the stats noise**: the structural winner is leaner
+than anything hand-written. Two generated violators were named
+(`scope-line` lowercase subject, `impact-brief` body without why) —
+mech catches them, judged fit still prefers the compliant champion.
+The whole three-tier architecture transferred to structured artifacts
+without modification: same jury manifests, same probe, same driver.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

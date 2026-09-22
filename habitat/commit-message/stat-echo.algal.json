@@ -1,0 +1,176 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:stat-echo",
+ "name": "Stat echo",
+ "note": "Stats in both fields; the body repeats rather than supports.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": {
+     "subject": [
+      "sconcat",
+      [
+       "get",
+       "job",
+       "hint",
+       "Verb"
+      ],
+      " ",
+      [
+       "get",
+       "job",
+       "hint",
+       "what"
+      ],
+      " (",
+      [
+       "sconcat",
+       "+",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "ins"
+        ]
+       ],
+       "/-",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "del"
+        ]
+       ],
+       " across ",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "files"
+        ]
+       ],
+       " files"
+      ],
+      ")"
+     ],
+     "body": [
+      "sconcat",
+      [
+       "sconcat",
+       "+",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "ins"
+        ]
+       ],
+       "/-",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "del"
+        ]
+       ],
+       " across ",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "files"
+        ]
+       ],
+       " files"
+      ],
+      " in ",
+      [
+       "join",
+       [
+        "get",
+        "job",
+        "change",
+        "areas"
+       ],
+       ", "
+      ]
+     ]
+    }
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object",
+     "required": [
+      "subject",
+      "body"
+     ],
+     "properties": {
+      "subject": {
+       "type": "string"
+      },
+      "body": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

@@ -1,0 +1,143 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:why-first",
+ "name": "Why first",
+ "note": "The why leads the subject; body is bare evidence.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": {
+     "subject": [
+      "sconcat",
+      [
+       "get",
+       "job",
+       "hint",
+       "why"
+      ],
+      " \u2014 ",
+      [
+       "get",
+       "job",
+       "hint",
+       "Verb"
+      ],
+      " ",
+      [
+       "get",
+       "job",
+       "hint",
+       "what"
+      ]
+     ],
+     "body": [
+      "sconcat",
+      [
+       "get",
+       "job",
+       "hint",
+       "why"
+      ],
+      " \u2014 ",
+      [
+       "sconcat",
+       "+",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "ins"
+        ]
+       ],
+       "/-",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "del"
+        ]
+       ],
+       " across ",
+       [
+        "toText",
+        [
+         "get",
+         "job",
+         "change",
+         "files"
+        ]
+       ],
+       " files"
+      ]
+     ]
+    }
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object",
+     "required": [
+      "subject",
+      "body"
+     ],
+     "properties": {
+      "subject": {
+       "type": "string"
+      },
+      "body": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

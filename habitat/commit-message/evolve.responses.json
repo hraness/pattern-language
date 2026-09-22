@@ -1,0 +1,471 @@
+{
+ "writer": {
+  "variants": [
+   {
+    "key": "scope-line",
+    "name": "Scope line",
+    "parts": [],
+    "subject": [
+     {
+      "t": "lit",
+      "v": "live claude+jev executors"
+     }
+    ],
+    "body": [
+     {
+      "t": "field",
+      "v": "why"
+     },
+     {
+      "t": "lit",
+      "v": " ("
+     },
+     {
+      "t": "field",
+      "v": "files"
+     },
+     {
+      "t": "lit",
+      "v": ")"
+     }
+    ]
+   },
+   {
+    "key": "impact-brief",
+    "name": "Impact brief",
+    "subject": [
+     {
+      "t": "field",
+      "v": "Verb"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "what"
+     },
+     {
+      "t": "lit",
+      "v": " to "
+     },
+     {
+      "t": "field",
+      "v": "why"
+     }
+    ],
+    "body": [
+     {
+      "t": "field",
+      "v": "files"
+     }
+    ]
+   },
+   {
+    "key": "why-only-body",
+    "name": "Why only body",
+    "subject": [
+     {
+      "t": "lit",
+      "v": "Wire executors"
+     }
+    ],
+    "body": [
+     {
+      "t": "field",
+      "v": "why"
+     }
+    ]
+   },
+   {
+    "key": "verb-what-why",
+    "name": "Verb what, why body",
+    "subject": [
+     {
+      "t": "field",
+      "v": "Verb"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "what"
+     }
+    ],
+    "body": [
+     {
+      "t": "field",
+      "v": "why"
+     }
+    ]
+   }
+  ]
+ },
+ "advocate": [
+  {
+   "answers": {
+    "pick": {
+     "choice": "a",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.7,
+      "b": 0.15,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  }
+ ],
+ "skeptic": [
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  }
+ ]
+}

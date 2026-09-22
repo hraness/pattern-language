@@ -36,17 +36,28 @@ def write_manifest(store_dir, manifest):
         fh.write(blob.decode() + "\n")
     return f
 
+def render(subj):
+    """Structured artifacts render to text for the jury — a commit message
+    IS subject + blank line + body."""
+    if isinstance(subj, dict) and "subject" in subj:
+        body = subj.get("body") or ""
+        return subj["subject"] + ("\n\n" + body if body else "")
+    return subj
+
 def subject_of(manifest_path, args_file, cwd):
     r, _ = run_algal(["run", manifest_path, "--args", args_file, "--dir", STORE], cwd)
     if r.get("outcome") != "complete":
         return None
-    return r["cells"]["fmt"]["outputs"]["out"]
+    out = r["cells"]["fmt"]["outputs"]["out"]
+    return {"subject": render(out), "raw": out}
 
 def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json',
          mech=None):
+    # pairs/standings carry only the judged face: key + rendered subject
+    jsubs = [{"key": s["key"], "subject": s["subject"]} for s in subjects]
     pairs = [{"brief": brief, "a": a, "b": b}
-             for a, b in itertools.combinations(subjects, 2)]
-    args = {"subjects": subjects, "pairs": pairs}
+             for a, b in itertools.combinations(jsubs, 2)]
+    args = {"subjects": jsubs, "pairs": pairs}
     if mech is not None:
         args["mech"] = [{"key": k, "passed": v["passed"]} for k, v in mech.items()]
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
@@ -99,7 +110,9 @@ def mechanical(subjects, scorer_prog, src_args, cwd):
     for s in subjects:
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
             json.dump({"src": {"args": src_args,
-                               "outputs": {"line": s["subject"], "subject": s["subject"]}}}, fh)
+                               "outputs": {"line": s["subject"],
+                                           "subject": s["subject"],
+                                           "message": s.get("raw", s["subject"])}}}, fh)
             pa = fh.name
         r, _ = run_algal(["run", probe_path, "--args", pa, "--dir", STORE], cwd)
         if r.get("outcome") != "complete":
@@ -127,8 +140,10 @@ def main():
     arena = [c for c in cfg["cases"] if c["split"] == "holdout"][0]
     src_args = arena["args"].get("src", arena["args"])
     if "job" in src_args:
+        what = ("commit message (subject + body)" if "commit-message" in habitat
+                else "commit subject")
         brief = {"hint": src_args["job"]["hint"], "change": src_args["job"]["change"],
-                 "task": "pick the better commit subject for this change"}
+                 "task": f"pick the better {what} for this change"}
     else:
         brief = {"record": src_args,
                  "task": "pick the better one-line summary for a verification report"}
@@ -146,7 +161,7 @@ def main():
     for key in survivors:
         subj = subject_of(f"{key}.algal.json", case_args, habitat)
         if subj is not None:
-            subjects.append({"key": key, "subject": subj})
+            subjects.append({"key": key, "subject": subj["subject"], "raw": subj["raw"]})
     prior = None
     history = []
     champion = None
@@ -182,9 +197,11 @@ def main():
                  "note": "champion defends its slot; mutate toward judged fit; "
                          "mechanical lists constraint terms each violator failed — "
                          "repair the misfit while keeping the winning shape"}
+        task = ("commit message formats (subject + body) for a change report"
+                if "commit-message" in habitat
+                else "one-line summary formats for a change report")
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
-            json.dump({"src": {"task": "one-line summary formats for a change report",
-                               "prior": prior}}, fh)
+            json.dump({"src": {"task": task, "prior": prior}}, fh)
             gen_args = fh.name
         g, _ = run_algal(["run", "generator.algal.json", "--args", gen_args,
                           "--dir", STORE] + gen_extra, habitat)
@@ -203,7 +220,7 @@ def main():
             subj = subject_of(os.path.basename(path), case_args,
                               os.path.join(habitat, "gen-candidates"))
             if subj is not None:
-                subjects.append({"key": key, "subject": subj})
+                subjects.append({"key": key, "subject": subj["subject"], "raw": subj["raw"]})
                 seen.add(key)
         subjects = subjects[:8]
 

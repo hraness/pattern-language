@@ -1,0 +1,379 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:commit-message-generator",
+ "name": "Commit-message generator",
+ "note": "Variation inside a grammar: two-section descriptors (subject + body) over the job vocabulary; assembler stamps valid record-emitting organisms. prior carries standings + named mechanical misfits.",
+ "budgets": {
+  "maxSteps": 32,
+  "maxAgentCalls": 4,
+  "maxWork": 120000
+ },
+ "interface": {
+  "inputs": {
+   "task": {
+    "cell": "src",
+    "port": "task"
+   },
+   "prior": {
+    "cell": "src",
+    "port": "prior"
+   }
+  },
+  "outputs": {
+   "candidates": {
+    "cell": "build",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "task": "text",
+    "prior": "json"
+   }
+  },
+  {
+   "id": "writer",
+   "kind": "agent",
+   "inputs": {
+    "task": "text",
+    "prior": "json"
+   },
+   "prompt": "Emit EXACTLY 4 distinct commit-message format variants. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display\", \"subject\": [<part>, ...], \"body\": [<part>, ...]}, ...]} where each part is {\"t\": \"lit\", \"v\": \"literal text\"} or {\"t\": \"field\", \"v\": \"Verb|what|why|files\"}. A commit message is subject + body: the subject names the act, the body should carry the why and evidence. Input prior carries jury standings and prior.mechanical (constraint terms violators failed \u2014 repair the misfit, keep the winning shape). Judges favor: subject leads with the act, body supports it, no noise, no redundancy between fields.",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object",
+     "required": [
+      "variants"
+     ],
+     "properties": {
+      "variants": {
+       "type": "array"
+      }
+     }
+    }
+   },
+   "view": {
+    "inputs": [
+     "task",
+     "prior"
+    ]
+   },
+   "budget": {
+    "maxContextBytes": 8192,
+    "maxOutputBytes": 16384
+   },
+   "retry": {
+    "attempts": 2
+   }
+  },
+  {
+   "id": "build",
+   "kind": "expr",
+   "inputs": {
+    "specs": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "let",
+     "Verb",
+     [
+      "quote",
+      [
+       "get",
+       "job",
+       "hint",
+       "Verb"
+      ]
+     ],
+     [
+      "let",
+      "what",
+      [
+       "quote",
+       [
+        "get",
+        "job",
+        "hint",
+        "what"
+       ]
+      ],
+      [
+       "let",
+       "why",
+       [
+        "quote",
+        [
+         "get",
+         "job",
+         "hint",
+         "why"
+        ]
+       ],
+       [
+        "let",
+        "files",
+        [
+         "quote",
+         [
+          "toText",
+          [
+           "get",
+           "job",
+           "change",
+           "files"
+          ]
+         ]
+        ],
+        [
+         "map",
+         [
+          "get",
+          "specs",
+          "variants"
+         ],
+         "s",
+         {
+          "contract": "algal.organism.v1",
+          "key": [
+           "sconcat",
+           "organism:",
+           [
+            "get",
+            "s",
+            "key"
+           ]
+          ],
+          "name": [
+           "get",
+           "s",
+           "name"
+          ],
+          "budgets": [
+           "quote",
+           {
+            "maxSteps": 8,
+            "maxAgentCalls": 0,
+            "maxWork": 20000
+           }
+          ],
+          "interface": [
+           "quote",
+           {
+            "inputs": {
+             "job": {
+              "cell": "src",
+              "port": "job"
+             }
+            },
+            "outputs": {
+             "message": {
+              "cell": "fmt",
+              "port": "out"
+             }
+            }
+           }
+          ],
+          "cells": [
+           "list",
+           [
+            "quote",
+            {
+             "id": "src",
+             "kind": "input",
+             "outputs": {
+              "job": "json"
+             }
+            }
+           ],
+           {
+            "id": "fmt",
+            "kind": "expr",
+            "inputs": [
+             "quote",
+             {
+              "job": "json"
+             }
+            ],
+            "expr": {
+             "contract": "algal.expr.v1",
+             "program": {
+              "subject": [
+               "concat",
+               [
+                "quote",
+                [
+                 "sconcat"
+                ]
+               ],
+               [
+                "map",
+                [
+                 "get",
+                 "s",
+                 "subject"
+                ],
+                "p",
+                [
+                 "if",
+                 [
+                  "eq",
+                  [
+                   "get",
+                   "p",
+                   "t"
+                  ],
+                  "lit"
+                 ],
+                 [
+                  "get",
+                  "p",
+                  "v"
+                 ],
+                 [
+                  "get",
+                  [
+                   "get",
+                   "p",
+                   "v"
+                  ]
+                 ]
+                ]
+               ]
+              ],
+              "body": [
+               "concat",
+               [
+                "quote",
+                [
+                 "sconcat"
+                ]
+               ],
+               [
+                "map",
+                [
+                 "get",
+                 "s",
+                 "body"
+                ],
+                "p",
+                [
+                 "if",
+                 [
+                  "eq",
+                  [
+                   "get",
+                   "p",
+                   "t"
+                  ],
+                  "lit"
+                 ],
+                 [
+                  "get",
+                  "p",
+                  "v"
+                 ],
+                 [
+                  "get",
+                  [
+                   "get",
+                   "p",
+                   "v"
+                  ]
+                 ]
+                ]
+               ]
+              ]
+             }
+            },
+            "output": [
+             "quote",
+             {
+              "kind": "json",
+              "schema": {
+               "type": "object",
+               "required": [
+                "subject",
+                "body"
+               ],
+               "properties": {
+                "subject": {
+                 "type": "string"
+                },
+                "body": {
+                 "type": "string"
+                }
+               }
+              }
+             }
+            ]
+           }
+          ],
+          "edges": [
+           "quote",
+           [
+            {
+             "from": {
+              "cell": "src",
+              "port": "job"
+             },
+             "to": {
+              "cell": "fmt",
+              "port": "job"
+             }
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      ]
+     ]
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "array"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "task"
+   },
+   "to": {
+    "cell": "writer",
+    "port": "task"
+   }
+  },
+  {
+   "from": {
+    "cell": "src",
+    "port": "prior"
+   },
+   "to": {
+    "cell": "writer",
+    "port": "prior"
+   }
+  },
+  {
+   "from": {
+    "cell": "writer",
+    "port": "out"
+   },
+   "to": {
+    "cell": "build",
+    "port": "specs"
+   }
+  }
+ ]
+}

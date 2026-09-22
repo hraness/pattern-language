@@ -145,4 +145,30 @@ assert m["passed"] is False and any("tool" in json.dumps(t) for t in m["failed"]
 assert r["finalChampion"]["key"] == "arrow-format" and r["reconciled"] is True
 PY
 
+# Commit-message habitat: structured artifact (subject + body) with a
+# cross-field contract — the body must carry the why.
+for f in habitat/commit-message/*.algal.json; do
+  out=$($ALGAL check "$f" --modules habitat/commit-message 2>&1 | tail -1)
+  ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
+  [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
+done
+out=$(cd habitat/commit-message && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
+[ "$prom" = "organism:act-why" ] && echo "foundry OK  act-why promoted (mechanical)" \
+  || { echo "foundry FAIL cm promoted=$prom"; fail=1; }
+out=$(python3 scripts/evolve-jury.py habitat/commit-message --gens 1 \
+  --jury reconciled-jury.algal.json --responses habitat/commit-message/evolve.responses.json 2>&1 | tail -1)
+champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
+[ "$champ" = "verb-what-why" ] && echo "evolve OK  generated verb-what-why dethrones incumbent" \
+  || { echo "evolve FAIL champion=$champ"; fail=1; }
+python3 - <<'PY' && echo "mech   OK  structural violators named" || { echo "mech   FAIL structural mech wrong"; fail=1; }
+import json
+r = json.load(open("habitat/commit-message/evolve.report.json"))
+g = r["generations"][-1]
+assert g["mechanical"]["scope-line"]["passed"] is False
+assert g["mechanical"]["impact-brief"]["passed"] is False
+assert g["mechanical"]["verb-what-why"]["passed"] is True
+assert r["finalChampion"]["key"] == "verb-what-why" and r["reconciled"] is True
+PY
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

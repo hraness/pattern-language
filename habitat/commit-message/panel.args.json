@@ -1,0 +1,216 @@
+{
+ "src": {
+  "subjects": [
+   {
+    "key": "act-why",
+    "subject": "Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+   },
+   {
+    "key": "why-first",
+    "subject": "prove the pipeline end-to-end \u2014 Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+   },
+   {
+    "key": "bare",
+    "subject": "Wire live claude+jev executors\n\n"
+   },
+   {
+    "key": "stat-echo",
+    "subject": "Wire live claude+jev executors (+300/-40 across 8 files)\n\n+300/-40 across 8 files in executors, live, routing"
+   }
+  ],
+  "pairs": [
+   {
+    "brief": {
+     "job": {
+      "change": {
+       "files": 8,
+       "ins": 300,
+       "del": 40,
+       "areas": [
+        "executors",
+        "live",
+        "routing"
+       ]
+      },
+      "hint": {
+       "verb": "wire",
+       "what": "live claude+jev executors",
+       "why": "prove the pipeline end-to-end",
+       "Verb": "Wire"
+      },
+      "reference": "Fully live end-to-end synthesize: claude + jev executors"
+     },
+     "task": "pick the better commit message (subject + body) for this change"
+    },
+    "a": {
+     "key": "act-why",
+     "subject": "Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+    },
+    "b": {
+     "key": "why-first",
+     "subject": "prove the pipeline end-to-end \u2014 Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+    }
+   },
+   {
+    "brief": {
+     "job": {
+      "change": {
+       "files": 8,
+       "ins": 300,
+       "del": 40,
+       "areas": [
+        "executors",
+        "live",
+        "routing"
+       ]
+      },
+      "hint": {
+       "verb": "wire",
+       "what": "live claude+jev executors",
+       "why": "prove the pipeline end-to-end",
+       "Verb": "Wire"
+      },
+      "reference": "Fully live end-to-end synthesize: claude + jev executors"
+     },
+     "task": "pick the better commit message (subject + body) for this change"
+    },
+    "a": {
+     "key": "act-why",
+     "subject": "Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+    },
+    "b": {
+     "key": "bare",
+     "subject": "Wire live claude+jev executors\n\n"
+    }
+   },
+   {
+    "brief": {
+     "job": {
+      "change": {
+       "files": 8,
+       "ins": 300,
+       "del": 40,
+       "areas": [
+        "executors",
+        "live",
+        "routing"
+       ]
+      },
+      "hint": {
+       "verb": "wire",
+       "what": "live claude+jev executors",
+       "why": "prove the pipeline end-to-end",
+       "Verb": "Wire"
+      },
+      "reference": "Fully live end-to-end synthesize: claude + jev executors"
+     },
+     "task": "pick the better commit message (subject + body) for this change"
+    },
+    "a": {
+     "key": "act-why",
+     "subject": "Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+    },
+    "b": {
+     "key": "stat-echo",
+     "subject": "Wire live claude+jev executors (+300/-40 across 8 files)\n\n+300/-40 across 8 files in executors, live, routing"
+    }
+   },
+   {
+    "brief": {
+     "job": {
+      "change": {
+       "files": 8,
+       "ins": 300,
+       "del": 40,
+       "areas": [
+        "executors",
+        "live",
+        "routing"
+       ]
+      },
+      "hint": {
+       "verb": "wire",
+       "what": "live claude+jev executors",
+       "why": "prove the pipeline end-to-end",
+       "Verb": "Wire"
+      },
+      "reference": "Fully live end-to-end synthesize: claude + jev executors"
+     },
+     "task": "pick the better commit message (subject + body) for this change"
+    },
+    "a": {
+     "key": "why-first",
+     "subject": "prove the pipeline end-to-end \u2014 Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+    },
+    "b": {
+     "key": "bare",
+     "subject": "Wire live claude+jev executors\n\n"
+    }
+   },
+   {
+    "brief": {
+     "job": {
+      "change": {
+       "files": 8,
+       "ins": 300,
+       "del": 40,
+       "areas": [
+        "executors",
+        "live",
+        "routing"
+       ]
+      },
+      "hint": {
+       "verb": "wire",
+       "what": "live claude+jev executors",
+       "why": "prove the pipeline end-to-end",
+       "Verb": "Wire"
+      },
+      "reference": "Fully live end-to-end synthesize: claude + jev executors"
+     },
+     "task": "pick the better commit message (subject + body) for this change"
+    },
+    "a": {
+     "key": "why-first",
+     "subject": "prove the pipeline end-to-end \u2014 Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files"
+    },
+    "b": {
+     "key": "stat-echo",
+     "subject": "Wire live claude+jev executors (+300/-40 across 8 files)\n\n+300/-40 across 8 files in executors, live, routing"
+    }
+   },
+   {
+    "brief": {
+     "job": {
+      "change": {
+       "files": 8,
+       "ins": 300,
+       "del": 40,
+       "areas": [
+        "executors",
+        "live",
+        "routing"
+       ]
+      },
+      "hint": {
+       "verb": "wire",
+       "what": "live claude+jev executors",
+       "why": "prove the pipeline end-to-end",
+       "Verb": "Wire"
+      },
+      "reference": "Fully live end-to-end synthesize: claude + jev executors"
+     },
+     "task": "pick the better commit message (subject + body) for this change"
+    },
+    "a": {
+     "key": "bare",
+     "subject": "Wire live claude+jev executors\n\n"
+    },
+    "b": {
+     "key": "stat-echo",
+     "subject": "Wire live claude+jev executors (+300/-40 across 8 files)\n\n+300/-40 across 8 files in executors, live, routing"
+    }
+   }
+  ]
+ }
+}

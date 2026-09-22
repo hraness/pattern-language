@@ -1,0 +1,148 @@
+{
+ "contract": "pattern-language.evolve.v1",
+ "habitat": "habitat/commit-message",
+ "mode": "scripted",
+ "arena": "holdout-live",
+ "generations": [
+  {
+   "generation": 0,
+   "standings": [
+    {
+     "key": "act-why",
+     "subject": "Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files",
+     "wins": 0
+    }
+   ],
+   "judgedChampion": {
+    "key": "act-why",
+    "wins": 0
+   },
+   "reconciledChampion": {
+    "key": "act-why",
+    "wins": 0
+   },
+   "escaped": false,
+   "contested": 0,
+   "duels": 0,
+   "champion": {
+    "key": "act-why",
+    "wins": 0
+   },
+   "mechanical": {
+    "act-why": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:3cc75ae88412b07b4401e8d9e2edd7b59213a0b0ced551a0f4700c574d7a3fdc"
+  },
+  {
+   "generation": 1,
+   "standings": [
+    {
+     "key": "act-why",
+     "subject": "Wire live claude+jev executors\n\nprove the pipeline end-to-end \u2014 +300/-40 across 8 files",
+     "wins": 0
+    },
+    {
+     "key": "scope-line",
+     "subject": "live claude+jev executors\n\nprove the pipeline end-to-end (8)",
+     "wins": 0
+    },
+    {
+     "key": "impact-brief",
+     "subject": "Wire live claude+jev executors to prove the pipeline end-to-end\n\n8",
+     "wins": 2
+    },
+    {
+     "key": "why-only-body",
+     "subject": "Wire executors\n\nprove the pipeline end-to-end",
+     "wins": 3
+    },
+    {
+     "key": "verb-what-why",
+     "subject": "Wire live claude+jev executors\n\nprove the pipeline end-to-end",
+     "wins": 4
+    }
+   ],
+   "judgedChampion": {
+    "key": "verb-what-why",
+    "wins": 4
+   },
+   "reconciledChampion": {
+    "key": "verb-what-why",
+    "wins": 4
+   },
+   "escaped": false,
+   "contested": 1,
+   "duels": 10,
+   "champion": {
+    "key": "verb-what-why",
+    "wins": 4
+   },
+   "mechanical": {
+    "act-why": {
+     "passed": true,
+     "failed": []
+    },
+    "scope-line": {
+     "passed": false,
+     "failed": [
+      [
+       "neq",
+       [
+        "get",
+        "w0"
+       ],
+       [
+        "lower",
+        [
+         "get",
+         "w0"
+        ]
+       ]
+      ]
+     ]
+    },
+    "impact-brief": {
+     "passed": false,
+     "failed": [
+      [
+       "scontains",
+       [
+        "get",
+        "b"
+       ],
+       [
+        "get",
+        "args",
+        "job",
+        "hint",
+        "why"
+       ]
+      ]
+     ]
+    },
+    "why-only-body": {
+     "passed": true,
+     "failed": []
+    },
+    "verb-what-why": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:a3de1e067920df756f0f3f496850f8a6244084c0dbdab71178ca827e37ebdc3d"
+  }
+ ],
+ "finalChampion": {
+  "key": "verb-what-why",
+  "wins": 4
+ },
+ "judgedChampion": {
+  "key": "verb-what-why",
+  "wins": 4
+ },
+ "escaped": false,
+ "reconciled": true
+}
