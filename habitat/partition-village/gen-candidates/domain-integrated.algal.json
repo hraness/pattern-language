@@ -1,0 +1,282 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "m1",
+         "m8",
+         "m9",
+         "m20",
+         "m21",
+         "m129"
+        ],
+        "name": "Caste & Social Hierarchy"
+       },
+       {
+        "misfits": [
+         "m10",
+         "m11",
+         "m12",
+         "m13",
+         "m25",
+         "m26",
+         "m27"
+        ],
+        "name": "Family & Kinship Systems"
+       },
+       {
+        "misfits": [
+         "m3",
+         "m4",
+         "m5",
+         "m6",
+         "m7",
+         "m82",
+         "m83"
+        ],
+        "name": "Sacred Practices & Spaces"
+       },
+       {
+        "misfits": [
+         "m18",
+         "m19",
+         "m22",
+         "m28",
+         "m32",
+         "m33",
+         "m43",
+         "m49"
+        ],
+        "name": "Land Rights & Consolidation"
+       },
+       {
+        "misfits": [
+         "m55",
+         "m67",
+         "m68",
+         "m69",
+         "m70",
+         "m71",
+         "m72",
+         "m73",
+         "m74",
+         "m75",
+         "m76"
+        ],
+        "name": "Water Resources & Irrigation"
+       },
+       {
+        "misfits": [
+         "m30",
+         "m35",
+         "m36",
+         "m39",
+         "m40",
+         "m41",
+         "m45",
+         "m46",
+         "m47"
+        ],
+        "name": "Crop Production & Protection"
+       },
+       {
+        "misfits": [
+         "m31",
+         "m34",
+         "m50",
+         "m52",
+         "m53",
+         "m54",
+         "m56",
+         "m57",
+         "m59",
+         "m60",
+         "m80",
+         "m94"
+        ],
+        "name": "Livestock & Animal Husbandry"
+       },
+       {
+        "misfits": [
+         "m37",
+         "m38",
+         "m44",
+         "m51",
+         "m61",
+         "m97",
+         "m98",
+         "m99"
+        ],
+        "name": "Harvest & Distribution Systems"
+       },
+       {
+        "misfits": [
+         "m2",
+         "m16",
+         "m29",
+         "m122",
+         "m123",
+         "m124"
+        ],
+        "name": "Hygiene & Sanitation Infrastructure"
+       },
+       {
+        "misfits": [
+         "m77",
+         "m78",
+         "m79",
+         "m85",
+         "m87",
+         "m88",
+         "m90",
+         "m91",
+         "m92"
+        ],
+        "name": "Housing & Shelter"
+       },
+       {
+        "misfits": [
+         "m95",
+         "m96",
+         "m100",
+         "m101",
+         "m102",
+         "m103"
+        ],
+        "name": "Transportation & Mobility"
+       },
+       {
+        "misfits": [
+         "m111",
+         "m112",
+         "m113",
+         "m114",
+         "m115",
+         "m116",
+         "m117",
+         "m119"
+        ],
+        "name": "Education & Knowledge Systems"
+       },
+       {
+        "misfits": [
+         "m120",
+         "m121",
+         "m125",
+         "m126",
+         "m127"
+        ],
+        "name": "Health & Welfare Services"
+       },
+       {
+        "misfits": [
+         "m24",
+         "m84",
+         "m89",
+         "m131",
+         "m135",
+         "m137",
+         "m140"
+        ],
+        "name": "Village Governance & Integration"
+       },
+       {
+        "misfits": [
+         "m14",
+         "m15",
+         "m58",
+         "m62",
+         "m63",
+         "m64",
+         "m65",
+         "m66",
+         "m128",
+         "m130",
+         "m132",
+         "m133",
+         "m134",
+         "m138",
+         "m139"
+        ],
+        "name": "Economic Diversification"
+       },
+       {
+        "misfits": [
+         "m104",
+         "m105",
+         "m106",
+         "m107",
+         "m108",
+         "m109",
+         "m110",
+         "m118",
+         "m136",
+         "m141"
+        ],
+        "name": "Land & Resource Conservation"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:domain-integrated",
+ "name": "Domain-Integrated Decomposition"
+}

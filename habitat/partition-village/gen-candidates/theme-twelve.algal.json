@@ -1,0 +1,269 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "m125",
+         "m126",
+         "m128",
+         "m53",
+         "m57",
+         "m59",
+         "m60",
+         "m7",
+         "m72"
+        ],
+        "name": "caste-and-ritual"
+       },
+       {
+        "misfits": [
+         "m106",
+         "m136",
+         "m31",
+         "m34",
+         "m36",
+         "m52",
+         "m54",
+         "m80",
+         "m94"
+        ],
+        "name": "water-and-irrigation"
+       },
+       {
+        "misfits": [
+         "m103",
+         "m37",
+         "m38",
+         "m50",
+         "m55",
+         "m77",
+         "m91"
+        ],
+        "name": "housing-and-sites"
+       },
+       {
+        "misfits": [
+         "m118",
+         "m127",
+         "m131",
+         "m138",
+         "m39",
+         "m40",
+         "m41",
+         "m44",
+         "m51"
+        ],
+        "name": "economy-and-labor"
+       },
+       {
+        "misfits": [
+         "m30",
+         "m35",
+         "m46",
+         "m47",
+         "m61",
+         "m97",
+         "m98"
+        ],
+        "name": "education-and-youth"
+       },
+       {
+        "misfits": [
+         "m107",
+         "m110",
+         "m18",
+         "m19",
+         "m22",
+         "m28",
+         "m33",
+         "m42",
+         "m43",
+         "m49",
+         "m69",
+         "m74"
+        ],
+        "name": "health-and-welfare"
+       },
+       {
+        "misfits": [
+         "m104",
+         "m105",
+         "m108",
+         "m109",
+         "m32",
+         "m45",
+         "m48",
+         "m70",
+         "m71",
+         "m73",
+         "m75"
+        ],
+        "name": "roads-and-transport"
+       },
+       {
+        "misfits": [
+         "m10",
+         "m100",
+         "m11",
+         "m112",
+         "m121",
+         "m130",
+         "m132",
+         "m133",
+         "m134",
+         "m139",
+         "m14",
+         "m141",
+         "m15",
+         "m58",
+         "m63",
+         "m64",
+         "m65",
+         "m66",
+         "m8",
+         "m93",
+         "m95",
+         "m96",
+         "m99"
+        ],
+        "name": "governance-and-panchayat"
+       },
+       {
+        "misfits": [
+         "m102",
+         "m111",
+         "m115",
+         "m116",
+         "m117",
+         "m120",
+         "m129",
+         "m135",
+         "m137",
+         "m140",
+         "m20",
+         "m21",
+         "m24",
+         "m5",
+         "m6",
+         "m84",
+         "m89"
+        ],
+        "name": "markets-and-trade"
+       },
+       {
+        "misfits": [
+         "m122",
+         "m123",
+         "m124",
+         "m26",
+         "m29",
+         "m56",
+         "m67",
+         "m76",
+         "m85",
+         "m87",
+         "m90",
+         "m92"
+        ],
+        "name": "land-and-tenure"
+       },
+       {
+        "misfits": [
+         "m1",
+         "m113",
+         "m114",
+         "m12",
+         "m13",
+         "m25",
+         "m27",
+         "m62",
+         "m68",
+         "m81",
+         "m86",
+         "m9"
+        ],
+        "name": "festivals-and-community"
+       },
+       {
+        "misfits": [
+         "m101",
+         "m119",
+         "m16",
+         "m17",
+         "m2",
+         "m23",
+         "m3",
+         "m4",
+         "m78",
+         "m79",
+         "m82",
+         "m83",
+         "m88"
+        ],
+        "name": "crafts-and-tools"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:theme-twelve",
+ "name": "Theme twelve"
+}

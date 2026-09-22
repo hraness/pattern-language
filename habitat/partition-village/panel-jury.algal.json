@@ -1,0 +1,275 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:panel-jury",
+ "name": "Panel jury",
+ "note": "Round-robin under a two-judge panel. Wins count only when advocate and skeptic agree; contested duels are reported, not hidden \u2014 they mark where the misfits genuinely conflict. Champion = most uncontested wins; no human in the loop.",
+ "budgets": {
+  "maxSteps": 64,
+  "maxAgentCalls": 32,
+  "maxWork": 400000
+ },
+ "interface": {
+  "inputs": {
+   "subjects": {
+    "cell": "src",
+    "port": "subjects"
+   },
+   "pairs": {
+    "cell": "src",
+    "port": "pairs"
+   }
+  },
+  "outputs": {
+   "result": {
+    "cell": "tally",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "subjects": "json",
+    "pairs": "json"
+   }
+  },
+  {
+   "id": "duels",
+   "kind": "each",
+   "manifest": "sha256:421b3dc1fe87e5c56a4343885210f601dca2ac89df0870c5765b9818a15de708",
+   "over": "duel",
+   "maxItems": 32
+  },
+  {
+   "id": "tally",
+   "kind": "expr",
+   "inputs": {
+    "subs": "json",
+    "res": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "let",
+     "rs",
+     [
+      "get",
+      "res"
+     ],
+     [
+      "let",
+      "subs",
+      [
+       "get",
+       "subs"
+      ],
+      {
+       "standings": [
+        "map",
+        [
+         "get",
+         "subs"
+        ],
+        "s",
+        {
+         "key": [
+          "get",
+          "s",
+          "key"
+         ],
+         "subject": [
+          "get",
+          "s",
+          "subject"
+         ],
+         "wins": [
+          "len",
+          [
+           "filter",
+           [
+            "get",
+            "rs"
+           ],
+           "r",
+           [
+            "eq",
+            [
+             "get",
+             "r",
+             "verdict"
+            ],
+            [
+             "get",
+             "s",
+             "key"
+            ]
+           ]
+          ]
+         ]
+        }
+       ],
+       "champion": [
+        "fold",
+        [
+         "get",
+         "subs"
+        ],
+        {
+         "key": "",
+         "wins": -1
+        },
+        "acc",
+        "s",
+        [
+         "let",
+         "w",
+         [
+          "len",
+          [
+           "filter",
+           [
+            "get",
+            "rs"
+           ],
+           "r",
+           [
+            "eq",
+            [
+             "get",
+             "r",
+             "verdict"
+            ],
+            [
+             "get",
+             "s",
+             "key"
+            ]
+           ]
+          ]
+         ],
+         [
+          "if",
+          [
+           "gt",
+           [
+            "get",
+            "w"
+           ],
+           [
+            "get",
+            "acc",
+            "wins"
+           ]
+          ],
+          {
+           "key": [
+            "get",
+            "s",
+            "key"
+           ],
+           "wins": [
+            "get",
+            "w"
+           ]
+          },
+          [
+           "get",
+           "acc"
+          ]
+         ]
+        ]
+       ],
+       "contested": [
+        "map",
+        [
+         "filter",
+         [
+          "get",
+          "rs"
+         ],
+         "r",
+         [
+          "eq",
+          [
+           "get",
+           "r",
+           "verdict"
+          ],
+          "contested"
+         ]
+        ],
+        "r",
+        {
+         "a": [
+          "get",
+          "r",
+          "a"
+         ],
+         "b": [
+          "get",
+          "r",
+          "b"
+         ],
+         "j1": [
+          "get",
+          "r",
+          "j1"
+         ],
+         "j2": [
+          "get",
+          "r",
+          "j2"
+         ]
+        }
+       ],
+       "duels": [
+        "get",
+        "rs"
+       ]
+      }
+     ]
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "pairs"
+   },
+   "to": {
+    "cell": "duels",
+    "port": "duel"
+   }
+  },
+  {
+   "from": {
+    "cell": "src",
+    "port": "subjects"
+   },
+   "to": {
+    "cell": "tally",
+    "port": "subs"
+   }
+  },
+  {
+   "from": {
+    "cell": "duels",
+    "port": "verdict"
+   },
+   "to": {
+    "cell": "tally",
+    "port": "res"
+   }
+  }
+ ]
+}

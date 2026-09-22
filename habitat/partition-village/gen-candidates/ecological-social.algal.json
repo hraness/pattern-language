@@ -1,0 +1,279 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "m1",
+         "m8",
+         "m9",
+         "m21",
+         "m129"
+        ],
+        "name": "Caste Hierarchy & Ritual Practice"
+       },
+       {
+        "misfits": [
+         "m10",
+         "m11",
+         "m12",
+         "m13",
+         "m25",
+         "m26",
+         "m27",
+         "m86"
+        ],
+        "name": "Kinship, Marriage & Family Governance"
+       },
+       {
+        "misfits": [
+         "m3",
+         "m4",
+         "m5",
+         "m6",
+         "m7",
+         "m82",
+         "m83"
+        ],
+        "name": "Sacred Geography & Cultural Expression"
+       },
+       {
+        "misfits": [
+         "m16",
+         "m17",
+         "m23",
+         "m24",
+         "m20",
+         "m101",
+         "m102"
+        ],
+        "name": "Social Groups & Communication Spaces"
+       },
+       {
+        "misfits": [
+         "m18",
+         "m19",
+         "m22",
+         "m28",
+         "m32",
+         "m33",
+         "m43",
+         "m48",
+         "m49"
+        ],
+        "name": "Land Systems & Property Rights"
+       },
+       {
+        "misfits": [
+         "m30",
+         "m35",
+         "m36",
+         "m39",
+         "m40",
+         "m41",
+         "m42",
+         "m45",
+         "m46",
+         "m47"
+        ],
+        "name": "Soil & Crop Cultivation"
+       },
+       {
+        "misfits": [
+         "m31",
+         "m34",
+         "m50",
+         "m52",
+         "m53",
+         "m54",
+         "m56",
+         "m57",
+         "m59",
+         "m60",
+         "m80",
+         "m94"
+        ],
+        "name": "Livestock, Fodder & Animal Husbandry"
+       },
+       {
+        "misfits": [
+         "m37",
+         "m38",
+         "m44",
+         "m51",
+         "m61",
+         "m97",
+         "m98",
+         "m99"
+        ],
+        "name": "Harvest, Processing & Distribution"
+       },
+       {
+        "misfits": [
+         "m55",
+         "m67",
+         "m68",
+         "m69",
+         "m70",
+         "m71",
+         "m72",
+         "m73",
+         "m74",
+         "m75",
+         "m76"
+        ],
+        "name": "Water, Floods & Hydrology"
+       },
+       {
+        "misfits": [
+         "m77",
+         "m78",
+         "m79",
+         "m81",
+         "m85",
+         "m87",
+         "m88",
+         "m90",
+         "m91",
+         "m92",
+         "m93"
+        ],
+        "name": "Shelter & Physical Infrastructure"
+       },
+       {
+        "misfits": [
+         "m2",
+         "m29",
+         "m122",
+         "m123",
+         "m124",
+         "m125"
+        ],
+        "name": "Sanitation, Disease & Nutrition"
+       },
+       {
+        "misfits": [
+         "m14",
+         "m15",
+         "m58",
+         "m62",
+         "m63",
+         "m64",
+         "m65",
+         "m66",
+         "m84",
+         "m89",
+         "m95",
+         "m96",
+         "m100",
+         "m103"
+        ],
+        "name": "Mobility, Markets & Industrial Development"
+       },
+       {
+        "misfits": [
+         "m111",
+         "m112",
+         "m113",
+         "m114",
+         "m115",
+         "m116",
+         "m117",
+         "m118",
+         "m119",
+         "m120",
+         "m121",
+         "m126",
+         "m127",
+         "m128",
+         "m130",
+         "m131",
+         "m132",
+         "m133",
+         "m134",
+         "m135",
+         "m136",
+         "m137",
+         "m138",
+         "m139",
+         "m140",
+         "m141"
+        ],
+        "name": "Education, Health & Community Aspiration"
+       },
+       {
+        "misfits": [
+         "m104",
+         "m105",
+         "m106",
+         "m107",
+         "m108",
+         "m109",
+         "m110"
+        ],
+        "name": "Land & Ecological Conservation"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:ecological-social",
+ "name": "Social-Ecological Integration"
+}

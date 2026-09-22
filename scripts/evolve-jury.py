@@ -179,7 +179,9 @@ def main():
         resp = os.path.abspath(sys.argv[sys.argv.index("--responses") + 1])
     live = "--live" in sys.argv or resp is None
     # writer + judge answers both come from the same responses fixture
-    gen_extra = ["--executor-cmd", os.path.join("..", "..", EXECUTOR)] if live else ["--responses", resp]
+    gen_extra = (["--executor-cmd", os.path.join("..", "..", EXECUTOR),
+                  "--executor-timeout-ms", "600000"] if live
+                 else ["--responses", resp])
     jury_extra = ["--jev"] if live else ["--responses", resp]
 
     cfg = json.load(open(os.path.join(habitat, "foundry.config.json")))
@@ -190,7 +192,7 @@ def main():
         # renders already carry every misfit's text — the brief stays
         # compact: couplings as "a+b" pairs, not the full catalog
         brief = {"task": "pick the better decomposition of these "
-                         "modules into named subsystems"}
+                         "requirements into named subsystems"}
         if job.get("links"):
             brief["couplings"] = [f"{l['a']}+{l['b']}" for l in job["links"]]
         for k in ("requires", "separates"):
@@ -267,14 +269,21 @@ def main():
                 else "commit message formats (subject + body) for a "
                      "change report" if "commit-message" in habitat
                 else "one-line summary formats for a change report")
+        # the writer must not see the oracle — it's an external anchor,
+        # not input: strip it so generated partitions can't copy the answer
+        writer_job = {k: v for k, v in (src_args.get("job") or {}).items()
+                      if k != "oracle"}
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
             json.dump({"src": {"task": task, "prior": prior,
-                               "job": src_args.get("job")}}, fh)
+                               "job": writer_job or None}}, fh)
             gen_args = fh.name
-        g, _ = run_algal(["run", "generator.algal.json", "--args", gen_args,
+        g, gp = run_algal(["run", "generator.algal.json", "--args", gen_args,
                           "--dir", STORE] + gen_extra, habitat)
         if g.get("outcome") != "complete":
             print(f"gen {gen}: generator failed, incumbent carries on")
+            if os.environ.get("EVOLVE_DEBUG"):
+                json.dump(g, open("/tmp/gen-fail.json", "w"), indent=1)
+                print("  debug receipt -> /tmp/gen-fail.json")
             continue
         cands = g["cells"]["build"]["outputs"]["out"]
         seen = {s["key"] for s in subjects}

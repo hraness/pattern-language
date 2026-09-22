@@ -542,6 +542,49 @@ structural habitats' duel manifests carry structural prompts too
 ("coherent groups, names that capture the shared force" vs "few
 groups, predictable membership").
 
+### The village itself — Alexander's own corpus in the loop
+
+`habitat/partition-village/` runs the canonical dataset: all **141
+misfits** from *Notes on the Synthesis of Form* Appendix I, 1,434
+interaction links, and Alexander's published four-region decomposition
+as both candidate and oracle. The scorer scores a declared link
+subsample (every 10th link — full-graph cohesion over 1,434 links
+exceeds expr fuel), bounds groups 8–16, and requires exact coverage.
+
+Mechanical foundry: `greedy-twelve` (link-density heuristic) is
+promoted over Alexander's own partition on sampled cohesion; three
+degenerate forms (quarters, prefix buckets, random) all fail.
+
+The live run (`evolve.live.report.json`) is the fullest demonstration
+of the three-tier loop yet — all three mechanisms fired in one
+trajectory:
+
+| gen | event |
+|---|---|
+| 0 | alexander-groups vs greedy-twelve: 0–0, incumbent holds |
+| 1 | **escape** — all 3 generated partitions fail exact coverage (134–140 of 141 ids); judged pick `domain-integrated` (oracle 0.897!) is blocked, Alexander's partition keeps the throne |
+| 2 | generated `institutional-integrated` (15 named groups, full coverage, oracle 0.867) **dethrones Alexander's own decomposition** and reconciles |
+
+Two findings specific to this scale:
+
+- **Coverage is the new misfit class.** At 141 items the writer
+  produces semantically excellent partitions (domain-integrated scored
+  0.897 vs Alexander) that drop a handful of ids — judged fit loved
+  them, the contract caught them. Escape-by-omission, arrested by
+  arbitration exactly as designed.
+- **Judged fit tracks the oracle's neighborhood, not its letter.**
+  All six generated partitions land at 0.85–0.90 oracle agreement and
+  converge on the same force axes (caste, kinship, sacred, land,
+  crops, livestock, water, housing, education, health) — yet the jury
+  preferred `institutional-integrated` (0.867) over the literal
+  reference (1.0). The generated form reorganizes along "economic
+  modernization & integration" lines the 1964 partition didn't name.
+
+Scale walls found at 141 items: writer context (78KB) needed
+`maxContextBytes` raised to 256KiB, and writer latency needed
+`maxEffectMs` 600s plus `--executor-timeout-ms` plumbing upstream
+(`hraness/algal` `f899456`).
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an
@@ -572,6 +615,10 @@ What is not proven:
 - Greedy `decompose` ≠ Alexander's HIDECS partition. 0.84 agreement on
   *his* graph is encouraging, not conclusive; on algal-src the same rule
   blurs hub-centered subsystems.
+- At village scale the writer's exact coverage is unreliable — roughly
+  half the live 141-item partitions dropped ids (the contract caught
+  every one). Whether staged generation (propose groups, then assign)
+  closes that gap is untested.
 - The model's *taste* is the weakest link: live diagram fragments are
   plausible but generic. Whether the method produces better artifacts
   than unaided prompting is still unmeasured — that's what the foundry

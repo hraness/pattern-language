@@ -1,0 +1,270 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:random-twelve",
+ "name": "Random twelve",
+ "note": "Seed-fixed random 12-way split \u2014 the degenerate control.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "alpha",
+        "misfits": [
+         "m11",
+         "m116",
+         "m129",
+         "m136",
+         "m14",
+         "m23",
+         "m30",
+         "m34",
+         "m36",
+         "m5",
+         "m60",
+         "m96"
+        ]
+       },
+       {
+        "name": "beta",
+        "misfits": [
+         "m109",
+         "m110",
+         "m115",
+         "m134",
+         "m15",
+         "m18",
+         "m20",
+         "m25",
+         "m43",
+         "m49",
+         "m55",
+         "m58",
+         "m6",
+         "m77",
+         "m8",
+         "m87",
+         "m88",
+         "m98"
+        ]
+       },
+       {
+        "name": "gamma",
+        "misfits": [
+         "m132",
+         "m139",
+         "m2",
+         "m38",
+         "m41",
+         "m48",
+         "m74",
+         "m91",
+         "m93"
+        ]
+       },
+       {
+        "name": "delta",
+        "misfits": [
+         "m13",
+         "m137",
+         "m141",
+         "m19",
+         "m26",
+         "m35",
+         "m53",
+         "m62",
+         "m73",
+         "m76"
+        ]
+       },
+       {
+        "name": "eps",
+        "misfits": [
+         "m111",
+         "m119",
+         "m124",
+         "m138",
+         "m39",
+         "m45",
+         "m72",
+         "m79",
+         "m85"
+        ]
+       },
+       {
+        "name": "zeta",
+        "misfits": [
+         "m1",
+         "m101",
+         "m102",
+         "m104",
+         "m128",
+         "m131",
+         "m54",
+         "m67",
+         "m71",
+         "m82",
+         "m9",
+         "m92"
+        ]
+       },
+       {
+        "name": "eta",
+        "misfits": [
+         "m126",
+         "m16",
+         "m17",
+         "m22",
+         "m3",
+         "m33",
+         "m40",
+         "m66",
+         "m90",
+         "m95"
+        ]
+       },
+       {
+        "name": "theta",
+        "misfits": [
+         "m106",
+         "m108",
+         "m112",
+         "m123",
+         "m130",
+         "m135",
+         "m63",
+         "m68",
+         "m70",
+         "m81",
+         "m84",
+         "m94"
+        ]
+       },
+       {
+        "name": "iota",
+        "misfits": [
+         "m12",
+         "m21",
+         "m37",
+         "m42",
+         "m46",
+         "m56",
+         "m65",
+         "m7",
+         "m80",
+         "m89",
+         "m99"
+        ]
+       },
+       {
+        "name": "kappa",
+        "misfits": [
+         "m10",
+         "m100",
+         "m105",
+         "m107",
+         "m121",
+         "m133",
+         "m24",
+         "m29",
+         "m31",
+         "m32",
+         "m44",
+         "m50",
+         "m51",
+         "m59",
+         "m61",
+         "m69",
+         "m78",
+         "m86"
+        ]
+       },
+       {
+        "name": "lambda",
+        "misfits": [
+         "m114",
+         "m120",
+         "m122",
+         "m127",
+         "m27",
+         "m28",
+         "m4",
+         "m47",
+         "m52",
+         "m64",
+         "m97"
+        ]
+       },
+       {
+        "name": "mu",
+        "misfits": [
+         "m103",
+         "m113",
+         "m117",
+         "m118",
+         "m125",
+         "m140",
+         "m57",
+         "m75",
+         "m83"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

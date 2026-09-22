@@ -1,0 +1,270 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:greedy-twelve",
+ "name": "Greedy twelve",
+ "note": "Link-density greedy merge (avg-norm) to k=12 \u2014 the algorithmic baseline, 0.840 pairwise agreement with the oracle.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "cluster-1",
+        "misfits": [
+         "m104",
+         "m107",
+         "m110",
+         "m118",
+         "m130",
+         "m134",
+         "m18",
+         "m19",
+         "m22",
+         "m24",
+         "m28",
+         "m31",
+         "m33",
+         "m35",
+         "m37",
+         "m38",
+         "m39",
+         "m40",
+         "m41",
+         "m42",
+         "m43",
+         "m46",
+         "m47",
+         "m48",
+         "m49",
+         "m51",
+         "m69"
+        ]
+       },
+       {
+        "name": "cluster-2",
+        "misfits": [
+         "m1",
+         "m115",
+         "m119",
+         "m127",
+         "m128",
+         "m138",
+         "m14",
+         "m140",
+         "m141",
+         "m15",
+         "m21",
+         "m44",
+         "m45",
+         "m61",
+         "m62",
+         "m63",
+         "m65",
+         "m8",
+         "m86",
+         "m9",
+         "m96",
+         "m97"
+        ]
+       },
+       {
+        "name": "cluster-3",
+        "misfits": [
+         "m10",
+         "m114",
+         "m122",
+         "m123",
+         "m13",
+         "m16",
+         "m2",
+         "m25",
+         "m26",
+         "m27",
+         "m29",
+         "m3",
+         "m36",
+         "m55",
+         "m67",
+         "m68",
+         "m81",
+         "m88",
+         "m92"
+        ]
+       },
+       {
+        "name": "cluster-4",
+        "misfits": [
+         "m103",
+         "m106",
+         "m32",
+         "m34",
+         "m50",
+         "m52",
+         "m53",
+         "m54",
+         "m56",
+         "m57",
+         "m59",
+         "m60",
+         "m80",
+         "m91",
+         "m94"
+        ]
+       },
+       {
+        "name": "cluster-5",
+        "misfits": [
+         "m102",
+         "m112",
+         "m120",
+         "m132",
+         "m133",
+         "m139",
+         "m66",
+         "m70",
+         "m71",
+         "m75",
+         "m84",
+         "m95",
+         "m98"
+        ]
+       },
+       {
+        "name": "cluster-6",
+        "misfits": [
+         "m129",
+         "m131",
+         "m20",
+         "m30",
+         "m58",
+         "m7",
+         "m72",
+         "m99"
+        ]
+       },
+       {
+        "name": "cluster-7",
+        "misfits": [
+         "m11",
+         "m12",
+         "m136",
+         "m64",
+         "m76",
+         "m85",
+         "m87",
+         "m90"
+        ]
+       },
+       {
+        "name": "cluster-8",
+        "misfits": [
+         "m116",
+         "m117",
+         "m121",
+         "m124",
+         "m125",
+         "m135",
+         "m137",
+         "m93"
+        ]
+       },
+       {
+        "name": "cluster-9",
+        "misfits": [
+         "m100",
+         "m101",
+         "m126",
+         "m17",
+         "m23",
+         "m83",
+         "m89"
+        ]
+       },
+       {
+        "name": "cluster-10",
+        "misfits": [
+         "m111",
+         "m113",
+         "m4",
+         "m5",
+         "m6",
+         "m82"
+        ]
+       },
+       {
+        "name": "cluster-11",
+        "misfits": [
+         "m105",
+         "m108",
+         "m109",
+         "m73",
+         "m74",
+         "m78"
+        ]
+       },
+       {
+        "name": "cluster-12",
+        "misfits": [
+         "m77",
+         "m79"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

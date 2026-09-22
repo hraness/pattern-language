@@ -43,7 +43,7 @@
      "failed": []
     }
    },
-   "receiptDigest": "sha256:969b6d6b2c75c3ec462c01ee79fa68ce77e07fe29757faad2cabead097a0a1fd"
+   "receiptDigest": "sha256:9c6c8e25c1cac293e6235ee0db4720b832d65b31991fea951189f714b7dd7385"
   },
   {
    "generation": 1,
@@ -418,7 +418,7 @@
      "failed": []
     }
    },
-   "receiptDigest": "sha256:e715a8b8f3d83a2b19bc9f729cdf4c90545a47ef8ed5d3e50b3f878ef5c1285f"
+   "receiptDigest": "sha256:cc1fc209623ce9809fdff463af3a53b9fab47dfdcba96b51d474fe85327522b2"
   }
  ],
  "finalChampion": {
