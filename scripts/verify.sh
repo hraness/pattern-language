@@ -70,4 +70,12 @@ vout=$(cd habitat/status-line && $ALGAL foundry verify foundry.report.json --dir
 vok=$(printf '%s' "$vout" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
 [ "$vok" = "True" ] && echo "foundry OK  report verifies offline" || { echo "foundry FAIL verify"; fail=1; }
 
+# Generated-population path: writer replays recorded descriptors; the
+# assembler + evaluation are deterministic, so this gates fully offline.
+out=$(cd habitat/status-line && $ALGAL foundry foundry-gen.config.json \
+  --responses generator.responses.json --dir "$STORE" --out foundry-gen.report.json 2>&1 | tail -1)
+prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
+[ "$prom" = "organism:gen-verdict-line" ] && echo "foundry OK  generated verdict-line promoted" \
+  || { echo "foundry FAIL gen promoted=$prom"; fail=1; }
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

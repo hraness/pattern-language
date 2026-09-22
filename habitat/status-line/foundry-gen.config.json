@@ -1,0 +1,174 @@
+{
+  "contract": "algal.foundry.config.v1",
+  "generator": {
+    "manifest": "generator.algal.json",
+    "args": {
+      "task": "status line for a job report: verdict must lead, line <=72 chars, job id present, no ANSI"
+    },
+    "output": "candidates"
+  },
+  "cases": [
+    {
+      "id": "train-fit-short",
+      "split": "train",
+      "args": {
+        "job": {
+          "id": "t-101",
+          "status": "fit",
+          "executor": "jev",
+          "detail": "all checks green"
+        }
+      },
+      "expect": {
+        "line": ""
+      }
+    },
+    {
+      "id": "train-misfit-short",
+      "split": "train",
+      "args": {
+        "job": {
+          "id": "t-102",
+          "status": "misfit",
+          "executor": "jev",
+          "detail": "schema mismatch on out"
+        }
+      },
+      "expect": {
+        "line": ""
+      }
+    },
+    {
+      "id": "val-fit-long",
+      "split": "validation",
+      "args": {
+        "job": {
+          "id": "t-201",
+          "status": "fit",
+          "executor": "cli",
+          "detail": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        }
+      },
+      "expect": {
+        "line": ""
+      }
+    },
+    {
+      "id": "val-misfit-long",
+      "split": "validation",
+      "args": {
+        "job": {
+          "id": "t-202",
+          "status": "misfit",
+          "executor": "cli",
+          "detail": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        }
+      },
+      "expect": {
+        "line": ""
+      }
+    },
+    {
+      "id": "holdout-fit",
+      "split": "holdout",
+      "args": {
+        "job": {
+          "id": "t-301",
+          "status": "fit",
+          "executor": "cmd",
+          "detail": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+        }
+      },
+      "expect": {
+        "line": ""
+      }
+    },
+    {
+      "id": "holdout-misfit",
+      "split": "holdout",
+      "args": {
+        "job": {
+          "id": "t-302",
+          "status": "misfit",
+          "executor": "cmd",
+          "detail": "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+        }
+      },
+      "expect": {
+        "line": ""
+      }
+    }
+  ],
+  "scorer": {
+    "contract": "algal.expr.v1",
+    "program": [
+      "let",
+      "line",
+      [
+        "get",
+        "outputs",
+        "line"
+      ],
+      [
+        "and",
+        [
+          "starts",
+          [
+            "get",
+            "line"
+          ],
+          [
+            "if",
+            [
+              "eq",
+              [
+                "get",
+                "args",
+                "job",
+                "status"
+              ],
+              "fit"
+            ],
+            "FIT",
+            "MISFIT"
+          ]
+        ],
+        [
+          "lte",
+          [
+            "slen",
+            [
+              "get",
+              "line"
+            ]
+          ],
+          72
+        ],
+        [
+          "scontains",
+          [
+            "get",
+            "line"
+          ],
+          [
+            "get",
+            "args",
+            "job",
+            "id"
+          ]
+        ],
+        [
+          "not",
+          [
+            "scontains",
+            [
+              "get",
+              "line"
+            ],
+            "\u001b"
+          ]
+        ]
+      ]
+    ]
+  }
+}

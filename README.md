@@ -210,6 +210,33 @@ are the misfits made testable, the scorer is the fit criterion, promotion
 is tradition selecting what runs — and the report is a content-addressed
 fossil record of the whole trial.
 
+### Bounded generation
+
+`generator.algal.json` adds variation: an agent emits format *descriptors*
+— `lit` / `field` / `verdict` parts — and a pure-expr assembler stamps
+them into guaranteed-valid manifests. Variation happens inside a grammar;
+population admission can't fail on syntax, so only the scorer judges
+semantics. (First attempt let the model emit whole manifests — it invented
+a `version` key and broke expr syntax. The grammar exists because
+unbounded generation fails admission, which is Alexander's point about
+pattern languages: the language constrains what variants are expressible.)
+
+```sh
+# deterministic gate path — recorded descriptor responses
+bunx github:hraness/algal foundry foundry-gen.config.json \
+  --responses generator.responses.json --out foundry-gen.report.json
+
+# live — a local model writes the population
+bunx github:hraness/algal foundry foundry-gen.config.json \
+  --executor-cmd "../../scripts/agent-executor.py" --out foundry-gen.live.report.json
+```
+
+Live result (`foundry-gen.live.report.json`, 19 receipts verified
+offline): claude generated `minimal-spaces`, `executor-colon-id`,
+`detail-emphasis`, `pipe-delimited` — none hand-written. `minimal-spaces`
+(`FIT t-101 fit`) promoted on work-units tiebreak over `pipe-delimited`;
+`detail-emphasis` correctly failed validation on long evidence.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

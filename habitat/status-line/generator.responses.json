@@ -1,0 +1,131 @@
+{
+  "writer": {
+    "variants": [
+      {
+        "key": "gen-verdict-line",
+        "name": "Verdict header",
+        "parts": [
+          {
+            "t": "verdict"
+          },
+          {
+            "t": "lit",
+            "v": " "
+          },
+          {
+            "t": "field",
+            "v": "id"
+          },
+          {
+            "t": "lit",
+            "v": " ["
+          },
+          {
+            "t": "field",
+            "v": "executor"
+          },
+          {
+            "t": "lit",
+            "v": "]"
+          }
+        ]
+      },
+      {
+        "key": "gen-bracket-line",
+        "name": "Bracketed verdict",
+        "parts": [
+          {
+            "t": "lit",
+            "v": "["
+          },
+          {
+            "t": "verdict"
+          },
+          {
+            "t": "lit",
+            "v": "] "
+          },
+          {
+            "t": "field",
+            "v": "id"
+          },
+          {
+            "t": "lit",
+            "v": ": "
+          },
+          {
+            "t": "field",
+            "v": "detail"
+          }
+        ]
+      },
+      {
+        "key": "gen-prose-line",
+        "name": "Prose",
+        "parts": [
+          {
+            "t": "lit",
+            "v": "job "
+          },
+          {
+            "t": "field",
+            "v": "id"
+          },
+          {
+            "t": "lit",
+            "v": " finished with status "
+          },
+          {
+            "t": "field",
+            "v": "status"
+          },
+          {
+            "t": "lit",
+            "v": " \u2014 "
+          },
+          {
+            "t": "field",
+            "v": "detail"
+          }
+        ]
+      },
+      {
+        "key": "gen-greedy-line",
+        "name": "Everything",
+        "parts": [
+          {
+            "t": "verdict"
+          },
+          {
+            "t": "lit",
+            "v": " "
+          },
+          {
+            "t": "field",
+            "v": "id"
+          },
+          {
+            "t": "lit",
+            "v": " \u2014 "
+          },
+          {
+            "t": "field",
+            "v": "detail"
+          },
+          {
+            "t": "lit",
+            "v": " ["
+          },
+          {
+            "t": "field",
+            "v": "executor"
+          },
+          {
+            "t": "lit",
+            "v": "]"
+          }
+        ]
+      }
+    ]
+  }
+}
