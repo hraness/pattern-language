@@ -1,0 +1,24 @@
+{
+  "schema": "pattern-language.construction-task-freeze.v1",
+  "frozenAt": "2026-09-22T20:41:31Z",
+  "files": {
+    "benchmarks/executable-constructions/artifact.md": "77f8be9a50eae52bdce3329cc7538c45d836f9a2d06238b414dd4e29362da72b",
+    "benchmarks/executable-constructions/compiler.mjs": "ce882c2efe3721b01c7efe25ab96b832277942bd272fef24db587667094f383e",
+    "benchmarks/executable-constructions/contexts/commit_pressure.json": "8744b5f97e65e9a23983b78b3c42abeb1cf1d79a5b9b3246cdba34e4c905b64e",
+    "benchmarks/executable-constructions/contexts/dev_burst.json": "e70e5b64d4d5df24617bcb6ccfd12e80a4e3fb7cc11af9456a4f9cba7657887b",
+    "benchmarks/executable-constructions/contexts/dev_paced.json": "1d40688387081df309c950f098f8f323594cfb036a7b2f6aabc8e0b1c85a361f",
+    "benchmarks/executable-constructions/contexts/latency_pressure.json": "89cac72728eaa4aeff033dc1aab8d2b3f34001298c64280e80bfe084755e81db",
+    "benchmarks/executable-constructions/contexts/recovery_pressure.json": "3a882c7629ce2c0fd1b6d9e5e8ec415c686e3712bc63567614f940e172179258",
+    "benchmarks/executable-constructions/contexts/write_pressure.json": "57918ae1d3ef8ae6239bea370895ba2c256e11d8df9a675c2a0ad5e3512a74f5",
+    "benchmarks/executable-constructions/contract.md": "9c4035afce3ac92d13d9b1cd8690c154e22823a78bf7097c7dc3e5f23b44c814",
+    "benchmarks/executable-constructions/evaluate.mjs": "778aebc05fb811662f3e65bfd740b94e257f69b76adb599be6be11c31365b33d",
+    "benchmarks/executable-constructions/fixtures/faults.json": "274e286dbf73cad5d6992b010b42319303b3ce934ce9ba41bbf0874aefdca6ab",
+    "benchmarks/executable-constructions/fixtures/instrument-evidence.json": "97fed93f331a95215c0cf457241adba3c27e6afdb2e9d15955d8b80dc7b8c4b3",
+    "benchmarks/executable-constructions/host.mjs": "104bf38799926a55d3edd5cc804c899cbc3c2f9143355a142fdcdde23c4aa866",
+    "benchmarks/executable-constructions/operators.md": "e7433f857c7b675eb43bb98f490b98418e376db4c8758eccba24878d70ada386",
+    "benchmarks/executable-constructions/oracle.mjs": "0c2bcbf2ebedbb33c5118541a6473e8e85b0c9d9e748be515883bacb733803c1",
+    "benchmarks/executable-constructions/self-test.mjs": "b4b6088a1713645697359c7439d1012ffac036555a55e066eb2cc7fefcfda74f",
+    "benchmarks/executable-constructions/space.mjs": "b8ca58a4e1e780ffd0baca6aa0fdd6ca569050ca9c567cd22fd27f6c096ac2d9",
+    "benchmarks/executable-constructions/test-compiler.mjs": "855d2c4041289c0e07192dddead8c06ff4628e9d5c51b9747ece665dd6e68aa7"
+  }
+}
