@@ -1,0 +1,77 @@
+{
+  "schema": "pattern-language.design-review.v1",
+  "sources": [
+    {
+      "id": "batch-checklist-r1-code",
+      "sha256": "77fa274ab66dcbb2fef0467cc927c00dcf91c7e3fb5cb315be02d4a3b7a40641"
+    },
+    {
+      "id": "batch-checklist-r2-code",
+      "sha256": "55c90c6dfacd726de53c5b1cd95da7dfff5892971f7b4ea9348a1ac58774450b"
+    },
+    {
+      "id": "batch-checklist-r3-code",
+      "sha256": "15142b612316cc04d145e2f345d7d3327393b7772f074af53f2f51b4ee95639c"
+    },
+    {
+      "id": "batch-direct-r1-code",
+      "sha256": "29744198257c5a4a8dd04b9bfccd10fa292ce51d752b3011ec1960aa45827cf9"
+    },
+    {
+      "id": "batch-direct-r2-code",
+      "sha256": "6ff5075b5d31af8cfdce19a64e9a9746f0902ce450ea129a4a9a3a041b43adae"
+    },
+    {
+      "id": "batch-direct-r3-code",
+      "sha256": "3e92c6cb3494279bc0a1c79543beda4cc9646c3ee8018cb0e270495ed898a1e4"
+    },
+    {
+      "id": "batch-pattern-r1-code",
+      "sha256": "e0aa708eff6b260987f80ea986ba2f17e0695d1744b3b8ebfe97c7e7841dae71"
+    },
+    {
+      "id": "batch-pattern-r2-code",
+      "sha256": "e3451d42ddee134afb9b67d5c6c3a72eaa0cce104c670e66ca5b08a665fe863c"
+    },
+    {
+      "id": "batch-pattern-r3-code",
+      "sha256": "c874ac81f5f2e451a6cc3bb8fc38b520b1c38b21e621e07b71bf884c28eafa56"
+    },
+    {
+      "id": "jobs-checklist-r1-code",
+      "sha256": "0df5c9e96a038e24111a55a9d22972059340721bdf2a091cd0083afb2d87e89e"
+    },
+    {
+      "id": "jobs-checklist-r2-code",
+      "sha256": "1f46f3564de848aa46b45f3a365caba7289713e07adf29745fa0cd3bac775429"
+    },
+    {
+      "id": "jobs-checklist-r3-code",
+      "sha256": "54769226c17535ada87f049af5a0c7b8238e3827f78525e2244c0af42a3f64fe"
+    },
+    {
+      "id": "jobs-direct-r1-code",
+      "sha256": "8a156b88eb086d29fdfc46e95455318310324bd05c0379b4af1410c7f44c961b"
+    },
+    {
+      "id": "jobs-direct-r2-code",
+      "sha256": "960d668f9d730a5c21391aef81f6d51b781093a87b16529f6129ad7a515cda3b"
+    },
+    {
+      "id": "jobs-direct-r3-code",
+      "sha256": "2401914702e5abb8f2cc7fe65590052148c899f1eefbc0f14e4a5b6d1b5ed1a5"
+    },
+    {
+      "id": "jobs-pattern-r1-code",
+      "sha256": "c8efd9969b6b4e914122ef3a4fe94b590cff5655c555813dc7b1b4eeeecf5838"
+    },
+    {
+      "id": "jobs-pattern-r2-code",
+      "sha256": "ddfe26ff9635b43a0d9a45b6076cc164db0e741e2c610772b1b8fc49f44d4c75"
+    },
+    {
+      "id": "jobs-pattern-r3-code",
+      "sha256": "5493bec9a099f64dc0e7a6f66b3d1a3ec0a8268652365305ae7d52ccc366c468"
+    }
+  ]
+}

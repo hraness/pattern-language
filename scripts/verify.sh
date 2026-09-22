@@ -291,4 +291,9 @@ node benchmarks/design-decisions-v3/test-score.mjs
 python3 scripts/test_design_swe2_runner.py
 node benchmarks/design-decisions-swe2/test-score.mjs
 
+# Preserve the completed Free-catalog SWE-2 study, including negative outcomes.
+study=benchmarks/design-decisions-swe2/results/2026-09-22-study
+node benchmarks/design-decisions-swe2/score.mjs "$study/plan.json" "$study/run.json" \
+  "$study/reviewed.json" --replay "$study/evaluation.json" >/dev/null
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

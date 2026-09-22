@@ -11,9 +11,12 @@ fresh account-bound Free eligibility, no tools and serial requests. XCB does
 not report billed cost; missing cost telemetry is recorded honestly. No paid
 fallback or automatic retry is permitted.
 
-Status: adapter implemented and tested offline; provider qualification pending.
-The initial live qualification returned `provider_error` with completed cleanup;
-XCB kept generation disabled. No benchmark requests have run.
+The [completed 36-request study](results/2026-09-22-study/README.md) reached a
+ceiling: all 18 design/code pairs passed every frozen outcome. Direct, checklist
+and pattern each scored 3/3 on both families. No pattern advantage was observed.
+Every admission passed the account-bound Free check; billed cost is unreported.
+The report explains the qualification repairs and why meaningful architectural
+alternatives are the next research need.
 
 Offline checks (no provider calls):
 
