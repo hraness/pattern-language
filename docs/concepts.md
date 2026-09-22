@@ -1,70 +1,81 @@
-# Notes on the Synthesis of Form → ALGAL
+# Alexander-inspired design in ALGAL
 
-How Christopher Alexander's 1964 vocabulary lands on the algal contract.
+The hypothesis is that reusable, context-sensitive resolutions of conflicting
+forces can help generate code that works and remains easier to change. ALGAL
+provides an execution and evidence substrate for testing that hypothesis.
+Representing a design process as runnable manifests does not establish that
+its outputs resolve the design problem, or outperform ordinary code generation.
 
-| Alexander | algal |
-| --- | --- |
-| ensemble of misfit variables | an organism's declared inputs + typed output contracts: a finite, bounded universe of requirements |
-| interaction graph between misfits | the edge graph; guards are the signed links |
-| decomposition into subsystems | `organism`/`each`/`repeat` cells embedding sub-manifests by digest — a tree of programs, acyclic by construction |
-| constructive diagram / pattern | **a manifest** — data that is simultaneously a picture of the problem structure and the executable resolution |
-| fusion of diagrams into a whole | `many` ports collecting every diagram's outputs; `join`/`expr` assembly |
-| piecemeal, cumulative evolution | `spawn` + `each` over labeled cases + scorer → champion slot (the foundry/habitat loop) |
-| tradition, myth, taboo | the fn/tool registries, budgets, capability classes — constraints the organism cannot widen |
-| fit demonstrated, not asserted | receipts + `algal verify` — replayable evidence, not a trusted transcript |
-| the fossil record of trial and error | the content-addressed run history |
+Alexander's [1996 OOPSLA address](https://www.patternlanguage.com/archive/ieee.html)
+distinguishes a useful pattern-writing format from a language that generates
+coherent wholes. His team's account of
+[generative sequences](https://www.patternlanguage.com/patterns/justsostory.html)
+emphasizes ordered decisions that adapt a design to its particular context.
+Those are useful directions for this experiment; the machinery in *Notes on
+the Synthesis of Form* is one starting point, not the whole thesis.
 
-## The deep correspondence
+## Concepts and their current representations
 
-Alexander's pattern is *both the pattern of the problem and the pattern of the
-solution*. An algal manifest is exactly that: `interface.inputs` is the
-force-system made data; cells and edges are the resolution;
-`interface.outputs` is the form-fragment. The manifest **is** the
-constructive diagram.
+| Design concept | Current representation | Limit of the correspondence |
+| --- | --- | --- |
+| Context and forces | Ensemble context, misfit descriptions, pattern notes, and test contracts | Input ports carry values; they do not express every requirement or tradeoff. |
+| Interactions among forces | Ensemble `links`, supplied or judged by `correlate` | These are claims about requirements. Manifest edges instead route execution data; guards select execution paths. |
+| Subsystem decomposition | Cluster assignments from `decompose`; nested manifests for execution | A partition is a proposed organization. Nesting does not prove that forces are independent. |
+| Constructive pattern | A contextual resolution described in the catalog and instantiated by a manifest | A reusable relationship can have several implementations. Executability alone does not make an artifact a useful pattern. |
+| Composition into a whole | Embedded organisms and output assembly | Successful assembly does not establish that interactions between parts are resolved. |
+| Piecemeal improvement | Candidate generation, evaluation, feedback, and promotion | Selection improves the chosen score; improvement in the underlying design requires independent evidence. |
+| Evidence | Receipts, replay, declared scorers, and reports | Execution evidence establishes what ran. Design utility depends on what was tested and what was omitted. |
 
-Two more correspondences worth naming:
+Keep three structures distinct: the graph of requirements and their
+interactions, the network of patterns that help satisfy them, and the
+implementation's dataflow graph. Their relationships need to be recorded and
+tested, rather than inferred from similar terminology.
 
-- **`view` is enforced subsystem isolation.** Alexander demands that a diagram
-  resolve only its own force-system; outside forces must not leak in.
-  `view.inputs`/`view.cells` mechanize the demand — the judgment sees exactly
-  the decomposed slice, and admission rejects everything else. The
-  decomposition *is* the context policy.
-- **`on:"fail"` is misfit propagation.** "Failure is fatal unless the
-  structure declares otherwise" is Alexander's requirement that unresolved
-  forces stay inside their subsystem. A misfit with no declared path kills
-  the form; a `many` port collecting guarded failure records makes
-  "fit = empty misfit list" a computed value.
+`view` restricts the declared context supplied to a judgment. It does not prove
+that omitted information is irrelevant, or that the model has no prior
+knowledge of it. Likewise, `on:"fail"` provides an execution path for a failure;
+it does not detect every design misfit. Sharing an embedded manifest by digest
+provides reuse in a DAG, without proving that the design models overlapping
+requirements adequately.
 
-## Where the map is honest about friction
+## What the current synthesis demonstrates
 
-- **Ensemble completeness is the hard epistemic core.** Alexander admits the
-  misfit set is never provably complete. algal cannot fix that — it makes the
-  incompleteness inspectable, diffable, versioned data instead of private
-  intuition.
-- **Interaction judgments are judgments.** "Do these misfits interact?" is
-  irreducibly a `decide` cell. The gain: interaction claims become typed,
-  receipted decisions rather than intuition slush.
-- **HIDECS won't fit in `expr` — but a greedy approximation does.**
-  `programs/decompose.algal.json` runs agglomerative merging (fuse the
-  cluster pair sharing the most cross-links, repeat to *k*) as a bounded
-  `repeat` over a pure-expr step. It demonstrably finds locally-dense
-  cuts, but it is not Alexander's information-theoretic partition, and on
-  the Appendix I village graph it should be *expected* to diverge from
-  his published decomposition — that oracle (`village.decomposition.json`)
-  exists to measure exactly that. Alexander's own verdict applies: the
-  formal machinery was never the point; the diagrams are.
-- **DAG beats tree.** Alexander's decomposition yields a strict tree, and he
-  spent "A City is Not a Tree" (1965) regretting that the world is a
-  semilattice. algal embedding is a DAG with content-addressed sharing —
-  one digest under two parents is an overlapping subsystem.
+[`diagram`](../programs/diagram.algal.json) currently asks its designer for one
+constant text cell with no inputs. The resulting manifest executes, but its
+output is a proposed resolution in prose.
+[`realize`](../programs/realize.algal.json) joins those fragments with newlines.
+This demonstrates admitted generation, composition, and failure routing. It
+does not yet demonstrate the generation of working code from a pattern language.
 
-## The warning built in
+The existing formatter patterns do execute concrete transformations, and the
+habitats exercise selection under explicit contracts. These are useful test
+fixtures. Replayed judgments establish that the selection machinery works;
+model preferences remain judgments rather than independent correctness tests.
 
-> "I reject the whole idea of design methods as a subject of study... people
-> who have treated this book as if it were a book about 'design method' have
-> almost always missed the point of the diagrams."
-> — preface to the paperback edition, 1971
+Decomposition uses average linkage rather than Alexander's HIDECS algorithm.
+Agreement with his published partition measures resemblance to a historical
+reference, not the quality of a new design. Clustering comparisons need
+degenerate and constraint-matched baselines and a
+[chance-adjusted metric](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html).
+An existing codebase's documented grouping is also a reference, not a uniquely
+correct architecture.
 
-The programs/ directory is the method; the patterns/ directory is the point.
-If the programs ever become a ritual performed for their own sake, the
-language has failed the way Alexander feared.
+## Evidence needed for the thesis
+
+A candidate pattern should identify its applicability, conflicting forces,
+reusable resolution, known limits, and checks that could disprove its usefulness.
+An implementation is one instance of that resolution. A generative sequence
+should explain which transformation to apply next and preserve previously
+established behavior while adapting the whole.
+
+The next experiment should produce real code, compare it with a matched-budget
+baseline and a requirements-only control, then apply previously withheld change
+requests. Measure functional correctness, regressions, resource bounds, and
+the cost of successful adaptation. Keep acceptance tests separate from candidate
+selection. [EvalPlus](https://arxiv.org/abs/2305.01210) demonstrates why weak test
+suites can overstate code correctness and even change candidate rankings.
+
+Machine checks can evaluate a declared contract without a human judge on each
+run. Choosing that contract still expresses design priorities; no passing score
+establishes completeness of the requirements or Alexander's broader claims
+about human experience.

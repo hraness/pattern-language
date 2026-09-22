@@ -17,5 +17,7 @@
   "stat-suffix": 1,
   "why-lead": 4,
   "why-dash": 2
- }
+ },
+ "evidenceStatus": "excluded-unverified-human-provenance",
+ "evidenceNote": "The historical human label is not verified. These picks and agreement counts must not be used as human validation or judge calibration."
 }

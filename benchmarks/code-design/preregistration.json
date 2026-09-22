@@ -1,0 +1,41 @@
+{
+  "schema": "code-design-protocol.v1",
+  "protocolDate": "2026-09-22",
+  "status": "planned; no live results supplied by this protocol",
+  "task": "ordered bounded async mapper followed by cooperative cancellation",
+  "arms": ["direct", "checklist", "pattern"],
+  "replicates": 6,
+  "callsPerReplicate": 6,
+  "armWordBudget": 154,
+  "maxInputTokens": 4096,
+  "maxOutputTokens": 4096,
+  "perCallWallTimeoutSeconds": 180,
+  "model": "Select one exact provider/model revision in the run manifest before generation",
+  "reasoningAndSampling": "Identical explicit settings across arms; record provider-supported settings and any seed",
+  "tools": "disabled",
+  "repairAttempts": 0,
+  "feedbackBeforeChange": "prior source only; no evaluator results",
+  "changeCondition": "run every arm, even when its base implementation fails",
+  "armOrders": [
+    ["direct", "checklist", "pattern"],
+    ["checklist", "pattern", "direct"],
+    ["pattern", "direct", "checklist"],
+    ["direct", "pattern", "checklist"],
+    ["pattern", "checklist", "direct"],
+    ["checklist", "direct", "pattern"]
+  ],
+  "primaryEndpoints": [
+    "base passes all base cases",
+    "changed implementation passes all base and change cases"
+  ],
+  "secondaryEndpoints": [
+    "per-group and per-case failures",
+    "generation latency and input/output usage",
+    "source diff size for change, descriptive only"
+  ],
+  "exclusions": "No post-hoc exclusions; retain refusals, invalid code, timeouts, and incomplete outputs as failures",
+  "analysis": "Report each paired replicate, exact all-pass counts, discordant pairs, and costs; descriptive pilot only",
+  "stopRule": "Stop after all six paired replicates or a documented provider/resource block; publish partial runs as partial",
+  "freezeRule": "Record hashes of tasks, prompts, cases, evaluator, and protocol before the first generation; changes require a new protocol version",
+  "smokeRun": "One paired replicate may check plumbing but is not the preregistered six-replicate pilot"
+}

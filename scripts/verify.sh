@@ -2,9 +2,9 @@
 # Repo gate: every manifest must admit, and every fixture must replay to
 # outcome=complete. Deterministic manifests run on args alone; judgment
 # manifests replay their recorded responses.
-set -u
+set -euo pipefail
 cd "$(dirname "$0")/.."
-ALGAL="bunx github:hraness/algal"
+read -r -a ALGAL <<< "${ALGAL_CMD:-bunx github:hraness/algal}"
 # Local algal checkout for search-verify — the bunx pin predates the
 # scorer-propagation fix (hraness/algal 43c9dcf).
 ALGAL_LOCAL="${ALGAL_LOCAL:-$HOME/src/algal/cli.ts}"
@@ -12,13 +12,13 @@ STORE="${ALGAL_STORE:-/tmp/pl-verify-store}"
 fail=0
 
 check() {
-  out=$($ALGAL check "$1" --modules programs/ 2>&1 | tail -1)
+  out=$("${ALGAL[@]}" check "$1" --modules programs/ 2>&1 | tail -1)
   ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
   if [ "$ok" = "True" ]; then echo "check  OK  $1"; else echo "check  FAIL $1"; printf '%s\n' "$out"; fail=1; fi
 }
 
 run() { # manifest args [responses]
-  out=$($ALGAL run "$1" --args "$2" ${3:+--responses "$3"} --modules programs/ --dir "$STORE" 2>&1 | tail -1)
+  out=$("${ALGAL[@]}" run "$1" --args "$2" ${3:+--responses "$3"} --modules programs/ --dir "$STORE" 2>&1 | tail -1)
   oc=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("outcome"))' 2>/dev/null)
   if [ "$oc" = "complete" ]; then echo "run    OK  $1"; else echo "run    FAIL $1"; printf '%s\n' "$out" | head -20; fail=1; fi
 }
@@ -49,33 +49,37 @@ assert len(ids) == 141 and ids == dec, "village ensemble/oracle mismatch"
 print("data   OK  village ensemble + oracle (141 misfits, 1434 links)")
 PY
 
-# Appendix I benchmark: greedy average-linkage must stay non-degenerate
-# and within range of Alexander's published partition (agreement >= 0.6).
-out=$(python3 scripts/decompose-village.py 12 avg)
-printf '%s\n' "$out" | head -3
-agree=$(printf '%s\n' "$out" | python3 -c 'import sys,re; m=re.search(r"agreement[^:]*: (\d+\.\d+)", sys.stdin.read()); print(m.group(1))')
-python3 -c "import sys; sys.exit(0 if float('$agree') >= 0.6 else 1)" \
-  && echo "bench  OK  village decompose agreement=$agree" \
-  || { echo "bench  FAIL village decompose agreement=$agree"; fail=1; }
+# Metric validity and the existing historical regression floor, plus a
+# chance-corrected comparison. This is a fixed-fixture regression check,
+# not a fresh significance test or evidence of code-design effectiveness.
+python3 scripts/test_partition_metrics.py
+out=$(python3 scripts/decompose-village.py 12 avg --json --baseline-samples 200 --seed 0)
+printf '%s\n' "$out" | python3 -c '
+import json,sys
+r=json.load(sys.stdin); m=r["metrics"]; b=r["baseline"]
+assert m["rand_index"] >= 0.6, "historical partition regression"
+assert m["adjusted_rand_index"] > b["p95_adjusted_rand_index"], "ARI does not exceed size-preserving null"
+print("bench  OK  village ARI=%.4f > null p95=%.4f (legacy Rand=%.4f)" %
+      (m["adjusted_rand_index"], b["p95_adjusted_rand_index"], m["rand_index"]))'
 
 # Transfer test (report-only): mechanical import links on a real codebase.
 if [ -f ensembles/algal-src.ensemble.json ]; then
   python3 scripts/decompose-village.py 10 avg \
-    ensembles/algal-src.ensemble.json ensembles/algal-src.decomposition.json | head -3
+    ensembles/algal-src.ensemble.json ensembles/algal-src.decomposition.json | head -4
 fi
 
 # Habitat gate: the foundry must promote verdict-line and verify offline.
-out=$(cd habitat/status-line && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+out=$(cd habitat/status-line && "${ALGAL[@]}" foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("promoted",""))' 2>/dev/null)
-want=$(python3 -c 'import json,subprocess; print(json.loads(subprocess.run(["bunx","github:hraness/algal","digest","habitat/status-line/verdict-line.algal.json"],capture_output=True,text=True).stdout)["digest"])')
+want=$("${ALGAL[@]}" digest habitat/status-line/verdict-line.algal.json | python3 -c 'import json,sys; print(json.load(sys.stdin)["digest"])')
 if [ "$prom" = "$want" ]; then echo "foundry OK  verdict-line promoted"; else echo "foundry FAIL promoted=$prom"; fail=1; fi
-vout=$(cd habitat/status-line && $ALGAL foundry verify foundry.report.json --dir "$STORE" 2>&1 | tail -1)
+vout=$(cd habitat/status-line && "${ALGAL[@]}" foundry verify foundry.report.json --dir "$STORE" 2>&1 | tail -1)
 vok=$(printf '%s' "$vout" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
 [ "$vok" = "True" ] && echo "foundry OK  report verifies offline" || { echo "foundry FAIL verify"; fail=1; }
 
 # Generated-population path: writer replays recorded descriptors; the
 # assembler + evaluation are deterministic, so this gates fully offline.
-out=$(cd habitat/status-line && $ALGAL foundry foundry-gen.config.json \
+out=$(cd habitat/status-line && "${ALGAL[@]}" foundry foundry-gen.config.json \
   --responses generator.responses.json --dir "$STORE" --out foundry-gen.report.json 2>&1 | tail -1)
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:gen-verdict-line" ] && echo "foundry OK  generated verdict-line promoted" \
@@ -95,15 +99,15 @@ vok=$(printf '%s' "$vout" | python3 -c 'import json,sys; print(json.load(sys.std
 
 # Commit-subject habitat: mechanical foundry + judged jury (replayed).
 for f in habitat/commit-subject/*.algal.json; do
-  out=$($ALGAL check "$f" --modules habitat/commit-subject 2>&1 | tail -1)
+  out=$("${ALGAL[@]}" check "$f" --modules habitat/commit-subject 2>&1 | tail -1)
   ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
   [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
 done
-out=$(cd habitat/commit-subject && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+out=$(cd habitat/commit-subject && "${ALGAL[@]}" foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:verb-what" ] && echo "foundry OK  verb-what promoted (mechanical)" \
   || { echo "foundry FAIL cs promoted=$prom"; fail=1; }
-out=$(cd habitat/commit-subject && $ALGAL run jury.algal.json --args jury.args.json --modules . \
+out=$(cd habitat/commit-subject && "${ALGAL[@]}" run jury.algal.json --args jury.args.json --modules . \
   --responses jury.responses.json --dir "$STORE" 2>&1 | tail -1)
 champ=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print(r["cells"]["tally"]["outputs"]["out"]["champion"]["key"])' 2>/dev/null)
 [ "$champ" = "why-tail" ] && echo "jury   OK  why-tail champion (judged)" \
@@ -117,15 +121,15 @@ champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
 # Run-summary habitat: real gate-output records. Mechanical foundry clears
 # all formats; the panel jury discriminates; judged evolution replays.
 for f in habitat/run-summary/*.algal.json; do
-  out=$($ALGAL check "$f" --modules habitat/run-summary 2>&1 | tail -1)
+  out=$("${ALGAL[@]}" check "$f" --modules habitat/run-summary 2>&1 | tail -1)
   ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
   [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
 done
-out=$(cd habitat/run-summary && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+out=$(cd habitat/run-summary && "${ALGAL[@]}" foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:tool-lead" ] && echo "foundry OK  tool-lead promoted (mechanical)" \
   || { echo "foundry FAIL rs promoted=$prom"; fail=1; }
-out=$(cd habitat/run-summary && $ALGAL run panel-jury.algal.json --args panel.args.json --modules . \
+out=$(cd habitat/run-summary && "${ALGAL[@]}" run panel-jury.algal.json --args panel.args.json --modules . \
   --responses jury.responses.json --dir "$STORE" 2>&1 | tail -1)
 champ=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print(r["cells"]["tally"]["outputs"]["out"]["champion"]["key"])' 2>/dev/null)
 [ "$champ" = "metric-first" ] && echo "jury   OK  metric-first champion (panel-judged)" \
@@ -148,11 +152,11 @@ PY
 # Commit-message habitat: structured artifact (subject + body) with a
 # cross-field contract — the body must carry the why.
 for f in habitat/commit-message/*.algal.json; do
-  out=$($ALGAL check "$f" --modules habitat/commit-message 2>&1 | tail -1)
+  out=$("${ALGAL[@]}" check "$f" --modules habitat/commit-message 2>&1 | tail -1)
   ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
   [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
 done
-out=$(cd habitat/commit-message && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+out=$(cd habitat/commit-message && "${ALGAL[@]}" foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:act-why" ] && echo "foundry OK  act-why promoted (mechanical)" \
   || { echo "foundry FAIL cm promoted=$prom"; fail=1; }
@@ -174,11 +178,11 @@ PY
 # Partition habitat: decomposition artifacts — named groups over a misfit
 # set with coupling (co-location) and separation requirements.
 for f in habitat/partition/*.algal.json; do
-  out=$($ALGAL check "$f" --modules habitat/partition 2>&1 | tail -1)
+  out=$("${ALGAL[@]}" check "$f" --modules habitat/partition 2>&1 | tail -1)
   ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
   [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
 done
-out=$(cd habitat/partition && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+out=$(cd habitat/partition && "${ALGAL[@]}" foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:coupled-pairs" ] && echo "foundry OK  coupled-pairs promoted (mechanical)" \
   || { echo "foundry FAIL partition promoted=$prom"; fail=1; }
@@ -201,11 +205,11 @@ PY
 # a cohesion-floor contract, and oracle agreement vs the real directory
 # structure as an external anchor.
 for f in habitat/partition-src/*.algal.json; do
-  out=$(cd habitat/partition-src && $ALGAL check "$(basename "$f")" --modules . 2>&1 | tail -1)
+  out=$(cd habitat/partition-src && "${ALGAL[@]}" check "$(basename "$f")" --modules . 2>&1 | tail -1)
   ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
   [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
 done
-(cd habitat/partition-src && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json >/dev/null 2>&1)
+(cd habitat/partition-src && "${ALGAL[@]}" foundry foundry.config.json --dir "$STORE" --out foundry.report.json >/dev/null 2>&1)
 prom=$(python3 -c 'import json; r=json.load(open("habitat/partition-src/foundry.report.json")); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:layered-arch" ] && echo "foundry OK  layered-arch promoted (mechanical)" \
   || { echo "foundry FAIL partition-src promoted=$prom"; fail=1; }
@@ -230,11 +234,11 @@ PY
 # published four-region decomposition as oracle + candidate, generated
 # alternatives scored on a declared link subsample inside expr fuel bounds.
 for f in habitat/partition-village/*.algal.json; do
-  out=$(cd habitat/partition-village && $ALGAL check "$(basename "$f")" --modules . 2>&1 | tail -1)
+  out=$(cd habitat/partition-village && "${ALGAL[@]}" check "$(basename "$f")" --modules . 2>&1 | tail -1)
   ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
   [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
 done
-(cd habitat/partition-village && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json >/dev/null 2>&1)
+(cd habitat/partition-village && "${ALGAL[@]}" foundry foundry.config.json --dir "$STORE" --out foundry.report.json >/dev/null 2>&1)
 prom=$(python3 -c 'import json; r=json.load(open("habitat/partition-village/foundry.report.json")); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:greedy-twelve" ] && echo "foundry OK  greedy-twelve promoted over Alexander partition (mechanical)" \
   || { echo "foundry FAIL partition-village promoted=$prom"; fail=1; }
@@ -258,5 +262,11 @@ assert st["theme-twelve"]["oracleAgreement"] == 1.0
 assert st["theme-twelve"]["oracleAgreement"] > st["thin-twenty"]["oracleAgreement"]
 assert r["finalChampion"]["key"] == "theme-twelve" and r["reconciled"] is True
 PY
+
+# Real-code evaluator must accept the reference and reject targeted mutants.
+node benchmarks/code-design/self-test.mjs
+# Frozen negative outcomes are evidence too: verify per-case reproduction.
+node benchmarks/code-design/replay.mjs \
+  benchmarks/code-design/results/2026-09-22-haiku-smoke/run.json >/dev/null
 
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }
