@@ -460,6 +460,47 @@ mech catches them, judged fit still prefers the compliant champion.
 The whole three-tier architecture transferred to structured artifacts
 without modification: same jury manifests, same probe, same driver.
 
+### The partition habitat — fit as a property of a decomposition
+
+`habitat/partition/` is the deepest test: the artifact is a *structure* —
+named subsystems over the `cli-report` ensemble's 8 misfits. The genome
+literally is a proposed decomposition (`{"groups": [{name, misfits}]}`);
+the positive ensemble links become **coupling requirements** (pairs that
+must share a group) and the negative links become **separation
+requirements** (pairs that must not). The scorer checks seven terms:
+exact coverage, >= 2 groups, >= 2 members each, every group named,
+every coupling co-located, no separation co-located. It takes `flat`,
+`contains`, `map`, `filter` — all inside expr's depth bound.
+
+Five hand-written decompositions: `coupled-pairs` (the 4 link-pairs) and
+`merged-trust` (verdict+evidence merged) both satisfy the contract —
+two genuinely different valid partitions for the jury to discriminate.
+`singletons` dies on min-size, `symptom-cause` (symptoms vs causes —
+plausible theme) dies splitting every coupling, `signal-stack` dies on
+the separation term alone.
+
+Live judged evolution (`evolve.live.report.json`) explored real
+structure, not surface:
+
+| gen | champion | structure |
+|---|---|---|
+| 0 | merged-trust | 3 groups — jury prefers the merge over 4 pairs |
+| 1 | **quality-chain** (generated) | different 3-merge: limits merged with evidence |
+| 2 | **atomized-concerns** (generated) | back to 4 pairs — **with sharper force-names** |
+
+The final champion is topologically identical to the hand-written
+`coupled-pairs` but renamed (`verdict-discernibility`,
+`evidence-integrity`, `format-robustness`, `medium-invariance`) — the
+trajectory varied *topology* first, then converged on *naming quality*.
+Zero escapes, zero contested duels — both rubrics agreed on every
+structural comparison, unlike the 45% contestation on line formats.
+
+Also found and fixed upstream: `algal run`'s `process.stdout.write`
+truncates past the 64KiB pipe buffer at exit — jury receipts on
+structural artifacts routinely exceed it. `out()` now drains with
+`writeSync` (`hraness/algal` `ff62742`); the driver also redirects
+stdout to a file regardless of runtime version.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

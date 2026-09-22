@@ -1,0 +1,330 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:panel-duel",
+ "name": "Panel duel",
+ "note": "Two judges, two rubrics. advocate: leads-with-act, conveys why. skeptic: scannable in a list of fifty, terse, conventional case. Agree = robust pick; contested = the misfits genuinely conflict and the pair flags it instead of hiding it.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 4,
+  "maxWork": 60000
+ },
+ "interface": {
+  "inputs": {
+   "duel": {
+    "cell": "d",
+    "port": "duel"
+   }
+  },
+  "outputs": {
+   "verdict": {
+    "cell": "w",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "d",
+   "kind": "input",
+   "outputs": {
+    "duel": "json"
+   }
+  },
+  {
+   "id": "advocate",
+   "kind": "decide",
+   "inputs": {
+    "d": "json"
+   },
+   "prompt": "Two candidate one-line outputs for the same record, plus the brief. Judge which line is the better form: leads with the verdict or the act, honest scope, conveys WHY or evidence over bare label, no noise.",
+   "questions": {
+    "pick": {
+     "type": "choice",
+     "instructions": "Which subject is the better commit subject?",
+     "criteria": {
+      "a": null,
+      "b": null,
+      "tie": null
+     }
+    }
+   },
+   "view": {
+    "inputs": "*"
+   },
+   "budget": {
+    "maxContextBytes": 8192
+   },
+   "route": {
+    "provider": "jev"
+   }
+  },
+  {
+   "id": "skeptic",
+   "kind": "decide",
+   "inputs": {
+    "d": "json"
+   },
+   "prompt": "Two candidate one-line outputs for the same record, plus the brief. Judge which line survives a wall of similar output: terse, conventional, fixed-shape, no fluff. Reward what a tired reader scans fastest.",
+   "questions": {
+    "pick": {
+     "type": "choice",
+     "instructions": "Which subject is the better commit subject?",
+     "criteria": {
+      "a": null,
+      "b": null,
+      "tie": null
+     }
+    }
+   },
+   "view": {
+    "inputs": "*"
+   },
+   "budget": {
+    "maxContextBytes": 8192
+   },
+   "route": {
+    "provider": "jev"
+   }
+  },
+  {
+   "id": "w",
+   "kind": "expr",
+   "inputs": {
+    "d": "json",
+    "v1": "json",
+    "v2": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "let",
+     "p1",
+     [
+      "get",
+      "v1",
+      "answers",
+      "pick",
+      "choice"
+     ],
+     [
+      "let",
+      "p2",
+      [
+       "get",
+       "v2",
+       "answers",
+       "pick",
+       "choice"
+      ],
+      {
+       "a": [
+        "get",
+        "d",
+        "a",
+        "key"
+       ],
+       "b": [
+        "get",
+        "d",
+        "b",
+        "key"
+       ],
+       "j1": [
+        "get",
+        "v1",
+        "answers",
+        "pick",
+        "choice"
+       ],
+       "j2": [
+        "get",
+        "v2",
+        "answers",
+        "pick",
+        "choice"
+       ],
+       "agree": [
+        "eq",
+        [
+         "get",
+         "v1",
+         "answers",
+         "pick",
+         "choice"
+        ],
+        [
+         "get",
+         "v2",
+         "answers",
+         "pick",
+         "choice"
+        ]
+       ],
+       "winner": [
+        "if",
+        [
+         "eq",
+         [
+          "get",
+          "v1",
+          "answers",
+          "pick",
+          "choice"
+         ],
+         "a"
+        ],
+        [
+         "get",
+         "d",
+         "a",
+         "key"
+        ],
+        [
+         "if",
+         [
+          "eq",
+          [
+           "get",
+           "v1",
+           "answers",
+           "pick",
+           "choice"
+          ],
+          "b"
+         ],
+         [
+          "get",
+          "d",
+          "b",
+          "key"
+         ],
+         "tie"
+        ]
+       ],
+       "verdict": [
+        "if",
+        [
+         "eq",
+         [
+          "get",
+          "v1",
+          "answers",
+          "pick",
+          "choice"
+         ],
+         [
+          "get",
+          "v2",
+          "answers",
+          "pick",
+          "choice"
+         ]
+        ],
+        [
+         "if",
+         [
+          "eq",
+          [
+           "get",
+           "v1",
+           "answers",
+           "pick",
+           "choice"
+          ],
+          "a"
+         ],
+         [
+          "get",
+          "d",
+          "a",
+          "key"
+         ],
+         [
+          "if",
+          [
+           "eq",
+           [
+            "get",
+            "v1",
+            "answers",
+            "pick",
+            "choice"
+           ],
+           "b"
+          ],
+          [
+           "get",
+           "d",
+           "b",
+           "key"
+          ],
+          "tie"
+         ]
+        ],
+        "contested"
+       ]
+      }
+     ]
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "d",
+    "port": "duel"
+   },
+   "to": {
+    "cell": "advocate",
+    "port": "d"
+   }
+  },
+  {
+   "from": {
+    "cell": "d",
+    "port": "duel"
+   },
+   "to": {
+    "cell": "skeptic",
+    "port": "d"
+   }
+  },
+  {
+   "from": {
+    "cell": "d",
+    "port": "duel"
+   },
+   "to": {
+    "cell": "w",
+    "port": "d"
+   }
+  },
+  {
+   "from": {
+    "cell": "advocate",
+    "port": "out"
+   },
+   "to": {
+    "cell": "w",
+    "port": "v1"
+   }
+  },
+  {
+   "from": {
+    "cell": "skeptic",
+    "port": "out"
+   },
+   "to": {
+    "cell": "w",
+    "port": "v2"
+   }
+  }
+ ]
+}

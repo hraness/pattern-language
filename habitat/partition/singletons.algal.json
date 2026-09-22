@@ -1,0 +1,117 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:singletons",
+ "name": "Singletons",
+ "note": "Every misfit its own subsystem \u2014 no coupling resolved.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "m1",
+        "misfits": [
+         "m1"
+        ]
+       },
+       {
+        "name": "m2",
+        "misfits": [
+         "m2"
+        ]
+       },
+       {
+        "name": "m3",
+        "misfits": [
+         "m3"
+        ]
+       },
+       {
+        "name": "m4",
+        "misfits": [
+         "m4"
+        ]
+       },
+       {
+        "name": "m5",
+        "misfits": [
+         "m5"
+        ]
+       },
+       {
+        "name": "m6",
+        "misfits": [
+         "m6"
+        ]
+       },
+       {
+        "name": "m7",
+        "misfits": [
+         "m7"
+        ]
+       },
+       {
+        "name": "m8",
+        "misfits": [
+         "m8"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

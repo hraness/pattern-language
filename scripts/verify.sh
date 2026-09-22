@@ -171,4 +171,30 @@ assert g["mechanical"]["verb-what-why"]["passed"] is True
 assert r["finalChampion"]["key"] == "verb-what-why" and r["reconciled"] is True
 PY
 
+# Partition habitat: decomposition artifacts — named groups over a misfit
+# set with coupling (co-location) and separation requirements.
+for f in habitat/partition/*.algal.json; do
+  out=$($ALGAL check "$f" --modules habitat/partition 2>&1 | tail -1)
+  ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
+  [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
+done
+out=$(cd habitat/partition && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
+[ "$prom" = "organism:coupled-pairs" ] && echo "foundry OK  coupled-pairs promoted (mechanical)" \
+  || { echo "foundry FAIL partition promoted=$prom"; fail=1; }
+out=$(python3 scripts/evolve-jury.py habitat/partition --gens 1 \
+  --jury reconciled-jury.algal.json --responses habitat/partition/evolve.responses.json 2>&1 | tail -1)
+champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
+[ "$champ" = "force-pairs" ] && echo "evolve OK  generated force-pairs dethrones incumbent" \
+  || { echo "evolve FAIL partition champion=$champ"; fail=1; }
+python3 - <<'PY' && echo "mech   OK  structural partition violators named" || { echo "mech   FAIL partition mech wrong"; fail=1; }
+import json
+r = json.load(open("habitat/partition/evolve.report.json"))
+g = r["generations"][-1]
+assert g["mechanical"]["visual-groups"]["passed"] is False
+assert g["mechanical"]["big-little"]["passed"] is False
+assert g["mechanical"]["force-pairs"]["passed"] is True
+assert r["finalChampion"]["key"] == "force-pairs" and r["reconciled"] is True
+PY
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

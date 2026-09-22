@@ -1,0 +1,86 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "m1",
+         "m5",
+         "m4",
+         "m6"
+        ],
+        "name": "visual"
+       },
+       {
+        "misfits": [
+         "m2",
+         "m8",
+         "m3",
+         "m7"
+        ],
+        "name": "textual"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:visual-groups",
+ "name": "Visual groups"
+}

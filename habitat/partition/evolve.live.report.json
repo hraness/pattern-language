@@ -1,0 +1,150 @@
+{
+ "contract": "pattern-language.evolve.v1",
+ "habitat": "habitat/partition",
+ "mode": "live",
+ "arena": "holdout-cli-report",
+ "generations": [
+  {
+   "generation": 0,
+   "standings": [
+    {
+     "key": "coupled-pairs",
+     "subject": "== verdict-identity\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n== honest-evidence\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-shape\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-fidelity\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 0
+    },
+    {
+     "key": "merged-trust",
+     "subject": "== trust-surface\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-shape\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-fidelity\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 1
+    }
+   ],
+   "judgedChampion": {
+    "key": "merged-trust",
+    "wins": 1
+   },
+   "reconciledChampion": {
+    "key": "merged-trust",
+    "wins": 1
+   },
+   "escaped": false,
+   "contested": 0,
+   "duels": 1,
+   "champion": {
+    "key": "merged-trust",
+    "wins": 1
+   },
+   "mechanical": {
+    "coupled-pairs": {
+     "passed": true,
+     "failed": []
+    },
+    "merged-trust": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:ab8548d0f6df144c364c538b09be4932399616d77441012e3127b0367d6ba08a"
+  },
+  {
+   "generation": 1,
+   "standings": [
+    {
+     "key": "merged-trust",
+     "subject": "== trust-surface\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-shape\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-fidelity\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 0
+    },
+    {
+     "key": "rendering-integrity",
+     "subject": "== clear-communication\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs\n== evidence-honesty\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-output\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals",
+     "wins": 1
+    },
+    {
+     "key": "quality-chain",
+     "subject": "== verdict-discernibility\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n== trustworthy-limits\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-safety\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 2
+    }
+   ],
+   "judgedChampion": {
+    "key": "quality-chain",
+    "wins": 2
+   },
+   "reconciledChampion": {
+    "key": "quality-chain",
+    "wins": 2
+   },
+   "escaped": false,
+   "contested": 0,
+   "duels": 3,
+   "champion": {
+    "key": "quality-chain",
+    "wins": 2
+   },
+   "mechanical": {
+    "merged-trust": {
+     "passed": true,
+     "failed": []
+    },
+    "rendering-integrity": {
+     "passed": true,
+     "failed": []
+    },
+    "quality-chain": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:a95349ca86fd6f03430364ed8833d40ee1be45171cd11ce6c107bd5715d88fb1"
+  },
+  {
+   "generation": 2,
+   "standings": [
+    {
+     "key": "quality-chain",
+     "subject": "== verdict-discernibility\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n== trustworthy-limits\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-safety\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 0
+    },
+    {
+     "key": "atomized-concerns",
+     "subject": "== verdict-discernibility\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n== evidence-integrity\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== format-robustness\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== medium-invariance\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 1
+    }
+   ],
+   "judgedChampion": {
+    "key": "atomized-concerns",
+    "wins": 1
+   },
+   "reconciledChampion": {
+    "key": "atomized-concerns",
+    "wins": 1
+   },
+   "escaped": false,
+   "contested": 0,
+   "duels": 1,
+   "champion": {
+    "key": "atomized-concerns",
+    "wins": 1
+   },
+   "mechanical": {
+    "quality-chain": {
+     "passed": true,
+     "failed": []
+    },
+    "atomized-concerns": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:6e04073f39dd324d4ff024b6ac7c9cce59d0ad4e33a4f6376d063d6b945a5140"
+  }
+ ],
+ "finalChampion": {
+  "key": "atomized-concerns",
+  "wins": 1
+ },
+ "judgedChampion": {
+  "key": "atomized-concerns",
+  "wins": 1
+ },
+ "escaped": false,
+ "reconciled": true
+}

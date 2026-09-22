@@ -1,0 +1,87 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:symptom-cause",
+ "name": "Symptom cause",
+ "note": "Symptoms vs causes \u2014 plausible theme, but it splits every coupled pair.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "symptoms",
+        "misfits": [
+         "m1",
+         "m2",
+         "m3",
+         "m4"
+        ]
+       },
+       {
+        "name": "causes",
+        "misfits": [
+         "m5",
+         "m6",
+         "m7",
+         "m8"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

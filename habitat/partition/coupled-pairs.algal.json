@@ -1,0 +1,97 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:coupled-pairs",
+ "name": "Coupled pairs",
+ "note": "Each positive link is a pair; group names name the shared force.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "verdict-identity",
+        "misfits": [
+         "m1",
+         "m5"
+        ]
+       },
+       {
+        "name": "honest-evidence",
+        "misfits": [
+         "m2",
+         "m8"
+        ]
+       },
+       {
+        "name": "bounded-shape",
+        "misfits": [
+         "m3",
+         "m6"
+        ]
+       },
+       {
+        "name": "text-fidelity",
+        "misfits": [
+         "m4",
+         "m7"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

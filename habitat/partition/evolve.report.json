@@ -1,0 +1,434 @@
+{
+ "contract": "pattern-language.evolve.v1",
+ "habitat": "habitat/partition",
+ "mode": "scripted",
+ "arena": "holdout-cli-report",
+ "generations": [
+  {
+   "generation": 0,
+   "standings": [
+    {
+     "key": "coupled-pairs",
+     "subject": "== verdict-identity\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n== honest-evidence\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-shape\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-fidelity\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 0
+    },
+    {
+     "key": "merged-trust",
+     "subject": "== trust-surface\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-shape\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-fidelity\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 1
+    }
+   ],
+   "judgedChampion": {
+    "key": "merged-trust",
+    "wins": 1
+   },
+   "reconciledChampion": {
+    "key": "merged-trust",
+    "wins": 1
+   },
+   "escaped": false,
+   "contested": 0,
+   "duels": 1,
+   "champion": {
+    "key": "merged-trust",
+    "wins": 1
+   },
+   "mechanical": {
+    "coupled-pairs": {
+     "passed": true,
+     "failed": []
+    },
+    "merged-trust": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:dac0a4d82946cde9c06b831b7f355fe0ff734c961d950884e16d5cdb0b729f67"
+  },
+  {
+   "generation": 1,
+   "standings": [
+    {
+     "key": "merged-trust",
+     "subject": "== trust-surface\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-shape\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-fidelity\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 0
+    },
+    {
+     "key": "visual-groups",
+     "subject": "== visual\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n  m4 color carries meaning a pipe loses\n  m6 wide lines break on narrow terminals\n== textual\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n  m3 the tail is unbounded\n  m7 the report cannot be diffed across runs",
+     "wins": 1
+    },
+    {
+     "key": "loose-buckets",
+     "subject": "== output\n  m1 the verdict is not visible at a glance\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== fidelity\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs\n== evidence\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== status\n  m5 failure reads identical to success\n  m1 the verdict is not visible at a glance",
+     "wins": 1
+    },
+    {
+     "key": "big-little",
+     "subject": "== everything\n  m1 the verdict is not visible at a glance\n  m2 the numbers carry no provenance\n  m3 the tail is unbounded\n  m4 color carries meaning a pipe loses\n  m5 failure reads identical to success\n  m6 wide lines break on narrow terminals\n  m7 the report cannot be diffed across runs\n  m8 clipped evidence pretends to be complete",
+     "wins": 3
+    },
+    {
+     "key": "force-pairs",
+     "subject": "== verdict-identity\n  m1 the verdict is not visible at a glance\n  m5 failure reads identical to success\n== evidence-honesty\n  m2 the numbers carry no provenance\n  m8 clipped evidence pretends to be complete\n== bounded-form\n  m3 the tail is unbounded\n  m6 wide lines break on narrow terminals\n== text-portability\n  m4 color carries meaning a pipe loses\n  m7 the report cannot be diffed across runs",
+     "wins": 4
+    }
+   ],
+   "judgedChampion": {
+    "key": "force-pairs",
+    "wins": 4
+   },
+   "reconciledChampion": {
+    "key": "force-pairs",
+    "wins": 4
+   },
+   "escaped": false,
+   "contested": 1,
+   "duels": 10,
+   "champion": {
+    "key": "force-pairs",
+    "wins": 4
+   },
+   "mechanical": {
+    "merged-trust": {
+     "passed": true,
+     "failed": []
+    },
+    "visual-groups": {
+     "passed": false,
+     "failed": [
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "args",
+          "job",
+          "requires"
+         ],
+         "r",
+         [
+          "gt",
+          [
+           "len",
+           [
+            "filter",
+            [
+             "get",
+             "gs"
+            ],
+            "g",
+            [
+             "and",
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "r"
+               ],
+               0
+              ]
+             ],
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "r"
+               ],
+               1
+              ]
+             ]
+            ]
+           ]
+          ],
+          0
+         ]
+        ]
+       ],
+       [
+        "len",
+        [
+         "get",
+         "args",
+         "job",
+         "requires"
+        ]
+       ]
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "args",
+          "job",
+          "separates"
+         ],
+         "s",
+         [
+          "gt",
+          [
+           "len",
+           [
+            "filter",
+            [
+             "get",
+             "gs"
+            ],
+            "g",
+            [
+             "and",
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               0
+              ]
+             ],
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               1
+              ]
+             ]
+            ]
+           ]
+          ],
+          0
+         ]
+        ]
+       ],
+       0
+      ]
+     ]
+    },
+    "loose-buckets": {
+     "passed": false,
+     "failed": [
+      [
+       "eq",
+       [
+        "len",
+        [
+         "get",
+         "flat"
+        ]
+       ],
+       [
+        "len",
+        [
+         "get",
+         "ids"
+        ]
+       ]
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "args",
+          "job",
+          "separates"
+         ],
+         "s",
+         [
+          "gt",
+          [
+           "len",
+           [
+            "filter",
+            [
+             "get",
+             "gs"
+            ],
+            "g",
+            [
+             "and",
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               0
+              ]
+             ],
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               1
+              ]
+             ]
+            ]
+           ]
+          ],
+          0
+         ]
+        ]
+       ],
+       0
+      ]
+     ]
+    },
+    "big-little": {
+     "passed": false,
+     "failed": [
+      [
+       "gte",
+       [
+        "len",
+        [
+         "get",
+         "gs"
+        ]
+       ],
+       2
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "args",
+          "job",
+          "separates"
+         ],
+         "s",
+         [
+          "gt",
+          [
+           "len",
+           [
+            "filter",
+            [
+             "get",
+             "gs"
+            ],
+            "g",
+            [
+             "and",
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               0
+              ]
+             ],
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               1
+              ]
+             ]
+            ]
+           ]
+          ],
+          0
+         ]
+        ]
+       ],
+       0
+      ]
+     ]
+    },
+    "force-pairs": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:055111e299b2809cf179e6a51e8796a94b087106bd0e1357f9a2b4bbd4990113"
+  }
+ ],
+ "finalChampion": {
+  "key": "force-pairs",
+  "wins": 4
+ },
+ "judgedChampion": {
+  "key": "force-pairs",
+  "wins": 4
+ },
+ "escaped": false,
+ "reconciled": true
+}

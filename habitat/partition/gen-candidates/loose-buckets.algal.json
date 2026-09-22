@@ -1,0 +1,97 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "m1",
+         "m3",
+         "m6"
+        ],
+        "name": "output"
+       },
+       {
+        "misfits": [
+         "m4",
+         "m7"
+        ],
+        "name": "fidelity"
+       },
+       {
+        "misfits": [
+         "m2",
+         "m8"
+        ],
+        "name": "evidence"
+       },
+       {
+        "misfits": [
+         "m5",
+         "m1"
+        ],
+        "name": "status"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:loose-buckets",
+ "name": "Loose buckets"
+}

@@ -1,0 +1,545 @@
+{
+ "contract": "algal.foundry.config.v1",
+ "candidates": [
+  "coupled-pairs.algal.json",
+  "merged-trust.algal.json",
+  "singletons.algal.json",
+  "symptom-cause.algal.json",
+  "signal-stack.algal.json"
+ ],
+ "cases": [
+  {
+   "id": "train-cli-report",
+   "split": "train",
+   "args": {
+    "job": {
+     "source": "cli-report",
+     "misfits": [
+      {
+       "id": "m1",
+       "text": "the verdict is not visible at a glance"
+      },
+      {
+       "id": "m2",
+       "text": "the numbers carry no provenance"
+      },
+      {
+       "id": "m3",
+       "text": "the tail is unbounded"
+      },
+      {
+       "id": "m4",
+       "text": "color carries meaning a pipe loses"
+      },
+      {
+       "id": "m5",
+       "text": "failure reads identical to success"
+      },
+      {
+       "id": "m6",
+       "text": "wide lines break on narrow terminals"
+      },
+      {
+       "id": "m7",
+       "text": "the report cannot be diffed across runs"
+      },
+      {
+       "id": "m8",
+       "text": "clipped evidence pretends to be complete"
+      }
+     ],
+     "requires": [
+      [
+       "m1",
+       "m5"
+      ],
+      [
+       "m2",
+       "m8"
+      ],
+      [
+       "m3",
+       "m6"
+      ],
+      [
+       "m4",
+       "m7"
+      ]
+     ],
+     "separates": [
+      [
+       "m1",
+       "m6"
+      ],
+      [
+       "m3",
+       "m7"
+      ]
+     ]
+    }
+   },
+   "expect": {
+    "message": {}
+   }
+  },
+  {
+   "id": "validation-cli-report",
+   "split": "validation",
+   "args": {
+    "job": {
+     "source": "cli-report",
+     "misfits": [
+      {
+       "id": "m1",
+       "text": "the verdict is not visible at a glance"
+      },
+      {
+       "id": "m2",
+       "text": "the numbers carry no provenance"
+      },
+      {
+       "id": "m3",
+       "text": "the tail is unbounded"
+      },
+      {
+       "id": "m4",
+       "text": "color carries meaning a pipe loses"
+      },
+      {
+       "id": "m5",
+       "text": "failure reads identical to success"
+      },
+      {
+       "id": "m6",
+       "text": "wide lines break on narrow terminals"
+      },
+      {
+       "id": "m7",
+       "text": "the report cannot be diffed across runs"
+      },
+      {
+       "id": "m8",
+       "text": "clipped evidence pretends to be complete"
+      }
+     ],
+     "requires": [
+      [
+       "m1",
+       "m5"
+      ],
+      [
+       "m2",
+       "m8"
+      ],
+      [
+       "m3",
+       "m6"
+      ],
+      [
+       "m4",
+       "m7"
+      ]
+     ],
+     "separates": [
+      [
+       "m1",
+       "m6"
+      ],
+      [
+       "m3",
+       "m7"
+      ]
+     ]
+    }
+   },
+   "expect": {
+    "message": {}
+   }
+  },
+  {
+   "id": "holdout-cli-report",
+   "split": "holdout",
+   "args": {
+    "job": {
+     "source": "cli-report",
+     "misfits": [
+      {
+       "id": "m1",
+       "text": "the verdict is not visible at a glance"
+      },
+      {
+       "id": "m2",
+       "text": "the numbers carry no provenance"
+      },
+      {
+       "id": "m3",
+       "text": "the tail is unbounded"
+      },
+      {
+       "id": "m4",
+       "text": "color carries meaning a pipe loses"
+      },
+      {
+       "id": "m5",
+       "text": "failure reads identical to success"
+      },
+      {
+       "id": "m6",
+       "text": "wide lines break on narrow terminals"
+      },
+      {
+       "id": "m7",
+       "text": "the report cannot be diffed across runs"
+      },
+      {
+       "id": "m8",
+       "text": "clipped evidence pretends to be complete"
+      }
+     ],
+     "requires": [
+      [
+       "m1",
+       "m5"
+      ],
+      [
+       "m2",
+       "m8"
+      ],
+      [
+       "m3",
+       "m6"
+      ],
+      [
+       "m4",
+       "m7"
+      ]
+     ],
+     "separates": [
+      [
+       "m1",
+       "m6"
+      ],
+      [
+       "m3",
+       "m7"
+      ]
+     ]
+    }
+   },
+   "expect": {
+    "message": {}
+   }
+  }
+ ],
+ "scorer": {
+  "contract": "algal.expr.v1",
+  "program": [
+   "let",
+   "gs",
+   [
+    "get",
+    "outputs",
+    "message",
+    "groups"
+   ],
+   [
+    "let",
+    "flat",
+    [
+     "flat",
+     [
+      "map",
+      [
+       "get",
+       "gs"
+      ],
+      "g",
+      [
+       "get",
+       "g",
+       "misfits"
+      ]
+     ]
+    ],
+    [
+     "let",
+     "ids",
+     [
+      "map",
+      [
+       "get",
+       "args",
+       "job",
+       "misfits"
+      ],
+      "m",
+      [
+       "get",
+       "m",
+       "id"
+      ]
+     ],
+     [
+      "and",
+      [
+       "eq",
+       [
+        "len",
+        [
+         "get",
+         "flat"
+        ]
+       ],
+       [
+        "len",
+        [
+         "get",
+         "ids"
+        ]
+       ]
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "ids"
+         ],
+         "i",
+         [
+          "contains",
+          [
+           "get",
+           "flat"
+          ],
+          [
+           "get",
+           "i"
+          ]
+         ]
+        ]
+       ],
+       [
+        "len",
+        [
+         "get",
+         "ids"
+        ]
+       ]
+      ],
+      [
+       "gte",
+       [
+        "len",
+        [
+         "get",
+         "gs"
+        ]
+       ],
+       2
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "gs"
+         ],
+         "g",
+         [
+          "lt",
+          [
+           "len",
+           [
+            "get",
+            "g",
+            "misfits"
+           ]
+          ],
+          2
+         ]
+        ]
+       ],
+       0
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "gs"
+         ],
+         "g",
+         [
+          "eq",
+          [
+           "slen",
+           [
+            "get",
+            "g",
+            "name"
+           ]
+          ],
+          0
+         ]
+        ]
+       ],
+       0
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "args",
+          "job",
+          "requires"
+         ],
+         "r",
+         [
+          "gt",
+          [
+           "len",
+           [
+            "filter",
+            [
+             "get",
+             "gs"
+            ],
+            "g",
+            [
+             "and",
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "r"
+               ],
+               0
+              ]
+             ],
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "r"
+               ],
+               1
+              ]
+             ]
+            ]
+           ]
+          ],
+          0
+         ]
+        ]
+       ],
+       [
+        "len",
+        [
+         "get",
+         "args",
+         "job",
+         "requires"
+        ]
+       ]
+      ],
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "args",
+          "job",
+          "separates"
+         ],
+         "s",
+         [
+          "gt",
+          [
+           "len",
+           [
+            "filter",
+            [
+             "get",
+             "gs"
+            ],
+            "g",
+            [
+             "and",
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               0
+              ]
+             ],
+             [
+              "contains",
+              [
+               "get",
+               "g",
+               "misfits"
+              ],
+              [
+               "nth",
+               [
+                "get",
+                "s"
+               ],
+               1
+              ]
+             ]
+            ]
+           ]
+          ],
+          0
+         ]
+        ]
+       ],
+       0
+      ]
+     ]
+    ]
+   ]
+  ]
+ }
+}

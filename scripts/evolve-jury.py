@@ -19,10 +19,18 @@ STORE = os.environ.get("ALGAL_STORE", "/tmp/pl-store")
 EXECUTOR = os.environ.get("AGENT_EXECUTOR", "scripts/agent-executor.py")
 
 def run_algal(args, cwd=None):
-    p = subprocess.run(ALGAL + args, capture_output=True, text=True, cwd=cwd)
-    lines = [l for l in (p.stdout + p.stderr).splitlines() if l.strip().startswith("{")]
+    # stdout goes to a file, not a pipe: process.stdout.write to a pipe is
+    # async and drops data beyond the 64KiB pipe buffer at exit — jury
+    # receipts on structural artifacts exceed that routinely.
+    with tempfile.NamedTemporaryFile("r", suffix=".out", delete=False) as oh:
+        out_path = oh.name
+    with open(out_path, "w") as oh:
+        p = subprocess.run(ALGAL + args, stdout=oh, stderr=subprocess.PIPE,
+                           text=True, cwd=cwd)
+    stdout = open(out_path).read()
+    lines = [l for l in (stdout + p.stderr).splitlines() if l.strip().startswith("{")]
     if not lines:
-        raise SystemExit(f"algal produced no JSON: {p.stdout[-400:]} {p.stderr[-400:]}")
+        raise SystemExit(f"algal produced no JSON: {stdout[-400:]} {p.stderr[-400:]}")
     return json.loads(lines[-1]), p
 
 def write_manifest(store_dir, manifest):
@@ -36,9 +44,17 @@ def write_manifest(store_dir, manifest):
         fh.write(blob.decode() + "\n")
     return f
 
-def render(subj):
+def render(subj, job=None):
     """Structured artifacts render to text for the jury — a commit message
-    IS subject + blank line + body."""
+    IS subject + blank line + body; a partition IS its named groups."""
+    if isinstance(subj, dict) and "groups" in subj:
+        texts = {m["id"]: m["text"] for m in (job or {}).get("misfits", [])}
+        lines = []
+        for g in subj["groups"]:
+            lines.append(f"== {g.get('name', '?')}")
+            for mid in g.get("misfits", []):
+                lines.append(f"  {mid} {texts.get(mid, '')}".rstrip())
+        return "\n".join(lines)
     if isinstance(subj, dict) and "subject" in subj:
         body = subj.get("body") or ""
         return subj["subject"] + ("\n\n" + body if body else "")
@@ -49,7 +65,12 @@ def subject_of(manifest_path, args_file, cwd):
     if r.get("outcome") != "complete":
         return None
     out = r["cells"]["fmt"]["outputs"]["out"]
-    return {"subject": render(out), "raw": out}
+    job = {}
+    try:
+        job = json.load(open(args_file)).get("src", {}).get("job", {})
+    except Exception:
+        pass
+    return {"subject": render(out, job), "raw": out}
 
 def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json',
          mech=None):
@@ -139,7 +160,13 @@ def main():
     cfg = json.load(open(os.path.join(habitat, "foundry.config.json")))
     arena = [c for c in cfg["cases"] if c["split"] == "holdout"][0]
     src_args = arena["args"].get("src", arena["args"])
-    if "job" in src_args:
+    if "job" in src_args and "misfits" in src_args["job"]:
+        brief = {"misfits": src_args["job"]["misfits"],
+                 "requires": src_args["job"].get("requires"),
+                 "separates": src_args["job"].get("separates"),
+                 "task": "pick the better decomposition of these "
+                         "requirements into named subsystems"}
+    elif "job" in src_args:
         what = ("commit message (subject + body)" if "commit-message" in habitat
                 else "commit subject")
         brief = {"hint": src_args["job"]["hint"], "change": src_args["job"]["change"],
@@ -197,11 +224,16 @@ def main():
                  "note": "champion defends its slot; mutate toward judged fit; "
                          "mechanical lists constraint terms each violator failed — "
                          "repair the misfit while keeping the winning shape"}
-        task = ("commit message formats (subject + body) for a change report"
-                if "commit-message" in habitat
+        is_partition = "misfits" in (src_args.get("job") or {})
+        task = ("decompositions of a requirement set into named "
+                "subsystems (each misfit in exactly one group; group "
+                "names should capture the shared force)" if is_partition
+                else "commit message formats (subject + body) for a "
+                     "change report" if "commit-message" in habitat
                 else "one-line summary formats for a change report")
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
-            json.dump({"src": {"task": task, "prior": prior}}, fh)
+            json.dump({"src": {"task": task, "prior": prior,
+                               "job": src_args.get("job")}}, fh)
             gen_args = fh.name
         g, _ = run_algal(["run", "generator.algal.json", "--args", gen_args,
                           "--dir", STORE] + gen_extra, habitat)
