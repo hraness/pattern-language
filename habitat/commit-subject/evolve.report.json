@@ -1,0 +1,61 @@
+{
+ "contract": "pattern-language.evolve.v1",
+ "habitat": "habitat/commit-subject",
+ "arena": "holdout-live",
+ "generations": [
+  {
+   "generation": 0,
+   "standings": [
+    {
+     "key": "verb-what",
+     "subject": "Wire live claude+jev executors",
+     "wins": 1
+    },
+    {
+     "key": "why-tail",
+     "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end",
+     "wins": 1
+    },
+    {
+     "key": "stat-suffix",
+     "subject": "Wire live claude+jev executors (8f +300 -40)",
+     "wins": 1
+    }
+   ],
+   "champion": {
+    "key": "verb-what",
+    "wins": 1
+   },
+   "receiptDigest": "sha256:afcee6a421a2aac3428509e677d8a92a6f51787392685d9858d8ee0395422704"
+  },
+  {
+   "generation": 1,
+   "standings": [
+    {
+     "key": "verb-what",
+     "subject": "Wire live claude+jev executors",
+     "wins": 1
+    },
+    {
+     "key": "gen-plain",
+     "subject": "Wire live claude+jev executors",
+     "wins": 1
+    },
+    {
+     "key": "gen-whycolon",
+     "subject": "prove the pipeline end-to-end: Wire live claude+jev executors",
+     "wins": 1
+    }
+   ],
+   "champion": {
+    "key": "verb-what",
+    "wins": 1
+   },
+   "receiptDigest": "sha256:bef1ab5502afc32aacfa620b30de5d05165c2cfd2249d1042487aeb30ab2dac8"
+  }
+ ],
+ "finalChampion": {
+  "key": "verb-what",
+  "wins": 1
+ }
+}

@@ -1,0 +1,81 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "sconcat",
+     [
+      "get",
+      "job",
+      "hint",
+      "verb"
+     ],
+     " ",
+     [
+      "get",
+      "job",
+      "hint",
+      "what"
+     ],
+     ": ",
+     [
+      "get",
+      "job",
+      "hint",
+      "why"
+     ]
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "text"
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "subject": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:why-colon",
+ "name": "Verb + What: Why"
+}

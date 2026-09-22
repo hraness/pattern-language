@@ -295,6 +295,29 @@ scored. The honest architecture is two-tier: expr scorers enforce
 misfits that are *checkable*; judged tournaments rank on misfits that
 are *felt*. The jury fixture replays deterministically in `verify.sh`.
 
+### Judged evolution — generation aimed at taste
+
+`scripts/evolve-jury.py` closes the loop: the jury is the selector, the
+generator (`generator.algal.json`, descriptor grammar over the
+change/hint vocabulary) is the variation, the champion defends its slot
+each generation. Two independent live runs:
+
+- **run A** — `why-tail` won gen 0 (hand-written incumbent); generated
+  `why-lead` (`prove the pipeline end-to-end: Wire …`) went 3-0 in
+  gen 1 and defended gen 2.
+- **run B** — same start; generated `why-colon` dethroned `why-tail`
+  outright (0 wins), then `why-dash` took gen 2 at 3-0.
+
+Twice, a generated variant unseated the hand-written champion within one
+generation, and every winning lineage is why-carrying — the jury's taste
+is consistent even though the model's variants differ. The honest
+tension: several judged champions would **fail** the mechanical gate
+(lowercase first word). Judged selection championed what convention
+rejects — exactly the kind of disagreement a two-tier fitness surface is
+for; whether the convention or the jury is right is a question for the
+ensemble, not the runtime. Scripted path
+(`evolve.responses.json`) replays the loop mechanics in `verify.sh`.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

@@ -108,5 +108,10 @@ out=$(cd habitat/commit-subject && $ALGAL run jury.algal.json --args jury.args.j
 champ=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print(r["cells"]["tally"]["outputs"]["out"]["champion"]["key"])' 2>/dev/null)
 [ "$champ" = "why-tail" ] && echo "jury   OK  why-tail champion (judged)" \
   || { echo "jury   FAIL champion=$champ"; fail=1; }
+out=$(python3 scripts/evolve-jury.py habitat/commit-subject --generations 1 \
+  --responses habitat/commit-subject/evolve.responses.json 2>&1 | tail -1)
+champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
+[ "$champ" = "verb-what" ] && echo "evolve OK  judged evolution loop replays" \
+  || { echo "evolve FAIL champion=$champ"; fail=1; }
 
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

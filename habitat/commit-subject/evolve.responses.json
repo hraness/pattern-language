@@ -1,0 +1,106 @@
+{
+ "writer": {
+  "variants": [
+   {
+    "key": "gen-plain",
+    "name": "Plain verb-what",
+    "parts": [
+     {
+      "t": "field",
+      "v": "Verb"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "what"
+     }
+    ]
+   },
+   {
+    "key": "gen-whycolon",
+    "name": "Why colon",
+    "parts": [
+     {
+      "t": "field",
+      "v": "why"
+     },
+     {
+      "t": "lit",
+      "v": ": "
+     },
+     {
+      "t": "field",
+      "v": "Verb"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "what"
+     }
+    ]
+   }
+  ]
+ },
+ "judge": [
+  {
+   "answers": {
+    "pick": {
+     "choice": "a",
+     "confidence": 0.55,
+     "probabilities": {
+      "a": 0.7,
+      "b": 0.19,
+      "tie": 0.11
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.56,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.86,
+     "probabilities": {
+      "a": 0.08,
+      "b": 0.9,
+      "tie": 0.02
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.62,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "a",
+     "confidence": 0.6,
+     "probabilities": {
+      "a": 0.65,
+      "b": 0.25,
+      "tie": 0.1
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  }
+ ]
+}

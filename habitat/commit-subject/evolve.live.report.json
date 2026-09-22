@@ -1,0 +1,92 @@
+{
+ "contract": "pattern-language.evolve.v1",
+ "habitat": "habitat/commit-subject",
+ "mode": "live",
+ "arena": "holdout-live",
+ "generations": [
+  {
+   "generation": 0,
+   "standings": [
+    {
+     "key": "verb-what",
+     "subject": "Wire live claude+jev executors",
+     "wins": 1
+    },
+    {
+     "key": "why-tail",
+     "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end",
+     "wins": 2
+    },
+    {
+     "key": "stat-suffix",
+     "subject": "Wire live claude+jev executors (8f +300 -40)",
+     "wins": 0
+    }
+   ],
+   "champion": {
+    "key": "why-tail",
+    "wins": 2
+   },
+   "receiptDigest": "sha256:0740f2a67a0395a5d41c0f2b8f53a2a5f3e2ffd22e8c9ba7612018acd9e6788b"
+  },
+  {
+   "generation": 1,
+   "standings": [
+    {
+     "key": "why-tail",
+     "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end",
+     "wins": 0
+    },
+    {
+     "key": "why-colon",
+     "subject": "wire live claude+jev executors: prove the pipeline end-to-end",
+     "wins": 2
+    },
+    {
+     "key": "why-paren",
+     "subject": "wire live claude+jev executors (prove the pipeline end-to-end)",
+     "wins": 1
+    }
+   ],
+   "champion": {
+    "key": "why-colon",
+    "wins": 2
+   },
+   "receiptDigest": "sha256:8d22470f8f230fd268512f0cf9d922f247662b65446bcec62b9eed808375e9f7"
+  },
+  {
+   "generation": 2,
+   "standings": [
+    {
+     "key": "why-colon",
+     "subject": "wire live claude+jev executors: prove the pipeline end-to-end",
+     "wins": 1
+    },
+    {
+     "key": "why-dash",
+     "subject": "wire live claude+jev executors \u2014 prove the pipeline end-to-end",
+     "wins": 3
+    },
+    {
+     "key": "why-paren-caps",
+     "subject": "Wire live claude+jev executors (prove the pipeline end-to-end)",
+     "wins": 2
+    },
+    {
+     "key": "why-semicolon",
+     "subject": "wire live claude+jev executors; prove the pipeline end-to-end",
+     "wins": 0
+    }
+   ],
+   "champion": {
+    "key": "why-dash",
+    "wins": 3
+   },
+   "receiptDigest": "sha256:f4c3452a30f6b794a74d5c8334bffcd3ce44e9eb0a629ea7ecd251e681870bae"
+  }
+ ],
+ "finalChampion": {
+  "key": "why-dash",
+  "wins": 3
+ }
+}
