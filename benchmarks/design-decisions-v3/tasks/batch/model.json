@@ -1,0 +1,12 @@
+{
+  "family": "batch",
+  "states": ["ready", "returned", "rejected"],
+  "events": ["return", "throw"],
+  "effects": ["storage-read", "storage-write", "schedule"],
+  "choices": {
+    "scanOrder": ["fifo", "lifo"],
+    "execution": ["synchronous"],
+    "persistence": ["none"],
+    "scheduling": ["none"]
+  }
+}

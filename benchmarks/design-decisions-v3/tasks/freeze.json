@@ -1,0 +1,34 @@
+{
+  "schema": "pattern-language.task-freeze.v1",
+  "frozenAt": "2026-09-22T17:43:53.725780+00:00",
+  "files": {
+    "benchmarks/design-decisions-v3/tasks/jobs/cases.mjs": "31b31c6e0a343cca9157320fc3f329e44a12078f2fb3897c2482ebc621de58b0",
+    "benchmarks/design-decisions-v3/tasks/jobs/design-check.mjs": "cd819885e7a7fe4f86d9bb85ff06d5f232f7260e9f47fe3a46b4a7b0c246e162",
+    "benchmarks/design-decisions-v3/tasks/jobs/model.json": "3baf13d2cdf9f6ef66c17ee8313ac7c239a4cd90af4d02e16b214fa3c7ab87db",
+    "benchmarks/design-decisions-v3/tasks/jobs/mutants.mjs": "cc53097bfc1909c9a9ff1016f9f364e48c8ea742f0b57d4c577f176bc5b2b1fd",
+    "benchmarks/design-decisions-v3/tasks/jobs/reference.mjs": "2848b35059b290a98bd48dbd46e8e094dca368517e0129bd0fb28d665c247252",
+    "benchmarks/design-decisions-v3/tasks/jobs/self-test.mjs": "8046cc07b5f9bdf2469441414b6b773f7505f7b87f60d5f12449dc599ab32968",
+    "benchmarks/design-decisions-v3/tasks/jobs/task.md": "de27021a7b47624fb8ef7e5280e1d45f09fc79195a8ad5d0c42b16a1e05494e3",
+    "benchmarks/design-decisions-v3/tasks/batch/cases.mjs": "1ee98e145172d8ff93dce76adf375f70b94cfb86553ddf167321bc5fc081104c",
+    "benchmarks/design-decisions-v3/tasks/batch/design-check.mjs": "fa383ef3954f603e272d4d69b6aedf3406b10c35426937e496bf78774b6b48ab",
+    "benchmarks/design-decisions-v3/tasks/batch/model.json": "cae8f18a6df549386350a2e1089c856b07647f662d378ad95b26549aa2af391c",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/alias-after.mjs": "f30d6c96ab652e2131de04b98ba71481c4ee8b676b0ef2ad3cccbde29a480952",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/asynchronous.mjs": "5f41f19e464732f6ba472a3776d4c8e90116814cc31e24b0ffe2f3902eeca653",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/capacity.mjs": "8c51d133d9da8a657a2535b03bf0c480b2ffd60c5593eb3ac83a26d4a4bffb6f",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/false-choice.mjs": "7090b9c58c98934b92e821f1329d9f8ba4757aec8cd6b39deb888f39a616698c",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/reverse-remaining.mjs": "b0f0d316b3d82cde4e311c33c66218c44a4bf881cd1661c095e238314e4c0eed",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/same-batch-dependency.mjs": "c17bfc76e4b008ba33f815aeac96bd16cb763d54ec641cda8c350e0e695e0956",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/schedule.mjs": "543dd2950e5e7dc87a2db2e82c3615f609ff8102c6519fb3a17f374df51855fb",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/skip-validation.mjs": "0f4648235e35c4d8581b5794b9662229a4059ed7a69c4942b5ecf0ff3ede256a",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/stop-oversized.mjs": "8a5c9402b2b99fa01577a4806653f3a2ee0c35603997f5a19d6cf04c10a32df7",
+    "benchmarks/design-decisions-v3/tasks/batch/mutants/storage.mjs": "331d5bf512a54d01267230810ba94002f4eca34e4480586a5f50ddbe1577cb9f",
+    "benchmarks/design-decisions-v3/tasks/batch/reference.mjs": "27d374f6415a28d85cbfbb40873430b0b429de217435ac59bb0eaa3a76468cff",
+    "benchmarks/design-decisions-v3/tasks/batch/self-test.mjs": "7da3f8c44dedbf11d520c99c671ea6530b9ab8e0848b54cc5ba40d87fa4de01d",
+    "benchmarks/design-decisions-v3/tasks/batch/task.md": "b760142ed5a22ca2c49234c629aaacc5c4095bd24f5014fff6e64b9982f10970"
+  },
+  "authoring": "Two independent task authors completed public contracts, evaluators, references, adequacy checks, host observations and causal mutants before final guidance freeze. Authors knew the research objective.",
+  "validation": {
+    "jobs": "9 host cases pass FIFO and LIFO; 9 causal mutants killed; transition coverage and adequacy checks passed.",
+    "batch": "29 cases pass FIFO and LIFO; 10 causal mutants killed; 7 adequacy checks passed."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "pattern-language.guidance-freeze.v1",
+  "frozenAt": "2026-09-22T17:43:53.727011+00:00",
+  "taskFreezeSha256": "a7255f7d1ffcd1540d26a1aecd86e78054b00241f2ac16c75a8c672d2e409a37",
+  "files": {
+    "benchmarks/design-decisions-v3/artifact.md": "f6d02f9255d2e3aaa37a06dce9d2ef57964255fb8790d29aaf58e3c4afde14b8",
+    "benchmarks/design-decisions-v3/facts.md": "c5278fd61e9e1a812935cf469cb5034e609116c6669fe4cc729ab2bb5f97e728",
+    "benchmarks/design-decisions-v3/guidance/direct.md": "2f6e94f3bd7bd4ab9d385a42be67038806018a16f08b450b0002a54cc08f3172",
+    "benchmarks/design-decisions-v3/guidance/checklist.md": "22ba97196103637d6cbc04b4447eb4a077cab474e42545825d9ec7e925b96bfb",
+    "benchmarks/design-decisions-v3/guidance/pattern.md": "458e1782b6be97647a455409062c9ae03951ac73bebaf5cdde623b4e31fafd04"
+  },
+  "wordCounts": {
+    "direct": 77,
+    "checklist": 260,
+    "pattern": 324
+  },
+  "guidanceAuthorExposure": "Public task.md/model.json, shared artifact/facts, API discussions and authors validation summaries only; no new cases, reference, mutant or adequacy source inspected before this freeze. Guidance drafts preceded final task freeze; finalized after both independent task freezes.",
+  "interpretation": "Procedure package versus matched technical facts and flat checklist; no isolated Alexander mechanism or equal actual compute claim."
+}

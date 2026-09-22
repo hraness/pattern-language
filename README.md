@@ -9,7 +9,7 @@ local decisions affect the whole, and a useful pattern resolves a recurring
 conflict in a particular context. A pattern must guide construction and
 adaptation, not merely name a preferred structure.
 
-**Status:** working ALGAL orchestration prototypes and a code-design pilot.
+**Status:** working ALGAL orchestration prototypes and reproducible code-design studies.
 An advantage over ordinary prompting or a design checklist is **not proven**.
 The [September 22 review](docs/review-2026-09-22.md) explains what the earlier
 experiments establish, corrects their evaluation problems, and orders the next
@@ -43,6 +43,14 @@ valid input in a passing direct artifact; passing this suite is not a proof of
 complete correctness. The report recommends testing explicit, trace-checkable
 design decisions before expanding a prose pattern catalog.
 
+The implemented [design-decision experiment](benchmarks/design-decisions-v3/README.md)
+now tests that next step: a machine-readable design precedes code, and host-observed
+transitions, effects and choices are checked against it. It includes a durable-job
+simulator and a pure batch planner where storage and scheduling must be omitted.
+Behavior, model adequacy and code/design agreement are scored separately. The
+36-request study is prepared for a new bounded authorization; no live v3 result
+or pattern advantage is claimed.
+
 ## What to keep from the prototype
 
 ALGAL provides bounded execution, typed interfaces, content-addressed manifests,
@@ -57,6 +65,7 @@ They do not make the design rationale true or the evaluator independent.
 | `ensembles/` | Historical village and source-import graphs with reference groupings | Similarity to a grouping is not design effectiveness. |
 | `benchmarks/code-design/` | Actual code contract, adaptation task and six-request smoke evidence | One attempt per arm cannot establish treatment effectiveness. |
 | `benchmarks/lifecycle-v2/` | Frozen 54-request multi-task study, reviewed sources and reproducible outcomes | No transfer or both-stage pattern advantage was observed. Can explicit, trace-checkable design decisions help? |
+| `benchmarks/design-decisions-v3/` | Executable design artifacts, host traces, two task families, references and fault probes | Does a contextual construction procedure improve behavior and design agreement over matched controls? Live study pending. |
 
 See [the concept map](docs/concepts.md) for the distinctions between a force
 graph, a pattern language, and an implementation's dataflow graph.
