@@ -34,6 +34,12 @@ the evaluator. They are not experimental evidence that pattern guidance wins.
 The pilot protocol separates generation from evaluation and records failures,
 cost, and the limits of its evidence.
 
+The next [lifecycle transfer study](benchmarks/lifecycle-v2/README.md) freezes a
+more precise state/obligation/publication sequence and a matched checklist.
+It reuses the mapper as a development task and adds independently specified
+retry and atomic-update tasks. Its planned 54-call comparison measures complete
+contracts and adaptation, with no test feedback during generation.
+
 ## What to keep from the prototype
 
 ALGAL provides bounded execution, typed interfaces, content-addressed manifests,

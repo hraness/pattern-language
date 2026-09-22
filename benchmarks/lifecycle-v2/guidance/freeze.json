@@ -1,0 +1,20 @@
+{
+  "schema": "pattern-language.guidance-freeze.v2",
+  "time": "2026-09-22T15:53:37.582370+00:00",
+  "timing": "Frozen before inspecting retry/atomic evaluator or reference code; only task API descriptions have been received.",
+  "files": {
+    "checklist.md": {
+      "sha256": "93c84e58767791d1d1dd9cbed1606c01678c53049902f32dd59b31231fce0efb",
+      "words": 291
+    },
+    "direct.md": {
+      "sha256": "ff7a4de06d9c431079ef86f0f70407dd93723369306e4b4de9c94abb617bae4a",
+      "words": 279
+    },
+    "pattern.md": {
+      "sha256": "ad3fb5a64aff1fbb408cb432f243137d605419c47b9bda420b6347ce4a978dce",
+      "words": 296
+    }
+  },
+  "scope": "Same guidance texts for every family. Checklist contains the same operational propositions and caveats as the pattern sequence. Exact token equality is not claimed."
+}
