@@ -29,6 +29,8 @@
    },
    "reconciledChampion": null,
    "escaped": null,
+   "contested": 0,
+   "duels": 3,
    "champion": {
     "key": "verb-what",
     "wins": 1
@@ -61,6 +63,8 @@
    },
    "reconciledChampion": null,
    "escaped": null,
+   "contested": 0,
+   "duels": 3,
    "champion": {
     "key": "verb-what",
     "wins": 1

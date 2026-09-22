@@ -165,6 +165,8 @@ def main():
                         "judgedChampion": judged,
                         "reconciledChampion": rchamp or None,
                         "escaped": result.get("escaped"),
+                        "contested": len(result.get("contested", [])),
+                        "duels": len(result.get("duels", [])),
                         "champion": champion, "mechanical": mech,
                         "receiptDigest": receipt.get("digest")})
         tag = " (escaped)" if result.get("escaped") else ""

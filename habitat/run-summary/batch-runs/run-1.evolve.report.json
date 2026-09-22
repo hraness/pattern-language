@@ -1,6 +1,6 @@
 {
  "contract": "pattern-language.evolve.v1",
- "habitat": "habitat/run-summary",
+ "habitat": ".",
  "mode": "scripted",
  "arena": "holdout-search",
  "generations": [

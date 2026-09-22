@@ -1,7 +1,7 @@
 {
  "contract": "pattern-language.evolve.v1",
- "habitat": "habitat/run-summary",
- "mode": "scripted",
+ "habitat": ".",
+ "mode": "live",
  "arena": "holdout-search",
  "generations": [
   {
@@ -20,28 +20,28 @@
     {
      "key": "tool-lead",
      "subject": "search status-line: promoted g1-bracket holdout 2/2",
-     "wins": 2
+     "wins": 1
     },
     {
      "key": "metric-first",
      "subject": "g1-bracket holdout 2/2 | search status-line PROMOTED",
-     "wins": 3
+     "wins": 2
     }
    ],
    "judgedChampion": {
     "key": "metric-first",
-    "wins": 3
+    "wins": 2
    },
    "reconciledChampion": {
     "key": "metric-first",
-    "wins": 3
+    "wins": 2
    },
    "escaped": false,
-   "contested": 1,
+   "contested": 3,
    "duels": 6,
    "champion": {
     "key": "metric-first",
-    "wins": 3
+    "wins": 2
    },
    "mechanical": {
     "verdict-first": {
@@ -61,7 +61,7 @@
      "failed": []
     }
    },
-   "receiptDigest": "sha256:142cbfe9a2f85f0ec1fccc46651451cd3a24f4e1d35520dadd831d6a5169b033"
+   "receiptDigest": "sha256:c76a6e46f1406ea2f2054a5a23077af0697fa8b1653bbdd1ac7c399b533964ee"
   },
   {
    "generation": 1,
@@ -74,38 +74,28 @@
     {
      "key": "metric-colon",
      "subject": "g1-bracket holdout 2/2: search status-line PROMOTED",
-     "wins": 0
+     "wins": 1
     },
     {
-     "key": "verdict-colon",
-     "subject": "PROMOTED: search status-line (g1-bracket holdout 2/2)",
-     "wins": 2
-    },
-    {
-     "key": "arrow-format",
-     "subject": "search status-line -> g1-bracket holdout 2/2 PROMOTED",
-     "wins": 3
-    },
-    {
-     "key": "verdict-lead",
-     "subject": "PROMOTED | status-line g1-bracket holdout 2/2",
-     "wins": 4
+     "key": "tool-metric",
+     "subject": "search status-line: g1-bracket holdout 2/2 PROMOTED",
+     "wins": 1
     }
    ],
    "judgedChampion": {
-    "key": "verdict-lead",
-    "wins": 4
+    "key": "metric-colon",
+    "wins": 1
    },
    "reconciledChampion": {
-    "key": "arrow-format",
-    "wins": 3
+    "key": "metric-colon",
+    "wins": 1
    },
-   "escaped": true,
+   "escaped": false,
    "contested": 1,
-   "duels": 10,
+   "duels": 3,
    "champion": {
-    "key": "arrow-format",
-    "wins": 3
+    "key": "metric-colon",
+    "wins": 1
    },
    "mechanical": {
     "metric-first": {
@@ -116,13 +106,69 @@
      "passed": true,
      "failed": []
     },
-    "verdict-colon": {
+    "tool-metric": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:63bed34393f3551cb761cb894f9acd06e8231dd778532ebdba43af23716903c2"
+  },
+  {
+   "generation": 2,
+   "standings": [
+    {
+     "key": "metric-colon",
+     "subject": "g1-bracket holdout 2/2: search status-line PROMOTED",
+     "wins": 0
+    },
+    {
+     "key": "metric-arrow",
+     "subject": "g1-bracket holdout 2/2 \u2192 search PROMOTED",
+     "wins": 1
+    },
+    {
+     "key": "verdict-lead",
+     "subject": "PROMOTED | g1-bracket holdout 2/2: search",
+     "wins": 2
+    }
+   ],
+   "judgedChampion": {
+    "key": "verdict-lead",
+    "wins": 2
+   },
+   "reconciledChampion": {
+    "key": "metric-colon",
+    "wins": 0
+   },
+   "escaped": true,
+   "contested": 0,
+   "duels": 3,
+   "champion": {
+    "key": "metric-colon",
+    "wins": 0
+   },
+   "mechanical": {
+    "metric-colon": {
      "passed": true,
      "failed": []
     },
-    "arrow-format": {
-     "passed": true,
-     "failed": []
+    "metric-arrow": {
+     "passed": false,
+     "failed": [
+      [
+       "scontains",
+       [
+        "get",
+        "s"
+       ],
+       [
+        "get",
+        "args",
+        "rec",
+        "target"
+       ]
+      ]
+     ]
     },
     "verdict-lead": {
      "passed": false,
@@ -137,22 +183,22 @@
         "get",
         "args",
         "rec",
-        "tool"
+        "target"
        ]
       ]
      ]
     }
    },
-   "receiptDigest": "sha256:f716926ca6a180c0f1e5a362c42a8c21e7f289a1af4a6486d4b877a662d28742"
+   "receiptDigest": "sha256:cf2802aac10545d1254bd1f68f8756ea5f96cbf5b6ed632dcbab645ab3c2aa4d"
   }
  ],
  "finalChampion": {
-  "key": "arrow-format",
-  "wins": 3
+  "key": "metric-colon",
+  "wins": 0
  },
  "judgedChampion": {
   "key": "verdict-lead",
-  "wins": 4
+  "wins": 2
  },
  "escaped": true,
  "reconciled": true

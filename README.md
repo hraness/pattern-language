@@ -405,6 +405,29 @@ Alexander's version: tradition retains what fits — fit includes the
 contract forces, not just the felt ones. The jury proposes; the contract
 disposes; the report shows both.
 
+### Escape statistics — the distribution, not the anecdote
+
+`scripts/evolve-batch.py` runs the loop N times and aggregates what a
+single run can't show. Live batch: **4 runs × 3 generations** on
+run-summary (`evolve-batch.live.report.json`, `batch-runs/`):
+
+| measure | value |
+|---|---|
+| generations | 12 |
+| contested duels | **29/64 (45%)** — the rubrics genuinely diverge |
+| judged escapes | **3/12 (25%)** — all in gen 2, all verdict-family forms dropping `tool` |
+| divergent champions | 3 — same events; contract kept the incumbent each time |
+| reconciled finals | **4/4** |
+| generated final champions | **4/4** |
+
+The escape pattern is stable enough to name: the panel keeps preferring
+verdict-leading compact forms (`PROMOTED → metric (tool)`,
+`PROMOTED | metric: tool`), and those forms keep dropping a required
+field. That *is* a force-conflict made quantitative — verdict-visibility
+vs. field-completeness — and the arbitration policy is what stops it
+from inheriting. Meanwhile generation beats hand-writing 4/4 finals:
+every run ended with a variant the hand-written set didn't contain.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an
