@@ -42,13 +42,13 @@ def subject_of(manifest_path, args_file, cwd):
         return None
     return r["cells"]["fmt"]["outputs"]["out"]
 
-def jury(habitat, subjects, brief, extra_args, cwd):
+def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json'):
     pairs = [{"brief": brief, "a": a, "b": b}
              for a, b in itertools.combinations(subjects, 2)]
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
         json.dump({"src": {"subjects": subjects, "pairs": pairs}}, fh)
         args_path = fh.name
-    r, _ = run_algal(["run", "jury.algal.json", "--args", args_path,
+    r, _ = run_algal(["run", jury_file, "--args", args_path,
                       "--modules", ".", "--dir", STORE] + extra_args, cwd)
     if r.get("outcome") != "complete":
         raise SystemExit(f"jury failed: {json.dumps(r)[:500]}")
@@ -57,6 +57,8 @@ def jury(habitat, subjects, brief, extra_args, cwd):
 def main():
     habitat = sys.argv[1]
     generations = int(sys.argv[sys.argv.index("--generations") + 1]) if "--generations" in sys.argv else 2
+    generations = int(sys.argv[sys.argv.index("--gens") + 1]) if "--gens" in sys.argv else generations
+    jury_file = sys.argv[sys.argv.index("--jury") + 1] if "--jury" in sys.argv else "jury.algal.json"
     resp = None
     if "--responses" in sys.argv:
         resp = os.path.abspath(sys.argv[sys.argv.index("--responses") + 1])
@@ -67,10 +69,15 @@ def main():
 
     cfg = json.load(open(os.path.join(habitat, "foundry.config.json")))
     arena = [c for c in cfg["cases"] if c["split"] == "holdout"][0]
-    brief = {"hint": arena["args"]["job"]["hint"], "change": arena["args"]["job"]["change"],
-             "task": "pick the better commit subject for this change"}
+    src_args = arena["args"].get("src", arena["args"])
+    if "job" in src_args:
+        brief = {"hint": src_args["job"]["hint"], "change": src_args["job"]["change"],
+                 "task": "pick the better commit subject for this change"}
+    else:
+        brief = {"record": src_args,
+                 "task": "pick the better one-line summary for a verification report"}
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
-        json.dump({"src": {"job": arena["args"]["job"]}}, fh)
+        json.dump({"src": src_args}, fh)
         case_args = fh.name
 
     # generation 0 population: the hand-written candidates, mechanical survivors only
@@ -88,7 +95,7 @@ def main():
     history = []
     champion = None
     for gen in range(generations + 1):
-        result, receipt = jury(habitat, subjects, brief, jury_extra, habitat)
+        result, receipt = jury(habitat, subjects, brief, jury_extra, habitat, jury_file)
         champion = result["champion"]
         history.append({"generation": gen, "standings": result["standings"],
                         "champion": champion, "receiptDigest": receipt.get("digest")})
@@ -100,7 +107,7 @@ def main():
         prior = {"generation": gen, "champion": champion, "standings": result["standings"],
                  "note": "champion defends its slot; mutate toward judged fit"}
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
-            json.dump({"src": {"task": "commit subject formats for a change report",
+            json.dump({"src": {"task": "one-line summary formats for a change report",
                                "prior": prior}}, fh)
             gen_args = fh.name
         g, _ = run_algal(["run", "generator.algal.json", "--args", gen_args,

@@ -114,4 +114,26 @@ champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
 [ "$champ" = "verb-what" ] && echo "evolve OK  judged evolution loop replays" \
   || { echo "evolve FAIL champion=$champ"; fail=1; }
 
+# Run-summary habitat: real gate-output records. Mechanical foundry clears
+# all formats; the panel jury discriminates; judged evolution replays.
+for f in habitat/run-summary/*.algal.json; do
+  out=$($ALGAL check "$f" --modules habitat/run-summary 2>&1 | tail -1)
+  ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
+  [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
+done
+out=$(cd habitat/run-summary && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
+[ "$prom" = "organism:tool-lead" ] && echo "foundry OK  tool-lead promoted (mechanical)" \
+  || { echo "foundry FAIL rs promoted=$prom"; fail=1; }
+out=$(cd habitat/run-summary && $ALGAL run panel-jury.algal.json --args panel.args.json --modules . \
+  --responses jury.responses.json --dir "$STORE" 2>&1 | tail -1)
+champ=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print(r["cells"]["tally"]["outputs"]["out"]["champion"]["key"])' 2>/dev/null)
+[ "$champ" = "metric-first" ] && echo "jury   OK  metric-first champion (panel-judged)" \
+  || { echo "jury   FAIL champion=$champ"; fail=1; }
+out=$(python3 scripts/evolve-jury.py habitat/run-summary --gens 1 \
+  --jury panel-jury.algal.json --responses habitat/run-summary/evolve.responses.json 2>&1 | tail -1)
+champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
+[ "$champ" = "verdict-lead" ] && echo "evolve OK  generated verdict-lead dethrones incumbent" \
+  || { echo "evolve FAIL champion=$champ"; fail=1; }
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

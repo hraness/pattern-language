@@ -343,6 +343,37 @@ Live result (`panel-jury.live.json` + `.report.json`):
   dominates where rubrics split. That's a design decision, surfaced as
   data — the runtime reports it rather than resolving it covertly.
 
+### The operational surface — this repo's own gate output
+
+`habitat/run-summary/` is the third habitat and the first on a surface
+the repo actually produces: one-line run summaries over real records
+`{tool, target, verdict, metric}` harvested from this gate's own outputs
+(`foundry verdict-line promoted`, `decompose village agreement 0.840`,
+`jury commit-subject champion`, `search status-line promoted`,
+`decompose algal-src agreement 0.760`, `evolve commit-subject champion`).
+
+Four hand-written formats (`verdict-first`, `bracket-status`,
+`tool-lead`, `metric-first`) — and this time the mechanical scorer
+clears *everyone*: all four satisfy length/tool/target/single-line
+constraints, so the foundry promotes `tool-lead` on tiebreak while the
+panel jury does the discriminating:
+
+- **panel result** — `metric-first` champion (2 agreed wins); all 3
+  contested duels are `verdict-first` pairings: the advocate prefers
+  verdict-leading, the skeptic never accepts it. Same systematic
+  force-conflict shape as commit-subject, on operational data.
+- **judged evolution, live** — gen 0: `metric-first` holds; gen 1:
+  generated `verdict-lead` (`PROMOTED | status-line g1-bracket holdout
+  2/2`) dethrones it; gen 2: `verdict-lead` defends. Notably the winning
+  generated format **dropped the `tool` field** — judged fitness again
+  diverged from the mechanical contract, this time on a real surface.
+- The `panel-duel`/`panel-jury` organisms are now domain-neutral (the
+  prompt judges "one-line outputs for the record", the brief carries
+  domain context) — identical digest serves both habitats.
+
+Scripted path (`jury.responses.json`, `evolve.responses.json`) replays
+both the tournament and a one-generation dethroning in `verify.sh`.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

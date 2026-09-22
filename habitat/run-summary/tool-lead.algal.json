@@ -1,0 +1,85 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:tool-lead",
+ "name": "Tool lead",
+ "note": "The instrument leads; the verdict rides inside.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "rec": {
+    "cell": "src",
+    "port": "rec"
+   }
+  },
+  "outputs": {
+   "line": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "rec": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "rec": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "sconcat",
+     [
+      "get",
+      "rec",
+      "tool"
+     ],
+     " ",
+     [
+      "get",
+      "rec",
+      "target"
+     ],
+     ": ",
+     [
+      "get",
+      "rec",
+      "verdict"
+     ],
+     " ",
+     [
+      "get",
+      "rec",
+      "metric"
+     ]
+    ]
+   },
+   "output": {
+    "kind": "text"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "rec"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "rec"
+   }
+  }
+ ]
+}

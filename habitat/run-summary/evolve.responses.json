@@ -1,0 +1,502 @@
+{
+ "writer": {
+  "variants": [
+   {
+    "key": "metric-colon",
+    "name": "Metric colon",
+    "parts": [
+     {
+      "t": "field",
+      "v": "metric"
+     },
+     {
+      "t": "lit",
+      "v": ": "
+     },
+     {
+      "t": "field",
+      "v": "tool"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "target"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "Verdict"
+     }
+    ]
+   },
+   {
+    "key": "verdict-colon",
+    "name": "Verdict colon",
+    "parts": [
+     {
+      "t": "field",
+      "v": "Verdict"
+     },
+     {
+      "t": "lit",
+      "v": ": "
+     },
+     {
+      "t": "field",
+      "v": "tool"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "target"
+     },
+     {
+      "t": "lit",
+      "v": " ("
+     },
+     {
+      "t": "field",
+      "v": "metric"
+     },
+     {
+      "t": "lit",
+      "v": ")"
+     }
+    ]
+   },
+   {
+    "key": "arrow-format",
+    "name": "Arrow format",
+    "parts": [
+     {
+      "t": "field",
+      "v": "tool"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "target"
+     },
+     {
+      "t": "lit",
+      "v": " -> "
+     },
+     {
+      "t": "field",
+      "v": "metric"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "Verdict"
+     }
+    ]
+   },
+   {
+    "key": "verdict-lead",
+    "name": "Verdict lead",
+    "parts": [
+     {
+      "t": "field",
+      "v": "Verdict"
+     },
+     {
+      "t": "lit",
+      "v": " | "
+     },
+     {
+      "t": "field",
+      "v": "target"
+     },
+     {
+      "t": "lit",
+      "v": " "
+     },
+     {
+      "t": "field",
+      "v": "metric"
+     }
+    ]
+   }
+  ]
+ },
+ "advocate": [
+  {
+   "answers": {
+    "pick": {
+     "choice": "a",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.7,
+      "b": 0.15,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  }
+ ],
+ "skeptic": [
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  }
+ ]
+}

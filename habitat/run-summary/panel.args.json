@@ -1,0 +1,138 @@
+{
+ "src": {
+  "subjects": [
+   {
+    "key": "verdict-first",
+    "subject": "PROMOTED search status-line \u2014 g1-bracket holdout 2/2"
+   },
+   {
+    "key": "bracket-status",
+    "subject": "[PROMOTED] search: status-line (g1-bracket holdout 2/2)"
+   },
+   {
+    "key": "tool-lead",
+    "subject": "search status-line: promoted g1-bracket holdout 2/2"
+   },
+   {
+    "key": "metric-first",
+    "subject": "g1-bracket holdout 2/2 | search status-line PROMOTED"
+   }
+  ],
+  "pairs": [
+   {
+    "brief": {
+     "rec": {
+      "tool": "search",
+      "target": "status-line",
+      "verdict": "promoted",
+      "metric": "g1-bracket holdout 2/2"
+     },
+     "task": "pick the better one-line summary for a verification report"
+    },
+    "a": {
+     "key": "verdict-first",
+     "subject": "PROMOTED search status-line \u2014 g1-bracket holdout 2/2"
+    },
+    "b": {
+     "key": "bracket-status",
+     "subject": "[PROMOTED] search: status-line (g1-bracket holdout 2/2)"
+    }
+   },
+   {
+    "brief": {
+     "rec": {
+      "tool": "search",
+      "target": "status-line",
+      "verdict": "promoted",
+      "metric": "g1-bracket holdout 2/2"
+     },
+     "task": "pick the better one-line summary for a verification report"
+    },
+    "a": {
+     "key": "verdict-first",
+     "subject": "PROMOTED search status-line \u2014 g1-bracket holdout 2/2"
+    },
+    "b": {
+     "key": "tool-lead",
+     "subject": "search status-line: promoted g1-bracket holdout 2/2"
+    }
+   },
+   {
+    "brief": {
+     "rec": {
+      "tool": "search",
+      "target": "status-line",
+      "verdict": "promoted",
+      "metric": "g1-bracket holdout 2/2"
+     },
+     "task": "pick the better one-line summary for a verification report"
+    },
+    "a": {
+     "key": "verdict-first",
+     "subject": "PROMOTED search status-line \u2014 g1-bracket holdout 2/2"
+    },
+    "b": {
+     "key": "metric-first",
+     "subject": "g1-bracket holdout 2/2 | search status-line PROMOTED"
+    }
+   },
+   {
+    "brief": {
+     "rec": {
+      "tool": "search",
+      "target": "status-line",
+      "verdict": "promoted",
+      "metric": "g1-bracket holdout 2/2"
+     },
+     "task": "pick the better one-line summary for a verification report"
+    },
+    "a": {
+     "key": "bracket-status",
+     "subject": "[PROMOTED] search: status-line (g1-bracket holdout 2/2)"
+    },
+    "b": {
+     "key": "tool-lead",
+     "subject": "search status-line: promoted g1-bracket holdout 2/2"
+    }
+   },
+   {
+    "brief": {
+     "rec": {
+      "tool": "search",
+      "target": "status-line",
+      "verdict": "promoted",
+      "metric": "g1-bracket holdout 2/2"
+     },
+     "task": "pick the better one-line summary for a verification report"
+    },
+    "a": {
+     "key": "bracket-status",
+     "subject": "[PROMOTED] search: status-line (g1-bracket holdout 2/2)"
+    },
+    "b": {
+     "key": "metric-first",
+     "subject": "g1-bracket holdout 2/2 | search status-line PROMOTED"
+    }
+   },
+   {
+    "brief": {
+     "rec": {
+      "tool": "search",
+      "target": "status-line",
+      "verdict": "promoted",
+      "metric": "g1-bracket holdout 2/2"
+     },
+     "task": "pick the better one-line summary for a verification report"
+    },
+    "a": {
+     "key": "tool-lead",
+     "subject": "search status-line: promoted g1-bracket holdout 2/2"
+    },
+    "b": {
+     "key": "metric-first",
+     "subject": "g1-bracket holdout 2/2 | search status-line PROMOTED"
+    }
+   }
+  ]
+ }
+}

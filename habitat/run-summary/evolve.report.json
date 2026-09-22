@@ -1,0 +1,77 @@
+{
+ "contract": "pattern-language.evolve.v1",
+ "habitat": "habitat/run-summary",
+ "mode": "scripted",
+ "arena": "holdout-search",
+ "generations": [
+  {
+   "generation": 0,
+   "standings": [
+    {
+     "key": "verdict-first",
+     "subject": "PROMOTED search status-line \u2014 g1-bracket holdout 2/2",
+     "wins": 0
+    },
+    {
+     "key": "bracket-status",
+     "subject": "[PROMOTED] search: status-line (g1-bracket holdout 2/2)",
+     "wins": 0
+    },
+    {
+     "key": "tool-lead",
+     "subject": "search status-line: promoted g1-bracket holdout 2/2",
+     "wins": 2
+    },
+    {
+     "key": "metric-first",
+     "subject": "g1-bracket holdout 2/2 | search status-line PROMOTED",
+     "wins": 3
+    }
+   ],
+   "champion": {
+    "key": "metric-first",
+    "wins": 3
+   },
+   "receiptDigest": "sha256:f78608f6013b6ca849fd86aefc69f4a0832ae6d9401fcce3725273563ff01fca"
+  },
+  {
+   "generation": 1,
+   "standings": [
+    {
+     "key": "metric-first",
+     "subject": "g1-bracket holdout 2/2 | search status-line PROMOTED",
+     "wins": 0
+    },
+    {
+     "key": "metric-colon",
+     "subject": "g1-bracket holdout 2/2: search status-line PROMOTED",
+     "wins": 0
+    },
+    {
+     "key": "verdict-colon",
+     "subject": "PROMOTED: search status-line (g1-bracket holdout 2/2)",
+     "wins": 2
+    },
+    {
+     "key": "arrow-format",
+     "subject": "search status-line -> g1-bracket holdout 2/2 PROMOTED",
+     "wins": 3
+    },
+    {
+     "key": "verdict-lead",
+     "subject": "PROMOTED | status-line g1-bracket holdout 2/2",
+     "wins": 4
+    }
+   ],
+   "champion": {
+    "key": "verdict-lead",
+    "wins": 4
+   },
+   "receiptDigest": "sha256:760cc47295519daca45c7e0311a778237e40be60d3a4564e9757677af4487c76"
+  }
+ ],
+ "finalChampion": {
+  "key": "verdict-lead",
+  "wins": 4
+ }
+}

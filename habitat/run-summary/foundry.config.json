@@ -1,0 +1,175 @@
+{
+ "contract": "algal.foundry.config.v1",
+ "candidates": [
+  "verdict-first.algal.json",
+  "bracket-status.algal.json",
+  "tool-lead.algal.json",
+  "metric-first.algal.json"
+ ],
+ "cases": [
+  {
+   "id": "train-foundry",
+   "split": "train",
+   "args": {
+    "rec": {
+     "tool": "foundry",
+     "target": "verdict-line",
+     "verdict": "promoted",
+     "metric": "val 2/2"
+    }
+   },
+   "expect": {
+    "line": ""
+   }
+  },
+  {
+   "id": "train-village",
+   "split": "train",
+   "args": {
+    "rec": {
+     "tool": "decompose",
+     "target": "village k=12",
+     "verdict": "ok",
+     "metric": "agreement 0.840"
+    }
+   },
+   "expect": {
+    "line": ""
+   }
+  },
+  {
+   "id": "val-jury",
+   "split": "validation",
+   "args": {
+    "rec": {
+     "tool": "jury",
+     "target": "commit-subject",
+     "verdict": "champion",
+     "metric": "why-tail 3"
+    }
+   },
+   "expect": {
+    "line": ""
+   }
+  },
+  {
+   "id": "val-transfer",
+   "split": "validation",
+   "args": {
+    "rec": {
+     "tool": "decompose",
+     "target": "algal-src k=10",
+     "verdict": "ok",
+     "metric": "agreement 0.760"
+    }
+   },
+   "expect": {
+    "line": ""
+   }
+  },
+  {
+   "id": "holdout-search",
+   "split": "holdout",
+   "args": {
+    "rec": {
+     "tool": "search",
+     "target": "status-line",
+     "verdict": "promoted",
+     "metric": "g1-bracket holdout 2/2"
+    }
+   },
+   "expect": {
+    "line": ""
+   }
+  },
+  {
+   "id": "holdout-evolve",
+   "split": "holdout",
+   "args": {
+    "rec": {
+     "tool": "evolve",
+     "target": "commit-subject",
+     "verdict": "champion",
+     "metric": "why-dash 3"
+    }
+   },
+   "expect": {
+    "line": ""
+   }
+  }
+ ],
+ "scorer": {
+  "contract": "algal.expr.v1",
+  "program": [
+   "let",
+   "s",
+   [
+    "get",
+    "outputs",
+    "line"
+   ],
+   [
+    "and",
+    [
+     "gte",
+     [
+      "slen",
+      [
+       "get",
+       "s"
+      ]
+     ],
+     8
+    ],
+    [
+     "lte",
+     [
+      "slen",
+      [
+       "get",
+       "s"
+      ]
+     ],
+     80
+    ],
+    [
+     "scontains",
+     [
+      "get",
+      "s"
+     ],
+     [
+      "get",
+      "args",
+      "rec",
+      "tool"
+     ]
+    ],
+    [
+     "scontains",
+     [
+      "get",
+      "s"
+     ],
+     [
+      "get",
+      "args",
+      "rec",
+      "target"
+     ]
+    ],
+    [
+     "not",
+     [
+      "scontains",
+      [
+       "get",
+       "s"
+      ],
+      "\n"
+     ]
+    ]
+   ]
+  ]
+ }
+}

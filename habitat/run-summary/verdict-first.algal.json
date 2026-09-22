@@ -1,0 +1,88 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:verdict-first",
+ "name": "Verdict first",
+ "note": "The verdict leads; evidence trails behind it.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "rec": {
+    "cell": "src",
+    "port": "rec"
+   }
+  },
+  "outputs": {
+   "line": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "rec": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "rec": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "sconcat",
+     [
+      "upper",
+      [
+       "get",
+       "rec",
+       "verdict"
+      ]
+     ],
+     " ",
+     [
+      "get",
+      "rec",
+      "tool"
+     ],
+     " ",
+     [
+      "get",
+      "rec",
+      "target"
+     ],
+     " \u2014 ",
+     [
+      "get",
+      "rec",
+      "metric"
+     ]
+    ]
+   },
+   "output": {
+    "kind": "text"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "rec"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "rec"
+   }
+  }
+ ]
+}
