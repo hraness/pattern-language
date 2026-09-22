@@ -1,0 +1,4639 @@
+{
+  "schema": "pattern-language.construction-instrument-evidence.v1",
+  "sensitivity": [
+    {
+      "id": "reply-before-durable-write",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "volatile-only-commit",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "lost-recovery-replay",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "rewrite-committed-duplicate",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "drop-pending-waiter",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "missing-deadline-flush",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "duplicate-resets-deadline",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "cross-key-corruption",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "drop-acknowledgement",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "capacity-flush-too-early",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "capacity-flush-too-late",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "fourth-reply-wrong-payload",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "fourth-reply-reuses-call",
+      "detected": true,
+      "category": "ContractViolation"
+    },
+    {
+      "id": "second-recovery-loss",
+      "detected": true,
+      "category": "ContractViolation",
+      "survivesOneCrash": true
+    },
+    {
+      "id": "deferred-committed-duplicate",
+      "detected": true,
+      "category": "ContractViolation"
+    }
+  ],
+  "spaces": [
+    {
+      "context": "write_pressure",
+      "designs": [
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "6e882ffdfa6dc087b8723f30961c2919ed12dd8452634cb296e592f7c788e7ce",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 1344,
+          "budgetFailures": [],
+          "optimal": true,
+          "regret": 0,
+          "relativeRegret": 0,
+          "efficiency": 1,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "fc767fde3c09963336a8f680c47553c01fbda4e2ddfb21285af5e3622b1e3c10",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 1344,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "f14c58127e3f15e3626ff167ccff090fe89866e4c4de2260793af6831e4f575c",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 1224,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "527e91bb3d2045bf0e4025d296c3df18590e69e7b93e2e527c0f882eea1f94bf",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 1344,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "ebdde1196097951f5acc13fa2018758d05f02f02977f30d0ab7d10e6fbc003b5",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 1104,
+            "peakRetainedBytes": 184,
+            "recoveryRecords": 18,
+            "recoveryBytes": 3312,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 1104,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "28e62105b1704cdc7ed0f565388aedc5a649325793b97b46e436df05ec3a7037",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 1688,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 344,
+          "relativeRegret": 0.25595238095238093,
+          "efficiency": 0.7962085308056872,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "d84ab1e102bba1f288d682678d1c7433dbc705355bf8225bfd6517e2c03ab476",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 1688,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "017801e79b21319c3ebc4187e851d6aabc9219c3e27fe9a14b8c3f4c80a98530",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 1318,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "9461bee28606a2f19ad59402c009eaafb81e1c714d31144b0b74c8fb5be6c4d6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 1688,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "3c8c63a011a52fe502fe21ad2bf5ae86336c2f57436def6be4416e7634426fa6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 750,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 750,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        }
+      ],
+      "optimum": 1344,
+      "feasibleCount": 2,
+      "paretoCount": 2
+    },
+    {
+      "context": "recovery_pressure",
+      "designs": [
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "6e882ffdfa6dc087b8723f30961c2919ed12dd8452634cb296e592f7c788e7ce",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 4032,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 1782,
+          "relativeRegret": 0.792,
+          "efficiency": 0.5580357142857143,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "fc767fde3c09963336a8f680c47553c01fbda4e2ddfb21285af5e3622b1e3c10",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 4032,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "f14c58127e3f15e3626ff167ccff090fe89866e4c4de2260793af6831e4f575c",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 3672,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "527e91bb3d2045bf0e4025d296c3df18590e69e7b93e2e527c0f882eea1f94bf",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 4032,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "ebdde1196097951f5acc13fa2018758d05f02f02977f30d0ab7d10e6fbc003b5",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 1104,
+            "peakRetainedBytes": 184,
+            "recoveryRecords": 18,
+            "recoveryBytes": 3312,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 3312,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "28e62105b1704cdc7ed0f565388aedc5a649325793b97b46e436df05ec3a7037",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 2250,
+          "budgetFailures": [],
+          "optimal": true,
+          "regret": 0,
+          "relativeRegret": 0,
+          "efficiency": 1,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "d84ab1e102bba1f288d682678d1c7433dbc705355bf8225bfd6517e2c03ab476",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 2250,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "017801e79b21319c3ebc4187e851d6aabc9219c3e27fe9a14b8c3f4c80a98530",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 2250,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "9461bee28606a2f19ad59402c009eaafb81e1c714d31144b0b74c8fb5be6c4d6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 2250,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": false,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "3c8c63a011a52fe502fe21ad2bf5ae86336c2f57436def6be4416e7634426fa6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 750,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 2250,
+          "budgetFailures": [
+            "maxLatencyTicks"
+          ],
+          "optimal": false,
+          "regret": null,
+          "relativeRegret": null,
+          "efficiency": 0,
+          "dominated": null
+        }
+      ],
+      "optimum": 2250,
+      "feasibleCount": 2,
+      "paretoCount": 2
+    },
+    {
+      "context": "latency_pressure",
+      "designs": [
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "6e882ffdfa6dc087b8723f30961c2919ed12dd8452634cb296e592f7c788e7ce",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 1344,
+          "budgetFailures": [],
+          "optimal": true,
+          "regret": 0,
+          "relativeRegret": 0,
+          "efficiency": 1,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "fc767fde3c09963336a8f680c47553c01fbda4e2ddfb21285af5e3622b1e3c10",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 3144,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 1800,
+          "relativeRegret": 1.3392857142857142,
+          "efficiency": 0.42748091603053434,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "f14c58127e3f15e3626ff167ccff090fe89866e4c4de2260793af6831e4f575c",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 3624,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 2280,
+          "relativeRegret": 1.6964285714285714,
+          "efficiency": 0.3708609271523179,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "527e91bb3d2045bf0e4025d296c3df18590e69e7b93e2e527c0f882eea1f94bf",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 3144,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 1800,
+          "relativeRegret": 1.3392857142857142,
+          "efficiency": 0.42748091603053434,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "ebdde1196097951f5acc13fa2018758d05f02f02977f30d0ab7d10e6fbc003b5",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 1104,
+            "peakRetainedBytes": 184,
+            "recoveryRecords": 18,
+            "recoveryBytes": 3312,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 5904,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 4560,
+          "relativeRegret": 3.392857142857143,
+          "efficiency": 0.22764227642276422,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "28e62105b1704cdc7ed0f565388aedc5a649325793b97b46e436df05ec3a7037",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 1688,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 344,
+          "relativeRegret": 0.25595238095238093,
+          "efficiency": 0.7962085308056872,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "d84ab1e102bba1f288d682678d1c7433dbc705355bf8225bfd6517e2c03ab476",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 3488,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 2144,
+          "relativeRegret": 1.5952380952380953,
+          "efficiency": 0.3853211009174312,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "017801e79b21319c3ebc4187e851d6aabc9219c3e27fe9a14b8c3f4c80a98530",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 3718,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 2374,
+          "relativeRegret": 1.7663690476190477,
+          "efficiency": 0.36148466917697686,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "9461bee28606a2f19ad59402c009eaafb81e1c714d31144b0b74c8fb5be6c4d6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 3488,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 2144,
+          "relativeRegret": 1.5952380952380953,
+          "efficiency": 0.3853211009174312,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "3c8c63a011a52fe502fe21ad2bf5ae86336c2f57436def6be4416e7634426fa6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 750,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 5550,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 4206,
+          "relativeRegret": 3.1294642857142856,
+          "efficiency": 0.24216216216216216,
+          "dominated": false
+        }
+      ],
+      "optimum": 1344,
+      "feasibleCount": 10,
+      "paretoCount": 5
+    },
+    {
+      "context": "commit_pressure",
+      "designs": [
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "6e882ffdfa6dc087b8723f30961c2919ed12dd8452634cb296e592f7c788e7ce",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 19344,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 12594,
+          "relativeRegret": 1.8657777777777778,
+          "efficiency": 0.3489454094292804,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "fc767fde3c09963336a8f680c47553c01fbda4e2ddfb21285af5e3622b1e3c10",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 19344,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 12594,
+          "relativeRegret": 1.8657777777777778,
+          "efficiency": 0.3489454094292804,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "f14c58127e3f15e3626ff167ccff090fe89866e4c4de2260793af6831e4f575c",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 13224,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 6474,
+          "relativeRegret": 0.9591111111111111,
+          "efficiency": 0.5104355716878403,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "527e91bb3d2045bf0e4025d296c3df18590e69e7b93e2e527c0f882eea1f94bf",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 19344,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 12594,
+          "relativeRegret": 1.8657777777777778,
+          "efficiency": 0.3489454094292804,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "ebdde1196097951f5acc13fa2018758d05f02f02977f30d0ab7d10e6fbc003b5",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 1104,
+            "peakRetainedBytes": 184,
+            "recoveryRecords": 18,
+            "recoveryBytes": 3312,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 7104,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 354,
+          "relativeRegret": 0.052444444444444446,
+          "efficiency": 0.950168918918919,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "28e62105b1704cdc7ed0f565388aedc5a649325793b97b46e436df05ec3a7037",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 19688,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 12938,
+          "relativeRegret": 1.9167407407407406,
+          "efficiency": 0.3428484355952865,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "d84ab1e102bba1f288d682678d1c7433dbc705355bf8225bfd6517e2c03ab476",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 19688,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 12938,
+          "relativeRegret": 1.9167407407407406,
+          "efficiency": 0.3428484355952865,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "017801e79b21319c3ebc4187e851d6aabc9219c3e27fe9a14b8c3f4c80a98530",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 24,
+            "maxLatencyTicks": 3
+          },
+          "objective": 13318,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 6568,
+          "relativeRegret": 0.973037037037037,
+          "efficiency": 0.5068328577864544,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "9461bee28606a2f19ad59402c009eaafb81e1c714d31144b0b74c8fb5be6c4d6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 19688,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 12938,
+          "relativeRegret": 1.9167407407407406,
+          "efficiency": 0.3428484355952865,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "3c8c63a011a52fe502fe21ad2bf5ae86336c2f57436def6be4416e7634426fa6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 750,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 48,
+            "maxLatencyTicks": 3
+          },
+          "objective": 6750,
+          "budgetFailures": [],
+          "optimal": true,
+          "regret": 0,
+          "relativeRegret": 0,
+          "efficiency": 1,
+          "dominated": false
+        }
+      ],
+      "optimum": 6750,
+      "feasibleCount": 10,
+      "paretoCount": 5
+    },
+    {
+      "context": "dev_burst",
+      "designs": [
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "6e882ffdfa6dc087b8723f30961c2919ed12dd8452634cb296e592f7c788e7ce",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 1344,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 468,
+          "relativeRegret": 0.5342465753424658,
+          "efficiency": 0.6517857142857143,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "fc767fde3c09963336a8f680c47553c01fbda4e2ddfb21285af5e3622b1e3c10",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 6,
+            "maxLatencyTicks": 1
+          },
+          "objective": 1266,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 390,
+          "relativeRegret": 0.4452054794520548,
+          "efficiency": 0.6919431279620853,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "f14c58127e3f15e3626ff167ccff090fe89866e4c4de2260793af6831e4f575c",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 3
+          },
+          "objective": 1350,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 474,
+          "relativeRegret": 0.541095890410959,
+          "efficiency": 0.6488888888888888,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "527e91bb3d2045bf0e4025d296c3df18590e69e7b93e2e527c0f882eea1f94bf",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 1104,
+            "peakRetainedBytes": 184,
+            "recoveryRecords": 18,
+            "recoveryBytes": 3312,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 1230,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 354,
+          "relativeRegret": 0.4041095890410959,
+          "efficiency": 0.7121951219512195,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "ebdde1196097951f5acc13fa2018758d05f02f02977f30d0ab7d10e6fbc003b5",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 1104,
+            "peakRetainedBytes": 184,
+            "recoveryRecords": 18,
+            "recoveryBytes": 3312,
+            "recoveryCalls": 24,
+            "latencyTicks": 66,
+            "maxLatencyTicks": 3
+          },
+          "objective": 1566,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 690,
+          "relativeRegret": 0.7876712328767124,
+          "efficiency": 0.5593869731800766,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "28e62105b1704cdc7ed0f565388aedc5a649325793b97b46e436df05ec3a7037",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 1688,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 812,
+          "relativeRegret": 0.9269406392694064,
+          "efficiency": 0.518957345971564,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "d84ab1e102bba1f288d682678d1c7433dbc705355bf8225bfd6517e2c03ab476",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 6,
+            "maxLatencyTicks": 1
+          },
+          "objective": 1360,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 484,
+          "relativeRegret": 0.5525114155251142,
+          "efficiency": 0.6441176470588236,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "017801e79b21319c3ebc4187e851d6aabc9219c3e27fe9a14b8c3f4c80a98530",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 3
+          },
+          "objective": 1444,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 568,
+          "relativeRegret": 0.6484018264840182,
+          "efficiency": 0.6066481994459834,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "9461bee28606a2f19ad59402c009eaafb81e1c714d31144b0b74c8fb5be6c4d6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 750,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 876,
+          "budgetFailures": [],
+          "optimal": true,
+          "regret": 0,
+          "relativeRegret": 0,
+          "efficiency": 1,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "3c8c63a011a52fe502fe21ad2bf5ae86336c2f57436def6be4416e7634426fa6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 6,
+            "writeBytes": 750,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 66,
+            "maxLatencyTicks": 3
+          },
+          "objective": 1212,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 336,
+          "relativeRegret": 0.3835616438356164,
+          "efficiency": 0.7227722772277227,
+          "dominated": true
+        }
+      ],
+      "optimum": 876,
+      "feasibleCount": 10,
+      "paretoCount": 5
+    },
+    {
+      "context": "dev_paced",
+      "designs": [
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "6e882ffdfa6dc087b8723f30961c2919ed12dd8452634cb296e592f7c788e7ce",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 9408,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 3590,
+          "relativeRegret": 0.6170505328291509,
+          "efficiency": 0.6184098639455783,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "fc767fde3c09963336a8f680c47553c01fbda4e2ddfb21285af5e3622b1e3c10",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 9408,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 3590,
+          "relativeRegret": 0.6170505328291509,
+          "efficiency": 0.6184098639455783,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "f14c58127e3f15e3626ff167ccff090fe89866e4c4de2260793af6831e4f575c",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 36,
+            "maxLatencyTicks": 3
+          },
+          "objective": 8568,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 2750,
+          "relativeRegret": 0.4726710209694053,
+          "efficiency": 0.6790382819794585,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "527e91bb3d2045bf0e4025d296c3df18590e69e7b93e2e527c0f882eea1f94bf",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1344,
+            "peakRetainedBytes": 224,
+            "recoveryRecords": 54,
+            "recoveryBytes": 4032,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 9408,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 3590,
+          "relativeRegret": 0.6170505328291509,
+          "efficiency": 0.6184098639455783,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "append-journal"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "ebdde1196097951f5acc13fa2018758d05f02f02977f30d0ab7d10e6fbc003b5",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1224,
+            "peakRetainedBytes": 204,
+            "recoveryRecords": 36,
+            "recoveryBytes": 3672,
+            "recoveryCalls": 24,
+            "latencyTicks": 54,
+            "maxLatencyTicks": 3
+          },
+          "objective": 8568,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 2750,
+          "relativeRegret": 0.4726710209694053,
+          "efficiency": 0.6790382819794585,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "each"
+            }
+          },
+          "sourceSha256": "28e62105b1704cdc7ed0f565388aedc5a649325793b97b46e436df05ec3a7037",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              88,
+              2432
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1216
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 0,
+            "maxLatencyTicks": 0
+          },
+          "objective": 6188,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 370,
+          "relativeRegret": 0.0635957373667927,
+          "efficiency": 0.9402068519715578,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "d84ab1e102bba1f288d682678d1c7433dbc705355bf8225bfd6517e2c03ab476",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2220
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1064
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 6188,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 370,
+          "relativeRegret": 0.0635957373667927,
+          "efficiency": 0.9402068519715578,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 2,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "017801e79b21319c3ebc4187e851d6aabc9219c3e27fe9a14b8c3f4c80a98530",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              76,
+              1856
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  38,
+                  920
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  38,
+                  936
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 36,
+            "maxLatencyTicks": 3
+          },
+          "objective": 5818,
+          "budgetFailures": [],
+          "optimal": true,
+          "regret": 0,
+          "relativeRegret": 0,
+          "efficiency": 1,
+          "dominated": false
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 1
+            }
+          },
+          "sourceSha256": "9461bee28606a2f19ad59402c009eaafb81e1c714d31144b0b74c8fb5be6c4d6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              86,
+              2204
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  42,
+                  1048
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  44,
+                  1156
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 18,
+            "writeBytes": 1688,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 18,
+            "maxLatencyTicks": 1
+          },
+          "objective": 6188,
+          "budgetFailures": [],
+          "optimal": false,
+          "regret": 370,
+          "relativeRegret": 0.0635957373667927,
+          "efficiency": 0.9402068519715578,
+          "dominated": true
+        },
+        {
+          "valid": true,
+          "correct": true,
+          "feasible": true,
+          "artifact": {
+            "schema": "pattern-language.construct.v1",
+            "storage": {
+              "op": "replace-snapshot"
+            },
+            "commit": {
+              "op": "bounded-batch",
+              "maxItems": 4,
+              "maxTicks": 3
+            }
+          },
+          "sourceSha256": "3c8c63a011a52fe502fe21ad2bf5ae86336c2f57436def6be4416e7634426fa6",
+          "qualification": {
+            "correct": true,
+            "counts": [
+              2,
+              80,
+              1712
+            ],
+            "scenarios": [
+              {
+                "id": "signed-cross-key",
+                "counts": [
+                  1,
+                  40,
+                  868
+                ]
+              },
+              {
+                "id": "special-identities",
+                "counts": [
+                  1,
+                  40,
+                  844
+                ]
+              }
+            ],
+            "construction": {
+              "correct": true,
+              "scenarios": [
+                "four-command-capacity-with-duplicates",
+                "single-command-deadline-with-duplicate"
+              ],
+              "faults": 0
+            },
+            "bound": {
+              "maxCrashes": 2,
+              "placement": "every reachable declared boundary in each frozen prefix",
+              "recoveryInterrupted": true,
+              "stableRetryDrainTicks": 5,
+              "committedDuplicateRetriesAfterDrain": true
+            }
+          },
+          "metrics": {
+            "commits": 12,
+            "writeBytes": 1318,
+            "peakRetainedBytes": 125,
+            "recoveryRecords": 18,
+            "recoveryBytes": 2250,
+            "recoveryCalls": 24,
+            "latencyTicks": 54,
+            "maxLatencyTicks": 3
+          },
+          "objective": 5818,
+          "budgetFailures": [],
+          "optimal": true,
+          "regret": 0,
+          "relativeRegret": 0,
+          "efficiency": 1,
+          "dominated": true
+        }
+      ],
+      "optimum": 5818,
+      "feasibleCount": 10,
+      "paretoCount": 4
+    }
+  ]
+}

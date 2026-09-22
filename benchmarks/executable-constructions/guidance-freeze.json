@@ -1,0 +1,17 @@
+{
+  "schema": "pattern-language.construction-guidance-freeze.v1",
+  "frozenAt": "2026-09-22T20:41:31Z",
+  "taskFreezeSha256": "78f1f6c13d8a83dbb09f7d51d8488c0020ab88277b087d75f3317d1710a76707",
+  "files": {
+    "benchmarks/executable-constructions/artifact.md": "77f8be9a50eae52bdce3329cc7538c45d836f9a2d06238b414dd4e29362da72b",
+    "benchmarks/executable-constructions/contexts/commit_pressure.json": "8744b5f97e65e9a23983b78b3c42abeb1cf1d79a5b9b3246cdba34e4c905b64e",
+    "benchmarks/executable-constructions/contexts/latency_pressure.json": "89cac72728eaa4aeff033dc1aab8d2b3f34001298c64280e80bfe084755e81db",
+    "benchmarks/executable-constructions/contexts/recovery_pressure.json": "3a882c7629ce2c0fd1b6d9e5e8ec415c686e3712bc63567614f940e172179258",
+    "benchmarks/executable-constructions/contexts/write_pressure.json": "57918ae1d3ef8ae6239bea370895ba2c256e11d8df9a675c2a0ad5e3512a74f5",
+    "benchmarks/executable-constructions/contract.md": "9c4035afce3ac92d13d9b1cd8690c154e22823a78bf7097c7dc3e5f23b44c814",
+    "benchmarks/executable-constructions/guidance/checklist.md": "4dad92dc8fd30fd7aa7661fb56280a572eda135a6f1bb0c9e133d7d1453506b5",
+    "benchmarks/executable-constructions/guidance/direct.md": "6826f35cc540648bf0276b747a84909bd6095230e3582af64bfb7a9091bd5c80",
+    "benchmarks/executable-constructions/guidance/pattern.md": "9e549bc6a0a3012a01c5198f4eb3b42c168430e17bbc14be303924246c5336b1",
+    "benchmarks/executable-constructions/operators.md": "e7433f857c7b675eb43bb98f490b98418e376db4c8758eccba24878d70ada386"
+  }
+}

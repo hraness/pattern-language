@@ -55,8 +55,17 @@ The [completed study](benchmarks/design-decisions-swe2/results/2026-09-22-study/
 reached a ceiling: all 18 design/code pairs passed schema, adequacy, behavior and
 agreement checks. Every arm scored **3/3 on both families**, so no pattern
 advantage was observed. Every request passed the Free-catalog check; billed cost
-is unreported. The next experiment needs real architectural choices and
-machine-checked resource tradeoffs, beyond these largely prescribed contracts.
+is unreported.
+
+The next [executable-construction experiment](benchmarks/executable-constructions/README.md)
+provides ten actual implementations from journal/snapshot storage and immediate
+or bounded-batch commit. A closed JSON design compiles into reusable JavaScript;
+an independent host checks crash recovery and measures writes, retained bytes,
+recovery work and acknowledgement delay. Four contexts change the objective or
+budgets. The [first live attempt](benchmarks/executable-constructions/results/2026-09-22-stopped/README.md)
+stopped when Devin rejected session configuration: one failed admission and no
+model responses. The construction tool and tradeoffs are verified; its pattern
+guidance advantage remains untested in this experiment.
 
 ## What to keep from the prototype
 
@@ -73,7 +82,8 @@ They do not make the design rationale true or the evaluator independent.
 | `benchmarks/code-design/` | Actual code contract, adaptation task and six-request smoke evidence | One attempt per arm cannot establish treatment effectiveness. |
 | `benchmarks/lifecycle-v2/` | Frozen 54-request multi-task study, reviewed sources and reproducible outcomes | No transfer or both-stage pattern advantage was observed. Can explicit, trace-checkable design decisions help? |
 | `benchmarks/design-decisions-v3/` | Executable design artifacts, host traces, two task families, references and fault probes | Contracts largely prescribe the architecture; the original Claude plan remains unrun. |
-| `benchmarks/design-decisions-swe2/` | Completed 36-request qualified XCB/SWE-2 study using the same frozen tasks | All 18 pairs passed; no observed pattern advantage. Meaningful design alternatives remain untested. |
+| `benchmarks/design-decisions-swe2/` | Completed 36-request qualified XCB/SWE-2 study using the same frozen tasks | All 18 pairs passed; no observed pattern advantage within largely prescribed architectures. |
+| `benchmarks/executable-constructions/` | Closed design language, deterministic JavaScript compiler and independent fault/resource evaluation across ten constructions | First live attempt stopped before any response; procedural effectiveness remains untested. |
 
 See [the concept map](docs/concepts.md) for the distinctions between a force
 graph, a pattern language, and an implementation's dataflow graph.

@@ -627,3 +627,13 @@ This ceiling demonstrates the evaluation workflow but gives no observed pattern
 advantage. Most design choices were prescribed and every candidate chose FIFO.
 The next proposed experiment introduces executable constructions, multiple valid
 architectures and mechanically measured resource tradeoffs.
+
+The [executable-construction instrument](../benchmarks/executable-constructions/README.md)
+now implements that step. Ten journal/snapshot and commit constructions compile
+into JavaScript. Independent bounded fault checks and fixed resource workloads
+produce different optimal designs under four public contexts. This is useful
+construction and verification machinery, not evidence of a prompting advantage.
+Its [first frozen live attempt](../benchmarks/executable-constructions/results/2026-09-22-stopped/README.md)
+stopped when Devin rejected session configuration on the first admission: no
+responses, one provider failure and 35 unadmitted slots. The full partial run and
+fixed denominators are preserved; no retries or replacement attempts were made.

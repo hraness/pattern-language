@@ -1,0 +1,137 @@
+{
+  "schema": "pattern-language.construction-faults.v1",
+  "scenarios": [
+    {
+      "id": "signed-cross-key",
+      "commands": [
+        {
+          "id": "a",
+          "key": "x",
+          "delta": 1
+        },
+        {
+          "id": "b",
+          "key": "y",
+          "delta": 4
+        },
+        {
+          "id": "c",
+          "key": "x",
+          "delta": -16
+        }
+      ],
+      "prefix": [
+        {
+          "op": "submit",
+          "command": 0
+        },
+        {
+          "op": "submit",
+          "command": 0
+        },
+        {
+          "op": "submit",
+          "command": 1
+        },
+        {
+          "op": "tick",
+          "now": 1
+        },
+        {
+          "op": "submit",
+          "command": 2
+        },
+        {
+          "op": "read",
+          "key": "x"
+        },
+        {
+          "op": "read",
+          "key": "y"
+        },
+        {
+          "op": "tick",
+          "now": 2
+        },
+        {
+          "op": "tick",
+          "now": 3
+        },
+        {
+          "op": "read",
+          "key": "x"
+        },
+        {
+          "op": "read",
+          "key": "y"
+        }
+      ]
+    },
+    {
+      "id": "special-identities",
+      "commands": [
+        {
+          "id": "__proto__",
+          "key": "__proto__",
+          "delta": 1
+        },
+        {
+          "id": "\u03b2",
+          "key": "\u00e9",
+          "delta": 4
+        },
+        {
+          "id": "constructor",
+          "key": "__proto__",
+          "delta": -16
+        }
+      ],
+      "prefix": [
+        {
+          "op": "submit",
+          "command": 2
+        },
+        {
+          "op": "tick",
+          "now": 1
+        },
+        {
+          "op": "submit",
+          "command": 0
+        },
+        {
+          "op": "submit",
+          "command": 2
+        },
+        {
+          "op": "tick",
+          "now": 2
+        },
+        {
+          "op": "submit",
+          "command": 1
+        },
+        {
+          "op": "read",
+          "key": "__proto__"
+        },
+        {
+          "op": "read",
+          "key": "\u00e9"
+        },
+        {
+          "op": "tick",
+          "now": 3
+        },
+        {
+          "op": "read",
+          "key": "__proto__"
+        },
+        {
+          "op": "read",
+          "key": "\u00e9"
+        }
+      ]
+    }
+  ]
+}

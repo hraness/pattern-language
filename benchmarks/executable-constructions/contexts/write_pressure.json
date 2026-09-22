@@ -1,0 +1,68 @@
+{
+  "schema": "pattern-language.construction-context.v1",
+  "family": "durable-counters",
+  "workload": {
+    "orders": "all-permutations",
+    "commands": [
+      {
+        "id": "00000000000000000000000a",
+        "key": "x",
+        "delta": 1
+      },
+      {
+        "id": "00000000000000000000000b",
+        "key": "y",
+        "delta": 4
+      },
+      {
+        "id": "00000000000000000000000c",
+        "key": "x",
+        "delta": -16
+      }
+    ],
+    "arrivalTicks": [
+      0,
+      1,
+      2
+    ],
+    "duplicateFirstAtTick": 1,
+    "drainTicks": 5,
+    "recoveryCycles": 3
+  },
+  "workloadSemantics": "For each of six command permutations: start at tick 0; at each later integer call tick before submissions; at tick 1 retry the first command before that tick's scheduled new command. Submit positions at arrivalTicks. Read both keys after every tick's submissions. Continue through last arrival plus drainTicks. Then retry all three in permutation order, restart recoveryCycles times, and read both keys after every recovery.",
+  "aggregation": "Sum commits, writeBytes, recoveryRecords, recoveryBytes, recoveryCalls and latencyTicks over all six workloads; take the maximum peakRetainedBytes and maxLatencyTicks. latencyTicks sums every delivered call's logical delay, including duplicates. Resource measurements use these fixed logical workloads without injected faults.",
+  "faultModel": {
+    "scenarioCount": 2,
+    "commandsPerScenario": 3,
+    "maxCrashes": 2,
+    "placement": "all reachable before/after atomic-write, reply, recovery-read, public-submit, public-tick, public-read and create boundaries in each frozen finite prefix",
+    "afterLastCrash": "Read both keys before retry; retry every command with a fresh call ID, provide five fair integer ticks, then retry every committed command once more to require immediate duplicate replies without another write.",
+    "inputScope": "Two frozen representative prefixes, including pending/committed duplicates, signed deltas, two keys, special object-key strings and non-ASCII identity/key strings. Exhaustive fault placement within those prefixes, not exhaustive command inputs or all unbounded executions."
+  },
+  "paretoMetrics": [
+    "commits",
+    "writeBytes",
+    "peakRetainedBytes",
+    "recoveryBytes",
+    "latencyTicks"
+  ],
+  "id": "write_pressure",
+  "description": "An interactive service must acknowledge at its submission tick; durable bytes written dominate the resource objective.",
+  "evaluation": true,
+  "budgets": {
+    "maxLatencyTicks": 0,
+    "peakRetainedBytes": 4096
+  },
+  "objective": {
+    "direction": "minimize",
+    "weights": {
+      "writeBytes": 1
+    }
+  },
+  "constructionConformance": {
+    "faults": 0,
+    "capacityProbe": "Four distinct commands, with pending and committed duplicate calls, check exact size-triggered write/reply timing, committed reads and recovery.",
+    "deadlineProbe": "One distinct command and a duplicate at tick 1 check exact deadline-triggered write/reply timing and preservation of the original deadline.",
+    "scope": "These independent host-observed policy probes complement the exhaustive fault placements over three-command prefixes; four-command crash histories are not exhaustively checked."
+  }
+}
