@@ -302,4 +302,9 @@ node benchmarks/executable-constructions/self-test.mjs
 python3 scripts/test_construction_runner.py
 node benchmarks/executable-constructions/test-score.mjs
 
+# Preserve the stopped live attempt without turning missing responses into evidence.
+study=benchmarks/executable-constructions/results/2026-09-22-stopped
+node benchmarks/executable-constructions/score.mjs "$study/plan.json" "$study/run.json" \
+  --replay "$study/evaluation.json" >/dev/null
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

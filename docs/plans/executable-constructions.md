@@ -106,7 +106,7 @@ constructions. Four contexts make the value of choices change.
 
 ## Phase 4: Guidance, scoring and freeze
 
-- **Status:** In progress
+- **Status:** Done
 - **Depends on:** Phases 1–3.
 - **Objective:** Freeze a fair, reviewable construction-selection comparison.
 - **Scope:** New benchmark `guidance/`, `protocol.md`, `score.mjs`,
@@ -123,7 +123,7 @@ constructions. Four contexts make the value of choices change.
 
 ## Phase 5: Live evidence and delivery
 
-- **Status:** Not started
+- **Status:** Done — stopped run preserved; live comparison blocked at provider
 - **Depends on:** Phase 4.
 - **Objective:** Complete the bounded study and publish reproducible results and
   appropriately limited conclusions.
@@ -174,3 +174,26 @@ constructions. Four contexts make the value of choices change.
 - A synthetic-only end-to-end run exercised all ten real constructions across
   36 fake responses and passed exact API and CLI replay. It is orchestration
   validation, not live study evidence. No provider processes were launched.
+- Full repository gate passed on exact tree
+  `668eb1d6e203432bbdeb970bdefb5472886a6d7d` in an isolated source snapshot,
+  using ALGAL `f899456e497656eb292d97d7c0aef5e06f1437dc`. The implementation
+  was committed as `efb428d` before generation. The 32-file study plan was
+  prepared at `2026-09-22T20:42:31Z`, SHA-256
+  `83b7be3ceb8e446c07b9338d3bd83db55d9dc3040f746442110ac4a75698a81f`.
+- The first live admission failed during Devin session configuration with
+  `provider_error`; joined cleanup and no effects were confirmed. No prompt
+  reached `session/prompt`, no response was returned and the remaining 35 slots
+  were not admitted. The frozen protocol stopped without retry or replacement.
+- Independent partial-run scoring and replay preserved all 36 slots, unknown
+  admitted cost and three planned attempts per context/arm. Independent report
+  review verified the resource table, fault counts and the absence of comparative
+  design evidence. Source and all 32 frozen files remain unchanged.
+- Supported metadata-only refresh also failed at Devin `session/new` (RPC
+  `-32603`); it sent no generation prompt. A subsequent local capability read
+  showed the account idle. No unsupported fallback, blind retry or XCB source
+  change was made. Further comparison requires restored provider availability
+  and a separate frozen run; this failure is retained rather than replaced.
+- Independent publication audit matched every public JSON byte to the private
+  audited bundle and found no credentials, private transcript or raw provider
+  metadata. Only task-owned implementation, evidence and documentation are
+  included in delivery.

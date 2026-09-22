@@ -6,10 +6,13 @@ selects journal or snapshot persistence and immediate or bounded-batch commits.
 The compiler produces a synchronous JavaScript module. An independent host and
 observation oracle check behavior and measure simulated resource use.
 
-Status: implementation and independent validation in progress. No construction
-study requests have run. The [prospective protocol](protocol.md) fixes a bounded
-36-request comparison of direct, checklist and linked pattern procedures through
-the existing qualified SWE-2 Free route.
+Status: implementation, independent review and the full repository gate passed.
+The [first frozen live attempt](results/2026-09-22-stopped/README.md) stopped at
+Devin session configuration: one failed admission, no responses and 35 unadmitted
+slots. The instrument works, but this supplies no comparative design evidence.
+The [prospective protocol](protocol.md) fixes a bounded 36-request comparison of
+direct, checklist and linked pattern procedures through the existing qualified
+SWE-2 Free route.
 
 ## Compile a design
 
