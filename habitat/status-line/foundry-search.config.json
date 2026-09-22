@@ -3,8 +3,7 @@
  "generator": {
   "manifest": "generator.algal.json",
   "args": {
-   "task": "status line for a job report: verdict must lead, line <=72 chars, job id present, no ANSI",
-   "prior": null
+   "task": "status line for a job report: verdict must lead, line <=72 chars, job id present, no ANSI"
   },
   "output": "candidates"
  },
@@ -168,8 +167,31 @@
       ],
       "\u001b"
      ]
+    ],
+    [
+     "scontains",
+     [
+      "get",
+      "line"
+     ],
+     [
+      "get",
+      "args",
+      "job",
+      "executor"
+     ]
     ]
    ]
   ]
+ },
+ "candidates": [
+  "gen1/67dbe35fbafa87e97d03bed7ab1b7887463a94fc2b1d6a0e2b1b11f6899d5949.algal.json",
+  "gen1/9c8be60e466e4b6e6d8ac5b3e0974f1896b0911d1969b0484ccea0f77f81f7eb.algal.json",
+  "gen1/c9337a10922e21c7b77a4c34c71ab41c4792ad86d539c664b9c4d9a78ffd4fbb.algal.json",
+  "gen1/7c55f84dc2cb3c8f8ce436b7dd13fa1e919b22a5f4ceb8044fda782e4ff541ab.algal.json"
+ ],
+ "search": {
+  "maxGenerations": 2,
+  "feedbackInput": "prior"
  }
 }

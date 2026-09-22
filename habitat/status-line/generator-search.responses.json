@@ -1,0 +1,224 @@
+{
+ "writer": [
+  {
+   "variants": [
+    {
+     "key": "g0-verdict-dash",
+     "name": "Verdict dash executor",
+     "parts": [
+      {
+       "t": "verdict"
+      },
+      {
+       "t": "lit",
+       "v": " - "
+      },
+      {
+       "t": "field",
+       "v": "id"
+      },
+      {
+       "t": "lit",
+       "v": " - "
+      },
+      {
+       "t": "field",
+       "v": "executor"
+      }
+     ]
+    },
+    {
+     "key": "g0-plain",
+     "name": "No executor",
+     "parts": [
+      {
+       "t": "verdict"
+      },
+      {
+       "t": "lit",
+       "v": " "
+      },
+      {
+       "t": "field",
+       "v": "id"
+      },
+      {
+       "t": "lit",
+       "v": " "
+      },
+      {
+       "t": "field",
+       "v": "status"
+      }
+     ]
+    },
+    {
+     "key": "g0-detail-tail",
+     "name": "Detail tail",
+     "parts": [
+      {
+       "t": "verdict"
+      },
+      {
+       "t": "lit",
+       "v": " "
+      },
+      {
+       "t": "field",
+       "v": "id"
+      },
+      {
+       "t": "lit",
+       "v": " "
+      },
+      {
+       "t": "field",
+       "v": "executor"
+      },
+      {
+       "t": "lit",
+       "v": " "
+      },
+      {
+       "t": "field",
+       "v": "detail"
+      }
+     ]
+    },
+    {
+     "key": "g0-colon",
+     "name": "Colon executor",
+     "parts": [
+      {
+       "t": "verdict"
+      },
+      {
+       "t": "lit",
+       "v": " "
+      },
+      {
+       "t": "field",
+       "v": "executor"
+      },
+      {
+       "t": "lit",
+       "v": ":"
+      },
+      {
+       "t": "field",
+       "v": "id"
+      },
+      {
+       "t": "lit",
+       "v": " "
+      },
+      {
+       "t": "field",
+       "v": "status"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "variants": [
+    {
+     "key": "g1-dash-paren",
+     "name": "Dash paren exec",
+     "parts": [
+      {
+       "t": "verdict"
+      },
+      {
+       "t": "lit",
+       "v": " - "
+      },
+      {
+       "t": "field",
+       "v": "id"
+      },
+      {
+       "t": "lit",
+       "v": " ("
+      },
+      {
+       "t": "field",
+       "v": "executor"
+      },
+      {
+       "t": "lit",
+       "v": ")"
+      }
+     ]
+    },
+    {
+     "key": "g1-dash-detail",
+     "name": "Dash plus detail",
+     "parts": [
+      {
+       "t": "verdict"
+      },
+      {
+       "t": "lit",
+       "v": " - "
+      },
+      {
+       "t": "field",
+       "v": "id"
+      },
+      {
+       "t": "lit",
+       "v": " - "
+      },
+      {
+       "t": "field",
+       "v": "executor"
+      },
+      {
+       "t": "lit",
+       "v": " - "
+      },
+      {
+       "t": "field",
+       "v": "detail"
+      }
+     ]
+    },
+    {
+     "key": "g1-bracket",
+     "name": "Bracket exec",
+     "parts": [
+      {
+       "t": "verdict"
+      },
+      {
+       "t": "lit",
+       "v": " ["
+      },
+      {
+       "t": "field",
+       "v": "executor"
+      },
+      {
+       "t": "lit",
+       "v": "] "
+      },
+      {
+       "t": "field",
+       "v": "id"
+      }
+     ]
+    },
+    {
+     "key": "g1-bare",
+     "name": "Bare minimal",
+     "parts": [
+      {
+       "t": "verdict"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

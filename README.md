@@ -237,6 +237,36 @@ offline): claude generated `minimal-spaces`, `executor-colon-id`,
 (`FIT t-101 fit`) promoted on work-units tiebreak over `pipe-delimited`;
 `detail-emphasis` correctly failed validation on long evidence.
 
+### Generational search — tradition under a shifted context
+
+`foundry-search.config.json` runs `algal foundry search`: the four gen-1
+variants seed as incumbents, the scorer gains a new force (executor
+provenance must appear), and the generator receives each prior
+generation's promoted digest + per-candidate scores via `feedbackInput`.
+
+Live result (`foundry-search.live.report.json`, 79 receipts verified
+offline):
+
+- **gen 0** — `minimal-spaces`, the gen-1 champion, goes extinct (0/2:
+  no executor field). `executor-colon-id` already carries the adaptation;
+  claude's feedback-informed variants `minimal-dash`, `compact-pipe`,
+  `bracketed-executor` all pass. `minimal-dash` (`FIT - t-101 - jev`)
+  promoted.
+- **gen 1** — every mutation tried appending `detail` and overflowed the
+  72-char bound on long evidence (val 0/2). The incumbent `minimal-dash`
+  survived; selection held against the detail-leak.
+- **final** — `minimal-dash` promoted, holdout 2/2.
+
+That's the unselfconscious loop end-to-end: environment shift → incumbent
+extinction → latent diversity + guided variation → new champion →
+mutants rejected by the evidence. The scripted path
+(`generator-search.responses.json`, `foundry-search.report.json`) gates
+the same mechanics deterministically.
+
+*Note:* verifying search reports needs `search-verify` from algal
+≥ `43c9dcf` — the released verifier dropped the scorer when re-checking
+per-generation pass claims (fixed upstream, regression test added).
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

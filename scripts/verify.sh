@@ -5,6 +5,9 @@
 set -u
 cd "$(dirname "$0")/.."
 ALGAL="bunx github:hraness/algal"
+# Local algal checkout for search-verify — the bunx pin predates the
+# scorer-propagation fix (hraness/algal 43c9dcf).
+ALGAL_LOCAL="${ALGAL_LOCAL:-$HOME/src/algal/cli.ts}"
 STORE="${ALGAL_STORE:-/tmp/pl-verify-store}"
 fail=0
 
@@ -77,5 +80,17 @@ out=$(cd habitat/status-line && $ALGAL foundry foundry-gen.config.json \
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:gen-verdict-line" ] && echo "foundry OK  generated verdict-line promoted" \
   || { echo "foundry FAIL gen promoted=$prom"; fail=1; }
+
+# Generational search: two scripted generations over gen-1 seeds under the
+# shifted scorer (executor provenance required). Verifies with the local
+# algal checkout's search-verify (upstream fix 43c9dcf).
+out=$(cd habitat/status-line && bun "$ALGAL_LOCAL" foundry search foundry-search.config.json \
+  --responses generator-search.responses.json --dir "$STORE" --out foundry-search.report.json 2>&1 | tail -1)
+prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["result"]["candidates"] if c["manifestDigest"]==r["result"]["promoted"]][0])' 2>/dev/null)
+[ "$prom" = "organism:g1-bracket" ] && echo "search  OK  gen-1 bracket promoted after feedback" \
+  || { echo "search  FAIL promoted=$prom"; fail=1; }
+vout=$(cd habitat/status-line && bun "$ALGAL_LOCAL" foundry search-verify foundry-search.report.json --dir "$STORE" 2>&1 | tail -1)
+vok=$(printf '%s' "$vout" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
+[ "$vok" = "True" ] && echo "search  OK  report verifies offline" || { echo "search  FAIL verify"; fail=1; }
 
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }
