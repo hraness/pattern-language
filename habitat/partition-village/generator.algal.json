@@ -48,7 +48,7 @@
     "prior": "json",
     "job": "json"
    },
-   "prompt": "Emit EXACTLY 3 distinct decompositions of the 141 village requirements in job.misfits into 8-16 named subsystems. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display\", \"groups\": [{\"name\": \"subsystem-name\", \"misfits\": [\"m1\", ...]}, ...]}, ...]}. Every misfit id must appear in exactly one group; each group needs >= 2 members and a name that captures the shared force (e.g. caste, water, housing, economy). job.links lists requirement couplings \u2014 keep coupled requirements together and minimize cross-group edges. Input prior carries jury standings and prior.mechanical (constraint terms violators failed \u2014 repair the misfit, keep the winning shape). Judges favor coherent groups whose names explain why the members belong together.",
+   "prompt": "Emit EXACTLY 3 distinct decompositions of the 141 village requirements in job.misfits into 8-16 named subsystems. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display\", \"groups\": [{\"name\": \"subsystem-name\", \"misfits\": [\"m1\", ...]}, ...]}, ...]}. Every misfit id must appear in exactly one group; each group needs >= 2 members and a name that captures the shared force (e.g. caste, water, housing, economy). job.links lists requirement couplings \u2014 keep coupled requirements together and minimize cross-group edges. Input prior carries jury standings and prior.mechanical (constraint terms violators failed \u2014 repair the misfit, keep the winning shape). Judges favor coherent groups whose names explain why the members belong together. Exact coverage is completed mechanically downstream \u2014 prioritize coherent force structure and names over bookkeeping.",
    "output": {
     "kind": "json",
     "schema": {
@@ -68,7 +68,8 @@
    "id": "build",
    "kind": "expr",
    "inputs": {
-    "specs": "json"
+    "specs": "json",
+    "job": "json"
    },
    "expr": {
     "contract": "algal.expr.v1",
@@ -99,7 +100,7 @@
       "budgets": {
        "maxSteps": 8,
        "maxAgentCalls": 0,
-       "maxWork": 20000
+       "maxWork": 150000
       },
       "interface": {
        "inputs": {
@@ -125,23 +126,40 @@
         }
        },
        {
-        "id": "fmt",
+        "id": "raw",
         "kind": "expr",
-        "inputs": {
-         "job": "json"
-        },
         "expr": {
          "contract": "algal.expr.v1",
          "program": [
           "list",
           "quote",
-          {
-           "groups": [
-            "get",
-            "v",
-            "groups"
-           ]
-          }
+          [
+           "get",
+           "v",
+           "groups"
+          ]
+         ]
+        },
+        "output": {
+         "kind": "json",
+         "schema": {
+          "type": "array"
+         }
+        }
+       },
+       {
+        "id": "fmt",
+        "kind": "expr",
+        "inputs": {
+         "groups": "json",
+         "job": "json"
+        },
+        "expr": {
+         "contract": "algal.expr.v1",
+         "program": [
+          "get",
+          "job",
+          "repairProgram"
          ]
         },
         "output": {
@@ -162,6 +180,16 @@
         "to": {
          "cell": "fmt",
          "port": "job"
+        }
+       },
+       {
+        "from": {
+         "cell": "raw",
+         "port": "out"
+        },
+        "to": {
+         "cell": "fmt",
+         "port": "groups"
         }
        }
       ]
@@ -215,6 +243,16 @@
    "to": {
     "cell": "build",
     "port": "specs"
+   }
+  },
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "build",
+    "port": "job"
    }
   }
  ]

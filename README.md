@@ -585,6 +585,34 @@ Scale walls found at 141 items: writer context (78KB) needed
 `maxEffectMs` 600s plus `--executor-timeout-ms` plumbing upstream
 (`hraness/algal` `f899456`).
 
+### Mechanical completion — the organism repairs its own misfit
+
+The gen-1 escape suggested a better division of labor than "writer
+tries harder": the writer's job is *gestalt* (force structure, names),
+while exact coverage is *bookkeeping* — and bookkeeping is what expr is
+for. Every generated village candidate is now a two-cell organism:
+
+- `raw` — the writer's proposal, quoted verbatim (the proposal is data)
+- `fmt` — the habitat's `repairProgram` (declared in `job`, so it's
+  part of the habitat contract): per-group dedup, a fast path when
+  coverage is already exact, else each missing id placed into the group
+  holding most of its `sampleLinks` partners. Bounded: more than 7
+  missing ids and the program gives up — the coverage term names the
+  misfit rather than hiding it. Output carries `repaired: n` as
+  provenance inside the artifact.
+
+Scripted proof: `near-miss` (a coherent partition dropping 7 ids) has
+its raw proposal mechanically completed — `mechanical.near-miss.passed
+= true` — while `thin-twenty` (20 groups) still dies on the count bound
+and cohesion floor. Repair fixes bookkeeping, not bad structure.
+
+The fuel budget told its own story: naive repair blew the 100K expr
+cap twice — first a quadratic `seen`-accumulator dedup, then the
+fold-accumulator pattern (rebuilding a ~10KB partition per missing id
+spends bytes-as-fuel). The shipped version accumulates tiny
+`{group -> id}` placements and applies them in one pass: ~93K worst
+case at the 7-missing bound, ~300 when coverage is already exact.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an
@@ -616,9 +644,10 @@ What is not proven:
   *his* graph is encouraging, not conclusive; on algal-src the same rule
   blurs hub-centered subsystems.
 - At village scale the writer's exact coverage is unreliable — roughly
-  half the live 141-item partitions dropped ids (the contract caught
-  every one). Whether staged generation (propose groups, then assign)
-  closes that gap is untested.
+  half the live 141-item partitions dropped ids. Mechanical completion
+  (`repairProgram`) now closes drops of <= 7 ids by link-density; the
+  contract still names anything worse. Whether judged fit rewards the
+  repaired forms the same way is only scripted so far.
 - The model's *taste* is the weakest link: live diagram fragments are
   plausible but generic. Whether the method produces better artifacts
   than unaided prompting is still unmeasured — that's what the foundry

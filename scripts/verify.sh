@@ -243,16 +243,19 @@ out=$(python3 scripts/evolve-jury.py habitat/partition-village --gens 2 \
 champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
 [ "$champ" = "theme-twelve" ] && echo "evolve OK  generated theme-twelve dethrones Alexander partition" \
   || { echo "evolve FAIL partition-village champion=$champ"; fail=1; }
-python3 - <<'PY' && echo "mech   OK  village violators named + oracle agreement recorded" || { echo "mech   FAIL partition-village mech wrong"; fail=1; }
+python3 - <<'PY' && echo "mech   OK  village violator named + coverage repaired + oracle recorded" || { echo "mech   FAIL partition-village mech wrong"; fail=1; }
 import json
 r = json.load(open("habitat/partition-village/evolve.report.json"))
 g = r["generations"][1]
-assert g["mechanical"]["mega-four"]["passed"] is False
+# near-miss dropped 7 ids in its raw proposal; the fmt repair program
+# placed them by link-density, so the repaired output passes coverage —
+# that IS the mechanical-completion proof.
+assert g["mechanical"]["near-miss"]["passed"] is True
 assert g["mechanical"]["thin-twenty"]["passed"] is False
 assert g["mechanical"]["theme-twelve"]["passed"] is True
 st = {s["key"]: s for s in g["standings"]}
 assert st["theme-twelve"]["oracleAgreement"] == 1.0
-assert st["theme-twelve"]["oracleAgreement"] > st["mega-four"]["oracleAgreement"]
+assert st["theme-twelve"]["oracleAgreement"] > st["thin-twenty"]["oracleAgreement"]
 assert r["finalChampion"]["key"] == "theme-twelve" and r["reconciled"] is True
 PY
 
