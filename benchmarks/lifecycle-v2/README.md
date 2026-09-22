@@ -5,9 +5,12 @@ change working code beyond the same technical advice in a checklist. It follows
 the [initial smoke test](../../docs/review-2026-09-22.md#first-actual-code-smoke-result),
 which exposed misuse of a failure sentinel and found no pattern-specific win.
 
-**Status: prepared experiment; no v2 live results yet.** Reference and mutation
-checks establish evaluator behavior, not treatment effectiveness. The original
-smoke artifacts remain unchanged.
+**Status: the [54-request study is complete](results/2026-09-22-transfer/README.md),
+with no transfer or both-stage pattern advantage.** Reported usage was $3.449436. Pattern
+guidance had fewer both-stage successes than checklist on mapper and atomic;
+every retry revision failed at least one check. The report preserves all outcomes,
+documents a test coverage gap and proposes a more explicit construction experiment.
+Reference and mutation checks establish evaluator behavior, not treatment benefit.
 
 ## The proposed design tool
 
@@ -70,6 +73,7 @@ exercise the scoring rules independently of the live candidates.
 
 Use `python3 scripts/run-lifecycle-study.py --help` for the offline preparation,
 bounded live generation and report commands. Preparation does not call a model.
-Any fresh paid study requires an explicit budget; the earlier six-call smoke
-authorization is not a budget for this run. See `score.mjs --help` for evaluation
-and deterministic outcome replay once generated sources have been reviewed.
+The completed study used its separately approved 54-request/$27 allowance.
+Any fresh paid study needs its own budget; unused dollars do not authorize extra
+requests. See `score.mjs --help` for evaluation and deterministic outcome replay
+once generated sources have been reviewed.

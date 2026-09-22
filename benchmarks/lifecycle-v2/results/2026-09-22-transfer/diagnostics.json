@@ -1,0 +1,37 @@
+{
+  "schema": "pattern-language.posthoc-diagnostics.v1",
+  "scope": "Explanatory reproductions after frozen scoring. These observations do not modify any primary outcome or denominator.",
+  "observations": [
+    {
+      "candidate": "atomic-pattern-r1-change",
+      "sourceSha256": "8785299c77e3ef1d3e5cd649b59753b5e75ea86a5e0b7abbd3a476ffe4fd1511",
+      "input": "createLedger([{id:\"a\",balance:10}]).apply([{from:\"a\",to:\"a\",amount:1}])",
+      "expected": [
+        {
+          "id": "a",
+          "balance": 10
+        }
+      ],
+      "observed": [
+        {
+          "id": "a",
+          "balance": 11
+        }
+      ],
+      "classification": "Explains frozen self-transfer failure with a small ordinary value; debit and credit read the same pre-update balance."
+    },
+    {
+      "candidate": "mapper-direct-r2-change",
+      "sourceSha256": "eb45c094695b0ef9269097b08e5ea1913de58eb7693c5c73414fde687be3a5bd",
+      "input": "await mapLimit([1], 1, value => value, [])",
+      "expected": [
+        1
+      ],
+      "observed": "TypeError: options must be an object",
+      "referenceObserved": [
+        1
+      ],
+      "classification": "Untested valid options container under the public non-null-object contract; frozen suite passes this artifact. Coverage limitation, not a score revision."
+    }
+  ]
+}

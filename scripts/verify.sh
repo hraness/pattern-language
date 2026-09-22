@@ -274,4 +274,9 @@ node benchmarks/lifecycle-v2/self-test.mjs
 python3 scripts/test_lifecycle_runner.py
 node benchmarks/lifecycle-v2/test-score.mjs
 
+# Reproduce every recorded live-study outcome, including failed candidates.
+study=benchmarks/lifecycle-v2/results/2026-09-22-transfer
+node benchmarks/lifecycle-v2/score.mjs "$study/plan.json" "$study/run.json" \
+  "$study/reviewed.json" --replay "$study/evaluation.json" >/dev/null
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

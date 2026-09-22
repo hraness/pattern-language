@@ -34,11 +34,14 @@ the evaluator. They are not experimental evidence that pattern guidance wins.
 The pilot protocol separates generation from evaluation and records failures,
 cost, and the limits of its evidence.
 
-The next [lifecycle transfer study](benchmarks/lifecycle-v2/README.md) freezes a
-more precise state/obligation/publication sequence and a matched checklist.
-It reuses the mapper as a development task and adds independently specified
-retry and atomic-update tasks. Its planned 54-call comparison measures complete
-contracts and adaptation, with no test feedback during generation.
+The completed [54-request lifecycle study](benchmarks/lifecycle-v2/results/2026-09-22-transfer/README.md)
+found no transfer or both-stage advantage for the revised pattern treatment. Attempts passing every
+frozen check at both stages were direct/checklist/pattern **3/1/0** on mapper,
+**0/0/0** on retry, and **3/3/2** on atomic updates (each out of three). Reported
+usage was $3.449436. Failure review confirmed real bugs and also found an untested
+valid input in a passing direct artifact; passing this suite is not a proof of
+complete correctness. The report recommends testing explicit, trace-checkable
+design decisions before expanding a prose pattern catalog.
 
 ## What to keep from the prototype
 
@@ -52,7 +55,8 @@ They do not make the design rationale true or the evaluator independent.
 | `programs/` | Enumeration, correlation, clustering and synthesis orchestration | Current `diagram` emits constant prose; `realize` joins it. Code construction is not demonstrated by this pipeline. |
 | `habitat/` | Generation, model tournaments, mechanical rejection and bounded repair | Legacy evolution reuses its holdout and exposes reference-derived feedback. No independent quality claim follows. |
 | `ensembles/` | Historical village and source-import graphs with reference groupings | Similarity to a grouping is not design effectiveness. |
-| `benchmarks/code-design/` | Actual code contract, pattern treatment, adaptation task and behavioral evaluator | A controlled multi-task study is still needed. |
+| `benchmarks/code-design/` | Actual code contract, adaptation task and six-request smoke evidence | One attempt per arm cannot establish treatment effectiveness. |
+| `benchmarks/lifecycle-v2/` | Frozen 54-request multi-task study, reviewed sources and reproducible outcomes | No transfer or both-stage pattern advantage was observed. Can explicit, trace-checkable design decisions help? |
 
 See [the concept map](docs/concepts.md) for the distinctions between a force
 graph, a pattern language, and an implementation's dataflow graph.
