@@ -1,0 +1,156 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "contract",
+         "digest",
+         "graph",
+         "expr",
+         "values",
+         "errors"
+        ],
+        "name": "Manifest Language"
+       },
+       {
+        "misfits": [
+         "run",
+         "process",
+         "process-evidence",
+         "process-journal",
+         "shepherd"
+        ],
+        "name": "Runtime Execution"
+       },
+       {
+        "misfits": [
+         "coding-jobs",
+         "coding-operations",
+         "host-events",
+         "host-state",
+         "xcb",
+         "io"
+        ],
+        "name": "Work Delegation"
+       },
+       {
+        "misfits": [
+         "github",
+         "github-cli",
+         "gateway",
+         "tools",
+         "registry",
+         "capabilities"
+        ],
+        "name": "Service APIs"
+       },
+       {
+        "misfits": [
+         "bundle",
+         "store",
+         "transport",
+         "repair",
+         "verify"
+        ],
+        "name": "Artifact Lifecycle"
+       },
+       {
+        "misfits": [
+         "bench",
+         "bench-verify",
+         "foundry",
+         "foundry-verify",
+         "search",
+         "search-verify"
+        ],
+        "name": "Quality Assurance"
+       },
+       {
+        "misfits": [
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace",
+         "embeddings",
+         "semantic",
+         "diagram"
+        ],
+        "name": "Knowledge Management"
+       },
+       {
+        "misfits": [
+         "decisions",
+         "jev",
+         "credentials",
+         "effects",
+         "mailbox",
+         "tool-context"
+        ],
+        "name": "Decision and Effects"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:capability-based",
+ "name": "Capability-Based Decomposition"
+}

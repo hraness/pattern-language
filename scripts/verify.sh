@@ -197,4 +197,33 @@ assert g["mechanical"]["force-pairs"]["passed"] is True
 assert r["finalChampion"]["key"] == "force-pairs" and r["reconciled"] is True
 PY
 
+# Partition-src habitat: decomposition at scale — 48 real source modules,
+# a cohesion-floor contract, and oracle agreement vs the real directory
+# structure as an external anchor.
+for f in habitat/partition-src/*.algal.json; do
+  out=$(cd habitat/partition-src && $ALGAL check "$(basename "$f")" --modules . 2>&1 | tail -1)
+  ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
+  [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
+done
+(cd habitat/partition-src && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json >/dev/null 2>&1)
+prom=$(python3 -c 'import json; r=json.load(open("habitat/partition-src/foundry.report.json")); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
+[ "$prom" = "organism:layered-arch" ] && echo "foundry OK  layered-arch promoted (mechanical)" \
+  || { echo "foundry FAIL partition-src promoted=$prom"; fail=1; }
+out=$(python3 scripts/evolve-jury.py habitat/partition-src --gens 1 \
+  --jury reconciled-jury.algal.json --responses habitat/partition-src/evolve.responses.json 2>&1 | tail -1)
+champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
+[ "$champ" = "clean-layers" ] && echo "evolve OK  generated clean-layers dethrones incumbent" \
+  || { echo "evolve FAIL partition-src champion=$champ"; fail=1; }
+python3 - <<'PY' && echo "mech   OK  scale violators named + oracle agreement recorded" || { echo "mech   FAIL partition-src mech wrong"; fail=1; }
+import json
+r = json.load(open("habitat/partition-src/evolve.report.json"))
+g = r["generations"][-1]
+assert g["mechanical"]["mega-merge"]["passed"] is False
+assert g["mechanical"]["lone-wolf"]["passed"] is False
+assert g["mechanical"]["clean-layers"]["passed"] is True
+st = {s["key"]: s for s in g["standings"]}
+assert st["clean-layers"]["oracleAgreement"] > st["round-robin"]["oracleAgreement"]
+assert r["finalChampion"]["key"] == "clean-layers" and r["reconciled"] is True
+PY
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

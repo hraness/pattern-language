@@ -1,0 +1,156 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "bench"
+        ],
+        "name": "solo"
+       },
+       {
+        "misfits": [
+         "bench-verify",
+         "decisions",
+         "foundry",
+         "host-state",
+         "registry",
+         "source",
+         "tools"
+        ],
+        "name": "a"
+       },
+       {
+        "misfits": [
+         "bundle",
+         "diagram",
+         "foundry-verify",
+         "io",
+         "repair",
+         "source-diagnostics",
+         "transport"
+        ],
+        "name": "b"
+       },
+       {
+        "misfits": [
+         "capabilities",
+         "digest",
+         "gateway",
+         "jev",
+         "run",
+         "source-errors",
+         "values"
+        ],
+        "name": "c"
+       },
+       {
+        "misfits": [
+         "coding-jobs",
+         "effects",
+         "github",
+         "mailbox",
+         "search",
+         "source-project",
+         "verify"
+        ],
+        "name": "d"
+       },
+       {
+        "misfits": [
+         "coding-operations",
+         "embeddings",
+         "github-cli",
+         "process",
+         "search-verify",
+         "source-trace",
+         "xcb"
+        ],
+        "name": "e"
+       },
+       {
+        "misfits": [
+         "contract",
+         "errors",
+         "graph",
+         "process-evidence",
+         "semantic",
+         "store"
+        ],
+        "name": "f"
+       },
+       {
+        "misfits": [
+         "credentials",
+         "expr",
+         "host-events",
+         "process-journal",
+         "shepherd",
+         "tool-context"
+        ],
+        "name": "g"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:lone-wolf",
+ "name": "Lone wolf"
+}

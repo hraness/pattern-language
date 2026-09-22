@@ -501,6 +501,47 @@ structural artifacts routinely exceed it. `out()` now drains with
 `writeSync` (`hraness/algal` `ff62742`); the driver also redirects
 stdout to a file regardless of runtime version.
 
+### Partition at scale — judged fit vs. the real architecture
+
+`habitat/partition-src/` scales the same machinery to **48 real source
+modules** (the `algal-src` ensemble, 288 undirected import links). The
+contract changes shape because the links are unsigned: no pair-level
+requirements, instead coverage + group-count bounds (4–12) + min size +
+naming + a **cohesion floor** (>= 15 of 288 couplings intra-group — a
+floor, not a discriminator: random 5-way splits score 24% intra vs the
+oracle's 15%).
+
+What discriminates where the contract can't: **oracle agreement** —
+pairwise co-membership vs the actual directory structure, computed as
+report annotation. Live run (`evolve.live.report.json`):
+
+| candidate | wins | oracle agreement |
+|---|---|---|
+| layered-arch (oracle, folded) | 2 | 0.995 |
+| greedy-modules (link-density) | 1 | 0.715 |
+| shuffled-five (**random**) | 0 | 0.714 |
+
+The random partition passes the mechanical contract — and finishes
+dead last by **both** judged fit and oracle agreement. The jury's
+ranking tracks the real architecture, not just the contract.
+
+Then the writers produced something better than the anchor:
+`oracle-aligned` — a *generated* partition — scored **0.997** agreement,
+independently reconstructing the real module boundaries from misfit
+texts + couplings alone (higher than the hand-folded oracle's 0.995,
+which was penalized for merging the lone scheduler module). And the
+final judged champion `functional-layers` (0.963) shows judged fit
+correlating with — not slaved to — the oracle: an alternative coherent
+organization the jury preferred over the literal directory tree.
+
+Both scaling walls found and fixed this round: expr `filter` rejects
+non-boolean `null` (probe failures crashed the jury — unknown mech now
+counts as can't-inherit), and the decide cells' `maxContextBytes` had
+to grow from 8KiB (line duels) to 48KiB (partition duels) — the
+structural habitats' duel manifests carry structural prompts too
+("coherent groups, names that capture the shared force" vs "few
+groups, predictable membership").
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

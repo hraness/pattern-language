@@ -1,0 +1,161 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "coding-jobs",
+         "coding-operations",
+         "github",
+         "github-cli",
+         "shepherd",
+         "xcb",
+         "host-events",
+         "host-state"
+        ],
+        "name": "Coding Operations"
+       },
+       {
+        "misfits": [
+         "contract",
+         "graph",
+         "digest",
+         "errors",
+         "values",
+         "expr"
+        ],
+        "name": "Contract Core"
+       },
+       {
+        "misfits": [
+         "gateway",
+         "jev",
+         "decisions",
+         "credentials"
+        ],
+        "name": "Decision Layer"
+       },
+       {
+        "misfits": [
+         "effects",
+         "tools",
+         "capabilities",
+         "registry",
+         "tool-context",
+         "io"
+        ],
+        "name": "Effect Boundary"
+       },
+       {
+        "misfits": [
+         "foundry",
+         "search",
+         "bench",
+         "run"
+        ],
+        "name": "Evaluation and Search"
+       },
+       {
+        "misfits": [
+         "embeddings",
+         "semantic",
+         "mailbox",
+         "process",
+         "process-journal",
+         "process-evidence"
+        ],
+        "name": "Durable Memory"
+       },
+       {
+        "misfits": [
+         "store",
+         "transport",
+         "bundle"
+        ],
+        "name": "Storage Persistence"
+       },
+       {
+        "misfits": [
+         "diagram",
+         "repair",
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace"
+        ],
+        "name": "Source Surface"
+       },
+       {
+        "misfits": [
+         "verify",
+         "bench-verify",
+         "foundry-verify",
+         "search-verify"
+        ],
+        "name": "Verification"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:oracle-aligned",
+ "name": "Oracle-Aligned Subsystems"
+}

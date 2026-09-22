@@ -1,0 +1,142 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:shuffled-five",
+ "name": "Shuffled five",
+ "note": "Seed-fixed random 5-way split \u2014 structurally valid, semantically arbitrary: the weak-mech exhibit.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "alpha",
+        "misfits": [
+         "capabilities",
+         "coding-jobs",
+         "contract",
+         "diagram",
+         "embeddings",
+         "errors",
+         "foundry-verify",
+         "github",
+         "host-events",
+         "io",
+         "process",
+         "repair",
+         "search",
+         "source-project",
+         "transport"
+        ]
+       },
+       {
+        "name": "beta",
+        "misfits": [
+         "bench-verify",
+         "effects",
+         "gateway",
+         "jev",
+         "run",
+         "semantic",
+         "source-diagnostics",
+         "tools",
+         "xcb"
+        ]
+       },
+       {
+        "name": "gamma",
+        "misfits": [
+         "bench",
+         "credentials",
+         "shepherd",
+         "store"
+        ]
+       },
+       {
+        "name": "delta",
+        "misfits": [
+         "bundle",
+         "expr",
+         "foundry",
+         "graph",
+         "registry",
+         "source"
+        ]
+       },
+       {
+        "name": "epsilon",
+        "misfits": [
+         "coding-operations",
+         "decisions",
+         "digest",
+         "github-cli",
+         "host-state",
+         "mailbox",
+         "process-evidence",
+         "process-journal",
+         "search-verify",
+         "source-errors",
+         "source-trace",
+         "tool-context",
+         "values",
+         "verify"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

@@ -1,0 +1,184 @@
+{
+ "contract": "pattern-language.evolve.v1",
+ "habitat": "habitat/partition-src",
+ "mode": "scripted",
+ "arena": "holdout-algal-src",
+ "generations": [
+  {
+   "generation": 0,
+   "standings": [
+    {
+     "key": "greedy-modules",
+     "subject": "== kernel\n  bench benchmarks compare variants on the same cases\n  bench-verify bench receipts verify like any run\n  bundle manifests pack and unpack losslessly\n  contract the manifest schema must admit only well-formed organisms\n  credentials credential custody stays outside manifests and receipts\n  diagram manifests render to inspectable diagrams\n  digest every value must have a canonical content address\n  errors failures must be typed, never thrown bare\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  foundry candidate organisms evaluate on labeled cases\n  foundry-verify foundry receipts verify like any run\n  graph the cell graph must stay acyclic and port-typed\n  process-evidence process evidence is positive derivation from facts\n  registry host functions resolve by name, never by manifest code\n  run the scheduler must replay deterministically under budgets\n  search organism search stays within declared budgets\n  search-verify search receipts verify like any run\n  semantic recall queries resolve against the derived index\n  store committed values must be durable and content-addressed\n  tool-context tool invocations carry their bounded context\n  transport bytes move between stores without interpretation\n  values canonical values must round-trip byte-identical\n  verify a receipt must replay bit-for-bit or fail loudly\n== host-processes\n  capabilities capability handles cannot be minted by manifests\n  effects effects cross the seam declared, typed, and logged\n  host-events host events are typed and bounded\n  host-state host state persists only through declared slots\n  mailbox the durable mailbox bounds messages and ids\n  process named processes supervise under replayable journaling\n  process-journal process events append; nothing rewrites history\n  shepherd delegated runs supervise without hidden state\n== delegated-work\n  coding-jobs coding jobs execute as bounded delegated work\n  coding-operations coding operations are typed job steps\n  repair repair applies bounded fixes to admitted manifests\n  tools external tools run only through typed calls\n  xcb subscription custody settles through xcb\n== providers\n  embeddings embedding vectors derive from stored content\n  gateway model calls resolve through the gateway executor only\n  github GitHub access goes through typed calls\n  github-cli gh CLI wraps as a typed tool\n  io host I/O stays behind declared effects\n== source-language\n  source source manifests track their origin\n  source-diagnostics source problems surface as diagnostics\n  source-errors source errors are typed like runtime errors\n  source-project source collections resolve as a project\n  source-trace source traces link back to origin\n== decisions\n  decisions decisions are typed nouls/choices, not free text\n  jev decide cells execute through the typed-decision provider",
+     "wins": 0,
+     "oracleAgreement": 0.715
+    },
+    {
+     "key": "layered-arch",
+     "subject": "== delegated-operations\n  coding-jobs coding jobs execute as bounded delegated work\n  coding-operations coding operations are typed job steps\n  github GitHub access goes through typed calls\n  github-cli gh CLI wraps as a typed tool\n  host-events host events are typed and bounded\n  host-state host state persists only through declared slots\n  shepherd delegated runs supervise without hidden state\n  xcb subscription custody settles through xcb\n== kernel-contract\n  contract the manifest schema must admit only well-formed organisms\n  digest every value must have a canonical content address\n  errors failures must be typed, never thrown bare\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  graph the cell graph must stay acyclic and port-typed\n  run the scheduler must replay deterministically under budgets\n  values canonical values must round-trip byte-identical\n== source-surface\n  diagram manifests render to inspectable diagrams\n  repair repair applies bounded fixes to admitted manifests\n  source source manifests track their origin\n  source-diagnostics source problems surface as diagnostics\n  source-errors source errors are typed like runtime errors\n  source-project source collections resolve as a project\n  source-trace source traces link back to origin\n== effect-seam\n  capabilities capability handles cannot be minted by manifests\n  effects effects cross the seam declared, typed, and logged\n  io host I/O stays behind declared effects\n  registry host functions resolve by name, never by manifest code\n  tool-context tool invocations carry their bounded context\n  tools external tools run only through typed calls\n== durable-memory\n  embeddings embedding vectors derive from stored content\n  mailbox the durable mailbox bounds messages and ids\n  process named processes supervise under replayable journaling\n  process-evidence process evidence is positive derivation from facts\n  process-journal process events append; nothing rewrites history\n  semantic recall queries resolve against the derived index\n== verification\n  bench-verify bench receipts verify like any run\n  foundry-verify foundry receipts verify like any run\n  search-verify search receipts verify like any run\n  verify a receipt must replay bit-for-bit or fail loudly\n== decision-layer\n  credentials credential custody stays outside manifests and receipts\n  decisions decisions are typed nouls/choices, not free text\n  gateway model calls resolve through the gateway executor only\n  jev decide cells execute through the typed-decision provider\n== persistence\n  bundle manifests pack and unpack losslessly\n  store committed values must be durable and content-addressed\n  transport bytes move between stores without interpretation\n== selection\n  bench benchmarks compare variants on the same cases\n  foundry candidate organisms evaluate on labeled cases\n  search organism search stays within declared budgets",
+     "wins": 1,
+     "oracleAgreement": 0.995
+    },
+    {
+     "key": "shuffled-five",
+     "subject": "== alpha\n  capabilities capability handles cannot be minted by manifests\n  coding-jobs coding jobs execute as bounded delegated work\n  contract the manifest schema must admit only well-formed organisms\n  diagram manifests render to inspectable diagrams\n  embeddings embedding vectors derive from stored content\n  errors failures must be typed, never thrown bare\n  foundry-verify foundry receipts verify like any run\n  github GitHub access goes through typed calls\n  host-events host events are typed and bounded\n  io host I/O stays behind declared effects\n  process named processes supervise under replayable journaling\n  repair repair applies bounded fixes to admitted manifests\n  search organism search stays within declared budgets\n  source-project source collections resolve as a project\n  transport bytes move between stores without interpretation\n== beta\n  bench-verify bench receipts verify like any run\n  effects effects cross the seam declared, typed, and logged\n  gateway model calls resolve through the gateway executor only\n  jev decide cells execute through the typed-decision provider\n  run the scheduler must replay deterministically under budgets\n  semantic recall queries resolve against the derived index\n  source-diagnostics source problems surface as diagnostics\n  tools external tools run only through typed calls\n  xcb subscription custody settles through xcb\n== gamma\n  bench benchmarks compare variants on the same cases\n  credentials credential custody stays outside manifests and receipts\n  shepherd delegated runs supervise without hidden state\n  store committed values must be durable and content-addressed\n== delta\n  bundle manifests pack and unpack losslessly\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  foundry candidate organisms evaluate on labeled cases\n  graph the cell graph must stay acyclic and port-typed\n  registry host functions resolve by name, never by manifest code\n  source source manifests track their origin\n== epsilon\n  coding-operations coding operations are typed job steps\n  decisions decisions are typed nouls/choices, not free text\n  digest every value must have a canonical content address\n  github-cli gh CLI wraps as a typed tool\n  host-state host state persists only through declared slots\n  mailbox the durable mailbox bounds messages and ids\n  process-evidence process evidence is positive derivation from facts\n  process-journal process events append; nothing rewrites history\n  search-verify search receipts verify like any run\n  source-errors source errors are typed like runtime errors\n  source-trace source traces link back to origin\n  tool-context tool invocations carry their bounded context\n  values canonical values must round-trip byte-identical\n  verify a receipt must replay bit-for-bit or fail loudly",
+     "wins": 1,
+     "oracleAgreement": 0.714
+    }
+   ],
+   "judgedChampion": {
+    "key": "layered-arch",
+    "wins": 1
+   },
+   "reconciledChampion": {
+    "key": "layered-arch",
+    "wins": 1
+   },
+   "escaped": false,
+   "contested": 1,
+   "duels": 3,
+   "champion": {
+    "key": "layered-arch",
+    "wins": 1
+   },
+   "mechanical": {
+    "greedy-modules": {
+     "passed": true,
+     "failed": []
+    },
+    "layered-arch": {
+     "passed": true,
+     "failed": []
+    },
+    "shuffled-five": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:1136123c6d3ecc17529c439c6c6be376eff8c8b22fece54de735e0dd4f969d99"
+  },
+  {
+   "generation": 1,
+   "standings": [
+    {
+     "key": "layered-arch",
+     "subject": "== delegated-operations\n  coding-jobs coding jobs execute as bounded delegated work\n  coding-operations coding operations are typed job steps\n  github GitHub access goes through typed calls\n  github-cli gh CLI wraps as a typed tool\n  host-events host events are typed and bounded\n  host-state host state persists only through declared slots\n  shepherd delegated runs supervise without hidden state\n  xcb subscription custody settles through xcb\n== kernel-contract\n  contract the manifest schema must admit only well-formed organisms\n  digest every value must have a canonical content address\n  errors failures must be typed, never thrown bare\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  graph the cell graph must stay acyclic and port-typed\n  run the scheduler must replay deterministically under budgets\n  values canonical values must round-trip byte-identical\n== source-surface\n  diagram manifests render to inspectable diagrams\n  repair repair applies bounded fixes to admitted manifests\n  source source manifests track their origin\n  source-diagnostics source problems surface as diagnostics\n  source-errors source errors are typed like runtime errors\n  source-project source collections resolve as a project\n  source-trace source traces link back to origin\n== effect-seam\n  capabilities capability handles cannot be minted by manifests\n  effects effects cross the seam declared, typed, and logged\n  io host I/O stays behind declared effects\n  registry host functions resolve by name, never by manifest code\n  tool-context tool invocations carry their bounded context\n  tools external tools run only through typed calls\n== durable-memory\n  embeddings embedding vectors derive from stored content\n  mailbox the durable mailbox bounds messages and ids\n  process named processes supervise under replayable journaling\n  process-evidence process evidence is positive derivation from facts\n  process-journal process events append; nothing rewrites history\n  semantic recall queries resolve against the derived index\n== verification\n  bench-verify bench receipts verify like any run\n  foundry-verify foundry receipts verify like any run\n  search-verify search receipts verify like any run\n  verify a receipt must replay bit-for-bit or fail loudly\n== decision-layer\n  credentials credential custody stays outside manifests and receipts\n  decisions decisions are typed nouls/choices, not free text\n  gateway model calls resolve through the gateway executor only\n  jev decide cells execute through the typed-decision provider\n== persistence\n  bundle manifests pack and unpack losslessly\n  store committed values must be durable and content-addressed\n  transport bytes move between stores without interpretation\n== selection\n  bench benchmarks compare variants on the same cases\n  foundry candidate organisms evaluate on labeled cases\n  search organism search stays within declared budgets",
+     "wins": 0,
+     "oracleAgreement": 0.995
+    },
+    {
+     "key": "mega-merge",
+     "subject": "== inputs\n  bench benchmarks compare variants on the same cases\n  capabilities capability handles cannot be minted by manifests\n  contract the manifest schema must admit only well-formed organisms\n  diagram manifests render to inspectable diagrams\n  embeddings embedding vectors derive from stored content\n  foundry candidate organisms evaluate on labeled cases\n  github GitHub access goes through typed calls\n  host-events host events are typed and bounded\n  jev decide cells execute through the typed-decision provider\n  process-evidence process evidence is positive derivation from facts\n  repair repair applies bounded fixes to admitted manifests\n  search-verify search receipts verify like any run\n  source source manifests track their origin\n  source-project source collections resolve as a project\n  tool-context tool invocations carry their bounded context\n  values canonical values must round-trip byte-identical\n== core\n  bench-verify bench receipts verify like any run\n  coding-jobs coding jobs execute as bounded delegated work\n  credentials credential custody stays outside manifests and receipts\n  digest every value must have a canonical content address\n  errors failures must be typed, never thrown bare\n  foundry-verify foundry receipts verify like any run\n  github-cli gh CLI wraps as a typed tool\n  host-state host state persists only through declared slots\n  mailbox the durable mailbox bounds messages and ids\n  process-journal process events append; nothing rewrites history\n  run the scheduler must replay deterministically under budgets\n  semantic recall queries resolve against the derived index\n  source-diagnostics source problems surface as diagnostics\n  source-trace source traces link back to origin\n  tools external tools run only through typed calls\n  verify a receipt must replay bit-for-bit or fail loudly\n== outputs\n  bundle manifests pack and unpack losslessly\n  coding-operations coding operations are typed job steps\n  decisions decisions are typed nouls/choices, not free text\n  effects effects cross the seam declared, typed, and logged\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  gateway model calls resolve through the gateway executor only\n  graph the cell graph must stay acyclic and port-typed\n  io host I/O stays behind declared effects\n  process named processes supervise under replayable journaling\n  registry host functions resolve by name, never by manifest code\n  search organism search stays within declared budgets\n  shepherd delegated runs supervise without hidden state\n  source-errors source errors are typed like runtime errors\n  store committed values must be durable and content-addressed\n  transport bytes move between stores without interpretation\n  xcb subscription custody settles through xcb",
+     "wins": 1,
+     "oracleAgreement": 0.64
+    },
+    {
+     "key": "lone-wolf",
+     "subject": "== solo\n  bench benchmarks compare variants on the same cases\n== a\n  bench-verify bench receipts verify like any run\n  decisions decisions are typed nouls/choices, not free text\n  foundry candidate organisms evaluate on labeled cases\n  host-state host state persists only through declared slots\n  registry host functions resolve by name, never by manifest code\n  source source manifests track their origin\n  tools external tools run only through typed calls\n== b\n  bundle manifests pack and unpack losslessly\n  diagram manifests render to inspectable diagrams\n  foundry-verify foundry receipts verify like any run\n  io host I/O stays behind declared effects\n  repair repair applies bounded fixes to admitted manifests\n  source-diagnostics source problems surface as diagnostics\n  transport bytes move between stores without interpretation\n== c\n  capabilities capability handles cannot be minted by manifests\n  digest every value must have a canonical content address\n  gateway model calls resolve through the gateway executor only\n  jev decide cells execute through the typed-decision provider\n  run the scheduler must replay deterministically under budgets\n  source-errors source errors are typed like runtime errors\n  values canonical values must round-trip byte-identical\n== d\n  coding-jobs coding jobs execute as bounded delegated work\n  effects effects cross the seam declared, typed, and logged\n  github GitHub access goes through typed calls\n  mailbox the durable mailbox bounds messages and ids\n  search organism search stays within declared budgets\n  source-project source collections resolve as a project\n  verify a receipt must replay bit-for-bit or fail loudly\n== e\n  coding-operations coding operations are typed job steps\n  embeddings embedding vectors derive from stored content\n  github-cli gh CLI wraps as a typed tool\n  process named processes supervise under replayable journaling\n  search-verify search receipts verify like any run\n  source-trace source traces link back to origin\n  xcb subscription custody settles through xcb\n== f\n  contract the manifest schema must admit only well-formed organisms\n  errors failures must be typed, never thrown bare\n  graph the cell graph must stay acyclic and port-typed\n  process-evidence process evidence is positive derivation from facts\n  semantic recall queries resolve against the derived index\n  store committed values must be durable and content-addressed\n== g\n  credentials credential custody stays outside manifests and receipts\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  host-events host events are typed and bounded\n  process-journal process events append; nothing rewrites history\n  shepherd delegated runs supervise without hidden state\n  tool-context tool invocations carry their bounded context",
+     "wins": 2,
+     "oracleAgreement": 0.811
+    },
+    {
+     "key": "round-robin",
+     "subject": "== north\n  bench benchmarks compare variants on the same cases\n  credentials credential custody stays outside manifests and receipts\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  host-events host events are typed and bounded\n  process-journal process events append; nothing rewrites history\n  shepherd delegated runs supervise without hidden state\n  tool-context tool invocations carry their bounded context\n== south\n  bench-verify bench receipts verify like any run\n  decisions decisions are typed nouls/choices, not free text\n  foundry candidate organisms evaluate on labeled cases\n  host-state host state persists only through declared slots\n  registry host functions resolve by name, never by manifest code\n  source source manifests track their origin\n  tools external tools run only through typed calls\n== east\n  bundle manifests pack and unpack losslessly\n  diagram manifests render to inspectable diagrams\n  foundry-verify foundry receipts verify like any run\n  io host I/O stays behind declared effects\n  repair repair applies bounded fixes to admitted manifests\n  source-diagnostics source problems surface as diagnostics\n  transport bytes move between stores without interpretation\n== west\n  capabilities capability handles cannot be minted by manifests\n  digest every value must have a canonical content address\n  gateway model calls resolve through the gateway executor only\n  jev decide cells execute through the typed-decision provider\n  run the scheduler must replay deterministically under budgets\n  source-errors source errors are typed like runtime errors\n  values canonical values must round-trip byte-identical\n== up\n  coding-jobs coding jobs execute as bounded delegated work\n  effects effects cross the seam declared, typed, and logged\n  github GitHub access goes through typed calls\n  mailbox the durable mailbox bounds messages and ids\n  search organism search stays within declared budgets\n  source-project source collections resolve as a project\n  verify a receipt must replay bit-for-bit or fail loudly\n== down\n  coding-operations coding operations are typed job steps\n  embeddings embedding vectors derive from stored content\n  github-cli gh CLI wraps as a typed tool\n  process named processes supervise under replayable journaling\n  search-verify search receipts verify like any run\n  source-trace source traces link back to origin\n  xcb subscription custody settles through xcb\n== center\n  contract the manifest schema must admit only well-formed organisms\n  errors failures must be typed, never thrown bare\n  graph the cell graph must stay acyclic and port-typed\n  process-evidence process evidence is positive derivation from facts\n  semantic recall queries resolve against the derived index\n  store committed values must be durable and content-addressed",
+     "wins": 2,
+     "oracleAgreement": 0.806
+    },
+    {
+     "key": "clean-layers",
+     "subject": "== contract-core\n  contract the manifest schema must admit only well-formed organisms\n  digest every value must have a canonical content address\n  errors failures must be typed, never thrown bare\n  expr expr programs interpret under fuel \u2014 bounded by construction\n  graph the cell graph must stay acyclic and port-typed\n  run the scheduler must replay deterministically under budgets\n  values canonical values must round-trip byte-identical\n== effect-seam\n  capabilities capability handles cannot be minted by manifests\n  effects effects cross the seam declared, typed, and logged\n  io host I/O stays behind declared effects\n  registry host functions resolve by name, never by manifest code\n  tool-context tool invocations carry their bounded context\n  tools external tools run only through typed calls\n== decision-layer\n  credentials credential custody stays outside manifests and receipts\n  decisions decisions are typed nouls/choices, not free text\n  embeddings embedding vectors derive from stored content\n  gateway model calls resolve through the gateway executor only\n  jev decide cells execute through the typed-decision provider\n  semantic recall queries resolve against the derived index\n== process-supervision\n  host-events host events are typed and bounded\n  host-state host state persists only through declared slots\n  mailbox the durable mailbox bounds messages and ids\n  process named processes supervise under replayable journaling\n  process-evidence process evidence is positive derivation from facts\n  process-journal process events append; nothing rewrites history\n== selection\n  bench benchmarks compare variants on the same cases\n  bench-verify bench receipts verify like any run\n  foundry candidate organisms evaluate on labeled cases\n  foundry-verify foundry receipts verify like any run\n  search organism search stays within declared budgets\n  search-verify search receipts verify like any run\n  verify a receipt must replay bit-for-bit or fail loudly\n== delegated-operations\n  coding-jobs coding jobs execute as bounded delegated work\n  coding-operations coding operations are typed job steps\n  github GitHub access goes through typed calls\n  github-cli gh CLI wraps as a typed tool\n  repair repair applies bounded fixes to admitted manifests\n  shepherd delegated runs supervise without hidden state\n  xcb subscription custody settles through xcb\n== source-surface\n  diagram manifests render to inspectable diagrams\n  source source manifests track their origin\n  source-diagnostics source problems surface as diagnostics\n  source-errors source errors are typed like runtime errors\n  source-project source collections resolve as a project\n  source-trace source traces link back to origin\n== persistence\n  bundle manifests pack and unpack losslessly\n  store committed values must be durable and content-addressed\n  transport bytes move between stores without interpretation",
+     "wins": 3,
+     "oracleAgreement": 0.941
+    }
+   ],
+   "judgedChampion": {
+    "key": "clean-layers",
+    "wins": 3
+   },
+   "reconciledChampion": {
+    "key": "clean-layers",
+    "wins": 3
+   },
+   "escaped": false,
+   "contested": 2,
+   "duels": 10,
+   "champion": {
+    "key": "clean-layers",
+    "wins": 3
+   },
+   "mechanical": {
+    "layered-arch": {
+     "passed": true,
+     "failed": []
+    },
+    "mega-merge": {
+     "passed": false,
+     "failed": [
+      [
+       "gte",
+       [
+        "len",
+        [
+         "get",
+         "gs"
+        ]
+       ],
+       4
+      ]
+     ]
+    },
+    "lone-wolf": {
+     "passed": false,
+     "failed": [
+      [
+       "eq",
+       [
+        "len",
+        [
+         "filter",
+         [
+          "get",
+          "gs"
+         ],
+         "g",
+         [
+          "lt",
+          [
+           "len",
+           [
+            "get",
+            "g",
+            "misfits"
+           ]
+          ],
+          2
+         ]
+        ]
+       ],
+       0
+      ]
+     ]
+    },
+    "round-robin": {
+     "passed": true,
+     "failed": []
+    },
+    "clean-layers": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:94f5232e22b7bc633a988d66cab7792b4794490d8490bf910931b3aef427483e"
+  }
+ ],
+ "finalChampion": {
+  "key": "clean-layers",
+  "wins": 3
+ },
+ "judgedChampion": {
+  "key": "clean-layers",
+  "wins": 3
+ },
+ "escaped": false,
+ "reconciled": true
+}

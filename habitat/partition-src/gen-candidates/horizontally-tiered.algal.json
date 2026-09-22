@@ -1,0 +1,156 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "contract",
+         "digest",
+         "values",
+         "graph",
+         "errors",
+         "expr",
+         "bundle"
+        ],
+        "name": "manifest-fabric"
+       },
+       {
+        "misfits": [
+         "run",
+         "process",
+         "process-journal",
+         "process-evidence",
+         "shepherd"
+        ],
+        "name": "scheduler-processes"
+       },
+       {
+        "misfits": [
+         "verify",
+         "bench-verify",
+         "foundry-verify",
+         "search-verify",
+         "bench",
+         "foundry",
+         "search"
+        ],
+        "name": "verification-quality"
+       },
+       {
+        "misfits": [
+         "decisions",
+         "gateway",
+         "jev",
+         "credentials"
+        ],
+        "name": "decisions-credentials"
+       },
+       {
+        "misfits": [
+         "coding-jobs",
+         "coding-operations",
+         "github",
+         "github-cli",
+         "host-events",
+         "host-state",
+         "xcb"
+        ],
+        "name": "coding-execution"
+       },
+       {
+        "misfits": [
+         "effects",
+         "tools",
+         "io",
+         "capabilities",
+         "registry",
+         "tool-context"
+        ],
+        "name": "effects-services"
+       },
+       {
+        "misfits": [
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace",
+         "diagram",
+         "repair"
+        ],
+        "name": "source-representation"
+       },
+       {
+        "misfits": [
+         "embeddings",
+         "semantic",
+         "mailbox",
+         "store",
+         "transport"
+        ],
+        "name": "knowledge-storage"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:horizontally-tiered",
+ "name": "Horizontally Tiered"
+}

@@ -1,0 +1,156 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "contract",
+         "digest",
+         "errors",
+         "expr",
+         "graph",
+         "run",
+         "values"
+        ],
+        "name": "contract-core"
+       },
+       {
+        "misfits": [
+         "capabilities",
+         "effects",
+         "io",
+         "registry",
+         "tool-context",
+         "tools"
+        ],
+        "name": "effect-seam"
+       },
+       {
+        "misfits": [
+         "credentials",
+         "decisions",
+         "embeddings",
+         "gateway",
+         "jev",
+         "semantic"
+        ],
+        "name": "decision-layer"
+       },
+       {
+        "misfits": [
+         "host-events",
+         "host-state",
+         "mailbox",
+         "process",
+         "process-evidence",
+         "process-journal"
+        ],
+        "name": "process-supervision"
+       },
+       {
+        "misfits": [
+         "bench",
+         "bench-verify",
+         "foundry",
+         "foundry-verify",
+         "search",
+         "search-verify",
+         "verify"
+        ],
+        "name": "selection"
+       },
+       {
+        "misfits": [
+         "coding-jobs",
+         "coding-operations",
+         "github",
+         "github-cli",
+         "repair",
+         "shepherd",
+         "xcb"
+        ],
+        "name": "delegated-operations"
+       },
+       {
+        "misfits": [
+         "diagram",
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace"
+        ],
+        "name": "source-surface"
+       },
+       {
+        "misfits": [
+         "bundle",
+         "store",
+         "transport"
+        ],
+        "name": "persistence"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:clean-layers",
+ "name": "Clean layers"
+}

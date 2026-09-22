@@ -1,0 +1,131 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "bench",
+         "capabilities",
+         "contract",
+         "diagram",
+         "embeddings",
+         "foundry",
+         "github",
+         "host-events",
+         "jev",
+         "process-evidence",
+         "repair",
+         "search-verify",
+         "source",
+         "source-project",
+         "tool-context",
+         "values"
+        ],
+        "name": "inputs"
+       },
+       {
+        "misfits": [
+         "bench-verify",
+         "coding-jobs",
+         "credentials",
+         "digest",
+         "errors",
+         "foundry-verify",
+         "github-cli",
+         "host-state",
+         "mailbox",
+         "process-journal",
+         "run",
+         "semantic",
+         "source-diagnostics",
+         "source-trace",
+         "tools",
+         "verify"
+        ],
+        "name": "core"
+       },
+       {
+        "misfits": [
+         "bundle",
+         "coding-operations",
+         "decisions",
+         "effects",
+         "expr",
+         "gateway",
+         "graph",
+         "io",
+         "process",
+         "registry",
+         "search",
+         "shepherd",
+         "source-errors",
+         "store",
+         "transport",
+         "xcb"
+        ],
+        "name": "outputs"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:mega-merge",
+ "name": "Mega merge"
+}

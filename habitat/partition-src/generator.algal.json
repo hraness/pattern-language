@@ -1,0 +1,216 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:partition-src-generator",
+ "name": "Partition-src generator",
+ "note": "Variation over decompositions at scale: the writer proposes named subsystem partitions of the job's 48-module misfit set and its coupling links; assembler quotes each into a valid organism. prior carries standings + named mechanical misfits.",
+ "budgets": {
+  "maxSteps": 32,
+  "maxAgentCalls": 4,
+  "maxWork": 120000
+ },
+ "interface": {
+  "inputs": {
+   "task": {
+    "cell": "src",
+    "port": "task"
+   },
+   "prior": {
+    "cell": "src",
+    "port": "prior"
+   },
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "candidates": {
+    "cell": "build",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "task": "json",
+    "prior": "json",
+    "job": "json"
+   }
+  },
+  {
+   "id": "writer",
+   "kind": "agent",
+   "inputs": {
+    "task": "json",
+    "prior": "json",
+    "job": "json"
+   },
+   "prompt": "Emit EXACTLY 4 distinct decompositions of the 48 modules in job.misfits into 4-12 named subsystems. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display\", \"groups\": [{\"name\": \"subsystem-name\", \"misfits\": [\"id\", ...]}, ...]}, ...]}. Every module id must appear in exactly one group; each group needs >= 2 members and a name that captures the shared force. job.links lists module couplings \u2014 keep coupled modules together and minimize cross-group edges. Input prior carries jury standings and prior.mechanical (constraint terms violators failed \u2014 repair the misfit, keep the winning shape). Judges favor coherent groups whose names explain why the members belong together.",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object",
+     "required": [
+      "variants"
+     ]
+    }
+   }
+  },
+  {
+   "id": "build",
+   "kind": "expr",
+   "inputs": {
+    "specs": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "map",
+     [
+      "get",
+      "specs",
+      "variants"
+     ],
+     "v",
+     {
+      "contract": "algal.organism.v1",
+      "key": [
+       "sconcat",
+       "organism:",
+       [
+        "get",
+        "v",
+        "key"
+       ]
+      ],
+      "name": [
+       "get",
+       "v",
+       "name"
+      ],
+      "budgets": {
+       "maxSteps": 8,
+       "maxAgentCalls": 0,
+       "maxWork": 20000
+      },
+      "interface": {
+       "inputs": {
+        "job": {
+         "cell": "src",
+         "port": "job"
+        }
+       },
+       "outputs": {
+        "message": {
+         "cell": "fmt",
+         "port": "out"
+        }
+       }
+      },
+      "cells": [
+       "list",
+       {
+        "id": "src",
+        "kind": "input",
+        "outputs": {
+         "job": "json"
+        }
+       },
+       {
+        "id": "fmt",
+        "kind": "expr",
+        "inputs": {
+         "job": "json"
+        },
+        "expr": {
+         "contract": "algal.expr.v1",
+         "program": [
+          "list",
+          "quote",
+          {
+           "groups": [
+            "get",
+            "v",
+            "groups"
+           ]
+          }
+         ]
+        },
+        "output": {
+         "kind": "json",
+         "schema": {
+          "type": "object"
+         }
+        }
+       }
+      ],
+      "edges": [
+       "list",
+       {
+        "from": {
+         "cell": "src",
+         "port": "job"
+        },
+        "to": {
+         "cell": "fmt",
+         "port": "job"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "array"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "task"
+   },
+   "to": {
+    "cell": "writer",
+    "port": "task"
+   }
+  },
+  {
+   "from": {
+    "cell": "src",
+    "port": "prior"
+   },
+   "to": {
+    "cell": "writer",
+    "port": "prior"
+   }
+  },
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "writer",
+    "port": "job"
+   }
+  },
+  {
+   "from": {
+    "cell": "writer",
+    "port": "out"
+   },
+   "to": {
+    "cell": "build",
+    "port": "specs"
+   }
+  }
+ ]
+}

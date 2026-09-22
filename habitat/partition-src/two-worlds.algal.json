@@ -1,0 +1,127 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:two-worlds",
+ "name": "Two worlds",
+ "note": "Everything in two halves \u2014 fails the minimum group count.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "first-half",
+        "misfits": [
+         "bench",
+         "bench-verify",
+         "bundle",
+         "capabilities",
+         "coding-jobs",
+         "coding-operations",
+         "contract",
+         "credentials",
+         "decisions",
+         "diagram",
+         "digest",
+         "effects",
+         "embeddings",
+         "errors",
+         "expr",
+         "foundry",
+         "foundry-verify",
+         "gateway",
+         "github",
+         "github-cli",
+         "graph",
+         "host-events",
+         "host-state",
+         "io"
+        ]
+       },
+       {
+        "name": "second-half",
+        "misfits": [
+         "jev",
+         "mailbox",
+         "process",
+         "process-evidence",
+         "process-journal",
+         "registry",
+         "repair",
+         "run",
+         "search",
+         "search-verify",
+         "semantic",
+         "shepherd",
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace",
+         "store",
+         "tool-context",
+         "tools",
+         "transport",
+         "values",
+         "verify",
+         "xcb"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

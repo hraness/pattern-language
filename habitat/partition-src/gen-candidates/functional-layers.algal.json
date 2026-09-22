@@ -1,0 +1,156 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "coding-jobs",
+         "coding-operations",
+         "github",
+         "github-cli",
+         "host-events",
+         "host-state",
+         "shepherd",
+         "xcb"
+        ],
+        "name": "coding-work"
+       },
+       {
+        "misfits": [
+         "contract",
+         "digest",
+         "values",
+         "errors",
+         "expr",
+         "graph",
+         "bundle"
+        ],
+        "name": "contract-model"
+       },
+       {
+        "misfits": [
+         "run",
+         "process",
+         "process-journal",
+         "process-evidence",
+         "verify"
+        ],
+        "name": "execution-control"
+       },
+       {
+        "misfits": [
+         "decisions",
+         "gateway",
+         "jev",
+         "credentials"
+        ],
+        "name": "decision-systems"
+       },
+       {
+        "misfits": [
+         "effects",
+         "tools",
+         "io",
+         "capabilities",
+         "registry",
+         "tool-context"
+        ],
+        "name": "effects-boundary"
+       },
+       {
+        "misfits": [
+         "bench",
+         "bench-verify",
+         "foundry",
+         "foundry-verify",
+         "search",
+         "search-verify"
+        ],
+        "name": "quality-evaluation"
+       },
+       {
+        "misfits": [
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace",
+         "diagram",
+         "repair"
+        ],
+        "name": "knowledge-management"
+       },
+       {
+        "misfits": [
+         "store",
+         "transport",
+         "embeddings",
+         "semantic",
+         "mailbox"
+        ],
+        "name": "memory-persistence"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:functional-layers",
+ "name": "Functional Layers"
+}

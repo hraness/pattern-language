@@ -1,0 +1,297 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:prefix-buckets",
+ "name": "Prefix buckets",
+ "note": "Groups by name prefix \u2014 28+ mostly-tiny groups, fails the group-count bound and the cohesion floor.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "bench",
+        "misfits": [
+         "bench",
+         "bench-verify"
+        ]
+       },
+       {
+        "name": "bundle",
+        "misfits": [
+         "bundle"
+        ]
+       },
+       {
+        "name": "capabilities",
+        "misfits": [
+         "capabilities"
+        ]
+       },
+       {
+        "name": "coding",
+        "misfits": [
+         "coding-jobs",
+         "coding-operations"
+        ]
+       },
+       {
+        "name": "contract",
+        "misfits": [
+         "contract"
+        ]
+       },
+       {
+        "name": "credentials",
+        "misfits": [
+         "credentials"
+        ]
+       },
+       {
+        "name": "decisions",
+        "misfits": [
+         "decisions"
+        ]
+       },
+       {
+        "name": "diagram",
+        "misfits": [
+         "diagram"
+        ]
+       },
+       {
+        "name": "digest",
+        "misfits": [
+         "digest"
+        ]
+       },
+       {
+        "name": "effects",
+        "misfits": [
+         "effects"
+        ]
+       },
+       {
+        "name": "embeddings",
+        "misfits": [
+         "embeddings"
+        ]
+       },
+       {
+        "name": "errors",
+        "misfits": [
+         "errors"
+        ]
+       },
+       {
+        "name": "expr",
+        "misfits": [
+         "expr"
+        ]
+       },
+       {
+        "name": "foundry",
+        "misfits": [
+         "foundry",
+         "foundry-verify"
+        ]
+       },
+       {
+        "name": "gateway",
+        "misfits": [
+         "gateway"
+        ]
+       },
+       {
+        "name": "github",
+        "misfits": [
+         "github",
+         "github-cli"
+        ]
+       },
+       {
+        "name": "graph",
+        "misfits": [
+         "graph"
+        ]
+       },
+       {
+        "name": "host",
+        "misfits": [
+         "host-events",
+         "host-state"
+        ]
+       },
+       {
+        "name": "io",
+        "misfits": [
+         "io"
+        ]
+       },
+       {
+        "name": "jev",
+        "misfits": [
+         "jev"
+        ]
+       },
+       {
+        "name": "mailbox",
+        "misfits": [
+         "mailbox"
+        ]
+       },
+       {
+        "name": "process",
+        "misfits": [
+         "process",
+         "process-evidence",
+         "process-journal"
+        ]
+       },
+       {
+        "name": "registry",
+        "misfits": [
+         "registry"
+        ]
+       },
+       {
+        "name": "repair",
+        "misfits": [
+         "repair"
+        ]
+       },
+       {
+        "name": "run",
+        "misfits": [
+         "run"
+        ]
+       },
+       {
+        "name": "search",
+        "misfits": [
+         "search",
+         "search-verify"
+        ]
+       },
+       {
+        "name": "semantic",
+        "misfits": [
+         "semantic"
+        ]
+       },
+       {
+        "name": "shepherd",
+        "misfits": [
+         "shepherd"
+        ]
+       },
+       {
+        "name": "source",
+        "misfits": [
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace"
+        ]
+       },
+       {
+        "name": "store",
+        "misfits": [
+         "store"
+        ]
+       },
+       {
+        "name": "tool",
+        "misfits": [
+         "tool-context"
+        ]
+       },
+       {
+        "name": "tools",
+        "misfits": [
+         "tools"
+        ]
+       },
+       {
+        "name": "transport",
+        "misfits": [
+         "transport"
+        ]
+       },
+       {
+        "name": "values",
+        "misfits": [
+         "values"
+        ]
+       },
+       {
+        "name": "verify",
+        "misfits": [
+         "verify"
+        ]
+       },
+       {
+        "name": "xcb",
+        "misfits": [
+         "xcb"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

@@ -1,0 +1,156 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "misfits": [
+         "contract",
+         "digest",
+         "bundle",
+         "transport",
+         "values",
+         "graph",
+         "errors"
+        ],
+        "name": "Manifest Contract"
+       },
+       {
+        "misfits": [
+         "run",
+         "process",
+         "process-evidence",
+         "process-journal",
+         "verify",
+         "shepherd"
+        ],
+        "name": "Execution Control"
+       },
+       {
+        "misfits": [
+         "github",
+         "github-cli",
+         "tools",
+         "registry",
+         "io",
+         "capabilities",
+         "tool-context"
+        ],
+        "name": "External Interface"
+       },
+       {
+        "misfits": [
+         "decisions",
+         "gateway",
+         "jev",
+         "credentials"
+        ],
+        "name": "Decision Making"
+       },
+       {
+        "misfits": [
+         "bench",
+         "bench-verify",
+         "foundry",
+         "foundry-verify",
+         "search",
+         "search-verify"
+        ],
+        "name": "Quality Verification"
+       },
+       {
+        "misfits": [
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace",
+         "diagram",
+         "repair"
+        ],
+        "name": "Source Surface"
+       },
+       {
+        "misfits": [
+         "embeddings",
+         "semantic",
+         "mailbox"
+        ],
+        "name": "Memory Semantics"
+       },
+       {
+        "misfits": [
+         "expr",
+         "effects",
+         "host-events",
+         "host-state",
+         "xcb",
+         "coding-jobs",
+         "coding-operations",
+         "store"
+        ],
+        "name": "Internals and Coordination"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "job": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:cross-platform",
+ "name": "Cross-Platform Concerns"
+}

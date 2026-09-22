@@ -1,0 +1,162 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:layered-arch",
+ "name": "Layered arch",
+ "note": "The oracle directory structure with the lone scheduler module folded into its strongest neighbour \u2014 the real architecture, contract-fit.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "delegated-operations",
+        "misfits": [
+         "coding-jobs",
+         "coding-operations",
+         "github",
+         "github-cli",
+         "host-events",
+         "host-state",
+         "shepherd",
+         "xcb"
+        ]
+       },
+       {
+        "name": "kernel-contract",
+        "misfits": [
+         "contract",
+         "digest",
+         "errors",
+         "expr",
+         "graph",
+         "run",
+         "values"
+        ]
+       },
+       {
+        "name": "source-surface",
+        "misfits": [
+         "diagram",
+         "repair",
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace"
+        ]
+       },
+       {
+        "name": "effect-seam",
+        "misfits": [
+         "capabilities",
+         "effects",
+         "io",
+         "registry",
+         "tool-context",
+         "tools"
+        ]
+       },
+       {
+        "name": "durable-memory",
+        "misfits": [
+         "embeddings",
+         "mailbox",
+         "process",
+         "process-evidence",
+         "process-journal",
+         "semantic"
+        ]
+       },
+       {
+        "name": "verification",
+        "misfits": [
+         "bench-verify",
+         "foundry-verify",
+         "search-verify",
+         "verify"
+        ]
+       },
+       {
+        "name": "decision-layer",
+        "misfits": [
+         "credentials",
+         "decisions",
+         "gateway",
+         "jev"
+        ]
+       },
+       {
+        "name": "persistence",
+        "misfits": [
+         "bundle",
+         "store",
+         "transport"
+        ]
+       },
+       {
+        "name": "selection",
+        "misfits": [
+         "bench",
+         "foundry",
+         "search"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

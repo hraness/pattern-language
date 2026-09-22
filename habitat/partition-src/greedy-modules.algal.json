@@ -1,0 +1,147 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:greedy-modules",
+ "name": "Greedy modules",
+ "note": "Link-density greedy merge (avg-norm) to k=10, singletons folded into the strongest neighbour \u2014 6 subsystems, highest intra-link share.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "message": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "quote",
+     {
+      "groups": [
+       {
+        "name": "kernel",
+        "misfits": [
+         "bench",
+         "bench-verify",
+         "bundle",
+         "contract",
+         "credentials",
+         "diagram",
+         "digest",
+         "errors",
+         "expr",
+         "foundry",
+         "foundry-verify",
+         "graph",
+         "process-evidence",
+         "registry",
+         "run",
+         "search",
+         "search-verify",
+         "semantic",
+         "store",
+         "tool-context",
+         "transport",
+         "values",
+         "verify"
+        ]
+       },
+       {
+        "name": "host-processes",
+        "misfits": [
+         "capabilities",
+         "effects",
+         "host-events",
+         "host-state",
+         "mailbox",
+         "process",
+         "process-journal",
+         "shepherd"
+        ]
+       },
+       {
+        "name": "delegated-work",
+        "misfits": [
+         "coding-jobs",
+         "coding-operations",
+         "repair",
+         "tools",
+         "xcb"
+        ]
+       },
+       {
+        "name": "providers",
+        "misfits": [
+         "embeddings",
+         "gateway",
+         "github",
+         "github-cli",
+         "io"
+        ]
+       },
+       {
+        "name": "source-language",
+        "misfits": [
+         "source",
+         "source-diagnostics",
+         "source-errors",
+         "source-project",
+         "source-trace"
+        ]
+       },
+       {
+        "name": "decisions",
+        "misfits": [
+         "decisions",
+         "jev"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

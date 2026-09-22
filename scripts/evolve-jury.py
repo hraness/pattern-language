@@ -80,7 +80,11 @@ def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json',
              for a, b in itertools.combinations(jsubs, 2)]
     args = {"subjects": jsubs, "pairs": pairs}
     if mech is not None:
-        args["mech"] = [{"key": k, "passed": v["passed"]} for k, v in mech.items()]
+        # null ("probe couldn't evaluate") is not a boolean — expr filter
+        # rejects it. Unknown counts as not-contract-passing for
+        # arbitration; the driver's own mech record keeps the null.
+        args["mech"] = [{"key": k, "passed": bool(v["passed"])}
+                        for k, v in mech.items()]
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
         json.dump({"src": args}, fh)
         args_path = fh.name
@@ -104,12 +108,33 @@ def term_probe_program(prog):
         inner = ["let", name, init, inner]
     return terms, inner
 
+def oracle_agreement(subjects, oracle_sets):
+    """Pairwise co-membership agreement vs an oracle decomposition —
+    an external anchor beside judged/mechanical fit. Analytics, not
+    contract: computed in the driver, not inside expr."""
+    osets = [set(v) for v in (oracle_sets.values() if isinstance(oracle_sets, dict)
+                              else oracle_sets)]
+    out = {}
+    for s in subjects:
+        groups = (s.get("raw") or {}).get("groups") or []
+        gsets = [set(g.get("misfits", [])) for g in groups]
+        ids = sorted({m for g in gsets for m in g} |
+                     {m for o in osets for m in o})
+        pairs = list(itertools.combinations(ids, 2))
+        if not pairs:
+            continue
+        agree = sum(1 for a, b in pairs
+                    if any(a in g and b in g for g in gsets)
+                    == any(a in o and b in o for o in osets))
+        out[s["key"]] = round(agree / len(pairs), 3)
+    return out
+
 def mechanical(subjects, scorer_prog, src_args, cwd):
     """Run the habitat's scorer term-by-term on each subject: the named
     misfits, not just a pass flag. Pure expr — deterministic, no executor."""
     terms, prog = term_probe_program(scorer_prog)
     probe = {"contract": "algal.organism.v1", "key": "organism:scorer-probe",
-             "name": "Scorer probe", "budgets": {"maxSteps": 16, "maxAgentCalls": 0, "maxWork": 20000},
+             "name": "Scorer probe", "budgets": {"maxSteps": 16, "maxAgentCalls": 0, "maxWork": 200000},
              "interface": {
                "inputs": {"args": {"cell": "src", "port": "args"},
                           "outputs": {"cell": "src", "port": "outputs"}},
@@ -161,11 +186,16 @@ def main():
     arena = [c for c in cfg["cases"] if c["split"] == "holdout"][0]
     src_args = arena["args"].get("src", arena["args"])
     if "job" in src_args and "misfits" in src_args["job"]:
-        brief = {"misfits": src_args["job"]["misfits"],
-                 "requires": src_args["job"].get("requires"),
-                 "separates": src_args["job"].get("separates"),
-                 "task": "pick the better decomposition of these "
-                         "requirements into named subsystems"}
+        job = src_args["job"]
+        # renders already carry every misfit's text — the brief stays
+        # compact: couplings as "a+b" pairs, not the full catalog
+        brief = {"task": "pick the better decomposition of these "
+                         "modules into named subsystems"}
+        if job.get("links"):
+            brief["couplings"] = [f"{l['a']}+{l['b']}" for l in job["links"]]
+        for k in ("requires", "separates"):
+            if job.get(k):
+                brief[k] = job[k]
     elif "job" in src_args:
         what = ("commit message (subject + body)" if "commit-message" in habitat
                 else "commit subject")
@@ -203,6 +233,12 @@ def main():
         # recorded, but only a contract-passing form inherits
         rchamp = result.get("reconciledChampion") or {}
         champion = rchamp if rchamp.get("key") else judged
+        oracle_sets = (src_args.get("job") or {}).get("oracle")
+        if oracle_sets:
+            agr = oracle_agreement(subjects, oracle_sets)
+            for s in result["standings"]:
+                if s["key"] in agr:
+                    s["oracleAgreement"] = agr[s["key"]]
         history.append({"generation": gen, "standings": result["standings"],
                         "judgedChampion": judged,
                         "reconciledChampion": rchamp or None,

@@ -1,0 +1,824 @@
+{
+ "writer": {
+  "variants": [
+   {
+    "key": "mega-merge",
+    "name": "Mega merge",
+    "groups": [
+     {
+      "name": "inputs",
+      "misfits": [
+       "bench",
+       "capabilities",
+       "contract",
+       "diagram",
+       "embeddings",
+       "foundry",
+       "github",
+       "host-events",
+       "jev",
+       "process-evidence",
+       "repair",
+       "search-verify",
+       "source",
+       "source-project",
+       "tool-context",
+       "values"
+      ]
+     },
+     {
+      "name": "core",
+      "misfits": [
+       "bench-verify",
+       "coding-jobs",
+       "credentials",
+       "digest",
+       "errors",
+       "foundry-verify",
+       "github-cli",
+       "host-state",
+       "mailbox",
+       "process-journal",
+       "run",
+       "semantic",
+       "source-diagnostics",
+       "source-trace",
+       "tools",
+       "verify"
+      ]
+     },
+     {
+      "name": "outputs",
+      "misfits": [
+       "bundle",
+       "coding-operations",
+       "decisions",
+       "effects",
+       "expr",
+       "gateway",
+       "graph",
+       "io",
+       "process",
+       "registry",
+       "search",
+       "shepherd",
+       "source-errors",
+       "store",
+       "transport",
+       "xcb"
+      ]
+     }
+    ]
+   },
+   {
+    "key": "lone-wolf",
+    "name": "Lone wolf",
+    "groups": [
+     {
+      "name": "solo",
+      "misfits": [
+       "bench"
+      ]
+     },
+     {
+      "name": "a",
+      "misfits": [
+       "bench-verify",
+       "decisions",
+       "foundry",
+       "host-state",
+       "registry",
+       "source",
+       "tools"
+      ]
+     },
+     {
+      "name": "b",
+      "misfits": [
+       "bundle",
+       "diagram",
+       "foundry-verify",
+       "io",
+       "repair",
+       "source-diagnostics",
+       "transport"
+      ]
+     },
+     {
+      "name": "c",
+      "misfits": [
+       "capabilities",
+       "digest",
+       "gateway",
+       "jev",
+       "run",
+       "source-errors",
+       "values"
+      ]
+     },
+     {
+      "name": "d",
+      "misfits": [
+       "coding-jobs",
+       "effects",
+       "github",
+       "mailbox",
+       "search",
+       "source-project",
+       "verify"
+      ]
+     },
+     {
+      "name": "e",
+      "misfits": [
+       "coding-operations",
+       "embeddings",
+       "github-cli",
+       "process",
+       "search-verify",
+       "source-trace",
+       "xcb"
+      ]
+     },
+     {
+      "name": "f",
+      "misfits": [
+       "contract",
+       "errors",
+       "graph",
+       "process-evidence",
+       "semantic",
+       "store"
+      ]
+     },
+     {
+      "name": "g",
+      "misfits": [
+       "credentials",
+       "expr",
+       "host-events",
+       "process-journal",
+       "shepherd",
+       "tool-context"
+      ]
+     }
+    ]
+   },
+   {
+    "key": "round-robin",
+    "name": "Round robin",
+    "groups": [
+     {
+      "name": "north",
+      "misfits": [
+       "bench",
+       "credentials",
+       "expr",
+       "host-events",
+       "process-journal",
+       "shepherd",
+       "tool-context"
+      ]
+     },
+     {
+      "name": "south",
+      "misfits": [
+       "bench-verify",
+       "decisions",
+       "foundry",
+       "host-state",
+       "registry",
+       "source",
+       "tools"
+      ]
+     },
+     {
+      "name": "east",
+      "misfits": [
+       "bundle",
+       "diagram",
+       "foundry-verify",
+       "io",
+       "repair",
+       "source-diagnostics",
+       "transport"
+      ]
+     },
+     {
+      "name": "west",
+      "misfits": [
+       "capabilities",
+       "digest",
+       "gateway",
+       "jev",
+       "run",
+       "source-errors",
+       "values"
+      ]
+     },
+     {
+      "name": "up",
+      "misfits": [
+       "coding-jobs",
+       "effects",
+       "github",
+       "mailbox",
+       "search",
+       "source-project",
+       "verify"
+      ]
+     },
+     {
+      "name": "down",
+      "misfits": [
+       "coding-operations",
+       "embeddings",
+       "github-cli",
+       "process",
+       "search-verify",
+       "source-trace",
+       "xcb"
+      ]
+     },
+     {
+      "name": "center",
+      "misfits": [
+       "contract",
+       "errors",
+       "graph",
+       "process-evidence",
+       "semantic",
+       "store"
+      ]
+     }
+    ]
+   },
+   {
+    "key": "clean-layers",
+    "name": "Clean layers",
+    "groups": [
+     {
+      "name": "contract-core",
+      "misfits": [
+       "contract",
+       "digest",
+       "errors",
+       "expr",
+       "graph",
+       "run",
+       "values"
+      ]
+     },
+     {
+      "name": "effect-seam",
+      "misfits": [
+       "capabilities",
+       "effects",
+       "io",
+       "registry",
+       "tool-context",
+       "tools"
+      ]
+     },
+     {
+      "name": "decision-layer",
+      "misfits": [
+       "credentials",
+       "decisions",
+       "embeddings",
+       "gateway",
+       "jev",
+       "semantic"
+      ]
+     },
+     {
+      "name": "process-supervision",
+      "misfits": [
+       "host-events",
+       "host-state",
+       "mailbox",
+       "process",
+       "process-evidence",
+       "process-journal"
+      ]
+     },
+     {
+      "name": "selection",
+      "misfits": [
+       "bench",
+       "bench-verify",
+       "foundry",
+       "foundry-verify",
+       "search",
+       "search-verify",
+       "verify"
+      ]
+     },
+     {
+      "name": "delegated-operations",
+      "misfits": [
+       "coding-jobs",
+       "coding-operations",
+       "github",
+       "github-cli",
+       "repair",
+       "shepherd",
+       "xcb"
+      ]
+     },
+     {
+      "name": "source-surface",
+      "misfits": [
+       "diagram",
+       "source",
+       "source-diagnostics",
+       "source-errors",
+       "source-project",
+       "source-trace"
+      ]
+     },
+     {
+      "name": "persistence",
+      "misfits": [
+       "bundle",
+       "store",
+       "transport"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "advocate": [
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "a",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.7,
+      "b": 0.15,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "a",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.7,
+      "b": 0.15,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  }
+ ],
+ "skeptic": [
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  },
+  {
+   "answers": {
+    "pick": {
+     "choice": "b",
+     "confidence": 0.7,
+     "probabilities": {
+      "a": 0.15,
+      "b": 0.7,
+      "tie": 0.15
+     },
+     "type": "choice"
+    },
+    "confidence": {
+     "noul": 0.6,
+     "type": "noul"
+    }
+   }
+  }
+ ]
+}
