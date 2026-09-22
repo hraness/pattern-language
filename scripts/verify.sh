@@ -135,5 +135,12 @@ out=$(python3 scripts/evolve-jury.py habitat/run-summary --gens 1 \
 champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
 [ "$champ" = "verdict-lead" ] && echo "evolve OK  generated verdict-lead dethrones incumbent" \
   || { echo "evolve FAIL champion=$champ"; fail=1; }
+python3 - <<'PY' && echo "mech   OK  champion misfit named (tool dropped)" || { echo "mech   FAIL no named misfit"; fail=1; }
+import json, sys
+r = json.load(open("habitat/run-summary/evolve.report.json"))
+m = r["generations"][-1]["mechanical"][r["finalChampion"]["key"]]
+assert m["passed"] is False and r["reconciled"] is False, m
+assert any("tool" in json.dumps(t) for t in m["failed"]), m
+PY
 
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

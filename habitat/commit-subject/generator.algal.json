@@ -42,7 +42,7 @@
     "task": "text",
     "prior": "json"
    },
-   "prompt": "Emit EXACTLY 4 distinct commit-subject format variants. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display name\", \"parts\": [<part>, ...]}, ...]} where each part is {\"t\": \"lit\", \"v\": \"literal text\"} or {\"t\": \"field\", \"v\": \"verb|Verb|what|why|area|files|ins|del\"}. field Verb is the capitalized verb; area is the first change area; files/ins/del render as numbers. Input prior carries the last generation's jury standings: which formats won judged duels. Keep what won, mutate the champion once, and try one genuinely different hypothesis. The jury favors: leads with the act, honest scope, conveys WHY over bare WHAT, no noise, under 72 chars.",
+   "prompt": "Emit EXACTLY 4 distinct commit-subject format variants. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display name\", \"parts\": [<part>, ...]}, ...]} where each part is {\"t\": \"lit\", \"v\": \"literal text\"} or {\"t\": \"field\", \"v\": \"verb|Verb|what|why|area|files|ins|del\"}. field Verb is the capitalized verb; area is the first change area; files/ins/del render as numbers. Input prior carries the last generation's jury standings: which formats won judged duels. Keep what won, mutate the champion once, and try one genuinely different hypothesis. The jury favors: leads with the act, honest scope, conveys WHY over bare WHAT, no noise, under 72 chars. Input prior.mechanical maps candidate keys to the mechanical constraint terms they failed (expr programs) \u2014 if the champion or a strong variant violates one, emit a repaired sibling that keeps its winning shape but satisfies the failed term.",
    "output": {
     "kind": "json",
     "schema": {

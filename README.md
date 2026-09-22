@@ -374,6 +374,33 @@ panel jury does the discriminating:
 Scripted path (`jury.responses.json`, `evolve.responses.json`) replays
 both the tournament and a one-generation dethroning in `verify.sh`.
 
+### The reconciliation tier — named misfits, not a verdict
+
+When the judged champion violates the mechanical contract, the loop now
+*names the misfit* instead of just reporting the divergence.
+`evolve-jury.py` splits the habitat's scorer into its `and`-conjuncts
+(same `let`-bindings, one probe organism per run) and records each
+candidate's failed terms as data — `prior.mechanical` feeds them to the
+next writer call with one instruction: keep the winning shape, repair
+the misfit.
+
+Live trajectory on run-summary, 3 generations:
+
+| gen | champion | mech | what happened |
+|---|---|---|---|
+| 0 | metric-first | ✓ | incumbent holds |
+| 1 | **verdict-metric** | ✓ | writer produced a *compliant* verdict-leader — `PROMOTED \| search status-line (g1-bracket holdout 2/2)` — dethroned immediately |
+| 2 | verdict-metric | ✓ | defended; all 4 candidates inside the contract |
+| 3 | **verdict-piped** | ✗ `tool` | writer produced violators *again* despite named feedback; one dethroned |
+
+The finding is honest both ways: named-misfit feedback **does** produce
+reconciled champions (gens 1–2 — the winning shape repaired into the
+contract), but judged fit **periodically escapes anyway** (gen 3).
+Reconciliation isn't a converged state; it's a permanent tension the
+report now records per generation via `reconciled` — which is exactly
+Alexander's claim that fit is maintained by ongoing correction, never
+achieved once.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

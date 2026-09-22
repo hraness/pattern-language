@@ -1,0 +1,87 @@
+{
+ "budgets": {
+  "maxAgentCalls": 0,
+  "maxSteps": 8,
+  "maxWork": 20000
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "rec": "json"
+   }
+  },
+  {
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "sconcat",
+     [
+      "upper",
+      [
+       "get",
+       "rec",
+       "verdict"
+      ]
+     ],
+     "@",
+     [
+      "get",
+      "rec",
+      "metric"
+     ],
+     "|",
+     [
+      "get",
+      "rec",
+      "tool"
+     ],
+     " ",
+     [
+      "get",
+      "rec",
+      "target"
+     ]
+    ]
+   },
+   "id": "fmt",
+   "inputs": {
+    "rec": "json"
+   },
+   "kind": "expr",
+   "output": {
+    "kind": "text"
+   }
+  }
+ ],
+ "contract": "algal.organism.v1",
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "rec"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "rec"
+   }
+  }
+ ],
+ "interface": {
+  "inputs": {
+   "rec": {
+    "cell": "src",
+    "port": "rec"
+   }
+  },
+  "outputs": {
+   "line": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "key": "organism:verdict-compact",
+ "name": "Verdict Compact"
+}

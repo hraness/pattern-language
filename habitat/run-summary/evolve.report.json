@@ -32,6 +32,24 @@
     "key": "metric-first",
     "wins": 3
    },
+   "mechanical": {
+    "verdict-first": {
+     "passed": true,
+     "failed": []
+    },
+    "bracket-status": {
+     "passed": true,
+     "failed": []
+    },
+    "tool-lead": {
+     "passed": true,
+     "failed": []
+    },
+    "metric-first": {
+     "passed": true,
+     "failed": []
+    }
+   },
    "receiptDigest": "sha256:f78608f6013b6ca849fd86aefc69f4a0832ae6d9401fcce3725273563ff01fca"
   },
   {
@@ -67,11 +85,48 @@
     "key": "verdict-lead",
     "wins": 4
    },
+   "mechanical": {
+    "metric-first": {
+     "passed": true,
+     "failed": []
+    },
+    "metric-colon": {
+     "passed": true,
+     "failed": []
+    },
+    "verdict-colon": {
+     "passed": true,
+     "failed": []
+    },
+    "arrow-format": {
+     "passed": true,
+     "failed": []
+    },
+    "verdict-lead": {
+     "passed": false,
+     "failed": [
+      [
+       "scontains",
+       [
+        "get",
+        "s"
+       ],
+       [
+        "get",
+        "args",
+        "rec",
+        "tool"
+       ]
+      ]
+     ]
+    }
+   },
    "receiptDigest": "sha256:760cc47295519daca45c7e0311a778237e40be60d3a4564e9757677af4487c76"
   }
  ],
  "finalChampion": {
   "key": "verdict-lead",
   "wins": 4
- }
+ },
+ "reconciled": false
 }

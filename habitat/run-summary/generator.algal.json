@@ -42,7 +42,7 @@
     "task": "text",
     "prior": "json"
    },
-   "prompt": "Emit EXACTLY 4 distinct one-line run-summary format variants. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display name\", \"parts\": [<part>, ...]}, ...]} where each part is {\"t\": \"lit\", \"v\": \"literal text\"} or {\"t\": \"field\", \"v\": \"tool|target|verdict|Verdict|metric\"}. field Verdict renders the verdict uppercased. Input prior carries last generation's jury standings (which formats won judged duels and which were contested). Keep what won, mutate the champion once, try one genuinely different hypothesis. Judges favor: verdict or evidence visible early, terse enough to scan in a wall of output, under 80 chars, no noise.",
+   "prompt": "Emit EXACTLY 4 distinct one-line run-summary format variants. Return ONLY {\"variants\": [{\"key\": \"kebab-name\", \"name\": \"display name\", \"parts\": [<part>, ...]}, ...]} where each part is {\"t\": \"lit\", \"v\": \"literal text\"} or {\"t\": \"field\", \"v\": \"tool|target|verdict|Verdict|metric\"}. field Verdict renders the verdict uppercased. Input prior carries last generation's jury standings (which formats won judged duels and which were contested). Keep what won, mutate the champion once, try one genuinely different hypothesis. Judges favor: verdict or evidence visible early, terse enough to scan in a wall of output, under 80 chars, no noise. Input prior.mechanical maps candidate keys to the mechanical constraint terms they failed (expr programs) \u2014 if the champion or a strong variant violates one, emit a repaired sibling that keeps its winning shape but satisfies the failed term.",
    "output": {
     "kind": "json",
     "schema": {

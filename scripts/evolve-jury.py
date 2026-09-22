@@ -54,6 +54,58 @@ def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json')
         raise SystemExit(f"jury failed: {json.dumps(r)[:500]}")
     return r["cells"]["tally"]["outputs"]["out"], r
 
+def term_probe_program(prog):
+    """Split the scorer's and-conjuncts into a probe program returning a
+    list of booleans, keeping the scorer's let-bindings intact so terms
+    see the same env."""
+    lets, node = [], prog
+    while isinstance(node, list) and node[:1] == ["let"] and len(node) == 4:
+        lets.append((node[1], node[2]))
+        node = node[3]
+    terms = node[1:] if isinstance(node, list) and node[:1] == ["and"] else [node]
+    inner = ["list"] + terms
+    for name, init in reversed(lets):
+        inner = ["let", name, init, inner]
+    return terms, inner
+
+def mechanical(subjects, scorer_prog, src_args, cwd):
+    """Run the habitat's scorer term-by-term on each subject: the named
+    misfits, not just a pass flag. Pure expr — deterministic, no executor."""
+    terms, prog = term_probe_program(scorer_prog)
+    probe = {"contract": "algal.organism.v1", "key": "organism:scorer-probe",
+             "name": "Scorer probe", "budgets": {"maxSteps": 16, "maxAgentCalls": 0, "maxWork": 20000},
+             "interface": {
+               "inputs": {"args": {"cell": "src", "port": "args"},
+                          "outputs": {"cell": "src", "port": "outputs"}},
+               "outputs": {"results": {"cell": "probe", "port": "out"}}},
+             "cells": [
+               {"id": "src", "kind": "input",
+                "outputs": {"args": "json", "outputs": "json"}},
+               {"id": "probe", "kind": "expr",
+                "inputs": {"args": "json", "outputs": "json"},
+                "expr": {"contract": "algal.expr.v1", "program": prog},
+                "output": {"kind": "json", "schema": {"type": "array"}}}],
+             "edges": [
+               {"from": {"cell": "src", "port": "args"}, "to": {"cell": "probe", "port": "args"}},
+               {"from": {"cell": "src", "port": "outputs"}, "to": {"cell": "probe", "port": "outputs"}}]}
+    with tempfile.NamedTemporaryFile("w", suffix=".algal.json", delete=False) as fh:
+        json.dump(probe, fh)
+        probe_path = fh.name
+    mech = {}
+    for s in subjects:
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+            json.dump({"src": {"args": src_args,
+                               "outputs": {"line": s["subject"], "subject": s["subject"]}}}, fh)
+            pa = fh.name
+        r, _ = run_algal(["run", probe_path, "--args", pa, "--dir", STORE], cwd)
+        if r.get("outcome") != "complete":
+            mech[s["key"]] = {"passed": None, "failed": []}
+            continue
+        bools = r["cells"]["probe"]["outputs"]["out"]
+        mech[s["key"]] = {"passed": all(bools),
+                          "failed": [terms[i] for i, b in enumerate(bools) if not b]}
+    return mech
+
 def main():
     habitat = sys.argv[1]
     generations = int(sys.argv[sys.argv.index("--generations") + 1]) if "--generations" in sys.argv else 2
@@ -97,15 +149,21 @@ def main():
     for gen in range(generations + 1):
         result, receipt = jury(habitat, subjects, brief, jury_extra, habitat, jury_file)
         champion = result["champion"]
+        mech = mechanical(subjects, cfg["scorer"]["program"], src_args, habitat)
         history.append({"generation": gen, "standings": result["standings"],
-                        "champion": champion, "receiptDigest": receipt.get("digest")})
+                        "champion": champion, "mechanical": mech,
+                        "receiptDigest": receipt.get("digest")})
         print(f"gen {gen}: champion={champion['key']} "
-              + " ".join(f"{s['key']}:{s['wins']}" for s in result["standings"]))
+              + " ".join(f"{s['key']}:{s['wins']}" for s in result["standings"])
+              + f" | mech: {champion['key']}={mech.get(champion['key'],{}).get('passed')}")
         if gen == generations:
             break
-        # generate: writer sees standings + champion
+        # generate: writer sees standings + champion + named mechanical misfits
         prior = {"generation": gen, "champion": champion, "standings": result["standings"],
-                 "note": "champion defends its slot; mutate toward judged fit"}
+                 "mechanical": {k: v for k, v in mech.items() if v["passed"] is False},
+                 "note": "champion defends its slot; mutate toward judged fit; "
+                         "mechanical lists constraint terms each violator failed — "
+                         "repair the misfit while keeping the winning shape"}
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
             json.dump({"src": {"task": "one-line summary formats for a change report",
                                "prior": prior}}, fh)
@@ -131,15 +189,18 @@ def main():
                 seen.add(key)
         subjects = subjects[:8]
 
+    final_mech = history[-1]["mechanical"].get(champion["key"], {}) if history else {}
     out = {"contract": "pattern-language.evolve.v1", "habitat": habitat,
            "mode": "live" if live else "scripted",
            "arena": arena["id"], "generations": history,
-           "finalChampion": champion}
+           "finalChampion": champion,
+           "reconciled": final_mech.get("passed")}
     name = "evolve.live.report.json" if live else "evolve.report.json"
     with open(os.path.join(habitat, name), "w") as fh:
         json.dump(out, fh, indent=1)
         fh.write("\n")
-    print(f"final champion: {champion['key']} ({champion['wins']} duels)")
+    print(f"final champion: {champion['key']} ({champion['wins']} duels) "
+          f"reconciled={out['reconciled']}")
 
 if __name__ == "__main__":
     main()

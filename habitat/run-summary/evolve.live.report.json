@@ -32,7 +32,25 @@
     "key": "metric-first",
     "wins": 2
    },
-   "receiptDigest": "sha256:2470d09d6b17becc4c8a7a3bbaa9da0da267c4dc2f7e4f380e6bb7a8160e1b51"
+   "mechanical": {
+    "verdict-first": {
+     "passed": true,
+     "failed": []
+    },
+    "bracket-status": {
+     "passed": true,
+     "failed": []
+    },
+    "tool-lead": {
+     "passed": true,
+     "failed": []
+    },
+    "metric-first": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:70904f203c5270883a9e853d14d8cfba370b221a7920aa4ab6b6561d4cb2996d"
   },
   {
    "generation": 1,
@@ -43,50 +61,146 @@
      "wins": 0
     },
     {
-     "key": "metric-colon",
-     "subject": "g1-bracket holdout 2/2: search status-line PROMOTED",
+     "key": "verdict-metric",
+     "subject": "PROMOTED | search status-line (g1-bracket holdout 2/2)",
      "wins": 1
-    },
-    {
-     "key": "verdict-lead",
-     "subject": "PROMOTED | status-line g1-bracket holdout 2/2",
-     "wins": 2
     }
    ],
    "champion": {
-    "key": "verdict-lead",
-    "wins": 2
+    "key": "verdict-metric",
+    "wins": 1
    },
-   "receiptDigest": "sha256:7d6d3377931a90e2088eded8a0b194daa478b07725bebb629649e854fd4b094e"
+   "mechanical": {
+    "metric-first": {
+     "passed": true,
+     "failed": []
+    },
+    "verdict-metric": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:2c92f099b1a2501a14e45377a7574e713ac834104f1f89c134c236274d452403"
   },
   {
    "generation": 2,
    "standings": [
     {
-     "key": "verdict-lead",
-     "subject": "PROMOTED | status-line g1-bracket holdout 2/2",
+     "key": "verdict-metric",
+     "subject": "PROMOTED | search status-line (g1-bracket holdout 2/2)",
+     "wins": 2
+    },
+    {
+     "key": "verdict-compact",
+     "subject": "PROMOTED@g1-bracket holdout 2/2|search status-line",
+     "wins": 0
+    },
+    {
+     "key": "tool-verdict",
+     "subject": "search status-line: PROMOTED (g1-bracket holdout 2/2)",
+     "wins": 2
+    },
+    {
+     "key": "metric-led",
+     "subject": "g1-bracket holdout 2/2 \u2192 PROMOTED | search status-line",
+     "wins": 1
+    }
+   ],
+   "champion": {
+    "key": "verdict-metric",
+    "wins": 2
+   },
+   "mechanical": {
+    "verdict-metric": {
+     "passed": true,
+     "failed": []
+    },
+    "verdict-compact": {
+     "passed": true,
+     "failed": []
+    },
+    "tool-verdict": {
+     "passed": true,
+     "failed": []
+    },
+    "metric-led": {
+     "passed": true,
+     "failed": []
+    }
+   },
+   "receiptDigest": "sha256:2f351fedf784f0b30996476963574e86db5f14835480c75e6f96946c54bd45ec"
+  },
+  {
+   "generation": 3,
+   "standings": [
+    {
+     "key": "verdict-metric",
+     "subject": "PROMOTED | search status-line (g1-bracket holdout 2/2)",
+     "wins": 0
+    },
+    {
+     "key": "verdict-piped",
+     "subject": "PROMOTED | status-line | g1-bracket holdout 2/2",
      "wins": 1
     },
     {
-     "key": "verdict-colon",
-     "subject": "PROMOTED: search status-line (g1-bracket holdout 2/2)",
-     "wins": 1
-    },
-    {
-     "key": "arrow-format",
-     "subject": "search status-line \u2192 g1-bracket holdout 2/2 PROMOTED",
+     "key": "evidence-arrow",
+     "subject": "status-line \u2192 PROMOTED (g1-bracket holdout 2/2)",
      "wins": 0
     }
    ],
    "champion": {
-    "key": "verdict-lead",
+    "key": "verdict-piped",
     "wins": 1
    },
-   "receiptDigest": "sha256:1a3d8138fa08cfd94cf10544fd937146476adbe18038cfbbcd18634eb0e92349"
+   "mechanical": {
+    "verdict-metric": {
+     "passed": true,
+     "failed": []
+    },
+    "verdict-piped": {
+     "passed": false,
+     "failed": [
+      [
+       "scontains",
+       [
+        "get",
+        "s"
+       ],
+       [
+        "get",
+        "args",
+        "rec",
+        "tool"
+       ]
+      ]
+     ]
+    },
+    "evidence-arrow": {
+     "passed": false,
+     "failed": [
+      [
+       "scontains",
+       [
+        "get",
+        "s"
+       ],
+       [
+        "get",
+        "args",
+        "rec",
+        "tool"
+       ]
+      ]
+     ]
+    }
+   },
+   "receiptDigest": "sha256:d18ecb22b171993dc10bffb9917caf0e3a6be30e91336609a80dcdafa3069354"
   }
  ],
  "finalChampion": {
-  "key": "verdict-lead",
+  "key": "verdict-piped",
   "wins": 1
- }
+ },
+ "reconciled": false
 }
