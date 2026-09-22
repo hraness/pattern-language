@@ -1,0 +1,75 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:verb-what",
+ "name": "Verb + what",
+ "note": "Alexander: form follows force \u2014 lead with the act, name the artifact.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "subject": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "sconcat",
+     [
+      "get",
+      "job",
+      "hint",
+      "Verb"
+     ],
+     " ",
+     [
+      "get",
+      "job",
+      "hint",
+      "what"
+     ]
+    ]
+   },
+   "output": {
+    "kind": "text"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

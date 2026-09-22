@@ -1,0 +1,112 @@
+{
+ "judge": [
+  {
+   "answers": {
+    "confidence": {
+     "noul": 0.56,
+     "type": "noul"
+    },
+    "pick": {
+     "choice": "a",
+     "confidence": 0.55,
+     "probabilities": {
+      "a": 0.7,
+      "b": 0.19,
+      "tie": 0.11
+     },
+     "type": "choice"
+    }
+   }
+  },
+  {
+   "answers": {
+    "confidence": {
+     "noul": 0.62,
+     "type": "noul"
+    },
+    "pick": {
+     "choice": "b",
+     "confidence": 0.86,
+     "probabilities": {
+      "a": 0.08,
+      "b": 0.9,
+      "tie": 0.02
+     },
+     "type": "choice"
+    }
+   }
+  },
+  {
+   "answers": {
+    "confidence": {
+     "noul": 0.62,
+     "type": "noul"
+    },
+    "pick": {
+     "choice": "a",
+     "confidence": 0.82,
+     "probabilities": {
+      "a": 0.88,
+      "b": 0.11,
+      "tie": 0.01
+     },
+     "type": "choice"
+    }
+   }
+  },
+  {
+   "answers": {
+    "confidence": {
+     "noul": 0.61,
+     "type": "noul"
+    },
+    "pick": {
+     "choice": "b",
+     "confidence": 0.83,
+     "probabilities": {
+      "a": 0.09,
+      "b": 0.88,
+      "tie": 0.03
+     },
+     "type": "choice"
+    }
+   }
+  },
+  {
+   "answers": {
+    "confidence": {
+     "noul": 0.61,
+     "type": "noul"
+    },
+    "pick": {
+     "choice": "a",
+     "confidence": 0.8,
+     "probabilities": {
+      "a": 0.87,
+      "b": 0.1,
+      "tie": 0.03
+     },
+     "type": "choice"
+    }
+   }
+  },
+  {
+   "answers": {
+    "confidence": {
+     "noul": 0.65,
+     "type": "noul"
+    },
+    "pick": {
+     "choice": "a",
+     "confidence": 0.95,
+     "probabilities": {
+      "a": 0.96,
+      "b": 0.03,
+      "tie": 0.01
+     },
+     "type": "choice"
+    }
+   }
+  }
+ ]
+}

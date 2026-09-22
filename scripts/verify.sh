@@ -93,4 +93,20 @@ vout=$(cd habitat/status-line && bun "$ALGAL_LOCAL" foundry search-verify foundr
 vok=$(printf '%s' "$vout" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
 [ "$vok" = "True" ] && echo "search  OK  report verifies offline" || { echo "search  FAIL verify"; fail=1; }
 
+# Commit-subject habitat: mechanical foundry + judged jury (replayed).
+for f in habitat/commit-subject/*.algal.json; do
+  out=$($ALGAL check "$f" --modules habitat/commit-subject 2>&1 | tail -1)
+  ok=$(printf '%s' "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
+  [ "$ok" = "True" ] && echo "check  OK  $f" || { echo "check  FAIL $f"; printf '%s\n' "$out"; fail=1; }
+done
+out=$(cd habitat/commit-subject && $ALGAL foundry foundry.config.json --dir "$STORE" --out foundry.report.json 2>&1 | tail -1)
+prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["candidates"] if c["manifestDigest"]==r["promoted"]][0])' 2>/dev/null)
+[ "$prom" = "organism:verb-what" ] && echo "foundry OK  verb-what promoted (mechanical)" \
+  || { echo "foundry FAIL cs promoted=$prom"; fail=1; }
+out=$(cd habitat/commit-subject && $ALGAL run jury.algal.json --args jury.args.json --modules . \
+  --responses jury.responses.json --dir "$STORE" 2>&1 | tail -1)
+champ=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print(r["cells"]["tally"]["outputs"]["out"]["champion"]["key"])' 2>/dev/null)
+[ "$champ" = "why-tail" ] && echo "jury   OK  why-tail champion (judged)" \
+  || { echo "jury   FAIL champion=$champ"; fail=1; }
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

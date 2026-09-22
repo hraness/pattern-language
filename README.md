@@ -267,6 +267,34 @@ the same mechanics deterministically.
 ≥ `43c9dcf` — the released verifier dropped the scorer when re-checking
 per-generation pass claims (fixed upstream, regression test added).
 
+### Judged fitness — where mechanical and taste diverge
+
+`habitat/commit-subject/` is a second habitat on a real artifact: commit
+subjects for four real commits from this repo's history. Four candidate
+formats (`verb-what`, `scope-colon`, `why-tail`, `stat-suffix`), a
+mechanical scorer (single line, 8–72 chars, no trailing period, first
+word capitalized), and — the new piece — a **jury**: `duel.algal.json`
+wraps one pairwise `decide` (routed to Jev); `jury.algal.json` runs the
+round-robin, tallies wins, crowns the champion.
+
+Result on the holdout change (`receipts/jury-commit-subject.live.json`):
+
+| candidate | mechanical | judged duels won |
+|---|---|---|
+| verb-what | **promoted** (tiebreak) | 2 |
+| why-tail | passed all cases | **3 — Jev's champion** |
+| scope-colon | failed (lowercase scope leads) | 1 |
+| stat-suffix | passed all cases | 0 |
+
+The two fitness criteria **disagree**: mechanical selection promoted
+`verb-what`; judged selection prefers `why-tail`
+(`Wire live claude+jev executors — prove the pipeline end-to-end` — the
+subject carrying the why). The mechanical gate proved its worth too —
+`scope-colon` died on a real misfit (sentence-case) the author hadn't
+scored. The honest architecture is two-tier: expr scorers enforce
+misfits that are *checkable*; judged tournaments rank on misfits that
+are *felt*. The jury fixture replays deterministically in `verify.sh`.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

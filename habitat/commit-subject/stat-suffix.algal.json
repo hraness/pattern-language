@@ -1,0 +1,106 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:stat-suffix",
+ "name": "Stat suffix",
+ "note": "Evidence of scale rides with the claim.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 0,
+  "maxWork": 20000
+ },
+ "interface": {
+  "inputs": {
+   "job": {
+    "cell": "src",
+    "port": "job"
+   }
+  },
+  "outputs": {
+   "subject": {
+    "cell": "fmt",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "src",
+   "kind": "input",
+   "outputs": {
+    "job": "json"
+   }
+  },
+  {
+   "id": "fmt",
+   "kind": "expr",
+   "inputs": {
+    "job": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "sconcat",
+     [
+      "get",
+      "job",
+      "hint",
+      "Verb"
+     ],
+     " ",
+     [
+      "get",
+      "job",
+      "hint",
+      "what"
+     ],
+     " (",
+     [
+      "toText",
+      [
+       "get",
+       "job",
+       "change",
+       "files"
+      ]
+     ],
+     "f +",
+     [
+      "toText",
+      [
+       "get",
+       "job",
+       "change",
+       "ins"
+      ]
+     ],
+     " -",
+     [
+      "toText",
+      [
+       "get",
+       "job",
+       "change",
+       "del"
+      ]
+     ],
+     ")"
+    ]
+   },
+   "output": {
+    "kind": "text"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "src",
+    "port": "job"
+   },
+   "to": {
+    "cell": "fmt",
+    "port": "job"
+   }
+  }
+ ]
+}

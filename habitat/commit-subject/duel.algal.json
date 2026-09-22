@@ -1,0 +1,195 @@
+{
+ "contract": "algal.organism.v1",
+ "key": "organism:duel",
+ "name": "Duel",
+ "note": "One judged comparison: two candidate subjects for the same change. Alexander's fit is negative \u2014 the question is which form activates fewer misfits (vague scope, missing why, noise). The decision is typed and receipted, never intuition slush.",
+ "budgets": {
+  "maxSteps": 8,
+  "maxAgentCalls": 2,
+  "maxWork": 40000
+ },
+ "interface": {
+  "inputs": {
+   "duel": {
+    "cell": "d",
+    "port": "duel"
+   }
+  },
+  "outputs": {
+   "verdict": {
+    "cell": "w",
+    "port": "out"
+   }
+  }
+ },
+ "cells": [
+  {
+   "id": "d",
+   "kind": "input",
+   "outputs": {
+    "duel": "json"
+   }
+  },
+  {
+   "id": "judge",
+   "kind": "decide",
+   "inputs": {
+    "d": "json"
+   },
+   "prompt": "Two candidate commit subjects for the same change, plus the change brief. Judge which subject is the better form: leads with the act, honest scope, conveys WHY over bare WHAT, no noise.",
+   "questions": {
+    "pick": {
+     "type": "choice",
+     "instructions": "Which subject is the better commit subject?",
+     "criteria": {
+      "a": null,
+      "b": null,
+      "tie": null
+     }
+    },
+    "confidence": {
+     "type": "noul",
+     "instructions": "How clear is the preference? 1 = obvious, 0.5 = coin flip."
+    }
+   },
+   "view": {
+    "inputs": "*"
+   },
+   "budget": {
+    "maxContextBytes": 8192
+   },
+   "route": {
+    "provider": "jev"
+   }
+  },
+  {
+   "id": "w",
+   "kind": "expr",
+   "inputs": {
+    "d": "json",
+    "v": "json"
+   },
+   "expr": {
+    "contract": "algal.expr.v1",
+    "program": [
+     "let",
+     "pick",
+     [
+      "get",
+      "v",
+      "answers",
+      "pick",
+      "choice"
+     ],
+     {
+      "a": [
+       "get",
+       "d",
+       "a",
+       "key"
+      ],
+      "b": [
+       "get",
+       "d",
+       "b",
+       "key"
+      ],
+      "pick": [
+       "get",
+       "v",
+       "answers",
+       "pick",
+       "choice"
+      ],
+      "conf": [
+       "get",
+       "v",
+       "answers",
+       "confidence",
+       "noul"
+      ],
+      "winner": [
+       "if",
+       [
+        "eq",
+        [
+         "get",
+         "v",
+         "answers",
+         "pick",
+         "choice"
+        ],
+        "a"
+       ],
+       [
+        "get",
+        "d",
+        "a",
+        "key"
+       ],
+       [
+        "if",
+        [
+         "eq",
+         [
+          "get",
+          "v",
+          "answers",
+          "pick",
+          "choice"
+         ],
+         "b"
+        ],
+        [
+         "get",
+         "d",
+         "b",
+         "key"
+        ],
+        "tie"
+       ]
+      ]
+     }
+    ]
+   },
+   "output": {
+    "kind": "json",
+    "schema": {
+     "type": "object"
+    }
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": {
+    "cell": "d",
+    "port": "duel"
+   },
+   "to": {
+    "cell": "judge",
+    "port": "d"
+   }
+  },
+  {
+   "from": {
+    "cell": "d",
+    "port": "duel"
+   },
+   "to": {
+    "cell": "w",
+    "port": "d"
+   }
+  },
+  {
+   "from": {
+    "cell": "judge",
+    "port": "out"
+   },
+   "to": {
+    "cell": "w",
+    "port": "v"
+   }
+  }
+ ]
+}

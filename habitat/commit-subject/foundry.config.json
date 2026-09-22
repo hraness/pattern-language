@@ -1,0 +1,211 @@
+{
+ "contract": "algal.foundry.config.v1",
+ "candidates": [
+  "verb-what.algal.json",
+  "scope-colon.algal.json",
+  "why-tail.algal.json",
+  "stat-suffix.algal.json"
+ ],
+ "cases": [
+  {
+   "id": "train-village",
+   "split": "train",
+   "args": {
+    "job": {
+     "change": {
+      "files": 17,
+      "ins": 2100,
+      "del": 80,
+      "areas": [
+       "benchmarks",
+       "village",
+       "programs"
+      ]
+     },
+     "hint": {
+      "verb": "add",
+      "what": "Appendix I decomposition benchmark",
+      "why": "an oracle exposes bad criteria",
+      "Verb": "Add"
+     },
+     "reference": "Appendix I benchmark + full-method pipeline"
+    }
+   },
+   "expect": {
+    "subject": ""
+   }
+  },
+  {
+   "id": "train-habitat",
+   "split": "train",
+   "args": {
+    "job": {
+     "change": {
+      "files": 9,
+      "ins": 450,
+      "del": 20,
+      "areas": [
+       "habitat",
+       "foundry",
+       "scoring"
+      ]
+     },
+     "hint": {
+      "verb": "add",
+      "what": "status-line pattern habitat",
+      "why": "foundry selection over variants",
+      "Verb": "Add"
+     },
+     "reference": "Pattern habitat: foundry selection over status-line variants"
+    }
+   },
+   "expect": {
+    "subject": ""
+   }
+  },
+  {
+   "id": "val-transfer",
+   "split": "validation",
+   "args": {
+    "job": {
+     "change": {
+      "files": 6,
+      "ins": 400,
+      "del": 15,
+      "areas": [
+       "ensembles",
+       "benchmarks"
+      ]
+     },
+     "hint": {
+      "verb": "add",
+      "what": "algal-src transfer test",
+      "why": "decomposition must transfer to real code",
+      "Verb": "Add"
+     },
+     "reference": "Transfer test: decompose a real codebase's import graph"
+    }
+   },
+   "expect": {
+    "subject": ""
+   }
+  },
+  {
+   "id": "holdout-live",
+   "split": "holdout",
+   "args": {
+    "job": {
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "reference": "Fully live end-to-end synthesize: claude + jev executors"
+    }
+   },
+   "expect": {
+    "subject": ""
+   }
+  }
+ ],
+ "scorer": {
+  "contract": "algal.expr.v1",
+  "program": [
+   "let",
+   "s",
+   [
+    "get",
+    "outputs",
+    "subject"
+   ],
+   [
+    "let",
+    "w0",
+    [
+     "nth",
+     [
+      "split",
+      [
+       "get",
+       "s"
+      ],
+      " "
+     ],
+     0
+    ],
+    [
+     "and",
+     [
+      "gte",
+      [
+       "slen",
+       [
+        "get",
+        "s"
+       ]
+      ],
+      8
+     ],
+     [
+      "lte",
+      [
+       "slen",
+       [
+        "get",
+        "s"
+       ]
+      ],
+      72
+     ],
+     [
+      "not",
+      [
+       "ends",
+       [
+        "get",
+        "s"
+       ],
+       "."
+      ]
+     ],
+     [
+      "not",
+      [
+       "scontains",
+       [
+        "get",
+        "s"
+       ],
+       "\n"
+      ]
+     ],
+     [
+      "neq",
+      [
+       "get",
+       "w0"
+      ],
+      [
+       "lower",
+       [
+        "get",
+        "w0"
+       ]
+      ]
+     ]
+    ]
+   ]
+  ]
+ }
+}
