@@ -2,33 +2,133 @@
   "contract": "algal.organism.v1",
   "key": "organism:correlate",
   "name": "Correlate the ensemble",
-  "note": "Method step 2. The misfit list expands into ordered pairs in pure expr; each pair is judged by pair-probe (embedded by digest) through an each cell; the collector keeps the pairs judged linked. The output is the interaction graph Alexander draws between requirements — every edge a receipted decision. Bounded: ensembles over 8 misfits exceed maxItems and are refused, which is correct — a subsystem too dense to afford is a decomposition problem, not a budget problem.",
-  "budgets": { "maxSteps": 64, "maxAgentCalls": 40, "maxWork": 200000 },
+  "note": "Method step 2. The misfit list expands into ordered pairs in pure expr; each pair is judged by pair-probe (embedded by digest) through an each cell; the collector keeps the pairs judged linked. The output is the interaction graph Alexander draws between requirements \u2014 every edge a receipted decision. Bounded: ensembles over 8 misfits exceed maxItems and are refused, which is correct \u2014 a subsystem too dense to afford is a decomposition problem, not a budget problem.",
+  "budgets": {
+    "maxSteps": 160,
+    "maxAgentCalls": 40,
+    "maxWork": 400000
+  },
   "interface": {
-    "inputs": { "misfits": { "cell": "src", "port": "misfits" } },
-    "outputs": { "links": { "cell": "links", "port": "out" } }
+    "inputs": {
+      "misfits": {
+        "cell": "src",
+        "port": "misfits"
+      }
+    },
+    "outputs": {
+      "links": {
+        "cell": "links",
+        "port": "out"
+      }
+    }
   },
   "cells": [
-    { "id": "src", "kind": "input", "outputs": { "misfits": "json" } },
+    {
+      "id": "src",
+      "kind": "input",
+      "outputs": {
+        "misfits": "json"
+      }
+    },
     {
       "id": "pairs",
       "kind": "expr",
-      "inputs": { "misfits": "json" },
+      "inputs": {
+        "misfits": "json"
+      },
       "expr": {
         "contract": "algal.expr.v1",
         "program": [
-          "let", "ms", ["get", "misfits"],
-          ["filter",
-            ["flat",
-              ["map", ["get", "ms"], "x",
-                ["map", ["get", "ms"], "y",
-                  ["if", ["lt", ["get", "x", "id"], ["get", "y", "id"]],
-                    ["list", ["get", "x", "id"], ["get", "x", "text"], ["get", "y", "id"], ["get", "y", "text"]],
-                    ["list"]]]]],
-            "e", ["gte", ["len", ["get", "e"]], 4]]
+          "let",
+          "ms",
+          [
+            "get",
+            "misfits"
+          ],
+          [
+            "filter",
+            [
+              "flat",
+              [
+                "map",
+                [
+                  "get",
+                  "ms"
+                ],
+                "x",
+                [
+                  "map",
+                  [
+                    "get",
+                    "ms"
+                  ],
+                  "y",
+                  [
+                    "if",
+                    [
+                      "lt",
+                      [
+                        "get",
+                        "x",
+                        "id"
+                      ],
+                      [
+                        "get",
+                        "y",
+                        "id"
+                      ]
+                    ],
+                    [
+                      "list",
+                      [
+                        "get",
+                        "x",
+                        "id"
+                      ],
+                      [
+                        "get",
+                        "x",
+                        "text"
+                      ],
+                      [
+                        "get",
+                        "y",
+                        "id"
+                      ],
+                      [
+                        "get",
+                        "y",
+                        "text"
+                      ]
+                    ],
+                    [
+                      "list"
+                    ]
+                  ]
+                ]
+              ]
+            ],
+            "e",
+            [
+              "gte",
+              [
+                "len",
+                [
+                  "get",
+                  "e"
+                ]
+              ],
+              4
+            ]
+          ]
         ]
       },
-      "output": { "kind": "json", "schema": { "type": "array" } }
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
     },
     {
       "id": "map",
@@ -40,22 +140,84 @@
     {
       "id": "links",
       "kind": "expr",
-      "inputs": { "ls": "json" },
+      "inputs": {
+        "ls": "json"
+      },
       "expr": {
         "contract": "algal.expr.v1",
         "program": [
           "map",
-          ["filter", ["get", "ls"], "l", ["get", "l", "linked"]],
+          [
+            "filter",
+            [
+              "get",
+              "ls"
+            ],
+            "l",
+            [
+              "get",
+              "l",
+              "linked"
+            ]
+          ],
           "l",
-          { "a": ["get", "l", "a"], "b": ["get", "l", "b"], "sign": ["get", "l", "sign"] }
+          {
+            "a": [
+              "get",
+              "l",
+              "a"
+            ],
+            "b": [
+              "get",
+              "l",
+              "b"
+            ],
+            "sign": [
+              "get",
+              "l",
+              "sign"
+            ]
+          }
         ]
       },
-      "output": { "kind": "json", "schema": { "type": "array" } }
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "array"
+        }
+      }
     }
   ],
   "edges": [
-    { "from": { "cell": "src", "port": "misfits" }, "to": { "cell": "pairs", "port": "misfits" } },
-    { "from": { "cell": "pairs", "port": "out" }, "to": { "cell": "map", "port": "pair" } },
-    { "from": { "cell": "map", "port": "link" }, "to": { "cell": "links", "port": "ls" } }
+    {
+      "from": {
+        "cell": "src",
+        "port": "misfits"
+      },
+      "to": {
+        "cell": "pairs",
+        "port": "misfits"
+      }
+    },
+    {
+      "from": {
+        "cell": "pairs",
+        "port": "out"
+      },
+      "to": {
+        "cell": "map",
+        "port": "pair"
+      }
+    },
+    {
+      "from": {
+        "cell": "map",
+        "port": "link"
+      },
+      "to": {
+        "cell": "links",
+        "port": "ls"
+      }
+    }
   ]
 }

@@ -150,6 +150,20 @@ which is exactly Alexander's point that the *quality of the link
 judgments* bounds the quality of the decomposition. Mechanical links are
 cheap and honest; judged links are what `correlate` is for.
 
+## The first live run
+
+`receipts/correlate-cli-report.live.json` is the first receipted run with
+a real executor: 28 Jev `decide` calls judged every pair of the
+`cli-report` ensemble (`agentCalls: 28` in the receipt;
+`ensembles/cli-report.judged.json` has the per-pair nouls).
+
+The judgment is genuinely independent — and it disagreed with the
+ensemble's claimed links: 1 confirmed, 5 rejected, 4 new links found.
+Jev judged only 5/28 pairs interacting (mean noul 0.40), clustering
+around clipped evidence hiding failure signals (`m5–m8`, `m7–m8`) — a
+defensible reading the hand-claimed graph missed. This is the point made
+concrete: link claims become typed, contestable, receipted data.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an
