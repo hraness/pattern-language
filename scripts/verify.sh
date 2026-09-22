@@ -269,4 +269,9 @@ node benchmarks/code-design/self-test.mjs
 node benchmarks/code-design/replay.mjs \
   benchmarks/code-design/results/2026-09-22-haiku-smoke/run.json >/dev/null
 
+# Independent lifecycle transfer contracts, generation controls, and scoring.
+node benchmarks/lifecycle-v2/self-test.mjs
+python3 scripts/test_lifecycle_runner.py
+node benchmarks/lifecycle-v2/test-score.mjs
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }
