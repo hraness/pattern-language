@@ -256,7 +256,7 @@ def protocol_for(identity, qualification):
             'Native catalog Free status is checked before each request; XCB has no spending-cap field.',
             'XCB reports no token usage, monetary cost, or immutable provider model revision.',
             'Selected account/model identity is XCB routing evidence, not independently reported model identity.',
-            'XCB supplies its application system context; the original Claude system message is not sent separately.',
+            'XCB prefixes the caller prompt with fixed application instructions in one ACP text block; no separate system-role message is sent.',
             'Serial admission and the provider differ from the unrun Claude plan.',
             'No runner retries; provider-internal inference or transport retries are not observable.',
             'Three exploratory repetitions per cell do not establish general effectiveness.',

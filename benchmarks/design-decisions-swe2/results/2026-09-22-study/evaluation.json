@@ -1,0 +1,5092 @@
+{
+  "schema": "pattern-language.design-swe2-study-evaluation.v1",
+  "planSha256": "255099de5f6aa75ad57795ac89c339c747c0ac5966c904c4b493fd6418e22f31",
+  "runSha256": "b880b45f4b195c65a5be62c977d4946f58dac004c4c0fe86d6f053f79403c062",
+  "reviewSha256": "9552c4b2e9eaebf5f53f2962c18e81e2754bb212ccc65dac1b0733d87c252977",
+  "generationStatus": "generation-complete-awaiting-review",
+  "runtime": {
+    "node": "v24.20.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "costs": {
+    "plannedCalls": 36,
+    "admittedCalls": 36,
+    "knownUsd": null,
+    "telemetry": "not-reported",
+    "eligibility": "account-catalog-free",
+    "unknownCostCalls": [
+      "jobs-direct-r1-design",
+      "jobs-checklist-r1-design",
+      "jobs-pattern-r1-design",
+      "batch-direct-r1-design",
+      "batch-checklist-r1-design",
+      "batch-pattern-r1-design",
+      "batch-checklist-r2-design",
+      "batch-pattern-r2-design",
+      "batch-direct-r2-design",
+      "jobs-checklist-r2-design",
+      "jobs-pattern-r2-design",
+      "jobs-direct-r2-design",
+      "jobs-pattern-r3-design",
+      "jobs-direct-r3-design",
+      "jobs-checklist-r3-design",
+      "batch-pattern-r3-design",
+      "batch-direct-r3-design",
+      "batch-checklist-r3-design",
+      "jobs-direct-r1-code",
+      "jobs-checklist-r1-code",
+      "jobs-pattern-r1-code",
+      "batch-direct-r1-code",
+      "batch-checklist-r1-code",
+      "batch-pattern-r1-code",
+      "batch-checklist-r2-code",
+      "batch-pattern-r2-code",
+      "batch-direct-r2-code",
+      "jobs-checklist-r2-code",
+      "jobs-pattern-r2-code",
+      "jobs-direct-r2-code",
+      "jobs-pattern-r3-code",
+      "jobs-direct-r3-code",
+      "jobs-checklist-r3-code",
+      "batch-pattern-r3-code",
+      "batch-direct-r3-code",
+      "batch-checklist-r3-code"
+    ]
+  },
+  "pairs": [
+    {
+      "id": "jobs-direct-r1",
+      "family": "jobs",
+      "arm": "direct",
+      "repetition": 1,
+      "designCallId": "jobs-direct-r1-design",
+      "codeCallId": "jobs-direct-r1-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "92f873e9240d2b9126b72e7bde474e78375f93a74334f26278787ccaec0bf99c",
+      "sourceSha256": "8a156b88eb086d29fdfc46e95455318310324bd05c0379b4af1410c7f44c961b",
+      "designPromptSha256": "a81ccb18fe08a632cb0ab3d0923d7e868a383a7e528c7756c7f3842da1b0bb05",
+      "codePromptSha256": "36938e3c458ec6de52fb29150b5fd5da842209e295785025fc092ff145faf4a2",
+      "designBytes": 1734,
+      "sourceBytes": 3014,
+      "sourceLines": 96,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "jobs-checklist-r1",
+      "family": "jobs",
+      "arm": "checklist",
+      "repetition": 1,
+      "designCallId": "jobs-checklist-r1-design",
+      "codeCallId": "jobs-checklist-r1-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "9e633d5f1a3a3d08973cc10e480e21c28ec7d2fdf6eab907ebab58e8ed236078",
+      "sourceSha256": "0df5c9e96a038e24111a55a9d22972059340721bdf2a091cd0083afb2d87e89e",
+      "designPromptSha256": "87b5a7e08c462aa5d304004050cd54e5fdcf6f841a96d95b0e1c500172fad359",
+      "codePromptSha256": "9a6e0756651a363898464879546a1e0296a22c366c6d1422709e48d2487760b9",
+      "designBytes": 1885,
+      "sourceBytes": 3114,
+      "sourceLines": 100,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "jobs-pattern-r1",
+      "family": "jobs",
+      "arm": "pattern",
+      "repetition": 1,
+      "designCallId": "jobs-pattern-r1-design",
+      "codeCallId": "jobs-pattern-r1-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "f87f59d7384fa8987bb8e8cb48d35f3dad158ac459ee6df469f7f8483cfaa29c",
+      "sourceSha256": "c8efd9969b6b4e914122ef3a4fe94b590cff5655c555813dc7b1b4eeeecf5838",
+      "designPromptSha256": "d8c78fa10649d8bb0c6a8c688d015990e56c27e35650fd9d8a70a803822d2836",
+      "codePromptSha256": "ad41356af798082491ea22c71f010e7f87889526b607c53d7f179e1a1674e55b",
+      "designBytes": 1649,
+      "sourceBytes": 3126,
+      "sourceLines": 124,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "batch-direct-r1",
+      "family": "batch",
+      "arm": "direct",
+      "repetition": 1,
+      "designCallId": "batch-direct-r1-design",
+      "codeCallId": "batch-direct-r1-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "6b691dff8a06593f5bc5dfbe79c0c5499a30c98378e7b6f90875b8de552ae0e2",
+      "sourceSha256": "29744198257c5a4a8dd04b9bfccd10fa292ce51d752b3011ec1960aa45827cf9",
+      "designPromptSha256": "33ccd2fe14f3c02d84efed238b5191f1fdc4f0c79ec05a3b0d9831751bfd6bd0",
+      "codePromptSha256": "3c7d911ab93ecb0d8ad3b693ea1a41c04a13233b89a65912a6114d6752d798fb",
+      "designBytes": 928,
+      "sourceBytes": 3185,
+      "sourceLines": 101,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "batch-checklist-r1",
+      "family": "batch",
+      "arm": "checklist",
+      "repetition": 1,
+      "designCallId": "batch-checklist-r1-design",
+      "codeCallId": "batch-checklist-r1-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "3755c0c9be00d7d199b67420f2356c3533718809e576cfcfb01a9c4c69c76456",
+      "sourceSha256": "77fa274ab66dcbb2fef0467cc927c00dcf91c7e3fb5cb315be02d4a3b7a40641",
+      "designPromptSha256": "51848e45efea86ab0bed712966d8fd5670b8c3f49414cccf6bd240096986621b",
+      "codePromptSha256": "0bc8bf5c68486f190bb53cb57e001f90e77fbf01d0c14bbffbf23d7378a5b202",
+      "designBytes": 874,
+      "sourceBytes": 3657,
+      "sourceLines": 140,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "batch-pattern-r1",
+      "family": "batch",
+      "arm": "pattern",
+      "repetition": 1,
+      "designCallId": "batch-pattern-r1-design",
+      "codeCallId": "batch-pattern-r1-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "c62530b3efb8c3d2864669ae9f0ba67999e796adea2148efb9083d92cf894f0f",
+      "sourceSha256": "e0aa708eff6b260987f80ea986ba2f17e0695d1744b3b8ebfe97c7e7841dae71",
+      "designPromptSha256": "fc360b627356757efc75ac436c3bdf4ba387568636542be62490906b9d2087c6",
+      "codePromptSha256": "10c4ac40b7ef6cac2d28cb76d7a771e6c2370cc81ddd07dde746a24957ea7ea2",
+      "designBytes": 867,
+      "sourceBytes": 3329,
+      "sourceLines": 107,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "batch-checklist-r2",
+      "family": "batch",
+      "arm": "checklist",
+      "repetition": 2,
+      "designCallId": "batch-checklist-r2-design",
+      "codeCallId": "batch-checklist-r2-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "f75d7b17ccfd79d2e6b234c90b3655e43fd87033a6456886a82bf781d7ac4e73",
+      "sourceSha256": "55c90c6dfacd726de53c5b1cd95da7dfff5892971f7b4ea9348a1ac58774450b",
+      "designPromptSha256": "51848e45efea86ab0bed712966d8fd5670b8c3f49414cccf6bd240096986621b",
+      "codePromptSha256": "c9b5b089b5728b5cb7dacdf122dbfebedef2abf0fa64388b5e202b8ac9b45505",
+      "designBytes": 875,
+      "sourceBytes": 3321,
+      "sourceLines": 118,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "batch-pattern-r2",
+      "family": "batch",
+      "arm": "pattern",
+      "repetition": 2,
+      "designCallId": "batch-pattern-r2-design",
+      "codeCallId": "batch-pattern-r2-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "282ecbb4f30119854384ab7770ccb795e99facd0f7733bdc848bd70be700265a",
+      "sourceSha256": "e3451d42ddee134afb9b67d5c6c3a72eaa0cce104c670e66ca5b08a665fe863c",
+      "designPromptSha256": "fc360b627356757efc75ac436c3bdf4ba387568636542be62490906b9d2087c6",
+      "codePromptSha256": "5f10c0435cd3d7957a35c6c16e41672ba2027cb22e120e3bc71a65603e9f2b8b",
+      "designBytes": 869,
+      "sourceBytes": 2394,
+      "sourceLines": 107,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "batch-direct-r2",
+      "family": "batch",
+      "arm": "direct",
+      "repetition": 2,
+      "designCallId": "batch-direct-r2-design",
+      "codeCallId": "batch-direct-r2-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "7483283ae135ac25225a9adb8d2b190f308d6ae91182c274d92f7d906b6ddcfb",
+      "sourceSha256": "6ff5075b5d31af8cfdce19a64e9a9746f0902ce450ea129a4a9a3a041b43adae",
+      "designPromptSha256": "33ccd2fe14f3c02d84efed238b5191f1fdc4f0c79ec05a3b0d9831751bfd6bd0",
+      "codePromptSha256": "57b09e05bc7cab6a52d157e681a77ea3dd7c10cb23f81cd593357967d513fc0e",
+      "designBytes": 963,
+      "sourceBytes": 2471,
+      "sourceLines": 122,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "jobs-checklist-r2",
+      "family": "jobs",
+      "arm": "checklist",
+      "repetition": 2,
+      "designCallId": "jobs-checklist-r2-design",
+      "codeCallId": "jobs-checklist-r2-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "6431058993937bcaba7eefd68da17ea911adb1d384202b90c09b45494efcd99a",
+      "sourceSha256": "1f46f3564de848aa46b45f3a365caba7289713e07adf29745fa0cd3bac775429",
+      "designPromptSha256": "87b5a7e08c462aa5d304004050cd54e5fdcf6f841a96d95b0e1c500172fad359",
+      "codePromptSha256": "79c0103734a24fd4d0fc01bd0ff270377a00e7bb8043e3e2f6c64fb8f9849292",
+      "designBytes": 1722,
+      "sourceBytes": 3039,
+      "sourceLines": 97,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "jobs-pattern-r2",
+      "family": "jobs",
+      "arm": "pattern",
+      "repetition": 2,
+      "designCallId": "jobs-pattern-r2-design",
+      "codeCallId": "jobs-pattern-r2-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "fc6c23f645e987bb7f2271e4bf75233f9627aac497b0b8e61a3cce0ed18153b1",
+      "sourceSha256": "ddfe26ff9635b43a0d9a45b6076cc164db0e741e2c610772b1b8fc49f44d4c75",
+      "designPromptSha256": "d8c78fa10649d8bb0c6a8c688d015990e56c27e35650fd9d8a70a803822d2836",
+      "codePromptSha256": "817bf5b9a47c8aedf253d472c6216090a61b0ba484b6ed91d66e95af3bb984e3",
+      "designBytes": 1801,
+      "sourceBytes": 3116,
+      "sourceLines": 88,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "jobs-direct-r2",
+      "family": "jobs",
+      "arm": "direct",
+      "repetition": 2,
+      "designCallId": "jobs-direct-r2-design",
+      "codeCallId": "jobs-direct-r2-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "a03f427b738e16d6e5f6fb02bc022dab4d96c7ef948f82e1decef3597b31ddcd",
+      "sourceSha256": "960d668f9d730a5c21391aef81f6d51b781093a87b16529f6129ad7a515cda3b",
+      "designPromptSha256": "a81ccb18fe08a632cb0ab3d0923d7e868a383a7e528c7756c7f3842da1b0bb05",
+      "codePromptSha256": "67768c5feedb02b410ba81d49261cfe028b0c740300856da2e4af31d374c600b",
+      "designBytes": 1729,
+      "sourceBytes": 3223,
+      "sourceLines": 97,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "jobs-pattern-r3",
+      "family": "jobs",
+      "arm": "pattern",
+      "repetition": 3,
+      "designCallId": "jobs-pattern-r3-design",
+      "codeCallId": "jobs-pattern-r3-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "dc1af1da1a6c2f32e0b9bfc7b5713013aa6137dad0423468c7ff9e01c40a62d7",
+      "sourceSha256": "5493bec9a099f64dc0e7a6f66b3d1a3ec0a8268652365305ae7d52ccc366c468",
+      "designPromptSha256": "d8c78fa10649d8bb0c6a8c688d015990e56c27e35650fd9d8a70a803822d2836",
+      "codePromptSha256": "64afc3fe39014c1924cb7ef7ff665128af830ca6e04c825bab02f45131981b80",
+      "designBytes": 2013,
+      "sourceBytes": 3930,
+      "sourceLines": 210,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "jobs-direct-r3",
+      "family": "jobs",
+      "arm": "direct",
+      "repetition": 3,
+      "designCallId": "jobs-direct-r3-design",
+      "codeCallId": "jobs-direct-r3-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "8e1f8f4b832885741fd4f62f5154f652409602f627d8c82d9c1cc0c0f7e33fc2",
+      "sourceSha256": "2401914702e5abb8f2cc7fe65590052148c899f1eefbc0f14e4a5b6d1b5ed1a5",
+      "designPromptSha256": "a81ccb18fe08a632cb0ab3d0923d7e868a383a7e528c7756c7f3842da1b0bb05",
+      "codePromptSha256": "7b52f4f624491c4014d251688d62530eac4cd059d5ac8bf0a0cb670a9e04c5f0",
+      "designBytes": 1628,
+      "sourceBytes": 4195,
+      "sourceLines": 198,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "jobs-checklist-r3",
+      "family": "jobs",
+      "arm": "checklist",
+      "repetition": 3,
+      "designCallId": "jobs-checklist-r3-design",
+      "codeCallId": "jobs-checklist-r3-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "b691a0cc0720d494d4e43ddf127d3daf7a91b1ac74b2e83f6cb02bc914605989",
+      "sourceSha256": "54769226c17535ada87f049af5a0c7b8238e3827f78525e2244c0af42a3f64fe",
+      "designPromptSha256": "87b5a7e08c462aa5d304004050cd54e5fdcf6f841a96d95b0e1c500172fad359",
+      "codePromptSha256": "047a1f8dcc8e9c4f8fd65c3fd934a29ba9d5577f9349ba19a1fea12a70ae51c1",
+      "designBytes": 1626,
+      "sourceBytes": 3756,
+      "sourceLines": 197,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 9,
+      "behaviorPassed": 9,
+      "agreementPassed": 9,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "jobs.empty_and_unknown",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "countercontext"
+        },
+        {
+          "id": "jobs.duplicate_conflict_and_receipt",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "identity"
+        },
+        {
+          "id": "jobs.capacity_and_dispatch_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 20,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "bounds"
+        },
+        {
+          "id": "jobs.precommit_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 7,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.postcommit_reply_loss",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 11,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "atomicity"
+        },
+        {
+          "id": "jobs.repeated_recovery_and_stale_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 31,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "recovery"
+        },
+        {
+          "id": "jobs.fair_finite_continuation",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 181,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "progress"
+        },
+        {
+          "id": "jobs.independent_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "isolation"
+        },
+        {
+          "id": "jobs.policy_stable_across_stores",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 26,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "dispatch_order": "fifo",
+            "storage_owner": "durable_store",
+            "publication_boundary": "after_commit",
+            "recovery": "requeue_and_fence"
+          },
+          "group": "design_choice"
+        }
+      ]
+    },
+    {
+      "id": "batch-pattern-r3",
+      "family": "batch",
+      "arm": "pattern",
+      "repetition": 3,
+      "designCallId": "batch-pattern-r3-design",
+      "codeCallId": "batch-pattern-r3-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "5032690fdb8c02373942e3b7c79e95a6644963c3f14a50b77cab8edfcfbb77ac",
+      "sourceSha256": "c874ac81f5f2e451a6cc3bb8fc38b520b1c38b21e621e07b71bf884c28eafa56",
+      "designPromptSha256": "fc360b627356757efc75ac436c3bdf4ba387568636542be62490906b9d2087c6",
+      "codePromptSha256": "accde901aa84d86804d83609fa07cf65ac124a8436159e4cfbce7fa023cecfd8",
+      "designBytes": 898,
+      "sourceBytes": 3128,
+      "sourceLines": 106,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "batch-direct-r3",
+      "family": "batch",
+      "arm": "direct",
+      "repetition": 3,
+      "designCallId": "batch-direct-r3-design",
+      "codeCallId": "batch-direct-r3-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "60dc156793649b59b1ac00717396f2717ea19724204d3cf252960329318d5030",
+      "sourceSha256": "3e92c6cb3494279bc0a1c79543beda4cc9646c3ee8018cb0e270495ed898a1e4",
+      "designPromptSha256": "33ccd2fe14f3c02d84efed238b5191f1fdc4f0c79ec05a3b0d9831751bfd6bd0",
+      "codePromptSha256": "92663f593b3264a73bdf03d2ae9d37a6ec4c7d562f3c0fbacea99ac54df58c9a",
+      "designBytes": 861,
+      "sourceBytes": 2101,
+      "sourceLines": 78,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    },
+    {
+      "id": "batch-checklist-r3",
+      "family": "batch",
+      "arm": "checklist",
+      "repetition": 3,
+      "designCallId": "batch-checklist-r3-design",
+      "codeCallId": "batch-checklist-r3-code",
+      "designGenerationStatus": "generated-not-reviewed",
+      "codeGenerationStatus": "generated-not-reviewed",
+      "designSha256": "cf211709ab9ce89823883ce1cf9b90673e3c0959ca360c0156c5380f569502b7",
+      "sourceSha256": "15142b612316cc04d145e2f345d7d3327393b7772f074af53f2f51b4ee95639c",
+      "designPromptSha256": "51848e45efea86ab0bed712966d8fd5670b8c3f49414cccf6bd240096986621b",
+      "codePromptSha256": "c3ce59c73a7c1e214a480e4680d6fd81fafaca5b61670ffab4018e5ebce8e8fb",
+      "designBytes": 818,
+      "sourceBytes": 3223,
+      "sourceLines": 109,
+      "schemaValid": true,
+      "schemaErrors": [],
+      "modelAdequate": true,
+      "adequacyErrors": [],
+      "behaviorAllPass": true,
+      "testedAgreementAllPass": true,
+      "agreementAllPass": true,
+      "agreementUnavailableReason": null,
+      "jointAllPass": true,
+      "total": 29,
+      "behaviorPassed": 29,
+      "agreementPassed": 29,
+      "agreementUnobserved": 0,
+      "results": [
+        {
+          "id": "empty",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "zero_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "scan_choice",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "all_fit_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "skip_oversized_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "greedy_not_optimal_packing",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "exact_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "capacity"
+        },
+        {
+          "id": "remaining_original_order",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "no_same_batch_dependency",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "skip_blocked_continue",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "all_predecessors_required",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "completed_dependencies",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "cycles_remain_blocked",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "dependencies"
+        },
+        {
+          "id": "special_ids_are_data",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "strings_not_trimmed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "identifiers"
+        },
+        {
+          "id": "maximum_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "unknown_properties_ignored",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "thirty_two_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 1,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "boundary"
+        },
+        {
+          "id": "fresh_detached_results",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 2,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none"
+          },
+          "group": "copy"
+        },
+        {
+          "id": "stable_choice_across_calls",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 5,
+          "agreementErrors": [],
+          "observedDecisions": {
+            "execution": "synchronous",
+            "persistence": "none",
+            "scheduling": "none",
+            "scanOrder": "fifo"
+          },
+          "group": "ordering"
+        },
+        {
+          "id": "invalid_envelope",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_capacity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_arrays",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 8,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_completed",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 10,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 16,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_units",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 18,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "duplicate_job_identity",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 4,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "invalid_predecessors",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 14,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        },
+        {
+          "id": "validate_unselected_jobs",
+          "behaviorPassed": true,
+          "agreementPassed": true,
+          "observationCount": 6,
+          "agreementErrors": [],
+          "observedDecisions": {},
+          "group": "validation"
+        }
+      ]
+    }
+  ],
+  "families": {
+    "jobs": {
+      "arms": {
+        "direct": {
+          "denominator": 3,
+          "schemaValid": 3,
+          "modelAdequate": 3,
+          "behaviorAllPass": 3,
+          "agreementAllPass": 3,
+          "jointAllPass": 3
+        },
+        "checklist": {
+          "denominator": 3,
+          "schemaValid": 3,
+          "modelAdequate": 3,
+          "behaviorAllPass": 3,
+          "agreementAllPass": 3,
+          "jointAllPass": 3
+        },
+        "pattern": {
+          "denominator": 3,
+          "schemaValid": 3,
+          "modelAdequate": 3,
+          "behaviorAllPass": 3,
+          "agreementAllPass": 3,
+          "jointAllPass": 3
+        }
+      },
+      "pairedComparisons": [
+        {
+          "repetition": 1,
+          "metric": "behaviorAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 1,
+          "metric": "agreementAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 1,
+          "metric": "jointAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 2,
+          "metric": "behaviorAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 2,
+          "metric": "agreementAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 2,
+          "metric": "jointAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 3,
+          "metric": "behaviorAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 3,
+          "metric": "agreementAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 3,
+          "metric": "jointAllPass",
+          "pattern": true,
+          "checklist": true
+        }
+      ],
+      "pairedDisagreements": []
+    },
+    "batch": {
+      "arms": {
+        "direct": {
+          "denominator": 3,
+          "schemaValid": 3,
+          "modelAdequate": 3,
+          "behaviorAllPass": 3,
+          "agreementAllPass": 3,
+          "jointAllPass": 3
+        },
+        "checklist": {
+          "denominator": 3,
+          "schemaValid": 3,
+          "modelAdequate": 3,
+          "behaviorAllPass": 3,
+          "agreementAllPass": 3,
+          "jointAllPass": 3
+        },
+        "pattern": {
+          "denominator": 3,
+          "schemaValid": 3,
+          "modelAdequate": 3,
+          "behaviorAllPass": 3,
+          "agreementAllPass": 3,
+          "jointAllPass": 3
+        }
+      },
+      "pairedComparisons": [
+        {
+          "repetition": 1,
+          "metric": "behaviorAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 1,
+          "metric": "agreementAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 1,
+          "metric": "jointAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 2,
+          "metric": "behaviorAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 2,
+          "metric": "agreementAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 2,
+          "metric": "jointAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 3,
+          "metric": "behaviorAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 3,
+          "metric": "agreementAllPass",
+          "pattern": true,
+          "checklist": true
+        },
+        {
+          "repetition": 3,
+          "metric": "jointAllPass",
+          "pattern": true,
+          "checklist": true
+        }
+      ],
+      "pairedDisagreements": []
+    }
+  },
+  "interpretation": "Exploratory two-task SWE-2 study, three planned pairs per arm and family. Free is the observed account catalog tier, not reported billing. Cases and observations are not independent trials; conformance requires a valid and adequate model. Provider changes preclude a causal comparison with prior Claude results."
+}

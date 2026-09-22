@@ -51,8 +51,12 @@ Behavior, model adequacy and code/design agreement are scored separately. The
 original Claude plan remains prepared and unrun. The user selected a separate
 [SWE-2 provider study](benchmarks/design-decisions-swe2/README.md) using the
 existing account's free model offering, with the same 36-request experiment.
-The adapter is implemented and tested offline; provider qualification is pending.
-No live result or pattern advantage is claimed.
+The [completed study](benchmarks/design-decisions-swe2/results/2026-09-22-study/README.md)
+reached a ceiling: all 18 design/code pairs passed schema, adequacy, behavior and
+agreement checks. Every arm scored **3/3 on both families**, so no pattern
+advantage was observed. Every request passed the Free-catalog check; billed cost
+is unreported. The next experiment needs real architectural choices and
+machine-checked resource tradeoffs, beyond these largely prescribed contracts.
 
 ## What to keep from the prototype
 
@@ -68,7 +72,8 @@ They do not make the design rationale true or the evaluator independent.
 | `ensembles/` | Historical village and source-import graphs with reference groupings | Similarity to a grouping is not design effectiveness. |
 | `benchmarks/code-design/` | Actual code contract, adaptation task and six-request smoke evidence | One attempt per arm cannot establish treatment effectiveness. |
 | `benchmarks/lifecycle-v2/` | Frozen 54-request multi-task study, reviewed sources and reproducible outcomes | No transfer or both-stage pattern advantage was observed. Can explicit, trace-checkable design decisions help? |
-| `benchmarks/design-decisions-v3/` | Executable design artifacts, host traces, two task families, references and fault probes | Does a contextual construction procedure improve behavior and design agreement over matched controls? Live study pending. |
+| `benchmarks/design-decisions-v3/` | Executable design artifacts, host traces, two task families, references and fault probes | Contracts largely prescribe the architecture; the original Claude plan remains unrun. |
+| `benchmarks/design-decisions-swe2/` | Completed 36-request qualified XCB/SWE-2 study using the same frozen tasks | All 18 pairs passed; no observed pattern advantage. Meaningful design alternatives remain untested. |
 
 See [the concept map](docs/concepts.md) for the distinctions between a force
 graph, a pattern language, and an implementation's dataflow graph.

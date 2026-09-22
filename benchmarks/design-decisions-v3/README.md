@@ -3,8 +3,10 @@
 This is the implemented follow-up to the [negative lifecycle study](../lifecycle-v2/results/2026-09-22-transfer/README.md).
 A JSON model of states, transitions, effects and decisions now sits between a
 design procedure and generated code. A monitor compares that declaration with
-host-observed execution. **No v3 model study has run and no pattern advantage is
-claimed.**
+host-observed execution. The original Claude plan remains unrun. The separately
+frozen [SWE-2 study](../design-decisions-swe2/results/2026-09-22-study/README.md)
+used these unchanged tasks and reached a ceiling: all 18 design/code pairs
+passed, with **no observed pattern advantage**.
 
 ## What is executable
 

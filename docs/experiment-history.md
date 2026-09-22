@@ -611,3 +611,19 @@ main causal question remains open: does a reusable system of patterns improve
 actual code and its adaptation compared with equally resourced alternatives?
 See [the review](review-2026-09-22.md) for the evidence corrections and the
 [code-design pilot](../benchmarks/code-design/README.md) for the next test.
+
+## Subsequent code and design studies — September 22
+
+The [54-request lifecycle study](../benchmarks/lifecycle-v2/results/2026-09-22-transfer/README.md)
+found no transfer or both-stage advantage for the revised pattern guidance.
+The next experiment made design commitments explicit and checked them against
+host-observed behavior, using durable-job and pure batch tasks.
+
+The [36-request SWE-2 study](../benchmarks/design-decisions-swe2/results/2026-09-22-study/README.md)
+completed through qualified XCB application inference. All 18 pairs passed all
+five outcomes; every arm scored 3/3 on both tasks. The selected account catalog
+listed SWE-2 High as Free before each request; billed cost was not reported.
+This ceiling demonstrates the evaluation workflow but gives no observed pattern
+advantage. Most design choices were prescribed and every candidate chose FIFO.
+The next proposed experiment introduces executable constructions, multiple valid
+architectures and mechanically measured resource tradeoffs.
