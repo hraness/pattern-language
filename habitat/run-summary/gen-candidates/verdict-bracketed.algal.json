@@ -17,6 +17,16 @@
     "contract": "algal.expr.v1",
     "program": [
      "sconcat",
+     "[",
+     [
+      "upper",
+      [
+       "get",
+       "rec",
+       "verdict"
+      ]
+     ],
+     "] ",
      [
       "get",
       "rec",
@@ -28,22 +38,12 @@
       "rec",
       "target"
      ],
-     ": ",
-     [
-      "upper",
-      [
-       "get",
-       "rec",
-       "verdict"
-      ]
-     ],
-     " (",
+     " ",
      [
       "get",
       "rec",
       "metric"
-     ],
-     ")"
+     ]
     ]
    },
    "id": "fmt",
@@ -83,6 +83,6 @@
    }
   }
  },
- "key": "organism:tool-verdict",
- "name": "Tool Led"
+ "key": "organism:verdict-bracketed",
+ "name": "Bracketed verdict (novel format)"
 }

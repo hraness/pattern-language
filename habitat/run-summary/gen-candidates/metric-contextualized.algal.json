@@ -18,14 +18,11 @@
     "program": [
      "sconcat",
      [
-      "upper",
-      [
-       "get",
-       "rec",
-       "verdict"
-      ]
+      "get",
+      "rec",
+      "metric"
      ],
-     " | ",
+     " [",
      [
       "get",
       "rec",
@@ -37,13 +34,16 @@
       "rec",
       "target"
      ],
-     " (",
+     " ",
      [
-      "get",
-      "rec",
-      "metric"
+      "upper",
+      [
+       "get",
+       "rec",
+       "verdict"
+      ]
      ],
-     ")"
+     "]"
     ]
    },
    "id": "fmt",
@@ -83,6 +83,6 @@
    }
   }
  },
- "key": "organism:verdict-metric",
- "name": "Verdict Then Metric"
+ "key": "organism:metric-contextualized",
+ "name": "Metric with context"
 }

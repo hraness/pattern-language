@@ -23,24 +23,17 @@
      "wins": 1
     }
    ],
+   "judgedChampion": {
+    "key": "verb-what",
+    "wins": 1
+   },
+   "reconciledChampion": null,
+   "escaped": null,
    "champion": {
     "key": "verb-what",
     "wins": 1
    },
-   "mechanical": {
-    "verb-what": {
-     "passed": true,
-     "failed": []
-    },
-    "why-tail": {
-     "passed": true,
-     "failed": []
-    },
-    "stat-suffix": {
-     "passed": true,
-     "failed": []
-    }
-   },
+   "mechanical": null,
    "receiptDigest": "sha256:afcee6a421a2aac3428509e677d8a92a6f51787392685d9858d8ee0395422704"
   },
   {
@@ -62,39 +55,17 @@
      "wins": 1
     }
    ],
+   "judgedChampion": {
+    "key": "verb-what",
+    "wins": 1
+   },
+   "reconciledChampion": null,
+   "escaped": null,
    "champion": {
     "key": "verb-what",
     "wins": 1
    },
-   "mechanical": {
-    "verb-what": {
-     "passed": true,
-     "failed": []
-    },
-    "gen-plain": {
-     "passed": true,
-     "failed": []
-    },
-    "gen-whycolon": {
-     "passed": false,
-     "failed": [
-      [
-       "neq",
-       [
-        "get",
-        "w0"
-       ],
-       [
-        "lower",
-        [
-         "get",
-         "w0"
-        ]
-       ]
-      ]
-     ]
-    }
-   },
+   "mechanical": null,
    "receiptDigest": "sha256:bef1ab5502afc32aacfa620b30de5d05165c2cfd2249d1042487aeb30ab2dac8"
   }
  ],
@@ -102,5 +73,10 @@
   "key": "verb-what",
   "wins": 1
  },
- "reconciled": true
+ "judgedChampion": {
+  "key": "verb-what",
+  "wins": 1
+ },
+ "escaped": null,
+ "reconciled": null
 }

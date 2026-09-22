@@ -20,24 +20,20 @@
      [
       "get",
       "rec",
-      "target"
+      "tool"
      ],
-     " \u2192 ",
-     [
-      "upper",
-      [
-       "get",
-       "rec",
-       "verdict"
-      ]
-     ],
-     " (",
+     " [",
      [
       "get",
       "rec",
-      "metric"
+      "verdict"
      ],
-     ")"
+     "] ",
+     [
+      "get",
+      "rec",
+      "target"
+     ]
     ]
    },
    "id": "fmt",
@@ -77,6 +73,6 @@
    }
   }
  },
- "key": "organism:evidence-arrow",
- "name": "Evidence Arrow"
+ "key": "organism:bracketed-verdict",
+ "name": "Tool with bracketed verdict"
 }

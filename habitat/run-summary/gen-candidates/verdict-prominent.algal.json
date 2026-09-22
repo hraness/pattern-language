@@ -25,13 +25,7 @@
        "verdict"
       ]
      ],
-     "@",
-     [
-      "get",
-      "rec",
-      "metric"
-     ],
-     "|",
+     " ",
      [
       "get",
       "rec",
@@ -82,6 +76,6 @@
    }
   }
  },
- "key": "organism:verdict-compact",
- "name": "Verdict Compact"
+ "key": "organism:verdict-prominent",
+ "name": "Verdict upfront for scannability"
 }

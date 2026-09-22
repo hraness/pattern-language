@@ -20,21 +20,6 @@
      [
       "get",
       "rec",
-      "metric"
-     ],
-     " \u2192 ",
-     [
-      "upper",
-      [
-       "get",
-       "rec",
-       "verdict"
-      ]
-     ],
-     " | ",
-     [
-      "get",
-      "rec",
       "tool"
      ],
      " ",
@@ -42,6 +27,18 @@
       "get",
       "rec",
       "target"
+     ],
+     " ",
+     [
+      "get",
+      "rec",
+      "metric"
+     ],
+     " \u2014 ",
+     [
+      "get",
+      "rec",
+      "verdict"
      ]
     ]
    },
@@ -82,6 +79,6 @@
    }
   }
  },
- "key": "organism:metric-led",
- "name": "Metric Led"
+ "key": "organism:tool-led-verdict-end",
+ "name": "Tool first, verdict end"
 }

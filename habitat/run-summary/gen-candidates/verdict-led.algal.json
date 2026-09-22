@@ -25,13 +25,19 @@
        "verdict"
       ]
      ],
-     " | ",
+     ": ",
+     [
+      "get",
+      "rec",
+      "tool"
+     ],
+     " ",
      [
       "get",
       "rec",
       "target"
      ],
-     " | ",
+     " ",
      [
       "get",
       "rec",
@@ -76,6 +82,6 @@
    }
   }
  },
- "key": "organism:verdict-piped",
- "name": "Verdict Piped"
+ "key": "organism:verdict-led",
+ "name": "Verdict-led (champion mutation)"
 }

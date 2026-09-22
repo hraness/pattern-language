@@ -131,16 +131,18 @@ champ=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin)
 [ "$champ" = "metric-first" ] && echo "jury   OK  metric-first champion (panel-judged)" \
   || { echo "jury   FAIL champion=$champ"; fail=1; }
 out=$(python3 scripts/evolve-jury.py habitat/run-summary --gens 1 \
-  --jury panel-jury.algal.json --responses habitat/run-summary/evolve.responses.json 2>&1 | tail -1)
+  --jury reconciled-jury.algal.json --responses habitat/run-summary/evolve.responses.json 2>&1 | tail -1)
 champ=$(printf '%s' "$out" | sed -n 's/final champion: \([^ ]*\).*/\1/p')
-[ "$champ" = "verdict-lead" ] && echo "evolve OK  generated verdict-lead dethrones incumbent" \
+[ "$champ" = "arrow-format" ] && echo "evolve OK  contract keeps arrow-format; judged escape recorded" \
   || { echo "evolve FAIL champion=$champ"; fail=1; }
-python3 - <<'PY' && echo "mech   OK  champion misfit named (tool dropped)" || { echo "mech   FAIL no named misfit"; fail=1; }
-import json, sys
+python3 - <<'PY' && echo "mech   OK  judged escape + named misfit recorded" || { echo "mech   FAIL arbitration record wrong"; fail=1; }
+import json
 r = json.load(open("habitat/run-summary/evolve.report.json"))
-m = r["generations"][-1]["mechanical"][r["finalChampion"]["key"]]
-assert m["passed"] is False and r["reconciled"] is False, m
-assert any("tool" in json.dumps(t) for t in m["failed"]), m
+g = r["generations"][-1]
+m = g["mechanical"][r["judgedChampion"]["key"]]
+assert r["judgedChampion"]["key"] == "verdict-lead" and r["escaped"] is True
+assert m["passed"] is False and any("tool" in json.dumps(t) for t in m["failed"]), m
+assert r["finalChampion"]["key"] == "arrow-format" and r["reconciled"] is True
 PY
 
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }

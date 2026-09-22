@@ -42,11 +42,15 @@ def subject_of(manifest_path, args_file, cwd):
         return None
     return r["cells"]["fmt"]["outputs"]["out"]
 
-def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json'):
+def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json',
+         mech=None):
     pairs = [{"brief": brief, "a": a, "b": b}
              for a, b in itertools.combinations(subjects, 2)]
+    args = {"subjects": subjects, "pairs": pairs}
+    if mech is not None:
+        args["mech"] = [{"key": k, "passed": v["passed"]} for k, v in mech.items()]
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
-        json.dump({"src": {"subjects": subjects, "pairs": pairs}}, fh)
+        json.dump({"src": args}, fh)
         args_path = fh.name
     r, _ = run_algal(["run", jury_file, "--args", args_path,
                       "--modules", ".", "--dir", STORE] + extra_args, cwd)
@@ -146,21 +150,33 @@ def main():
     prior = None
     history = []
     champion = None
+    reconciled = jury_file == "reconciled-jury.algal.json"
     for gen in range(generations + 1):
-        result, receipt = jury(habitat, subjects, brief, jury_extra, habitat, jury_file)
-        champion = result["champion"]
-        mech = mechanical(subjects, cfg["scorer"]["program"], src_args, habitat)
+        mech = (mechanical(subjects, cfg["scorer"]["program"], src_args, habitat)
+                if reconciled else None)
+        result, receipt = jury(habitat, subjects, brief, jury_extra, habitat,
+                               jury_file, mech=mech)
+        judged = result["champion"]
+        # the incumbent slot belongs to the contract: judged escape is
+        # recorded, but only a contract-passing form inherits
+        rchamp = result.get("reconciledChampion") or {}
+        champion = rchamp if rchamp.get("key") else judged
         history.append({"generation": gen, "standings": result["standings"],
+                        "judgedChampion": judged,
+                        "reconciledChampion": rchamp or None,
+                        "escaped": result.get("escaped"),
                         "champion": champion, "mechanical": mech,
                         "receiptDigest": receipt.get("digest")})
-        print(f"gen {gen}: champion={champion['key']} "
-              + " ".join(f"{s['key']}:{s['wins']}" for s in result["standings"])
-              + f" | mech: {champion['key']}={mech.get(champion['key'],{}).get('passed')}")
+        tag = " (escaped)" if result.get("escaped") else ""
+        print(f"gen {gen}: judged={judged['key']} champion={champion['key']}{tag} "
+              + " ".join(f"{s['key']}:{s['wins']}" for s in result["standings"]))
         if gen == generations:
             break
         # generate: writer sees standings + champion + named mechanical misfits
-        prior = {"generation": gen, "champion": champion, "standings": result["standings"],
-                 "mechanical": {k: v for k, v in mech.items() if v["passed"] is False},
+        prior = {"generation": gen, "champion": champion,
+                 "judgedChampion": judged,
+                 "standings": result["standings"],
+                 "mechanical": {k: v for k, v in (mech or {}).items() if v["passed"] is False},
                  "note": "champion defends its slot; mutate toward judged fit; "
                          "mechanical lists constraint terms each violator failed — "
                          "repair the misfit while keeping the winning shape"}
@@ -189,12 +205,14 @@ def main():
                 seen.add(key)
         subjects = subjects[:8]
 
-    final_mech = history[-1]["mechanical"].get(champion["key"], {}) if history else {}
+    final = history[-1] if history else {}
     out = {"contract": "pattern-language.evolve.v1", "habitat": habitat,
            "mode": "live" if live else "scripted",
            "arena": arena["id"], "generations": history,
            "finalChampion": champion,
-           "reconciled": final_mech.get("passed")}
+           "judgedChampion": final.get("judgedChampion"),
+           "escaped": final.get("escaped"),
+           "reconciled": (final.get("mechanical") or {}).get(champion["key"], {}).get("passed")}
     name = "evolve.live.report.json" if live else "evolve.report.json"
     with open(os.path.join(habitat, name), "w") as fh:
         json.dump(out, fh, indent=1)

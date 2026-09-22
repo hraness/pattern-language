@@ -28,6 +28,15 @@
      "wins": 3
     }
    ],
+   "judgedChampion": {
+    "key": "metric-first",
+    "wins": 3
+   },
+   "reconciledChampion": {
+    "key": "metric-first",
+    "wins": 3
+   },
+   "escaped": false,
    "champion": {
     "key": "metric-first",
     "wins": 3
@@ -50,7 +59,7 @@
      "failed": []
     }
    },
-   "receiptDigest": "sha256:f78608f6013b6ca849fd86aefc69f4a0832ae6d9401fcce3725273563ff01fca"
+   "receiptDigest": "sha256:142cbfe9a2f85f0ec1fccc46651451cd3a24f4e1d35520dadd831d6a5169b033"
   },
   {
    "generation": 1,
@@ -81,9 +90,18 @@
      "wins": 4
     }
    ],
-   "champion": {
+   "judgedChampion": {
     "key": "verdict-lead",
     "wins": 4
+   },
+   "reconciledChampion": {
+    "key": "arrow-format",
+    "wins": 3
+   },
+   "escaped": true,
+   "champion": {
+    "key": "arrow-format",
+    "wins": 3
    },
    "mechanical": {
     "metric-first": {
@@ -121,12 +139,17 @@
      ]
     }
    },
-   "receiptDigest": "sha256:760cc47295519daca45c7e0311a778237e40be60d3a4564e9757677af4487c76"
+   "receiptDigest": "sha256:f716926ca6a180c0f1e5a362c42a8c21e7f289a1af4a6486d4b877a662d28742"
   }
  ],
  "finalChampion": {
+  "key": "arrow-format",
+  "wins": 3
+ },
+ "judgedChampion": {
   "key": "verdict-lead",
   "wins": 4
  },
- "reconciled": false
+ "escaped": true,
+ "reconciled": true
 }

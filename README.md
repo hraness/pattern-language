@@ -374,32 +374,36 @@ panel jury does the discriminating:
 Scripted path (`jury.responses.json`, `evolve.responses.json`) replays
 both the tournament and a one-generation dethroning in `verify.sh`.
 
-### The reconciliation tier — named misfits, not a verdict
+### The reconciliation tier — arbitration inside the receipt
 
-When the judged champion violates the mechanical contract, the loop now
-*names the misfit* instead of just reporting the divergence.
-`evolve-jury.py` splits the habitat's scorer into its `and`-conjuncts
-(same `let`-bindings, one probe organism per run) and records each
-candidate's failed terms as data — `prior.mechanical` feeds them to the
-next writer call with one instruction: keep the winning shape, repair
-the misfit.
+Two tiers now coexist with an explicit policy. `reconciled-jury.algal.json`
+runs the panel tournament **and** the contract arbitration in one run:
+the scorer's `and`-conjuncts (split by `evolve-jury.py`, same
+`let`-bindings) flow in as `mech` data, and the tally crowns two
+champions — the judged pick and the reconciled pick (argmax wins among
+contract-passing). The policy is one line of driver code and one record
+field: **the incumbent slot belongs to the contract** — a judged escape
+is recorded as `escaped: true`, but only a compliant form inherits.
 
-Live trajectory on run-summary, 3 generations:
+Evidence both ways:
 
-| gen | champion | mech | what happened |
-|---|---|---|---|
-| 0 | metric-first | ✓ | incumbent holds |
-| 1 | **verdict-metric** | ✓ | writer produced a *compliant* verdict-leader — `PROMOTED \| search status-line (g1-bracket holdout 2/2)` — dethroned immediately |
-| 2 | verdict-metric | ✓ | defended; all 4 candidates inside the contract |
-| 3 | **verdict-piped** | ✗ `tool` | writer produced violators *again* despite named feedback; one dethroned |
+- **Scripted gate** — `verdict-lead` wins the tournament 4-0 but fails
+  `scontains tool` → `escaped: true`, `arrow-format` (3 wins, compliant)
+  keeps the tradition. The arbitration is pinned deterministically in
+  `verify.sh`.
+- **Live, 3 gens** — the named-misfit feedback plus arbitration kept the
+  *entire population* inside the contract every generation: no escapes,
+  and judged fit still produced a novel dethroning (`metric-lead`:
+  `g1-bracket holdout 2/2 status-line search [PROMOTED]` — verdict
+  bracketed at the end).
+- **Prior run, feedback only, no arbitration** — a violator
+  (`verdict-piped`, tool dropped) escaped at gen 3. That's the honest
+  comparison: naming misfits helps the writer repair, but only the
+  contract-side champion slot stops escape from *inheriting*.
 
-The finding is honest both ways: named-misfit feedback **does** produce
-reconciled champions (gens 1–2 — the winning shape repaired into the
-contract), but judged fit **periodically escapes anyway** (gen 3).
-Reconciliation isn't a converged state; it's a permanent tension the
-report now records per generation via `reconciled` — which is exactly
-Alexander's claim that fit is maintained by ongoing correction, never
-achieved once.
+Alexander's version: tradition retains what fits — fit includes the
+contract forces, not just the felt ones. The jury proposes; the contract
+disposes; the report shows both.
 
 ## Status
 
