@@ -318,6 +318,31 @@ for; whether the convention or the jury is right is a question for the
 ensemble, not the runtime. Scripted path
 (`evolve.responses.json`) replays the loop mechanics in `verify.sh`.
 
+### Do the judges agree? Three answers, no human required
+
+`jury-agreement.report.json`: one informal human sample on the same
+10-duel bracket — 8/10 per-duel agreement with Jev and the same champion
+(`why-lead` 4-0). Divergences were interpretable: the human weighed stat
+evidence and casing where Jev was indifferent.
+
+`panel-jury.algal.json` removes the need for that human: each duel runs
+**two decide cells with different rubrics** — advocate (leads-with-act,
+conveys why) vs skeptic (scans fastest in a list of fifty, conventional
+case). Wins count only on agreement; contested duels are reported, not
+hidden.
+
+Live result (`panel-jury.live.json` + `.report.json`):
+
+- **6/10 duels contested** — the misfits genuinely conflict, and the
+  panel makes the conflict visible instead of letting one rubric decide
+  silently.
+- **`why-lead` still champions**: the only form both rubrics accept —
+  it conveys why *and* scans compactly. Both judges picked it over
+  `why-tail` and `why-dash` outright.
+- The contested list is exactly the ensemble question: which force
+  dominates where rubrics split. That's a design decision, surfaced as
+  data — the runtime reports it rather than resolving it covertly.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an

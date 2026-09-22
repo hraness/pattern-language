@@ -1,6 +1,7 @@
 {
  "contract": "pattern-language.evolve.v1",
  "habitat": "habitat/commit-subject",
+ "mode": "scripted",
  "arena": "holdout-live",
  "generations": [
   {

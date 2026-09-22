@@ -1,0 +1,27 @@
+{
+ "note": "human picks for identical pairs; a/b = position in combinations order",
+ "pairs": [
+  "(verb-what,why-tail)",
+  "(verb-what,stat-suffix)",
+  "(verb-what,why-lead)",
+  "(verb-what,why-dash)",
+  "(why-tail,stat-suffix)",
+  "(why-tail,why-lead)",
+  "(why-tail,why-dash)",
+  "(stat-suffix,why-lead)",
+  "(stat-suffix,why-dash)",
+  "(why-lead,why-dash)"
+ ],
+ "human": {
+  "(verb-what,why-tail)": "b",
+  "(verb-what,stat-suffix)": "b",
+  "(verb-what,why-lead)": "b",
+  "(verb-what,why-dash)": "b",
+  "(why-tail,stat-suffix)": "a",
+  "(why-tail,why-lead)": "b",
+  "(why-tail,why-dash)": "a",
+  "(stat-suffix,why-lead)": "b",
+  "(stat-suffix,why-dash)": "b",
+  "(why-lead,why-dash)": "a"
+ }
+}

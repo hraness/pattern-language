@@ -1,0 +1,21 @@
+{
+ "contract": "pattern-language.jury-agreement.v1",
+ "arena": "holdout-live",
+ "perDuelAgree": 8,
+ "totalDuels": 10,
+ "jevChampion": "why-lead",
+ "humanChampion": "why-lead",
+ "jevStandings": {
+  "verb-what": 1,
+  "why-tail": 2,
+  "stat-suffix": 0,
+  "why-lead": 4,
+  "why-dash": 2
+ },
+ "humanStandings": {
+  "why-tail": 3,
+  "stat-suffix": 1,
+  "why-lead": 4,
+  "why-dash": 2
+ }
+}

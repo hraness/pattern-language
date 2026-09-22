@@ -1,0 +1,56 @@
+{
+ "contract": "pattern-language.panel-jury.v1",
+ "arena": "holdout-live",
+ "receipt": "sha256:5dee9bc3f1450b847cb8bb8a2c347272c573900e7be100059156b116c13332ab",
+ "champion": {
+  "key": "why-lead",
+  "wins": 2
+ },
+ "standings": {
+  "verb-what": 1,
+  "why-tail": 1,
+  "stat-suffix": 0,
+  "why-lead": 2,
+  "why-dash": 0
+ },
+ "contestedCount": 6,
+ "totalDuels": 10,
+ "contested": [
+  {
+   "a": "verb-what",
+   "b": "why-tail",
+   "j1": "b",
+   "j2": "a"
+  },
+  {
+   "a": "verb-what",
+   "b": "why-lead",
+   "j1": "b",
+   "j2": "a"
+  },
+  {
+   "a": "verb-what",
+   "b": "why-dash",
+   "j1": "b",
+   "j2": "a"
+  },
+  {
+   "a": "why-tail",
+   "b": "why-dash",
+   "j1": "tie",
+   "j2": "b"
+  },
+  {
+   "a": "stat-suffix",
+   "b": "why-lead",
+   "j1": "b",
+   "j2": "a"
+  },
+  {
+   "a": "stat-suffix",
+   "b": "why-dash",
+   "j1": "b",
+   "j2": "a"
+  }
+ ]
+}

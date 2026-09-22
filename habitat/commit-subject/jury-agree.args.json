@@ -1,0 +1,318 @@
+{
+ "src": {
+  "subjects": [
+   {
+    "key": "verb-what",
+    "subject": "Wire live claude+jev executors"
+   },
+   {
+    "key": "why-tail",
+    "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+   },
+   {
+    "key": "stat-suffix",
+    "subject": "Wire live claude+jev executors (8f +300 -40)"
+   },
+   {
+    "key": "why-lead",
+    "subject": "prove the pipeline end-to-end: Wire live claude+jev executors"
+   },
+   {
+    "key": "why-dash",
+    "subject": "wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+   }
+  ],
+  "pairs": [
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "verb-what",
+     "subject": "Wire live claude+jev executors"
+    },
+    "b": {
+     "key": "why-tail",
+     "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "verb-what",
+     "subject": "Wire live claude+jev executors"
+    },
+    "b": {
+     "key": "stat-suffix",
+     "subject": "Wire live claude+jev executors (8f +300 -40)"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "verb-what",
+     "subject": "Wire live claude+jev executors"
+    },
+    "b": {
+     "key": "why-lead",
+     "subject": "prove the pipeline end-to-end: Wire live claude+jev executors"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "verb-what",
+     "subject": "Wire live claude+jev executors"
+    },
+    "b": {
+     "key": "why-dash",
+     "subject": "wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "why-tail",
+     "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    },
+    "b": {
+     "key": "stat-suffix",
+     "subject": "Wire live claude+jev executors (8f +300 -40)"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "why-tail",
+     "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    },
+    "b": {
+     "key": "why-lead",
+     "subject": "prove the pipeline end-to-end: Wire live claude+jev executors"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "why-tail",
+     "subject": "Wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    },
+    "b": {
+     "key": "why-dash",
+     "subject": "wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "stat-suffix",
+     "subject": "Wire live claude+jev executors (8f +300 -40)"
+    },
+    "b": {
+     "key": "why-lead",
+     "subject": "prove the pipeline end-to-end: Wire live claude+jev executors"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "stat-suffix",
+     "subject": "Wire live claude+jev executors (8f +300 -40)"
+    },
+    "b": {
+     "key": "why-dash",
+     "subject": "wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    }
+   },
+   {
+    "brief": {
+     "hint": {
+      "verb": "wire",
+      "what": "live claude+jev executors",
+      "why": "prove the pipeline end-to-end",
+      "Verb": "Wire"
+     },
+     "change": {
+      "files": 8,
+      "ins": 300,
+      "del": 40,
+      "areas": [
+       "executors",
+       "live",
+       "routing"
+      ]
+     },
+     "task": "pick the better commit subject for this change"
+    },
+    "a": {
+     "key": "why-lead",
+     "subject": "prove the pipeline end-to-end: Wire live claude+jev executors"
+    },
+    "b": {
+     "key": "why-dash",
+     "subject": "wire live claude+jev executors \u2014 prove the pipeline end-to-end"
+    }
+   }
+  ]
+ }
+}
