@@ -2,18 +2,40 @@
   "contract": "algal.organism.v1",
   "key": "organism:pair-probe",
   "name": "Pair probe",
-  "note": "Method inner loop. One pair of misfit variables arrives as [idA, textA, idB, textB]; a decide cell judges whether they interact and with what sign. Alexander's correlation step, made honest: every interaction claim is a typed decision with a receipt, not an intuition. The output is always a record — {linked:false} when the pair is independent — so the collector can filter on structure.",
-  "budgets": { "maxSteps": 8, "maxAgentCalls": 2, "maxWork": 40000 },
+  "note": "Method inner loop. One pair of misfit variables arrives as [idA, textA, idB, textB]; a decide cell judges whether they interact and with what sign. Alexander's correlation step, made honest: every interaction claim is a typed decision with a receipt, not an intuition. The output is always a record \u2014 {linked:false} when the pair is independent \u2014 so the collector can filter on structure.",
+  "budgets": {
+    "maxSteps": 8,
+    "maxAgentCalls": 2,
+    "maxWork": 40000
+  },
   "interface": {
-    "inputs": { "pair": { "cell": "p", "port": "pair" } },
-    "outputs": { "link": { "cell": "link", "port": "out" } }
+    "inputs": {
+      "pair": {
+        "cell": "p",
+        "port": "pair"
+      }
+    },
+    "outputs": {
+      "link": {
+        "cell": "link",
+        "port": "out"
+      }
+    }
   },
   "cells": [
-    { "id": "p", "kind": "input", "outputs": { "pair": "json" } },
+    {
+      "id": "p",
+      "kind": "input",
+      "outputs": {
+        "pair": "json"
+      }
+    },
     {
       "id": "probe",
       "kind": "decide",
-      "inputs": { "p": "json" },
+      "inputs": {
+        "p": "json"
+      },
       "prompt": "Two misfit variables from one design ensemble, as [id, statement, id, statement]. Judge their interaction.",
       "questions": {
         "interact": {
@@ -23,35 +45,130 @@
         "sign": {
           "type": "choice",
           "instructions": "If they interact: does satisfying one help the other (concord) or hinder it (conflict)?",
-          "criteria": { "concord": null, "conflict": null }
+          "criteria": {
+            "concord": null,
+            "conflict": null
+          }
         }
       },
-      "view": { "inputs": "*" },
-      "budget": { "maxContextBytes": 8192 }
+      "view": {
+        "inputs": "*"
+      },
+      "budget": {
+        "maxContextBytes": 8192
+      },
+      "route": {
+        "provider": "jev"
+      }
     },
     {
       "id": "link",
       "kind": "expr",
-      "inputs": { "p": "json", "a": "json" },
+      "inputs": {
+        "p": "json",
+        "a": "json"
+      },
       "expr": {
         "contract": "algal.expr.v1",
         "program": [
-          "if", ["gte", ["get", "a", "answers", "interact", "noul"], 0.5],
+          "if",
+          [
+            "gte",
+            [
+              "get",
+              "a",
+              "answers",
+              "interact",
+              "noul"
+            ],
+            0.5
+          ],
           {
             "linked": true,
-            "a": ["nth", ["get", "p"], 0],
-            "b": ["nth", ["get", "p"], 2],
-            "sign": ["get", "a", "answers", "sign", "choice"]
+            "a": [
+              "nth",
+              [
+                "get",
+                "p"
+              ],
+              0
+            ],
+            "b": [
+              "nth",
+              [
+                "get",
+                "p"
+              ],
+              2
+            ],
+            "sign": [
+              "get",
+              "a",
+              "answers",
+              "sign",
+              "choice"
+            ]
           },
-          { "linked": false, "a": ["nth", ["get", "p"], 0], "b": ["nth", ["get", "p"], 2], "sign": "" }
+          {
+            "linked": false,
+            "a": [
+              "nth",
+              [
+                "get",
+                "p"
+              ],
+              0
+            ],
+            "b": [
+              "nth",
+              [
+                "get",
+                "p"
+              ],
+              2
+            ],
+            "sign": ""
+          }
         ]
       },
-      "output": { "kind": "json", "schema": { "type": "object" } }
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "object"
+        }
+      }
     }
   ],
   "edges": [
-    { "from": { "cell": "p", "port": "pair" }, "to": { "cell": "probe", "port": "p" } },
-    { "from": { "cell": "p", "port": "pair" }, "to": { "cell": "link", "port": "p" } },
-    { "from": { "cell": "probe", "port": "out" }, "to": { "cell": "link", "port": "a" } }
+    {
+      "from": {
+        "cell": "p",
+        "port": "pair"
+      },
+      "to": {
+        "cell": "probe",
+        "port": "p"
+      }
+    },
+    {
+      "from": {
+        "cell": "p",
+        "port": "pair"
+      },
+      "to": {
+        "cell": "link",
+        "port": "p"
+      }
+    },
+    {
+      "from": {
+        "cell": "probe",
+        "port": "out"
+      },
+      "to": {
+        "cell": "link",
+        "port": "a"
+      }
+    }
   ]
 }

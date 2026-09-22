@@ -2,41 +2,125 @@
   "contract": "algal.organism.v1",
   "key": "organism:diagram",
   "name": "Construct the diagram",
-  "note": "Method step 3. A decomposed subsystem of forces arrives as data; the designer cell emits a constructive diagram — a small organism manifest — and spawn admits and runs it immediately. Alexander's pattern is both the summary of the forces and the recipe for the form; here that is literal, because the emitted diagram executes. If the spawned child misfits (bad manifest, contract violation), the failure arrives on a declared edge as a misfit record — the diagram step is itself inside declared-failure-path.",
-  "budgets": { "maxSteps": 16, "maxAgentCalls": 4, "maxWork": 80000 },
+  "note": "Method step 3. A decomposed subsystem of forces arrives as data; the designer cell emits a constructive diagram \u2014 a small organism manifest \u2014 and spawn admits and runs it immediately. Alexander's pattern is both the summary of the forces and the recipe for the form; here that is literal, because the emitted diagram executes. If the spawned child misfits (bad manifest, contract violation), the failure arrives on a declared edge as a misfit record \u2014 the diagram step is itself inside declared-failure-path.",
+  "budgets": {
+    "maxSteps": 16,
+    "maxAgentCalls": 4,
+    "maxWork": 80000
+  },
   "interface": {
-    "inputs": { "forces": { "cell": "sub", "port": "forces" } },
+    "inputs": {
+      "forces": {
+        "cell": "sub",
+        "port": "forces"
+      }
+    },
     "outputs": {
-      "child": { "cell": "run", "port": "digest" },
-      "form": { "cell": "run", "port": "data" },
-      "misfit": { "cell": "miss", "port": "out" }
+      "child": {
+        "cell": "run",
+        "port": "digest"
+      },
+      "form": {
+        "cell": "run",
+        "port": "data"
+      },
+      "misfit": {
+        "cell": "miss",
+        "port": "out"
+      }
     }
   },
   "cells": [
-    { "id": "sub", "kind": "input", "outputs": { "forces": "json" } },
+    {
+      "id": "sub",
+      "kind": "input",
+      "outputs": {
+        "forces": "json"
+      }
+    },
     {
       "id": "designer",
       "kind": "agent",
-      "inputs": { "forces": "json" },
-      "prompt": "Emit ONE algal.organism.v1 manifest — a constructive diagram resolving this small system of forces. Keep it minimal and input-free: a const cell emitting the resolution text, interface.outputs {out}. The manifest is data; it will be admitted, spawned, and run now.",
-      "output": { "kind": "json", "schema": { "type": "object" } },
-      "view": { "inputs": "*" }
+      "inputs": {
+        "forces": "json"
+      },
+      "prompt": "Emit ONE algal.organism.v1 manifest \u2014 a constructive diagram resolving this small system of forces. The manifest is data; it will be admitted, spawned, and run now. Admission is strict: unknown keys are rejected, so use EXACTLY this shape \u2014 {\"contract\":\"algal.organism.v1\",\"key\":\"organism:<kebab-name>\",\"name\":\"<short name>\",\"note\":\"<which forces it resolves and how>\",\"budgets\":{\"maxSteps\":4,\"maxAgentCalls\":0,\"maxWork\":10000},\"interface\":{\"outputs\":{\"out\":{\"cell\":\"c\",\"port\":\"out\"}}},\"cells\":[{\"id\":\"c\",\"kind\":\"const\",\"outputs\":{\"out\":{\"type\":\"text\",\"value\":\"<the resolution>\"}}}],\"edges\":[]}. One const cell, no inputs, output port \"out\" as text.",
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "object"
+        }
+      },
+      "view": {
+        "inputs": "*"
+      }
     },
-    { "id": "run", "kind": "spawn" },
+    {
+      "id": "run",
+      "kind": "spawn"
+    },
     {
       "id": "miss",
       "kind": "expr",
-      "inputs": { "f": "json" },
+      "inputs": {
+        "f": "json"
+      },
       "expr": {
         "contract": "algal.expr.v1",
-        "program": { "misfit": { "code": ["get", "f", "code"], "message": ["get", "f", "message"] } }
+        "program": {
+          "misfit": {
+            "code": [
+              "get",
+              "f",
+              "code"
+            ],
+            "message": [
+              "get",
+              "f",
+              "message"
+            ]
+          }
+        }
       },
-      "output": { "kind": "json", "schema": { "type": "object" } }
+      "output": {
+        "kind": "json",
+        "schema": {
+          "type": "object"
+        }
+      }
     }
   ],
   "edges": [
-    { "from": { "cell": "sub", "port": "forces" }, "to": { "cell": "designer", "port": "forces" } },
-    { "from": { "cell": "designer", "port": "out" }, "to": { "cell": "run", "port": "manifest" } },
-    { "from": { "cell": "run", "port": "data" }, "to": { "cell": "miss", "port": "f" }, "on": "fail" }
+    {
+      "from": {
+        "cell": "sub",
+        "port": "forces"
+      },
+      "to": {
+        "cell": "designer",
+        "port": "forces"
+      }
+    },
+    {
+      "from": {
+        "cell": "designer",
+        "port": "out"
+      },
+      "to": {
+        "cell": "run",
+        "port": "manifest"
+      }
+    },
+    {
+      "from": {
+        "cell": "run",
+        "port": "data"
+      },
+      "to": {
+        "cell": "miss",
+        "port": "f"
+      },
+      "on": "fail"
+    }
   ]
 }

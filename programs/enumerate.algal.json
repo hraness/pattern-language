@@ -2,31 +2,70 @@
   "contract": "algal.organism.v1",
   "key": "organism:enumerate",
   "name": "Enumerate the ensemble",
-  "note": "Method step 1. Context in, misfit list out. Alexander's first move is negative definition: you cannot state what makes a form fit, only what would make it fail. The agent's whole job here is to externalize the failure modes as a finite, falsifiable set — the ensemble is data from this point on, not a feeling.",
-  "budgets": { "maxSteps": 8, "maxAgentCalls": 2, "maxWork": 60000 },
+  "note": "Method step 1. Context in, misfit list out. Alexander's first move is negative definition: you cannot state what makes a form fit, only what would make it fail. The agent's whole job here is to externalize the failure modes as a finite, falsifiable set \u2014 the ensemble is data from this point on, not a feeling.",
+  "budgets": {
+    "maxSteps": 8,
+    "maxAgentCalls": 2,
+    "maxWork": 60000
+  },
   "interface": {
-    "inputs": { "context": { "cell": "ctx", "port": "context" } },
-    "outputs": { "ensemble": { "cell": "enum", "port": "out" } }
+    "inputs": {
+      "context": {
+        "cell": "ctx",
+        "port": "context"
+      }
+    },
+    "outputs": {
+      "ensemble": {
+        "cell": "enum",
+        "port": "out"
+      }
+    }
   },
   "cells": [
-    { "id": "ctx", "kind": "input", "outputs": { "context": "text" } },
+    {
+      "id": "ctx",
+      "kind": "input",
+      "outputs": {
+        "context": "text"
+      }
+    },
     {
       "id": "enum",
       "kind": "agent",
-      "inputs": { "context": "text" },
-      "prompt": "Enumerate the misfit variables of this design problem — the finite set of binary requirements whose activation would be a failure of fit between form and context. Emit {\"misfits\": [{\"id\": \"m1\", \"text\": \"one falsifiable failure statement\"}, ...]}. 6 to 12 misfits. No positives, only failure modes.",
+      "inputs": {
+        "context": "text"
+      },
+      "prompt": "Enumerate the misfit variables of this design problem \u2014 the finite set of binary requirements whose activation would be a failure of fit between form and context. Emit {\"misfits\": [{\"id\": \"m1\", \"text\": \"one falsifiable failure statement\"}, ...]}. At most 8 misfits \u2014 a bounded ensemble; downstream correlation budgets refuse larger sets. Fewer, sharper failure modes beat exhaustive lists. No positives, only failure modes.",
       "output": {
         "kind": "json",
         "schema": {
           "type": "object",
-          "required": ["misfits"],
-          "properties": { "misfits": { "type": "array" } }
+          "required": [
+            "misfits"
+          ],
+          "properties": {
+            "misfits": {
+              "type": "array"
+            }
+          }
         }
       },
-      "view": { "inputs": "*" }
+      "view": {
+        "inputs": "*"
+      }
     }
   ],
   "edges": [
-    { "from": { "cell": "ctx", "port": "context" }, "to": { "cell": "enum", "port": "context" } }
+    {
+      "from": {
+        "cell": "ctx",
+        "port": "context"
+      },
+      "to": {
+        "cell": "enum",
+        "port": "context"
+      }
+    }
   ]
 }

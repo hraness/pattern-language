@@ -58,7 +58,7 @@
     {
       "id": "en",
       "kind": "organism",
-      "manifest": "sha256:fe4c1d01ec32aaca7b96d601fdcc7d79fdbbe7d4d299ef5f993a7ba889b1aec6"
+      "manifest": "sha256:e31493860a8aea0a32a43d47277743c08ef8b0309e4794886b43dc52457701e5"
     },
     {
       "id": "pm",
@@ -84,7 +84,7 @@
     {
       "id": "co",
       "kind": "organism",
-      "manifest": "sha256:688b739521409fa26eb61ae9e34f391f33cbacc5d1180c9d2fc9cd42ab564ae2"
+      "manifest": "sha256:10109cb60910964eb69fd360fe19e80b35760af87664228465474eb8db363d75"
     },
     {
       "id": "dc",
@@ -161,7 +161,7 @@
     {
       "id": "dg",
       "kind": "each",
-      "manifest": "sha256:828404fa4dc6d9028da654dce90c0f5c400ede0add02352fbb23697ef307ab8f",
+      "manifest": "sha256:97bf78aff3f0d0b719b8aca69a7a0a9b64874a9eeaf7e98d35596f12440bcf5b",
       "over": "forces",
       "maxItems": 16
     },

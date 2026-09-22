@@ -164,6 +164,26 @@ around clipped evidence hiding failure signals (`m5–m8`, `m7–m8`) — a
 defensible reading the hand-claimed graph missed. This is the point made
 concrete: link claims become typed, contestable, receipted data.
 
+`receipts/synthesize.live.json` goes further — the whole method live:
+`--executor-cmd scripts/agent-executor.py` (a local `claude -p` adapter)
+serving `agent` cells, `--jev` serving `decide` cells via explicit
+`route.provider`. Claude enumerated 8 real misfits, Jev judged 28 pairs
+into 6 links, `decompose` split off `m8` (structural markers — judged
+orthogonal to the TTY/progress cluster), claude emitted two child
+manifests that were admitted, spawned, and **ran**, and `realize` fused
+the form. 31 agent calls, one 74KB receipt.
+
+Two honest observations from going live:
+
+- The bounds earned their keep twice: a 12-misfit enumeration exceeded
+  `each`'s `maxItems` (bounded ensembles are a contract, not a habit), and
+  the first child manifests failed admission on an unknown `version` key
+  — captured as misfit records rather than crashing the run.
+- Live diagram prose is weaker than the scripted fixture ("Remediation
+  pathway established through systematic analysis" vs. a crisp const).
+  Judgment ≠ taste: the pipeline composes and receipts; the quality of
+  what flows through it is the model's problem — and now measurable.
+
 ## Status
 
 Working skeleton with a real end-to-end run: `synthesize` enumerates an
@@ -187,14 +207,18 @@ What is proven:
 
 What is not proven:
 
-- The ensembles' `links` are claimed judgments — only a live `correlate`
-  earns them receipts. No live executor is wired in CI yet.
+- Live runs need local credentials (`algal auth jev`, a `claude`/`codex`
+  CLI for `agent` cells via `--executor-cmd`) — CI replays receipts, it
+  doesn't regenerate them. Executor output is nondeterministic by design;
+  the receipt is execution evidence, not a replayable oracle.
 - Greedy `decompose` ≠ Alexander's HIDECS partition. 0.84 agreement on
   *his* graph is encouraging, not conclusive; on algal-src the same rule
   blurs hub-centered subsystems.
-- Nothing yet shows the method improves real code or visual design
-  outcomes. It is a mechanically demonstrated prototype with a working
-  measurement loop — not a validated design tool.
+- The model's *taste* is the weakest link: live diagram fragments are
+  plausible but generic. Whether the method produces better artifacts
+  than unaided prompting is still unmeasured — that's what the foundry
+  loop (propose variants, score on labeled cases, promote champions)
+  exists to test.
 
 > "No one will become a better designer by blindly following this method...
 > if you try to understand the idea that you can create abstract patterns by
