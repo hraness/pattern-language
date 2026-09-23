@@ -128,6 +128,7 @@ def score_study(plan_text, run_text, root=ROOT):
     for call in run['calls']:
         attempt = {'id': call['id'], 'context': call['context'], 'arm': call['arm'],
                    'repetition': call['repetition'], 'generated': call['status'] == 'generated-not-reviewed',
+                   'providerAttempts': len(call.get('attempts') or []),
                    'artifactValid': False, 'coverageComplete': False, 'mechanical': False,
                    'errors': [], 'artifact': None, 'metrics': None}
         if call['status'] == 'generated-not-reviewed':
