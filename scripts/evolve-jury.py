@@ -17,6 +17,7 @@ import itertools, json, os, subprocess, sys, tempfile
 ALGAL = os.environ.get("ALGAL_CMD", "bunx github:hraness/algal").split()
 STORE = os.environ.get("ALGAL_STORE", "/tmp/pl-store")
 EXECUTOR = os.environ.get("AGENT_EXECUTOR", "scripts/agent-executor.py")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def run_algal(args, cwd=None):
     # stdout goes to a file, not a pipe: process.stdout.write to a pipe is
@@ -187,14 +188,28 @@ def main():
     cfg = json.load(open(os.path.join(habitat, "foundry.config.json")))
     arena = [c for c in cfg["cases"] if c["split"] == "holdout"][0]
     src_args = arena["args"].get("src", arena["args"])
+    links = None
     if "job" in src_args and "misfits" in src_args["job"]:
         job = src_args["job"]
+        # The full coupling list exceeds the expr list bound, so it lives in
+        # the ensemble contract rather than the case args; only the agent-cell
+        # writer and this driver's Python ever read it.
+        links = job.get("links")
+        if links is None:
+            ens = os.path.join(ROOT, "ensembles",
+                               os.path.basename(habitat).removeprefix("partition-")
+                               + ".ensemble.json")
+            if os.path.exists(ens):
+                links = json.load(open(ens)).get("links")
         # renders already carry every misfit's text — the brief stays
-        # compact: couplings as "a+b" pairs, not the full catalog
+        # compact: couplings as "a+b" pairs, not the full catalog. The
+        # duel item is bound inside an expr cell, so only the bounded
+        # sample fits the runtime's list limit.
         brief = {"task": "pick the better decomposition of these "
                          "requirements into named subsystems"}
-        if job.get("links"):
-            brief["couplings"] = [f"{l['a']}+{l['b']}" for l in job["links"]]
+        couplings = job.get("sampleLinks") or links
+        if couplings:
+            brief["couplings"] = [f"{l['a']}+{l['b']}" for l in couplings]
         for k in ("requires", "separates"):
             if job.get(k):
                 brief[k] = job[k]
@@ -273,9 +288,14 @@ def main():
         # not input: strip it so generated partitions can't copy the answer
         writer_job = {k: v for k, v in (src_args.get("job") or {}).items()
                       if k != "oracle"}
+        if links is not None:
+            writer_job["links"] = links
+        gen_src = {"task": task, "prior": prior, "job": writer_job or None}
+        repair = (src_args.get("job") or {}).get("repairProgram")
+        if repair is not None:
+            gen_src["repair-program"] = repair
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
-            json.dump({"src": {"task": task, "prior": prior,
-                               "job": writer_job or None}}, fh)
+            json.dump({"src": gen_src}, fh)
             gen_args = fh.name
         g, gp = run_algal(["run", "generator.algal.json", "--args", gen_args,
                           "--dir", STORE] + gen_extra, habitat)
