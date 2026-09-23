@@ -31,12 +31,14 @@ private_output = BASE.ORIGINAL.private_output
 PROVIDER_NAME = 'vercel-ai-gateway'
 ORIGIN = 'https://ai-gateway.vercel.sh'
 GATEWAY_CLIENT = str(ROOT / 'scripts' / 'gateway-client.py')
-ACCOUNT = 'vercel-ai-gateway/local-key'
-ACCOUNT_TOKEN_PATH = Path('/Users/bg/src/mc-zero/.env')
+ACCOUNT = 'vercel-ai-gateway/study-key'
+ACCOUNT_TOKEN_PATH = Path('/Users/bg/.local/share/pattern-language/village-gateway/credential.env')
 CREDENTIAL_PATH = ACCOUNT_TOKEN_PATH
 ACCOUNT_BINDING = {'method': 'local-env-credential-presence', 'matched': True}
-MODEL = 'anthropic/claude-sonnet-4.6'
-MODEL_UID = 'anthropic/claude-sonnet-4.6'
+# Model is selectable per-run (recorded in the frozen protocol); the route pins
+# the model id verbatim so the plan binds exactly what was requested.
+MODEL = os.environ.get('VILLAGE_GATEWAY_MODEL', 'anthropic/claude-sonnet-4.6')
+MODEL_UID = MODEL
 COMMAND = [shutil.which('python3') or '/usr/bin/python3', GATEWAY_CLIENT]
 CATALOG_COMMAND = ['GET', f'{ORIGIN}/v1/models']
 EXTRA_FROZEN_PATHS = ('scripts/gateway-client.py', 'scripts/test_village_gateway.py')
