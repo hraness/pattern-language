@@ -13,6 +13,7 @@ import math
 import os
 from pathlib import Path
 import subprocess
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('decompose_provider', Path(__file__).with_name('run-design-swe2.py'))
@@ -33,6 +34,9 @@ invoke = PROVIDER.invoke
 
 BENCH = 'benchmarks/village-decompose'
 ARMS = ('direct', 'checklist', 'pattern')
+RETRY_BUDGET = 6
+RETRY_DELAY_SECONDS = 30
+TRANSIENT_FAILURE_CODES = frozenset({'deadline', 'busy', 'provider_error', 'unavailable'})
 INTRO = ('Construct a solution to the task below. Use only the supplied prompt. '
          'Do not use tools, browse, or inspect repository files. Return only one '
          'JSON decomposition artifact conforming to the supplied schema, with no Markdown fences.')
@@ -85,12 +89,12 @@ def protocol_for(identity, qualification):
         'maxInputBytes': PROVIDER.MAX_INPUT_BYTES, 'maxOutputBytes': PROVIDER.MAX_OUTPUT_BYTES,
         'outerTimeoutSeconds': PROVIDER.OUTER_TIMEOUT_SECONDS,
         'cancellationGraceSeconds': PROVIDER.CANCELLATION_GRACE_SECONDS,
-        'retryBudget': 0, 'requestedAccount': PROVIDER.ACCOUNT, 'requestedModel': PROVIDER.MODEL,
+        'retryBudget': RETRY_BUDGET, 'requestedAccount': PROVIDER.ACCOUNT, 'requestedModel': PROVIDER.MODEL,
         'command': PROVIDER.COMMAND, **identity, 'qualification': qualification,
         'systemPrompt': None, 'promptIntro': INTRO,
         'repetitions': 12, 'contexts': ['village'], 'arms': list(ARMS), 'stages': ['decomposition'],
         'tools': [], 'hooks': [], 'ephemeral': True, 'feedback': 'none',
-        'schedule': 'Rotate arm order by repetition mod 3; serial independent single-shot requests.',
+        'schedule': 'Rotate arm order by repetition mod 3; serial independent requests; each call retries transient provider failures up to retryBudget extra attempts.',
         'denominator': MAX_CALLS, 'denominatorPerContextArm': 12, 'missingCountsAsFailure': True,
         'artifactHandling': 'Preserve exact raw text; parse and evaluate only after generation is finalized.',
         'catalogCommand': [PROVIDER.DEVIN, 'models', 'list', '--format', 'json'],
@@ -102,7 +106,7 @@ def protocol_for(identity, qualification):
             'XCB reports no token usage, monetary cost, or immutable provider model revision.',
             'Selected account/model identity is XCB routing evidence, not independently reported model identity.',
             'XCB prefixes the caller prompt with fixed application instructions in one ACP text block; no separate system-role message is sent.',
-            'No runner retries; provider-internal inference or transport retries are not observable.',
+            'Runner retries each call up to retryBudget extra provider attempts on transient failures only; every attempt envelope is preserved in call attempts and raw/.',
             'Twelve repetitions per arm on one decomposition task do not establish general effectiveness.',
             'A reused published reference decomposition cannot establish usefulness on unseen problem corpora.',
             "The hidden reference is Alexander's 1973 decomposition; the model may reproduce memorized structure.",
@@ -259,29 +263,40 @@ def run_study(output, provider=invoke, version_reader=identities,
             break
         record = {**job, 'admitted': True, 'status': 'admitted-awaiting-response', 'admittedAt': admitted_at,
                   'countAsFailure': True, 'costUsd': None, 'costStatus': 'not-reported',
-                  'prompt': prompt, 'promptSha256': sha(prompt), 'promptFiles': paths, 'eligibility': ready}
+                  'prompt': prompt, 'promptSha256': sha(prompt), 'promptFiles': paths, 'eligibility': ready,
+                  'attempts': []}
         run['calls'].append(record)
         run['admittedCalls'] += 1
         run.update(knownCostUsd=None, costComplete=False)
         write_json(output / 'run.json', run)
-        try:
-            raw = provider(PROVIDER.COMMAND[:], request, raw_dir, PROVIDER.OUTER_TIMEOUT_SECONDS)
-        except Exception as error:
-            raw = {'exitCode': None, 'timeout': False, 'elapsedSeconds': 0,
-                   'stdout': '', 'stderr': f'{type(error).__name__}: {error}', 'custodyUncertain': True}
-        write_text(raw_dir / 'stdout.txt', raw['stdout'])
-        write_text(raw_dir / 'stderr.txt', raw['stderr'])
-        # An intentionally non-code/non-design stage validates only the provider
-        # envelope. No artifact JSON is parsed during generation.
-        result, stops = PROVIDER.decode_response(raw, 'decomposition')
-        request_id = result.get('providerEnvelope', {}).get('requestId')
-        if request_id in request_ids:
-            result = {key: raw.get(key) for key in ('exitCode', 'timeout', 'elapsedSeconds')}
-            result.update(status='failed-generation', countAsFailure=True, costUsd=None,
-                          costStatus='not-reported', failureReason='duplicate-application-request-id')
-            stops = ['duplicate-application-request-id']
-        elif request_id is not None:
-            request_ids.add(request_id)
+        for attempt in range(1, 2 + plan['protocol']['retryBudget']):
+            if attempt > 1:
+                time.sleep(RETRY_DELAY_SECONDS)
+            try:
+                raw = provider(PROVIDER.COMMAND[:], request, raw_dir, PROVIDER.OUTER_TIMEOUT_SECONDS)
+            except Exception as error:
+                raw = {'exitCode': None, 'timeout': False, 'elapsedSeconds': 0,
+                       'stdout': '', 'stderr': f'{type(error).__name__}: {error}', 'custodyUncertain': True}
+            suffix = '' if attempt == 1 else f'-{attempt}'
+            write_text(raw_dir / f'stdout{suffix}.txt', raw['stdout'])
+            write_text(raw_dir / f'stderr{suffix}.txt', raw['stderr'])
+            # An intentionally non-code/non-design stage validates only the provider
+            # envelope. No artifact JSON is parsed during generation.
+            result, stops = PROVIDER.decode_response(raw, 'decomposition')
+            request_id = result.get('providerEnvelope', {}).get('requestId')
+            if request_id in request_ids:
+                result = {key: raw.get(key) for key in ('exitCode', 'timeout', 'elapsedSeconds')}
+                result.update(status='failed-generation', countAsFailure=True, costUsd=None,
+                              costStatus='not-reported', failureReason='duplicate-application-request-id')
+                stops = ['duplicate-application-request-id']
+            elif request_id is not None:
+                request_ids.add(request_id)
+            record['attempts'].append({'attempt': attempt, 'status': result.get('status'),
+                                       'failureCode': result.get('applicationFailureCode'),
+                                       'elapsedSeconds': result.get('elapsedSeconds'), 'requestId': request_id})
+            if (result.get('status') == 'generated-not-reviewed'
+                    or result.get('applicationFailureCode') not in TRANSIENT_FAILURE_CODES):
+                break
         record.update(result)
         record['finishedAt'] = now()
         run['stopReasons'] = sorted(set(run['stopReasons'] + stops))
@@ -331,7 +346,7 @@ def validate_run(plan, run, plan_text=None):
     failure_fields = {'failureReason', 'applicationFailureCode', 'custodyUncertain', 'pid'}
     for job, call in zip(plan['jobs'], run['calls']):
         check(isinstance(call, dict) and base_fields <= set(call)
-              and set(call) <= base_fields | admission_fields | response_fields | failure_fields, 'Invalid call fields')
+              and set(call) <= base_fields | admission_fields | response_fields | failure_fields | {'attempts'}, 'Invalid call fields')
         check(all(call.get(key) == value and type(call.get(key)) is type(value) for key, value in job.items()), 'Changed job metadata/order')
         check(type(call['admitted']) is bool and type(call['countAsFailure']) is bool, 'Invalid admission/failure boolean')
         if not call['admitted']:
@@ -357,6 +372,24 @@ def validate_run(plan, run, plan_text=None):
         check(type(call['timeout']) is bool and (call['exitCode'] is None or type(call['exitCode']) is int)
               and type(call['elapsedSeconds']) in (int, float) and math.isfinite(call['elapsedSeconds'])
               and call['elapsedSeconds'] >= 0, 'Invalid process receipt')
+        attempts = call.get('attempts')
+        check(isinstance(attempts, list) and 1 <= len(attempts) <= 1 + plan['protocol']['retryBudget'], 'Invalid call attempts')
+        for index, attempt in enumerate(attempts, 1):
+            check(set(attempt) == {'attempt', 'status', 'failureCode', 'elapsedSeconds', 'requestId'}
+                  and attempt['attempt'] == index
+                  and attempt['status'] in ('generated-not-reviewed', 'failed-generation')
+                  and (attempt['failureCode'] is None or attempt['failureCode'] in {
+                      'invalid_request', 'unavailable', 'busy', 'deadline', 'cancelled', 'provider_error',
+                      'output_limit', 'custody_unproven'})
+                  and type(attempt['elapsedSeconds']) in (int, float)
+                  and math.isfinite(attempt['elapsedSeconds']) and attempt['elapsedSeconds'] >= 0
+                  and (attempt['requestId'] is None or type(attempt['requestId']) is str and attempt['requestId']), 'Invalid call attempt')
+        for attempt in attempts[:-1]:
+            check(attempt['status'] == 'failed-generation' and attempt['failureCode'] in TRANSIENT_FAILURE_CODES,
+                  'Retried call attempt lacks a transient failure')
+            if attempt['requestId'] is not None:
+                check(attempt['requestId'] not in request_ids, 'Duplicate attempt request id')
+                request_ids.add(attempt['requestId'])
         if 'resultText' in call:
             check(response_fields <= set(call) and isinstance(call['resultText'], str)
                   and len(call['resultText'].encode('utf-8')) <= PROVIDER.MAX_OUTPUT_BYTES

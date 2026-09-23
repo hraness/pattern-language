@@ -289,6 +289,64 @@ class VillageRunnerTests(unittest.TestCase):
         self.assertNotIn('PRIVATE_FAILURE', json.dumps(run))
         self.validate(run)
 
+    def test_transient_failure_retries_and_completes_with_attempt_evidence(self):
+        self.prepare()
+        counter = [0]
+        def provider(*args):
+            counter[0] += 1
+            if counter[0] == 1:
+                return response(status='failed', code='deadline', requestId='fake-fail-1')
+            return response(requestId=f'fake-{counter[0]}')
+        old_delay = runner.RETRY_DELAY_SECONDS
+        runner.RETRY_DELAY_SECONDS = 0
+        try:
+            run = self.run_fake(provider)
+        finally:
+            runner.RETRY_DELAY_SECONDS = old_delay
+        self.assertEqual(run['status'], 'generation-complete-awaiting-evaluation')
+        self.assertEqual(run['admittedCalls'], 36)
+        first = run['calls'][0]
+        self.assertEqual(first['status'], 'generated-not-reviewed')
+        self.assertEqual(len(first['attempts']), 2)
+        self.assertEqual(first['attempts'][0]['status'], 'failed-generation')
+        self.assertEqual(first['attempts'][0]['failureCode'], 'deadline')
+        self.assertEqual(first['attempts'][1]['status'], 'generated-not-reviewed')
+        self.assertTrue((self.output / 'raw' / first['id'] / 'stdout-2.txt').exists())
+        for call in run['calls'][1:]:
+            self.assertEqual(len(call['attempts']), 1)
+        self.validate(run)
+
+    def test_nonretryable_failure_stops_without_retry(self):
+        self.prepare()
+        counter = [0]
+        def provider(*args):
+            counter[0] += 1
+            return response(status='failed', code='invalid_request', requestId=f'fake-bad-{counter[0]}')
+        run = self.run_fake(provider)
+        self.assertEqual(run['admittedCalls'], 1)
+        self.assertEqual(len(run['calls'][0]['attempts']), 1)
+        self.assertEqual(run['calls'][0]['attempts'][0]['failureCode'], 'invalid_request')
+        self.assertEqual(run['stopReasons'], ['application-protocol-or-provider-failure'])
+        self.validate(run)
+
+    def test_retry_exhaustion_records_each_attempt_and_stops(self):
+        self.prepare()
+        counter = [0]
+        def provider(*args):
+            counter[0] += 1
+            return response(status='failed', code='deadline', requestId=f'fake-dead-{counter[0]}')
+        old_delay = runner.RETRY_DELAY_SECONDS
+        runner.RETRY_DELAY_SECONDS = 0
+        try:
+            run = self.run_fake(provider)
+        finally:
+            runner.RETRY_DELAY_SECONDS = old_delay
+        self.assertEqual(run['admittedCalls'], 1)
+        self.assertEqual(len(run['calls'][0]['attempts']), 1 + runner.RETRY_BUDGET)
+        self.assertTrue(all(attempt['failureCode'] == 'deadline' for attempt in run['calls'][0]['attempts']))
+        self.assertEqual(run['stopReasons'], ['application-protocol-or-provider-failure'])
+        self.validate(run)
+
     def test_cancelled_root_is_reportable(self):
         self.prepare()
         run = self.run_fake(lambda *args: {**response(), 'cancelled': True})
