@@ -21,6 +21,10 @@
    "job": {
     "cell": "src",
     "port": "job"
+   },
+   "repair-program": {
+    "cell": "src",
+    "port": "repair-program"
    }
   },
   "outputs": {
@@ -37,7 +41,8 @@
    "outputs": {
     "task": "json",
     "prior": "json",
-    "job": "json"
+    "job": "json",
+    "repair-program": "json"
    }
   },
   {
@@ -69,7 +74,7 @@
    "kind": "expr",
    "inputs": {
     "specs": "json",
-    "job": "json"
+    "repair-program": "json"
    },
    "expr": {
     "contract": "algal.expr.v1",
@@ -158,8 +163,7 @@
          "contract": "algal.expr.v1",
          "program": [
           "get",
-          "job",
-          "repairProgram"
+          "repair-program"
          ]
         },
         "output": {
@@ -248,11 +252,11 @@
   {
    "from": {
     "cell": "src",
-    "port": "job"
+    "port": "repair-program"
    },
    "to": {
     "cell": "build",
-    "port": "job"
+    "port": "repair-program"
    }
   }
  ]
