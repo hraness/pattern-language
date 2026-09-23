@@ -1,0 +1,7963 @@
+{
+ "schema": "pattern-language.decompose-evaluation.v1",
+ "planSha256": "cd14acd93db114572ad47d9775a44d1b59731f290bf50106a5d3ed03e36a09cd",
+ "runSha256": "abe4fea1e17cb3b98af10d0950485991de7e42fd55401a0ddd5c90cae616e74c",
+ "denominator": 36,
+ "summary": {
+  "planned": 36,
+  "byArm": {
+   "direct": {
+    "planned": 12,
+    "generationCompleted": 12,
+    "artifactValid": 2,
+    "coverageComplete": 2,
+    "mechanical": 2,
+    "meanAdjustedRandIndex": 0.018286332035539365,
+    "meanMajorsAdjustedRandIndex": 0.026748188814320163,
+    "scoredCount": 2
+   },
+   "checklist": {
+    "planned": 12,
+    "generationCompleted": 12,
+    "artifactValid": 0,
+    "coverageComplete": 0,
+    "mechanical": 0,
+    "meanAdjustedRandIndex": 0.0,
+    "meanMajorsAdjustedRandIndex": 0.0,
+    "scoredCount": 0
+   },
+   "pattern": {
+    "planned": 12,
+    "generationCompleted": 12,
+    "artifactValid": 2,
+    "coverageComplete": 2,
+    "mechanical": 2,
+    "meanAdjustedRandIndex": 0.02094010187420257,
+    "meanMajorsAdjustedRandIndex": 0.02736815265856794,
+    "scoredCount": 2
+   }
+  },
+  "generationCompleted": 36,
+  "artifactValid": 4,
+  "coverageComplete": 4,
+  "mechanical": 4,
+  "meanAdjustedRandIndex": 0.013075477969913978,
+  "meanMajorsAdjustedRandIndex": 0.018038780490962702,
+  "scoredCount": 4
+ },
+ "attempts": [
+  {
+   "id": "village-direct-r1",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 1,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m25",
+       "m27",
+       "m114",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, ritual, and cultural events",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m24",
+       "m26",
+       "m102"
+      ]
+     },
+     {
+      "name": "Land tenure, boundaries, and agrarian organization",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m32",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production and field operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m60"
+      ]
+     },
+     {
+      "name": "Post-harvest handling, storage, and village commerce",
+      "misfits": [
+       "m37",
+       "m38",
+       "m87",
+       "m89",
+       "m97",
+       "m98",
+       "m128"
+      ]
+     },
+     {
+      "name": "Cattle, dairy, fodder, and livestock industries",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and disaster protection",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure, and village environment",
+      "misfits": [
+       "m34",
+       "m67",
+       "m68",
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m94",
+       "m101",
+       "m103",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Health, sanitation, and nutrition",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Education, information, and communications",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Governance, administration, and extension linkages",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m139"
+      ]
+     },
+     {
+      "name": "Employment, industry, power, and economic development",
+      "misfits": [
+       "m14",
+       "m15",
+       "m16",
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m81",
+       "m82",
+       "m99",
+       "m100",
+       "m130",
+       "m138"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r1",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 1,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, culture, and integration",
+      "misfits": [
+       "m1",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m8",
+       "m9",
+       "m10",
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m24",
+       "m26",
+       "m27",
+       "m102",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Land tenure, boundaries, and agricultural organization",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m32",
+       "m33",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production systems and field operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m35",
+       "m36",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47"
+      ]
+     },
+     {
+      "name": "Livestock, fodder, and animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood control",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Forests, ecology, soil conservation, and erosion control",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Village economy, markets, energy, and employment",
+      "misfits": [
+       "m14",
+       "m15",
+       "m37",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m97",
+       "m98",
+       "m99",
+       "m128",
+       "m130",
+       "m132",
+       "m138"
+      ]
+     },
+     {
+      "name": "Housing, domestic services, and settlement safety",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Mobility, roads, and transport access",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m100",
+       "m101",
+       "m103",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and communications",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, sanitation, nutrition, and family planning",
+      "misfits": [
+       "m2",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Governance, administration, and extension linkages",
+      "misfits": [
+       "m25",
+       "m82",
+       "m84",
+       "m118",
+       "m126",
+       "m127",
+       "m131",
+       "m135"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r1",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 1,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste relations, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m17",
+       "m20",
+       "m21",
+       "m22",
+       "m26",
+       "m27",
+       "m28",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, festivals, rites, and customs",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Education, youth and women development, information and communications",
+      "misfits": [
+       "m16",
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, sanitation, and nutrition",
+      "misfits": [
+       "m25",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Governance, administration, and development interface",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m139"
+      ]
+     },
+     {
+      "name": "Land tenure, farming systems, and field operations",
+      "misfits": [
+       "m18",
+       "m19",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m35",
+       "m36",
+       "m42",
+       "m43",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m60"
+      ]
+     },
+     {
+      "name": "Crops, storage, and agricultural marketing",
+      "misfits": [
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m44",
+       "m45",
+       "m97",
+       "m98",
+       "m128",
+       "m138"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, drinking water, irrigation, and drainage",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, domestic facilities, safety, and village environment",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Transport, mobility, and access infrastructure",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m99",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Village economy, employment, industry, power, and goods markets",
+      "misfits": [
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m81",
+       "m82",
+       "m89"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r2",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 2,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste relations, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m26",
+       "m27",
+       "m114",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Governance, administration, and civic information",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth development, and communications",
+      "misfits": [
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, nutrition, and family planning",
+      "misfits": [
+       "m2",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Land tenure, agrarian reform, and farm organization",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production systems and farm logistics",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal power",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, and drainage",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Natural resources, forestry, and erosion control",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Housing, domestic amenities, and settlement safety",
+      "misfits": [
+       "m3",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, roads, mobility, and market access",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Local economy, employment, markets, and modernization",
+      "misfits": [
+       "m14",
+       "m15",
+       "m16",
+       "m24",
+       "m25",
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m89",
+       "m102",
+       "m130"
+      ]
+     },
+     {
+      "name": "Culture, religion, and ceremonial life",
+      "misfits": [
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m32",
+       "m34",
+       "m52",
+       "m54",
+       "m58"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r2",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 2,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m26",
+       "m27",
+       "m28",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, ritual, festivals and life-cycle customs",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Agriculture crops and field operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m46",
+       "m47",
+       "m49"
+      ]
+     },
+     {
+      "name": "Land resources, scarcity and conservation",
+      "misfits": [
+       "m32",
+       "m43",
+       "m48",
+       "m104",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Livestock, fodder and animal industries",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water supply, irrigation, drainage and flood management",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, sanitation, domestic infrastructure and safety",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m122",
+       "m123",
+       "m124"
+      ]
+     },
+     {
+      "name": "Transport, access and circulation",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m139"
+      ]
+     },
+     {
+      "name": "Economy, markets, employment, power and village industry",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m89",
+       "m128",
+       "m130",
+       "m132",
+       "m138"
+      ]
+     },
+     {
+      "name": "Education, youth, information and governance interface",
+      "misfits": [
+       "m84",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m126",
+       "m127",
+       "m131",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, nutrition, maternal and child welfare",
+      "misfits": [
+       "m16",
+       "m25",
+       "m29",
+       "m81",
+       "m82",
+       "m120",
+       "m121",
+       "m125",
+       "m105",
+       "m106"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r2",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 2,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, ritual, and cultural life",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m24",
+       "m26",
+       "m83",
+       "m102"
+      ]
+     },
+     {
+      "name": "Governance, administration, and extension linkage",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and information programs",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m130"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and social welfare",
+      "misfits": [
+       "m25",
+       "m67",
+       "m68",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Land tenure, farm organization, and rural economy",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m43",
+       "m48",
+       "m49",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m128",
+       "m138"
+      ]
+     },
+     {
+      "name": "Crop production and farm operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47"
+      ]
+     },
+     {
+      "name": "Livestock and animal-based production",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, and disaster resilience",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure, and public safety",
+      "misfits": [
+       "m16",
+       "m27",
+       "m28",
+       "m29",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, roads, and mobility",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Natural resources, forests, and soil/ecosystem conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Village utilities and energy systems",
+      "misfits": [
+       "m64",
+       "m66"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r3",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 3,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": true,
+   "coverageComplete": true,
+   "mechanical": true,
+   "errors": [],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Governance, institutions, and development administration",
+      "misfits": [
+       "m84",
+       "m118",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and communications",
+      "misfits": [
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, water supply, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m67",
+       "m68",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure, and village safety",
+      "misfits": [
+       "m16",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m102"
+      ]
+     },
+     {
+      "name": "Transport access and internal circulation",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Land tenure, cultivation, crops, and farm operations",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and land/forest ecology",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Livestock, fodder, dairy, and animal power",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Economy, employment, energy, and rural industry",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Religion, temples, festivals, and life-cycle rituals",
+      "misfits": [
+       "m5",
+       "m6",
+       "m10",
+       "m24"
+      ]
+     },
+     {
+      "name": "Vulnerable support and social welfare",
+      "misfits": [
+       "m25",
+       "m29",
+       "m34",
+       "m114"
+      ]
+     }
+    ]
+   },
+   "metrics": {
+    "adjustedRandIndex": 0.11537171442092038,
+    "randIndex": 0.8497467071935157,
+    "pairPrecision": 0.18692543411644535,
+    "pairRecall": 0.2103448275862069,
+    "pairF1": 0.1979448350459708,
+    "majorsAdjustedRandIndex": 0.1771600655135738,
+    "majorsRandIndex": 0.752178318135765,
+    "groupCount": 12,
+    "linkedPairsInside": 30,
+    "linkIntegrity": true
+   }
+  },
+  {
+   "id": "village-direct-r3",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 3,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m16",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Rituals, religion, festivals and cultural life",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Agriculture: land, crops, inputs, storage and protection",
+      "misfits": [
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage and flood control",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, public spaces, safety and domestic infrastructure",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, roads and mobility",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m108",
+       "m109",
+       "m110",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, women and community development",
+      "misfits": [
+       "m82",
+       "m84",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, sanitation and nutrition",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Economic diversification, employment and markets",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m128",
+       "m138"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r3",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 3,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m16",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rituals, festivals, and cultural practices",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Governance, administration, information, and extension services",
+      "misfits": [
+       "m84",
+       "m117",
+       "m118",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and community development activities",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m119"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and nutrition",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Agriculture: crops, inputs, storage, and field operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Land resources, reclamation, and environment/forestry/soil",
+      "misfits": [
+       "m28",
+       "m32",
+       "m43",
+       "m48",
+       "m49",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Water resources: drinking water, irrigation, drainage, and floods",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Livestock and animal-based production (cattle, fodder, dairy, animal power)",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Housing, village layout, domestic services, and safety",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, roads, mobility, and market access",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m100",
+       "m101"
+      ]
+     },
+     {
+      "name": "Village economy, employment, industry, power, and local commerce",
+      "misfits": [
+       "m25",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m99",
+       "m103",
+       "m138"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r4",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 4,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religious and ceremonial life",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Governance, administration, and extension linkages",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and women\u2019s development",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m118",
+       "m119",
+       "m130"
+      ]
+     },
+     {
+      "name": "Public health, water, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m25",
+       "m29",
+       "m67",
+       "m68",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure, and village public space",
+      "misfits": [
+       "m16",
+       "m23",
+       "m24",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Agriculture, land tenure, and crop production",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal power",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and disaster resilience",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Economy, employment, energy, and markets",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transportation and mobility",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101"
+      ]
+     },
+     {
+      "name": "Natural environment, forestry, and ecology",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r4",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 4,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m17",
+       "m20",
+       "m21",
+       "m22",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Culture, religion, ceremonies, and public events",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Land tenure, boundaries, and field organization",
+      "misfits": [
+       "m18",
+       "m19",
+       "m28",
+       "m32",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production, inputs, protection, and post-harvest handling",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, fodder, and animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood resilience",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, settlement environment, and village facilities",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m84",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Health, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Education, youth and women development, and information flow",
+      "misfits": [
+       "m16",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m126",
+       "m127",
+       "m130",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Transport, mobility, markets, and economic infrastructure",
+      "misfits": [
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m89",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110",
+       "m131",
+       "m132",
+       "m138",
+       "m139",
+       "m81",
+       "m82"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r4",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 4,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": true,
+   "coverageComplete": true,
+   "mechanical": true,
+   "errors": [],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m27",
+       "m129",
+       "m133",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rituals, and cultural life",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m26",
+       "m102",
+       "m134"
+      ]
+     },
+     {
+      "name": "Land tenure, reform, and farm organization",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m32",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production, inputs, and post-harvest handling",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, fodder, and animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, drinking water, irrigation, and drainage",
+      "misfits": [
+       "m34",
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, sanitation, and village physical amenities",
+      "misfits": [
+       "m16",
+       "m29",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m122",
+       "m123",
+       "m124"
+      ]
+     },
+     {
+      "name": "Transportation, circulation, and access to services/markets",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, information, and communications",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110",
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Governance, administration, and development interface",
+      "misfits": [
+       "m14",
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m84",
+       "m89",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m138"
+      ]
+     },
+     {
+      "name": "Health, maternal care, and nutrition",
+      "misfits": [
+       "m25",
+       "m114",
+       "m120",
+       "m121",
+       "m125"
+      ]
+     }
+    ]
+   },
+   "metrics": {
+    "adjustedRandIndex": 0.13590950806951047,
+    "randIndex": 0.8573454913880446,
+    "pairPrecision": 0.20824295010845986,
+    "pairRecall": 0.2206896551724138,
+    "pairF1": 0.21428571428571427,
+    "majorsAdjustedRandIndex": 0.15125776638924143,
+    "majorsRandIndex": 0.7468085106382979,
+    "groupCount": 11,
+    "linkedPairsInside": 34,
+    "linkIntegrity": true
+   }
+  },
+  {
+   "id": "village-checklist-r5",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 5,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rituals, festivals, and cultural gatherings",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Land tenure, boundaries, and agrarian organization",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Field crops, inputs, operations, and produce handling",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Forestry, ecology, and soil/erosion conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood management",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Cattle, fodder, dairy, and animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Industry, employment, power, and economic diversification",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m138"
+      ]
+     },
+     {
+      "name": "Housing, settlement amenities, and domestic services",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Water supply and sanitation for households",
+      "misfits": [
+       "m29",
+       "m67",
+       "m68",
+       "m122"
+      ]
+     },
+     {
+      "name": "Public health, maternal care, and nutrition",
+      "misfits": [
+       "m120",
+       "m121",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Education, youth, women\u2019s development, and communications",
+      "misfits": [
+       "m16",
+       "m81",
+       "m82",
+       "m84",
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Governance, administration, incentives, and external linkages",
+      "misfits": [
+       "m14",
+       "m15",
+       "m25",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Transport, access, and movement networks",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m101",
+       "m103"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r5",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 5,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m17",
+       "m20",
+       "m21",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Governance, administration, extension, and communications",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and women's development",
+      "misfits": [
+       "m16",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m118",
+       "m119",
+       "m130"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m25",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Housing, domestic facilities, and village public spaces",
+      "misfits": [
+       "m3",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m28",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m102"
+      ]
+     },
+     {
+      "name": "Agriculture: land tenure, crops, inputs, and storage",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock and animal-based production",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and disaster protection",
+      "misfits": [
+       "m4",
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76",
+       "m107"
+      ]
+     },
+     {
+      "name": "Transport, mobility, access, and village circulation",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Village economy, employment, industry, markets, and power",
+      "misfits": [
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m99",
+       "m138"
+      ]
+     },
+     {
+      "name": "Ecology, forests, and erosion control",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r5",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 5,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Culture, religion, caste and social integration",
+      "misfits": [
+       "m1",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m8",
+       "m9",
+       "m10",
+       "m11",
+       "m20",
+       "m21",
+       "m23",
+       "m24",
+       "m26",
+       "m102",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Family, gender roles, and community life",
+      "misfits": [
+       "m12",
+       "m13",
+       "m16",
+       "m17",
+       "m27",
+       "m81",
+       "m82",
+       "m83",
+       "m114",
+       "m115"
+      ]
+     },
+     {
+      "name": "Governance, administration, extension and communications",
+      "misfits": [
+       "m84",
+       "m117",
+       "m118",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education and human capacity development",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m116",
+       "m119"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m25",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Land tenure, agrarian structure and labor economy",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m43",
+       "m48",
+       "m49",
+       "m61",
+       "m65",
+       "m138"
+      ]
+     },
+     {
+      "name": "Crop production and farm operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal husbandry",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources: drinking water, irrigation, drainage and floods",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure and settlement safety",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, access and mobility",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Energy and environmental conservation",
+      "misfits": [
+       "m66",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r6",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 6,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Governance, administration, and extension contact",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and communication media",
+      "misfits": [
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, sanitation, and family welfare",
+      "misfits": [
+       "m2",
+       "m25",
+       "m67",
+       "m68",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Culture, religion, and public gatherings",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m16",
+       "m23",
+       "m24",
+       "m26",
+       "m102",
+       "m114"
+      ]
+     },
+     {
+      "name": "Housing, domestic services, and settlement safety",
+      "misfits": [
+       "m12",
+       "m27",
+       "m28",
+       "m29",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Land tenure, labor, and village economy",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m48",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m89",
+       "m128",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Crops, soils, and farm operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m107"
+      ]
+     },
+     {
+      "name": "Livestock, fodder, and dairy/animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, and drainage",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Transport, roads, and mobility",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Forestry, ecology, and erosion control",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m108",
+       "m109",
+       "m110",
+       "m66"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r6",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 6,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m17",
+       "m20",
+       "m21",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Governance, administration, and extension linkage",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Culture, religion, and communal events",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Education, information, and communications",
+      "misfits": [
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m67",
+       "m68",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure, safety, and amenities",
+      "misfits": [
+       "m16",
+       "m25",
+       "m28",
+       "m29",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Agriculture and land management (crops, soils, inputs, storage)",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, fodder, and animal husbandry",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood control",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Economy, employment, markets, industry, and pricing",
+      "misfits": [
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m89",
+       "m128",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transport, roads, access, and logistics",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m101"
+      ]
+     },
+     {
+      "name": "Environment, forestry, and erosion control",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Women and youth development and social participation",
+      "misfits": [
+       "m114",
+       "m130"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r6",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 6,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m23",
+       "m25",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, sacred practices, festivals and rituals",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Local governance, administration and extension services",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, literacy, information and youth activities",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, nutrition and maternal care",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Water supply, irrigation, drainage and flood management",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Land use, crop production and farm operations",
+      "misfits": [
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, fodder and animal power",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Employment, industry, markets and economic policy",
+      "misfits": [
+       "m14",
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m128",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Energy, housing, domestic facilities and village safety",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m89",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, mobility and access (roads, vehicles, market links)",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101"
+      ]
+     },
+     {
+      "name": "Forests, ecology and soil/erosion conservation",
+      "misfits": [
+       "m66",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110",
+       "m103"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r7",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 7,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m26",
+       "m27",
+       "m28",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rituals, festivals, and cultural customs",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Agriculture production and land management",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m35",
+       "m36",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal husbandry",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood control",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Village housing, domestic facilities, and physical safety",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, access, and mobility (people and goods)",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m108",
+       "m109",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, communication, and civic administration",
+      "misfits": [
+       "m84",
+       "m89",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m110",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m138"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and nutrition",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Social welfare, inclusion, and community life",
+      "misfits": [
+       "m16",
+       "m23",
+       "m24",
+       "m25",
+       "m34",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m81",
+       "m82",
+       "m128"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r7",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 7,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m16",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rituals, festivals, and cultural events",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Agriculture: land use, crops, inputs, and operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal-powered work",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood resilience",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Village ecology, forestry, and soil conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Housing, sanitation, domestic infrastructure, and safety",
+      "misfits": [
+       "m28",
+       "m29",
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m122"
+      ]
+     },
+     {
+      "name": "Transport and mobility networks (local and external)",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and women\u2019s development",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m119"
+      ]
+     },
+     {
+      "name": "Public health, nutrition, and maternal care",
+      "misfits": [
+       "m117",
+       "m120",
+       "m121",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Governance, administration, extension, and communications",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Economy, employment, markets, industry, and subsidies",
+      "misfits": [
+       "m25",
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m81",
+       "m82",
+       "m89",
+       "m118",
+       "m128",
+       "m130",
+       "m132",
+       "m138"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r7",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 7,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste relations, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Family, marriage customs, and everyday social life",
+      "misfits": [
+       "m10",
+       "m11",
+       "m12",
+       "m16",
+       "m23",
+       "m26",
+       "m27",
+       "m102",
+       "m114",
+       "m115"
+      ]
+     },
+     {
+      "name": "Village governance, administration, and development liaison",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, information, and communication media",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m25",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Water resources: drinking supply, irrigation, drainage, and flood control",
+      "misfits": [
+       "m4",
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Agriculture and land management (crops, inputs, storage, tenure)",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock and animal husbandry (cattle, fodder, dairy, animal power)",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Village economy, employment, industry, energy, and markets",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transport, roads, and mobility",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure, safety, and comfort",
+      "misfits": [
+       "m3",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Environment, forestry, and soil conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Religion, sacred customs, and community ceremonies",
+      "misfits": [
+       "m5",
+       "m6",
+       "m24"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r8",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 8,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m17",
+       "m18",
+       "m20",
+       "m21",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Culture, religion, and public celebrations",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Land tenure, agrarian reform, and cooperative organization",
+      "misfits": [
+       "m19",
+       "m22",
+       "m28",
+       "m32",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production, inputs, protection, and on-farm operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, fodder, and animal industries",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood control",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, village amenities, energy, and domestic infrastructure",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Sanitation, health services, and nutrition",
+      "misfits": [
+       "m2",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Education, youth, women\u2019s development, and communications",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Governance, administration, incentives, and government interface",
+      "misfits": [
+       "m14",
+       "m15",
+       "m25",
+       "m84",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m138",
+       "m139"
+      ]
+     },
+     {
+      "name": "Transport, access, and mobility (people, goods, and markets)",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m89",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101"
+      ]
+     },
+     {
+      "name": "Ecology, forestry, and soil/erosion conservation",
+      "misfits": [
+       "m103",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r8",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 8,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "group 12 has fewer than 2 members"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, governance and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m17",
+       "m20",
+       "m21",
+       "m84",
+       "m129",
+       "m131",
+       "m133",
+       "m134",
+       "m135",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Family, gender roles, youth and cultural life",
+      "misfits": [
+       "m10",
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m23",
+       "m24",
+       "m26",
+       "m27",
+       "m82",
+       "m102",
+       "m114",
+       "m115"
+      ]
+     },
+     {
+      "name": "Education, literacy, communication and extension",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m116",
+       "m118",
+       "m119",
+       "m126",
+       "m127",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, nutrition, sanitation and hygiene",
+      "misfits": [
+       "m2",
+       "m25",
+       "m67",
+       "m68",
+       "m88",
+       "m92",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Housing, household services and village safety",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m90",
+       "m91",
+       "m93"
+      ]
+     },
+     {
+      "name": "Land tenure, agrarian economy and local markets",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m43",
+       "m48",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m89",
+       "m128",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Crop production, storage and farm operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal power",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage and flood control",
+      "misfits": [
+       "m29",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Transport, roads and mobility infrastructure",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m139"
+      ]
+     },
+     {
+      "name": "Environment, forests and erosion control",
+      "misfits": [
+       "m32",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Power and electrification",
+      "misfits": [
+       "m66",
+       "m81"
+      ]
+     },
+     {
+      "name": "Processions and civic accommodation",
+      "misfits": [
+       "m34"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r8",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 8,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, ritual, festivals and cultural customs",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Governance, administration, extension and public information",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, literacy, youth and women\u2019s activities",
+      "misfits": [
+       "m16",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m119"
+      ]
+     },
+     {
+      "name": "Public health, maternal care, nutrition and sanitation",
+      "misfits": [
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Housing, domestic services, safety and village amenities",
+      "misfits": [
+       "m25",
+       "m28",
+       "m29",
+       "m67",
+       "m68",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage and land conservation",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Agriculture, land use and crop production systems",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal husbandry",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Rural economy, employment, industry, energy and markets",
+      "misfits": [
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transport, roads and mobility",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r9",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 9,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, governance and integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m17",
+       "m20",
+       "m21",
+       "m22",
+       "m84",
+       "m126",
+       "m129",
+       "m131",
+       "m133",
+       "m134",
+       "m135",
+       "m136",
+       "m138",
+       "m139",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Family, gender roles and community life",
+      "misfits": [
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m23",
+       "m25",
+       "m26",
+       "m27",
+       "m114",
+       "m115",
+       "m130"
+      ]
+     },
+     {
+      "name": "Religion, rituals, festivals and life events",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Housing, domestic facilities, safety and public spaces",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Education, information and communications",
+      "misfits": [
+       "m100",
+       "m101",
+       "m111",
+       "m112",
+       "m113",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Health, sanitation, nutrition and maternal care",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Water resources: drinking, irrigation, drainage and flood control",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Crop agriculture and land management",
+      "misfits": [
+       "m18",
+       "m19",
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m104",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal power",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Village economy, industry, employment, markets and transport",
+      "misfits": [
+       "m14",
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m89",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m103"
+      ]
+     },
+     {
+      "name": "Forestry and natural environment",
+      "misfits": [
+       "m105",
+       "m106"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r9",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 9,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rites, sacred ecology, and cultural events",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m11",
+       "m102",
+       "m24"
+      ]
+     },
+     {
+      "name": "Land tenure, ownership, and consolidation",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production and field operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47"
+      ]
+     },
+     {
+      "name": "Cattle, dairy, fodder, and livestock management",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, and disaster resilience",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Village housing, sanitation, and domestic infrastructure",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m122"
+      ]
+     },
+     {
+      "name": "Health, nutrition, and family welfare services",
+      "misfits": [
+       "m25",
+       "m120",
+       "m121",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Education, youth, women\u2019s activities, and information outreach",
+      "misfits": [
+       "m16",
+       "m81",
+       "m82",
+       "m84",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m126",
+       "m127",
+       "m130",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Industry, employment, power, and markets",
+      "misfits": [
+       "m14",
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m128",
+       "m132",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transport, roads, and regional connectivity",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m139"
+      ]
+     },
+     {
+      "name": "Forestry, soil conservation, and land ecology",
+      "misfits": [
+       "m32",
+       "m34",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r9",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 9,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m23",
+       "m25",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rituals and cultural life",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Village governance, administration and development outreach",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m134",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, women\u2019s activities and communications",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, nutrition and drinking water",
+      "misfits": [
+       "m67",
+       "m68",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Land tenure, boundaries and agrarian reform",
+      "misfits": [
+       "m22",
+       "m28",
+       "m43",
+       "m48"
+      ]
+     },
+     {
+      "name": "Crop production, inputs, storage and marketing",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage and flood control",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal industries",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Rural industry, employment, power and economic diversification",
+      "misfits": [
+       "m14",
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Housing, domestic facilities and village safety/comfort",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport and mobility infrastructure",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Forests, ecology and soil/erosion conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r10",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 10,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, ritual, and cultural traditions",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m11",
+       "m24",
+       "m26",
+       "m102"
+      ]
+     },
+     {
+      "name": "Household, housing, and domestic life",
+      "misfits": [
+       "m12",
+       "m16",
+       "m27",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Land tenure, ownership, and agrarian organization",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m43",
+       "m48",
+       "m49"
+      ]
+     },
+     {
+      "name": "Crop production and farm operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal husbandry",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, and hydrology",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Environment, forestry, and soil/land conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Health, sanitation, and nutrition",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Education, youth, and social development",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m119"
+      ]
+     },
+     {
+      "name": "Governance, administration, and extension linkages",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m118"
+      ]
+     },
+     {
+      "name": "Economy, employment, markets, and industry",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m89",
+       "m128",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transport, mobility, and regional connectivity",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m139"
+      ]
+     },
+     {
+      "name": "Safety, security, and public protection",
+      "misfits": [
+       "m77",
+       "m81",
+       "m82",
+       "m25",
+       "m66"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r10",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 10,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m16",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m26",
+       "m27",
+       "m28",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, rituals, festivals, and cultural traditions",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Village governance, administration, extension, and public information",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth development, and civic participation",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m118",
+       "m119"
+      ]
+     },
+     {
+      "name": "Public health, maternal/child care, sanitation, and nutrition",
+      "misfits": [
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125",
+       "m25"
+      ]
+     },
+     {
+      "name": "Housing, domestic facilities, safety, and village public spaces",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transportation, access, and market connectivity",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101"
+      ]
+     },
+     {
+      "name": "Water resources: drinking water, irrigation, drainage, floods, and conservation",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Land, soil, forests, ecology, and environmental restoration",
+      "misfits": [
+       "m32",
+       "m43",
+       "m48",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Agriculture and crop production systems",
+      "misfits": [
+       "m30",
+       "m31",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock and dairy development",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Energy, employment, and non-farm rural economy",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m103",
+       "m138"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r10",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 10,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "group 12 has fewer than 2 members",
+    "group 13 has fewer than 2 members"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Governance, panchayat, administration, and development interface",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth and women\u2019s activities, and communication for learning",
+      "misfits": [
+       "m16",
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m118",
+       "m119",
+       "m130"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, and nutrition",
+      "misfits": [
+       "m2",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Village culture, religion, rituals, and public events",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Housing, domestic services, safety, and settlement amenities",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Agriculture and land: tenure, cropping, inputs, and farm operations",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal-based livelihoods",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood management",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Village economy, industry, employment, and power",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transport, mobility, and market access logistics",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Environment, forests, and soil/erosion conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Goods provisioning and local trade facilities",
+      "misfits": [
+       "m89"
+      ]
+     },
+     {
+      "name": "Marriage and kinship customs",
+      "misfits": [
+       "m25"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-checklist-r11",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 11,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, ritual, sacred ecology and cultural events",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Land tenure, agrarian organization and production practices",
+      "misfits": [
+       "m14",
+       "m15",
+       "m22",
+       "m32",
+       "m33",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m60",
+       "m128",
+       "m138"
+      ]
+     },
+     {
+      "name": "Crop protection, harvesting logistics, storage and marketing",
+      "misfits": [
+       "m31",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m44"
+      ]
+     },
+     {
+      "name": "Livestock, fodder and animal industries (dairy and beyond)",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water supply, irrigation, drainage and flood management",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, sanitation, domestic facilities and safety",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93",
+       "m103",
+       "m122",
+       "m123",
+       "m124"
+      ]
+     },
+     {
+      "name": "Transport, mobility and external connectivity",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m108",
+       "m109",
+       "m110",
+       "m139"
+      ]
+     },
+     {
+      "name": "Forests, trees, soils and environmental conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107"
+      ]
+     },
+     {
+      "name": "Education, youth, women\u2019s activities and information outreach",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m125",
+       "m137"
+      ]
+     },
+     {
+      "name": "Public health, maternal care and social welfare services",
+      "misfits": [
+       "m25",
+       "m120",
+       "m121"
+      ]
+     },
+     {
+      "name": "Local governance, administration, services and village economy support",
+      "misfits": [
+       "m23",
+       "m28",
+       "m30",
+       "m34",
+       "m45",
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m81",
+       "m82",
+       "m84",
+       "m89",
+       "m126",
+       "m127",
+       "m130",
+       "m131",
+       "m132",
+       "m135"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-pattern-r11",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 11,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Governance, administration and civic linkages",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth development and communications",
+      "misfits": [
+       "m100",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m118",
+       "m119",
+       "m130"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, nutrition and maternal care",
+      "misfits": [
+       "m25",
+       "m67",
+       "m68",
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Religion, ritual, festivals and cultural life",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure and settlement safety",
+      "misfits": [
+       "m16",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, access and mobility",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Land tenure, agrarian economy and rural livelihoods",
+      "misfits": [
+       "m14",
+       "m15",
+       "m18",
+       "m19",
+       "m22",
+       "m28",
+       "m30",
+       "m32",
+       "m43",
+       "m48",
+       "m49",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m89",
+       "m128",
+       "m138"
+      ]
+     },
+     {
+      "name": "Crop production, horticulture and farm operations",
+      "misfits": [
+       "m31",
+       "m33",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m44",
+       "m45",
+       "m46",
+       "m47"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation and hydrology management",
+      "misfits": [
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Ecology, forests and soil/erosion conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, fodder and rural power",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m66",
+       "m80",
+       "m99"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r11",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 11,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": true,
+   "coverageComplete": true,
+   "mechanical": true,
+   "errors": [],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family, and community cohesion",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m17",
+       "m20",
+       "m21",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Rituals, religion, and cultural events",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Governance, administration, and development outreach",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth, and women\u2019s development",
+      "misfits": [
+       "m16",
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m118",
+       "m119",
+       "m130"
+      ]
+     },
+     {
+      "name": "Public health, nutrition, sanitation, and maternity care",
+      "misfits": [
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125",
+       "m117"
+      ]
+     },
+     {
+      "name": "Housing, domestic services, and village safety/amenities",
+      "misfits": [
+       "m25",
+       "m28",
+       "m29",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Agriculture and land management (crops, inputs, storage)",
+      "misfits": [
+       "m18",
+       "m19",
+       "m22",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy, and animal-based livelihoods",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, and flood resilience",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Economic livelihoods, employment, industry, and markets",
+      "misfits": [
+       "m14",
+       "m15",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m89",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transport, circulation, and connectivity",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Energy, power, communications, and media",
+      "misfits": [
+       "m66",
+       "m137"
+      ]
+     },
+     {
+      "name": "Environment, forestry, and soil/erosion conservation",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     }
+    ]
+   },
+   "metrics": {
+    "adjustedRandIndex": 0.09920542006238812,
+    "randIndex": 0.8530901722391084,
+    "pairPrecision": 0.17706013363028952,
+    "pairRecall": 0.18275862068965518,
+    "pairF1": 0.17986425339366516,
+    "majorsAdjustedRandIndex": 0.15599632080628822,
+    "majorsRandIndex": 0.7492401215805471,
+    "groupCount": 13,
+    "linkedPairsInside": 30,
+    "linkIntegrity": true
+   }
+  },
+  {
+   "id": "village-pattern-r12",
+   "context": "village",
+   "arm": "pattern",
+   "repetition": 12,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m17",
+       "m18",
+       "m19",
+       "m20",
+       "m21",
+       "m22",
+       "m26",
+       "m27",
+       "m28",
+       "m129",
+       "m133",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Culture, religion, festivals and public gatherings",
+      "misfits": [
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Village governance, participation and communications",
+      "misfits": [
+       "m23",
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m134",
+       "m135",
+       "m137"
+      ]
+     },
+     {
+      "name": "Education, youth development and information outreach",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m130"
+      ]
+     },
+     {
+      "name": "Health, maternal care, sanitation and nutrition",
+      "misfits": [
+       "m2",
+       "m25",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Water supply, irrigation, drainage and flood control",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Crops, land improvement and farm operations",
+      "misfits": [
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal-based livelihoods",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Housing, domestic facilities and settlement safety",
+      "misfits": [
+       "m16",
+       "m29",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, mobility and market access",
+      "misfits": [
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Local economy, employment, energy and commerce",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m64",
+       "m65",
+       "m66",
+       "m89",
+       "m128",
+       "m138",
+       "m139"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  },
+  {
+   "id": "village-direct-r12",
+   "context": "village",
+   "arm": "direct",
+   "repetition": 12,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": true,
+   "coverageComplete": true,
+   "mechanical": true,
+   "errors": [],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m14",
+       "m15",
+       "m17",
+       "m20",
+       "m21",
+       "m22",
+       "m23",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m134",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, ritual, festivals and cultural events",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m10",
+       "m24",
+       "m102"
+      ]
+     },
+     {
+      "name": "Village governance, administration and development interface",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, information and communications",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m115",
+       "m116",
+       "m117",
+       "m118",
+       "m119",
+       "m137"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, nutrition and maternal/child care",
+      "misfits": [
+       "m25",
+       "m29",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure and public safety/comfort",
+      "misfits": [
+       "m16",
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage and land/soil conservation",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76",
+       "m104",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     },
+     {
+      "name": "Agriculture, land management and crop production/handling",
+      "misfits": [
+       "m18",
+       "m19",
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock, dairy and animal husbandry",
+      "misfits": [
+       "m7",
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Industry, employment, energy and economic diversification",
+      "misfits": [
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m130",
+       "m138"
+      ]
+     },
+     {
+      "name": "Transportation, access and mobility",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103",
+       "m105",
+       "m106",
+       "m114"
+      ]
+     }
+    ]
+   },
+   "metrics": {
+    "adjustedRandIndex": 0.12023056436408426,
+    "randIndex": 0.8495440729483282,
+    "pairPrecision": 0.1903323262839879,
+    "pairRecall": 0.21724137931034482,
+    "pairF1": 0.2028985507246377,
+    "majorsAdjustedRandIndex": 0.16498194496555374,
+    "majorsRandIndex": 0.7479229989868288,
+    "groupCount": 11,
+    "linkedPairsInside": 32,
+    "linkIntegrity": true
+   }
+  },
+  {
+   "id": "village-checklist-r12",
+   "context": "village",
+   "arm": "checklist",
+   "repetition": 12,
+   "generated": true,
+   "providerAttempts": 1,
+   "artifactValid": false,
+   "coverageComplete": false,
+   "mechanical": false,
+   "errors": [
+    "partition does not cover the 141-misfit universe exactly once"
+   ],
+   "artifact": {
+    "schema": "pattern-language.decompose.v1",
+    "groups": [
+     {
+      "name": "Social structure, caste, family and community integration",
+      "misfits": [
+       "m1",
+       "m8",
+       "m9",
+       "m11",
+       "m12",
+       "m13",
+       "m16",
+       "m17",
+       "m18",
+       "m20",
+       "m21",
+       "m23",
+       "m25",
+       "m26",
+       "m27",
+       "m129",
+       "m133",
+       "m136",
+       "m140",
+       "m141"
+      ]
+     },
+     {
+      "name": "Religion, sacred customs, festivals and rituals",
+      "misfits": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6",
+       "m7",
+       "m10",
+       "m102"
+      ]
+     },
+     {
+      "name": "Governance, administration, extension contact and communications",
+      "misfits": [
+       "m84",
+       "m126",
+       "m127",
+       "m131",
+       "m132",
+       "m135",
+       "m137",
+       "m139"
+      ]
+     },
+     {
+      "name": "Education, youth and women\u2019s development",
+      "misfits": [
+       "m111",
+       "m112",
+       "m113",
+       "m114",
+       "m115",
+       "m116",
+       "m118",
+       "m119",
+       "m130",
+       "m134"
+      ]
+     },
+     {
+      "name": "Public health, sanitation, nutrition and maternal care",
+      "misfits": [
+       "m117",
+       "m120",
+       "m121",
+       "m122",
+       "m123",
+       "m124",
+       "m125"
+      ]
+     },
+     {
+      "name": "Agriculture: land tenure, crops, inputs, field operations and storage",
+      "misfits": [
+       "m19",
+       "m22",
+       "m28",
+       "m30",
+       "m31",
+       "m32",
+       "m33",
+       "m34",
+       "m35",
+       "m36",
+       "m37",
+       "m38",
+       "m39",
+       "m40",
+       "m41",
+       "m42",
+       "m43",
+       "m44",
+       "m45",
+       "m46",
+       "m47",
+       "m48",
+       "m49",
+       "m128"
+      ]
+     },
+     {
+      "name": "Livestock and animal-based production",
+      "misfits": [
+       "m50",
+       "m51",
+       "m52",
+       "m53",
+       "m54",
+       "m55",
+       "m56",
+       "m57",
+       "m58",
+       "m59",
+       "m60",
+       "m80"
+      ]
+     },
+     {
+      "name": "Water resources, irrigation, drainage, flood and drought resilience",
+      "misfits": [
+       "m67",
+       "m68",
+       "m69",
+       "m70",
+       "m71",
+       "m72",
+       "m73",
+       "m74",
+       "m75",
+       "m76"
+      ]
+     },
+     {
+      "name": "Housing, domestic infrastructure, safety and amenities",
+      "misfits": [
+       "m77",
+       "m78",
+       "m79",
+       "m81",
+       "m82",
+       "m83",
+       "m85",
+       "m86",
+       "m87",
+       "m88",
+       "m90",
+       "m91",
+       "m92",
+       "m93"
+      ]
+     },
+     {
+      "name": "Transport, roads and mobility for people, goods and animals",
+      "misfits": [
+       "m64",
+       "m94",
+       "m95",
+       "m96",
+       "m97",
+       "m98",
+       "m99",
+       "m100",
+       "m101",
+       "m103"
+      ]
+     },
+     {
+      "name": "Village economy, employment, industry, markets, power and modernization",
+      "misfits": [
+       "m14",
+       "m15",
+       "m24",
+       "m61",
+       "m62",
+       "m63",
+       "m65",
+       "m66",
+       "m89",
+       "m138"
+      ]
+     },
+     {
+      "name": "Environment, forests and soil/erosion control",
+      "misfits": [
+       "m104",
+       "m105",
+       "m106",
+       "m107",
+       "m108",
+       "m109",
+       "m110"
+      ]
+     }
+    ]
+   },
+   "metrics": null
+  }
+ ],
+ "reference": {
+  "contract": "pattern.decomposition.v1",
+  "source": "Alexander 1973 App.1",
+  "subsetCount": 12,
+  "majorCount": 4
+ }
+}

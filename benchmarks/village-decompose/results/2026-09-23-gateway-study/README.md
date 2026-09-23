@@ -8,6 +8,10 @@ band (denominator-level mean adjusted Rand ≈ 0.07–0.09; ≈ 0.105 among vali
 artifacts). The pattern arm was numerically the *lowest* — its guidance did not
 recover more reference structure and produced more invalid artifacts.
 
+This is the first of several gateway runs — see `../README.md` for the
+combined multi-model analysis (sonnet replicate, opus-4.8 and gpt-5.2
+cross-checks, and the mechanism finding).
+
 The live study ran through the **Vercel AI Gateway** route
 (`provider-gateway.py` + `gateway-client.py`) on `anthropic/claude-sonnet-4.6` —
 the xcb `devin/swe-2-high` route could not complete the schedule (see *Evidence

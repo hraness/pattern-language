@@ -48,7 +48,8 @@ def fail(code, request_id=None):
 
 def main():
     request = json.loads(sys.stdin.read())
-    key_path = Path(os.environ.get('AI_GATEWAY_KEY_PATH', '/Users/bg/src/mc-zero/.env'))
+    key_path = Path(os.environ.get('AI_GATEWAY_KEY_PATH',
+                                   '/Users/bg/.local/share/pattern-language/village-gateway/credential.env'))
     try:
         key = read_key(key_path)
     except (OSError, ValueError) as error:
