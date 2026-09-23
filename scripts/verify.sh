@@ -310,6 +310,7 @@ node benchmarks/executable-constructions/score.mjs "$study/plan.json" "$study/ru
 # Village-decomposition study: runner transport/provenance, scorer math, and a
 # synthetic end-to-end frozen run scored against the real tree.
 python3 scripts/test_village_runner.py
+python3 scripts/test_village_gateway.py
 python3 scripts/test_village_scorer.py
 
 # Prompt dataset must be the exact rendered canonical ensemble.

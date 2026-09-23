@@ -36,11 +36,38 @@ def sha(value):
 
 
 def parse_artifact(text):
-    """Inert JSON artifact parse; returns (artifact, errors) without executing."""
+    """Inert JSON artifact parse; returns (artifact, errors) without executing.
+
+    A response that is not strict JSON is scanned for balanced top-level JSON
+    objects; the LAST block that decodes to the artifact schema is the model's
+    final artifact (self-correction writes later candidates later)."""
     try:
         value = json.loads(text.strip())
     except (ValueError, TypeError):
-        return None, ['not strict JSON']
+        value = None
+        if isinstance(text, str):
+            depth, start, blocks = 0, None, []
+            for index, char in enumerate(text):
+                if char == '{':
+                    if depth == 0:
+                        start = index
+                    depth += 1
+                elif char == '}':
+                    depth -= 1
+                    if depth == 0 and start is not None:
+                        blocks.append(text[start:index + 1])
+                        start = None
+            for block in reversed(blocks):
+                try:
+                    candidate = json.loads(block)
+                except ValueError:
+                    continue
+                if isinstance(candidate, dict) and set(candidate) == {'schema', 'groups'} \
+                        and candidate.get('schema') == ARTIFACT_SCHEMA:
+                    value = candidate
+                    break
+        if value is None:
+            return None, ['not strict JSON']
     errors = []
     if not isinstance(value, dict):
         return None, ['top level must be an object']
@@ -177,21 +204,30 @@ def score_study(plan_text, run_text, root=ROOT):
 
 
 def main():
-    if len(sys.argv) != 5 or sys.argv[3] not in ('--out', '--replay'):
-        sys.stderr.write('Usage: python3 score-village-study.py PLAN.json RUN.json (--out|--replay) EVALUATION.json\n')
+    args = [arg for arg in sys.argv[1:] if arg != '--root']
+    root = ROOT
+    if '--root' in sys.argv[1:]:
+        index = sys.argv.index('--root')
+        if index + 1 >= len(sys.argv):
+            sys.stderr.write('Usage: python3 score-village-study.py PLAN.json RUN.json (--out|--replay) EVALUATION.json [--root TREE]\n')
+            return 2
+        root = Path(sys.argv[index + 1])
+        args.remove(sys.argv[index + 1])
+    if len(args) != 4 or args[2] not in ('--out', '--replay'):
+        sys.stderr.write('Usage: python3 score-village-study.py PLAN.json RUN.json (--out|--replay) EVALUATION.json [--root TREE]\n')
         return 2
-    plan_text = Path(sys.argv[1]).read_text()
-    run_text = Path(sys.argv[2]).read_text()
+    plan_text = Path(args[0]).read_text()
+    run_text = Path(args[1]).read_text()
     try:
-        result = score_study(plan_text, run_text)
+        result = score_study(plan_text, run_text, root)
     except (ValueError, OSError, KeyError, TypeError) as error:
         sys.stderr.write(f'{error}\n')
         return 2
-    if sys.argv[3] == '--out':
-        Path(sys.argv[4]).write_text(json.dumps(result, indent=1) + '\n')
+    if args[2] == '--out':
+        Path(args[3]).write_text(json.dumps(result, indent=1) + '\n')
         sys.stdout.write(json.dumps({'status': 'scored', 'denominator': 36, 'summary': result['summary']}) + '\n')
         return 0
-    recorded = json.loads(Path(sys.argv[4]).read_text())
+    recorded = json.loads(Path(args[3]).read_text())
     if json.dumps(recorded, sort_keys=True) != json.dumps(result, sort_keys=True):
         sys.stderr.write('Replay differs\n')
         return 2
