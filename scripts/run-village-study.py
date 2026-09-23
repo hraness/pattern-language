@@ -18,6 +18,14 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('decompose_provider', Path(__file__).with_name('run-design-swe2.py'))
 PROVIDER = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PROVIDER)
+# Route to the uncontended imported Devin account: a_9ddef4bd stays leased by a
+# concurrent holder for most of the day, while a_8f76493c binds the same native
+# credential (verified by credential_identity at preparation and admission).
+PROVIDER.ACCOUNT = 'a_8f76493c947445aa9850ae62ae52222d'
+PROVIDER.ACCOUNT_TOKEN_PATH = Path('/Users/bg/.local/share/xcb/accounts') / PROVIDER.ACCOUNT / 'windsurf-token'
+_provider_credential_identity = PROVIDER.credential_identity
+PROVIDER.credential_identity = lambda native_path=PROVIDER.CREDENTIAL_PATH, account_path=None, environment=None: (
+    _provider_credential_identity(native_path, account_path or PROVIDER.ACCOUNT_TOKEN_PATH, environment))
 sha, now = PROVIDER.sha, PROVIDER.now
 write_text, write_json = PROVIDER.write_text, PROVIDER.write_json
 identities, capabilities, catalog = PROVIDER.identities, PROVIDER.capabilities, PROVIDER.catalog
