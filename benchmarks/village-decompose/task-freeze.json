@@ -1,0 +1,10 @@
+{
+ "schema": "pattern-language.decompose-task-freeze.v1",
+ "frozenAt": "2026-09-23T06:02:57Z",
+ "files": {
+  "benchmarks/village-decompose/contract.md": "616bc594a9bd3c129a1202f0daaae8998f8bd397521364977f14c99ea3f99135",
+  "benchmarks/village-decompose/dataset.md": "7ad38759e26e11f517e176f9d2ecb3b48dda121ce7644bb6742ef146032f70e8",
+  "benchmarks/village-decompose/oracle.json": "e96cfe6513becf025a983ba584a9d68251371845d9ac488d7f53bab98db98a62",
+  "benchmarks/village-decompose/sample-links.json": "d6b392e65719b532632074075c129ff9a88ce15056abff521822c3446e05f03b"
+ }
+}
