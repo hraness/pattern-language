@@ -68,7 +68,7 @@ def identities():
 
 
 def metadata(command):
-    result = subprocess.run(command, text=True, capture_output=True, timeout=120)
+    result = subprocess.run(command, text=True, capture_output=True, timeout=30)
     if result.returncode != 0:
         raise ValueError('Metadata command failed; no generation admitted')
     return {'raw': result.stdout, 'data': json.loads(result.stdout)}
