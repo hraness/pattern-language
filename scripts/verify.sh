@@ -307,4 +307,30 @@ study=benchmarks/executable-constructions/results/2026-09-22-stopped
 node benchmarks/executable-constructions/score.mjs "$study/plan.json" "$study/run.json" \
   --replay "$study/evaluation.json" >/dev/null
 
+# Village-decomposition study: runner transport/provenance, scorer math, and a
+# synthetic end-to-end frozen run scored against the real tree.
+python3 scripts/test_village_runner.py
+python3 scripts/test_village_scorer.py
+
+# Prompt dataset must be the exact rendered canonical ensemble.
+python3 - <<'PY' && echo "village OK  dataset == ensemble render (141 misfits, 1434 links)" || { echo "village FAIL dataset drifted"; fail=1; }
+import json
+e = json.load(open("ensembles/village.ensemble.json"))
+lines = ["# Village misfits", "",
+         "141 misfit IDs with their requirement texts, followed by the unsigned",
+         "link table: each `mX+mY` pair asserts that those two misfits belong",
+         "together in one subsystem.", "",
+         "## Misfit texts", ""]
+for m in e["misfits"]:
+    lines.append(f"- {m['id']} {m['text']}")
+lines += ["", "## Link table (unsigned, symmetric)", ""]
+for a, b in sorted((l["a"], l["b"]) for l in e["links"]):
+    lines.append(f"{a}+{b}")
+assert open("benchmarks/village-decompose/dataset.md").read() == "\n".join(lines) + "\n"
+cfg = json.load(open("habitat/partition-village/foundry.config.json"))
+sample = json.load(open("benchmarks/village-decompose/sample-links.json"))
+assert sample["links"] == cfg["cases"][0]["args"]["job"]["sampleLinks"]
+assert json.load(open("benchmarks/village-decompose/oracle.json")) == json.load(open("ensembles/village.decomposition.json"))
+PY
+
 [ "$fail" = "0" ] && echo "ALL GREEN" || { echo "FAILURES"; exit 1; }
