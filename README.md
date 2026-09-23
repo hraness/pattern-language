@@ -10,10 +10,14 @@ conflict in a particular context. A pattern must guide construction and
 adaptation, not merely name a preferred structure.
 
 **Status:** working ALGAL orchestration prototypes and reproducible code-design studies.
-An advantage over ordinary prompting or a design checklist is **not proven**.
-The [September 22 review](docs/review-2026-09-22.md) explains what the earlier
-experiments establish, corrects their evaluation problems, and orders the next
-steps. The [experiment history](docs/experiment-history.md) preserves the work.
+An advantage over ordinary prompting or a design checklist is **not proven** —
+and the two completed controlled comparisons (enumerable construction and
+village decomposition) both returned null results. The
+[September 23 go/no-go review](docs/review-2026-09-23.md) records the
+completed evidence and the mechanism-level reason the tested procedure does
+not help. The [September 22 review](docs/review-2026-09-22.md) explains the
+earlier experiments and their corrections. The
+[experiment history](docs/experiment-history.md) preserves the work.
 
 ## Start with code
 

@@ -637,3 +637,33 @@ Its [first frozen live attempt](../benchmarks/executable-constructions/results/2
 stopped when Devin rejected session configuration on the first admission: no
 responses, one provider failure and 35 unadmitted slots. The full partial run and
 fixed denominators are preserved; no retries or replacement attempts were made.
+
+## Completed benchmark comparisons — September 23
+
+The executable-construction instrument completed its frozen 36-request
+schedule on the xcb `devin/swe-2-high` route: all 36 requests produced valid,
+correct, feasible constructions and 35/36 were objective-optimal, split
+evenly across arms (direct 12/12, checklist 12/12, pattern 11/12). A ceiling
+result — the space was too enumerable to separate the arms.
+
+The village-decomposition differentiating instrument (141 misfits, Alexander's
+published partition as reference, ARI + mechanical invariants) ran through a
+new bounded-spend Vercel AI Gateway route after the xcb route could not
+complete the schedule (account contention resolved by rerouting to a second
+imported account; task-generation latency still straddled the hard 120 s cap).
+Four complete gateway runs plus a budget-stopped replicate:
+
+- claude-sonnet-4.6, the scored comparison: 36/36 gen, 28 valid, $2.75 —
+  direct 0.089 / checklist 0.089 / pattern 0.070 denom-ARI.
+- claude-sonnet-4.6 replicate: 36/36 gen, 26 valid, $2.94 — same null.
+- claude-opus-4.8: 36/36 gen but 2/36 valid (hallucinated ids, code-in-JSON).
+- openai/gpt-5.2: 36/36 gen but 4/36 valid (coverage failures), $0.40.
+- a sonnet replicate stopped at the shared key's $10 platform budget — the
+  bounded-spend cap exercising end-to-end.
+
+Combined sonnet evidence (n=24/arm): all arms identical ~0.105 valid-ARI;
+the pattern arm produced fewer valid artifacts (15/24) and a weak,
+non-significant links-inside trend. The mechanism analysis — the procedure's
+link-density objective is misaligned with the reference's functional coherence
+and unexecutable in-context — is in
+[the September 23 go/no-go review](review-2026-09-23.md).
