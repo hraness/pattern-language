@@ -19,10 +19,13 @@ table (1,434 pairs) — the same public evidence available to the original
 analysis. The hidden reference decomposition stays out of the prompt.
 
 - Arms: `direct`, `checklist`, `pattern` — identical facts, different guidance.
-- Repetitions: 12 per arm, 36 requests total, serial single-shot requests.
+- Repetitions: 12 per arm, 36 requests total, serial requests.
 - Rotation: arm order rotates across repetitions (`direct/checklist/pattern`,
   `checklist/pattern/direct`, `pattern/direct/checklist` cycling).
 - Each request is independent: no tools, no memory, no feedback.
+- Each logical call tolerates bounded transparent retries of transient
+  provider failures (recorded per-attempt in `call.attempts`); non-transient
+  or custody-uncertain failures still stop the schedule.
 
 ## Scoring
 
@@ -43,9 +46,26 @@ decomposition generally.
 
 ## Provider discipline
 
-Identical to the completed construction study: prepared plans freeze the full
-dependency closure; each admission re-verifies executable identity, account,
-qualification and the native Free catalog tier; requests run serially through
-qualified XCB `devin/swe-2-high` application inference; no retries,
-continuation, resumption, replacement or paid fallback; provider cost is
-unreported when the route exposes none.
+The discipline is identical across routes; the route itself is a frozen
+protocol parameter (`providerFile`, `requestedAccount`, `requestedModel`):
+
+- prepared plans freeze the full dependency closure (task, guidance, runner,
+  provider module, scorer);
+- each admission re-verifies executable identity, account, qualification and
+  the catalog state;
+- requests run serially, one in flight, with every provider envelope
+  preserved;
+- no continuation, resumption, replacement or cross-provider fallback.
+
+Two routes exist:
+
+- **`run-design-swe2.py` (xcb application route):** qualified XCB
+  `devin/swe-2-high` application inference on the uncontended imported account;
+  catalog Free-tier verified per admission; provider cost unreported; bounded
+  retries of transient failures only. The xcb `generate` route caps requests at
+  120 s — the village task sits at that cap (~50% per-request success measured),
+  which is what motivated the retry budget and the gateway route.
+- **`provider-gateway.py` (Vercel AI Gateway route):** a bounded-spend HTTPS
+  route through one pinned origin; per-request `usage.cost` is recorded and a
+  hard `enforcedUsdBudget` stop caps total spend; the credential is a local
+  `.env` key read under the same owned-file discipline and never serialized.

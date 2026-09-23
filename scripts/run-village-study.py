@@ -16,17 +16,21 @@ import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = importlib.util.spec_from_file_location('decompose_provider', Path(__file__).with_name('run-design-swe2.py'))
+PROVIDER_FILE = os.environ.get('VILLAGE_PROVIDER_FILE', 'run-design-swe2.py')
+SPEC = importlib.util.spec_from_file_location('decompose_provider', Path(__file__).with_name(PROVIDER_FILE))
 PROVIDER = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PROVIDER)
 # Route to the uncontended imported Devin account: a_9ddef4bd stays leased by a
 # concurrent holder for most of the day, while a_8f76493c binds the same native
 # credential (verified by credential_identity at preparation and admission).
-PROVIDER.ACCOUNT = 'a_8f76493c947445aa9850ae62ae52222d'
-PROVIDER.ACCOUNT_TOKEN_PATH = Path('/Users/bg/.local/share/xcb/accounts') / PROVIDER.ACCOUNT / 'windsurf-token'
-_provider_credential_identity = PROVIDER.credential_identity
-PROVIDER.credential_identity = lambda native_path=PROVIDER.CREDENTIAL_PATH, account_path=None, environment=None: (
-    _provider_credential_identity(native_path, account_path or PROVIDER.ACCOUNT_TOKEN_PATH, environment))
+# Applies only to the xcb/swe-2 route; the gateway provider owns its account id.
+if PROVIDER_FILE == 'run-design-swe2.py':
+    PROVIDER.ACCOUNT = 'a_8f76493c947445aa9850ae62ae52222d'
+    PROVIDER.ACCOUNT_TOKEN_PATH = Path('/Users/bg/.local/share/xcb/accounts') / PROVIDER.ACCOUNT / 'windsurf-token'
+if PROVIDER_FILE == 'run-design-swe2.py':
+    _provider_credential_identity = PROVIDER.credential_identity
+    PROVIDER.credential_identity = lambda native_path=PROVIDER.CREDENTIAL_PATH, account_path=None, environment=None: (
+        _provider_credential_identity(native_path, account_path or PROVIDER.ACCOUNT_TOKEN_PATH, environment))
 sha, now = PROVIDER.sha, PROVIDER.now
 write_text, write_json = PROVIDER.write_text, PROVIDER.write_json
 identities, capabilities, catalog = PROVIDER.identities, PROVIDER.capabilities, PROVIDER.catalog
@@ -42,7 +46,8 @@ INTRO = ('Construct a solution to the task below. Use only the supplied prompt. 
          'JSON decomposition artifact conforming to the supplied schema, with no Markdown fences.')
 SCRIPT_PATHS = ('scripts/run-village-study.py', 'scripts/test_village_runner.py',
                 'scripts/score-village-study.py', 'scripts/test_village_scorer.py', 'scripts/partition_metrics.py',
-                'scripts/run-design-swe2.py', 'scripts/run-design-study.py', 'scripts/run-lifecycle-study.py')
+                'scripts/run-design-study.py', 'scripts/run-lifecycle-study.py',
+                f'scripts/{PROVIDER_FILE}', *getattr(PROVIDER, 'EXTRA_FROZEN_PATHS', ()))
 TASK_NAMES = ('contract.md', 'dataset.md', 'oracle.json', 'sample-links.json')
 REQUIRED_NAMES = (*TASK_NAMES, 'task-freeze.json', 'guidance-freeze.json', 'protocol.md')
 TASK_FREEZE = f'{BENCH}/task-freeze.json'
@@ -53,7 +58,7 @@ IDENTITY_KEYS = ('cliVersions', 'executablePaths', 'executableHashes')
 MAX_CALLS = 36
 STOP_REASONS = {'pre-admission-eligibility-failed', 'runner-cancelled', 'xcb-custody-uncertain',
                 'local-collection-failed', 'invalid-application-json', 'application-protocol-or-provider-failure',
-                'duplicate-application-request-id'}
+                'duplicate-application-request-id', 'usd-budget-exceeded'}
 
 
 def check(condition, message):
@@ -90,22 +95,29 @@ def protocol_for(identity, qualification):
         'outerTimeoutSeconds': PROVIDER.OUTER_TIMEOUT_SECONDS,
         'cancellationGraceSeconds': PROVIDER.CANCELLATION_GRACE_SECONDS,
         'retryBudget': RETRY_BUDGET, 'requestedAccount': PROVIDER.ACCOUNT, 'requestedModel': PROVIDER.MODEL,
-        'command': PROVIDER.COMMAND, **identity, 'qualification': qualification,
+        'command': PROVIDER.COMMAND, 'providerFile': PROVIDER_FILE,
+        'providerName': getattr(PROVIDER, 'PROVIDER_NAME', 'xcb-application'),
+        **identity, 'qualification': qualification,
         'systemPrompt': None, 'promptIntro': INTRO,
         'repetitions': 12, 'contexts': ['village'], 'arms': list(ARMS), 'stages': ['decomposition'],
         'tools': [], 'hooks': [], 'ephemeral': True, 'feedback': 'none',
         'schedule': 'Rotate arm order by repetition mod 3; serial independent requests; each call retries transient provider failures up to retryBudget extra attempts.',
         'denominator': MAX_CALLS, 'denominatorPerContextArm': 12, 'missingCountsAsFailure': True,
         'artifactHandling': 'Preserve exact raw text; parse and evaluate only after generation is finalized.',
-        'catalogCommand': [PROVIDER.DEVIN, 'models', 'list', '--format', 'json'],
-        'catalogAccountBinding': PROVIDER.ACCOUNT_BINDING, 'requiredCatalogCostTier': 'Free',
-        'costReporting': 'not-reported', 'enforcedUsdBudget': None,
+        'catalogCommand': getattr(PROVIDER, 'CATALOG_COMMAND', None) or [PROVIDER.DEVIN, 'models', 'list', '--format', 'json'],
+        'catalogAccountBinding': PROVIDER.ACCOUNT_BINDING,
+        'requiredCatalogCostTier': getattr(PROVIDER, 'COST_TIER', 'Free'),
+        'costReporting': 'reported' if getattr(PROVIDER, 'REPORTS_COST', False) else 'not-reported',
+        'enforcedUsdBudget': getattr(PROVIDER, 'USD_BUDGET', None),
         'samplingSeed': None, 'immutableProviderRevision': None,
         'limitations': [
-            'Native catalog Free status is checked before each request; XCB has no spending-cap field.',
-            'XCB reports no token usage, monetary cost, or immutable provider model revision.',
-            'Selected account/model identity is XCB routing evidence, not independently reported model identity.',
-            'XCB prefixes the caller prompt with fixed application instructions in one ACP text block; no separate system-role message is sent.',
+            ('Native catalog Free status is checked before each request; XCB has no spending-cap field.'
+             if PROVIDER_FILE == 'run-design-swe2.py' else
+             'Gateway requests report usage.cost; the run enforces enforcedUsdBudget as a hard spend cap.'),
+            'XCB reports no token usage, monetary cost, or immutable provider model revision.'
+            if PROVIDER_FILE == 'run-design-swe2.py' else
+            'Gateway usage.cost is trusted-provider telemetry, not independently audited billing.',
+            'Selected account/model identity is routing evidence, not independently reported model identity.',
             'Runner retries each call up to retryBudget extra provider attempts on transient failures only; every attempt envelope is preserved in call attempts and raw/.',
             'Twelve repetitions per arm on one decomposition task do not establish general effectiveness.',
             'A reused published reference decomposition cannot establish usefulness on unseen problem corpora.',
@@ -185,6 +197,11 @@ def validate_plan(plan):
               f'Unexpected frozen path: {path}')
         check(isinstance(file, dict) and set(file) == {'text', 'sha256'} and isinstance(file['text'], str)
               and PROVIDER.valid_digest(file['sha256']) and sha(file['text']) == file['sha256'], f'Invalid frozen file: {path}')
+    if protocol.get('providerFile') not in (None, 'run-design-swe2.py'):
+        provider_record = files.get(f"scripts/{protocol['providerFile']}")
+        check(provider_record is not None and isinstance(protocol.get('qualification'), dict)
+              and protocol['qualification'].get('runtimeDigest') == provider_record['sha256'],
+              'Qualified route digest does not match the frozen provider file')
     validate_freezes(plan)
 
 
@@ -238,10 +255,12 @@ def run_study(output, provider=invoke, version_reader=identities,
         json.dump({'startedAt': now(), 'planSha256': sha(plan_text)}, handle)
     for name in ('raw', 'artifacts'):
         (output / name).mkdir(mode=0o700)
+    reports_cost = plan['protocol'].get('costReporting') == 'reported'
+    usd_budget = plan['protocol'].get('enforcedUsdBudget')
     run = {'schema': 'pattern-language.decompose-generation.v1', 'planSha256': sha(plan_text),
            'status': 'running', 'startedAt': now(), 'calls': [], 'admittedCalls': 0,
-           'knownCostUsd': 0, 'costComplete': True, 'costStatus': 'not-reported', 'stopReasons': [],
-           **identity, 'denominator': MAX_CALLS, 'evaluationStatus': 'not-run'}
+           'knownCostUsd': 0, 'costComplete': True, 'costStatus': 'reported' if reports_cost else 'not-reported',
+           'stopReasons': [], **identity, 'denominator': MAX_CALLS, 'evaluationStatus': 'not-run'}
     write_json(output / 'run.json', run)
     request_ids = set()
     for job in plan['jobs']:
@@ -267,7 +286,7 @@ def run_study(output, provider=invoke, version_reader=identities,
                   'attempts': []}
         run['calls'].append(record)
         run['admittedCalls'] += 1
-        run.update(knownCostUsd=None, costComplete=False)
+        run.update(knownCostUsd=None if not reports_cost else run['knownCostUsd'], costComplete=False)
         write_json(output / 'run.json', run)
         for attempt in range(1, 2 + plan['protocol']['retryBudget']):
             if attempt > 1:
@@ -299,6 +318,10 @@ def run_study(output, provider=invoke, version_reader=identities,
                 break
         record.update(result)
         record['finishedAt'] = now()
+        if reports_cost:
+            run['knownCostUsd'] = round(run['knownCostUsd'] + (record.get('costUsd') or 0), 6)
+            if usd_budget is not None and run['knownCostUsd'] > usd_budget:
+                stops = stops + ['usd-budget-exceeded']
         run['stopReasons'] = sorted(set(run['stopReasons'] + stops))
         if 'resultText' in record:
             record['resultSha256'] = sha(record['resultText'])
@@ -311,6 +334,9 @@ def run_study(output, provider=invoke, version_reader=identities,
         if job['id'] not in recorded:
             run['calls'].append({**job, 'admitted': False, 'status': 'not-admitted-study-stopped',
                                  'countAsFailure': True, 'costUsd': 0, 'costStatus': 'not-incurred'})
+    if reports_cost:
+        run['costComplete'] = all(isinstance(call.get('costUsd'), (int, float)) and not isinstance(call.get('costUsd'), bool)
+                                  for call in run['calls'] if call['admitted'])
     run['status'] = 'partial-reconciliation-required' if run['stopReasons'] else 'generation-complete-awaiting-evaluation'
     run['finishedAt'] = now()
     validate_run(plan, run, plan_text)
@@ -356,10 +382,14 @@ def validate_run(plan, run, plan_text=None):
             stopped = True
             continue
         admitted += 1
+        reports_cost = plan['protocol'].get('costReporting') == 'reported'
         check(not stopped and admission_fields <= set(call), 'Admission continued after stop or lacks provenance')
         check(call['status'] in ('generated-not-reviewed', 'failed-generation')
               and call['countAsFailure'] == (call['status'] == 'failed-generation')
-              and call['costUsd'] is None and call['costStatus'] == 'not-reported', 'Invalid admission status/cost')
+              and ((call['costUsd'] is None and call['costStatus'] == 'not-reported') if not reports_cost
+                   else (call['costUsd'] is None or type(call['costUsd']) in (int, float)
+                         and math.isfinite(call['costUsd']) and call['costUsd'] >= 0)
+                   and call['costStatus'] in ('reported', 'not-reported')), 'Invalid admission status/cost')
         admitted_ms, finished_ms = timestamp(call['admittedAt']), timestamp(call['finishedAt'])
         check(previous_finished <= admitted_ms <= finished_ms <= finished, 'Invalid serial call chronology')
         PROVIDER.validate_admission_evidence(call['eligibility'], identity, plan['protocol']['qualification'], admitted_ms)
@@ -380,7 +410,7 @@ def validate_run(plan, run, plan_text=None):
                   and attempt['status'] in ('generated-not-reviewed', 'failed-generation')
                   and (attempt['failureCode'] is None or attempt['failureCode'] in {
                       'invalid_request', 'unavailable', 'busy', 'deadline', 'cancelled', 'provider_error',
-                      'output_limit', 'custody_unproven'})
+                      'output_limit', 'custody_unproven', 'budget_exceeded'})
                   and type(attempt['elapsedSeconds']) in (int, float)
                   and math.isfinite(attempt['elapsedSeconds']) and attempt['elapsedSeconds'] >= 0
                   and (attempt['requestId'] is None or type(attempt['requestId']) is str and attempt['requestId']), 'Invalid call attempt')
@@ -395,9 +425,13 @@ def validate_run(plan, run, plan_text=None):
                   and len(call['resultText'].encode('utf-8')) <= PROVIDER.MAX_OUTPUT_BYTES
                   and call['resultSha256'] == sha(call['resultText'])
                   and call['artifactCandidate'] == f'artifacts/{job["id"]}.txt', 'Invalid exact response provenance')
-            check(call['provider'] == {'account': PROVIDER.ACCOUNT, 'model': PROVIDER.MODEL, 'reportedModelRevision': None, 'usage': None}, 'Invalid provider identity/telemetry')
+            check(call['provider']['account'] == PROVIDER.ACCOUNT and call['provider']['model'] == PROVIDER.MODEL
+                  and call['provider']['reportedModelRevision'] is None
+                  and (call['provider']['usage'] is None if not reports_cost
+                       else isinstance(call['provider']['usage'], dict)), 'Invalid provider identity/telemetry')
             envelope = call['providerEnvelope']
-            check(isinstance(envelope, dict) and set(envelope) == {'version', 'status', 'requestId', 'account', 'model', 'outcome'}
+            check(isinstance(envelope, dict)
+                  and set(envelope) == getattr(PROVIDER, 'ENVELOPE_KEYS', {'version', 'status', 'requestId', 'account', 'model', 'outcome'})
                   and type(envelope['version']) is int and envelope['version'] == 1 and envelope['status'] == 'completed'
                   and isinstance(envelope['requestId'], str) and envelope['requestId'] and envelope['requestId'] not in request_ids
                   and envelope['account'] == PROVIDER.ACCOUNT and envelope['model'] == PROVIDER.MODEL
@@ -414,19 +448,36 @@ def validate_run(plan, run, plan_text=None):
                   and call.get('failureReason') in STOP_REASONS - {'pre-admission-eligibility-failed'}
                   and call['failureReason'] in reasons, 'Transport failure lacks matching stop evidence')
             if 'applicationFailureCode' in call:
-                check(call['failureReason'] == 'application-protocol-or-provider-failure'
-                      and call['applicationFailureCode'] in {'invalid_request', 'unavailable', 'busy', 'deadline', 'cancelled', 'provider_error', 'output_limit', 'custody_unproven'}, 'Invalid application failure code')
+                check(call['applicationFailureCode'] in {'invalid_request', 'unavailable', 'busy', 'deadline', 'cancelled', 'provider_error', 'output_limit', 'custody_unproven', 'budget_exceeded'}
+                      and call['failureReason'] == ('usd-budget-exceeded' if call['applicationFailureCode'] == 'budget_exceeded'
+                                                    else 'application-protocol-or-provider-failure'), 'Invalid application failure code')
             if 'custodyUncertain' in call or 'pid' in call:
                 check(call['failureReason'] == 'xcb-custody-uncertain' and call.get('custodyUncertain') is True
                       and (call.get('pid') is None or type(call['pid']) is int and call['pid'] > 0), 'Invalid custody evidence')
             stopped = True
     check(type(run['admittedCalls']) is int and run['admittedCalls'] == admitted, 'Admitted call count mismatch')
-    check(run['costStatus'] == 'not-reported' and run['costComplete'] is (admitted == 0)
-          and (run['knownCostUsd'] is None if admitted else type(run['knownCostUsd']) is int and run['knownCostUsd'] == 0), 'Invalid unknown-cost accounting')
+    if run['costStatus'] == 'reported':
+        call_costs = [call.get('costUsd') for call in run['calls'] if call['admitted']]
+        check(all(cost is None or type(cost) in (int, float) and not isinstance(cost, bool) and math.isfinite(cost) and cost >= 0
+                  for cost in call_costs)
+              and run['costComplete'] is all(isinstance(cost, (int, float)) and not isinstance(cost, bool) for cost in call_costs)
+              and type(run['knownCostUsd']) in (int, float)
+              and abs(run['knownCostUsd'] - sum(c for c in call_costs if isinstance(c, (int, float)))) < 0.001,
+              'Invalid reported-cost accounting')
+        check('usd-budget-exceeded' not in reasons
+              or run['knownCostUsd'] > (plan['protocol'].get('enforcedUsdBudget') or float('inf'))
+              or any(call.get('applicationFailureCode') == 'budget_exceeded' for call in run['calls']),
+              'Budget stop lacks overspend evidence')
+    else:
+        check(run['costStatus'] == 'not-reported' and run['costComplete'] is (admitted == 0)
+              and (run['knownCostUsd'] is None if admitted else type(run['knownCostUsd']) is int and run['knownCostUsd'] == 0),
+              'Invalid unknown-cost accounting')
     observed_stops = {call['failureReason'] for call in run['calls'] if call.get('failureReason') in STOP_REASONS}
-    if admitted < MAX_CALLS and not observed_stops:
+    run_level = (set(reasons) & {'usd-budget-exceeded'}
+                 if plan['protocol'].get('costReporting') == 'reported' else set())
+    if admitted < MAX_CALLS and not observed_stops and not run_level:
         observed_stops.add('pre-admission-eligibility-failed')
-    check(set(reasons) == observed_stops, 'Stop reasons differ from recorded stop boundary')
+    check(set(reasons) == observed_stops | run_level, 'Stop reasons differ from recorded stop boundary')
     return run
 
 
@@ -437,7 +488,9 @@ def main():
         command = sub.add_parser(action)
         command.add_argument('output', type=Path)
         if action == 'run':
-            command.add_argument('--approve-36-requests-catalog-free-route', action='store_true', required=True)
+            flag = ('--approve-36-requests-budgeted-spend' if PROVIDER_FILE != 'run-design-swe2.py'
+                    else '--approve-36-requests-catalog-free-route')
+            command.add_argument(flag, action='store_true', required=True)
     args = parser.parse_args()
     try:
         if args.action == 'prepare':
