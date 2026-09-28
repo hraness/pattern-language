@@ -1,23 +1,21 @@
 # pattern-language
 
-Can an Alexander-inspired pattern language help an agent produce better code?
-This repository tests that question with executable artifacts, explicit
-constraints, and behavioral evidence.
+Pattern Language tests whether Christopher Alexander's pattern-language method
+helps AI coding agents design better code. In two controlled comparisons
+across three models, the tested pattern guidance did no better than a direct
+procedure or a design checklist, and on the task that separated the arms it
+did worst. The [September 23 go/no-go review](docs/review-2026-09-23.md)
+explains why.
 
 The thesis is that code, like architecture, contains interacting relationships:
 local decisions affect the whole, and a useful pattern resolves a recurring
 conflict in a particular context. A pattern must guide construction and
 adaptation, not merely name a preferred structure.
 
-**Status:** working ALGAL orchestration prototypes and reproducible code-design studies.
-An advantage over ordinary prompting or a design checklist is **not proven** —
-and the two completed controlled comparisons (enumerable construction and
-village decomposition) both returned null results. The
-[September 23 go/no-go review](docs/review-2026-09-23.md) records the
-completed evidence and the mechanism-level reason the tested procedure does
-not help. The [September 22 review](docs/review-2026-09-22.md) explains the
-earlier experiments and their corrections. The
-[experiment history](docs/experiment-history.md) preserves the work.
+**Status:** ALGAL orchestration prototypes and reproducible code-design
+studies. The [September 22 review](docs/review-2026-09-22.md) explains the
+earlier experiments and their corrections, and the
+[experiment history](docs/experiment-history.md) keeps the full record.
 
 ## Start with code
 
