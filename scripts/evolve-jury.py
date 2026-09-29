@@ -14,7 +14,10 @@ Usage: evolve-jury.py <habitat-dir> [--generations N] [--live|--responses FILE]
 """
 import itertools, json, os, subprocess, sys, tempfile
 
-ALGAL = os.environ.get("ALGAL_CMD", "bunx github:hraness/algal").split()
+# Default matches the pin in scripts/verify.sh, which exports ALGAL_CMD.
+ALGAL = os.environ.get(
+    "ALGAL_CMD",
+    "bunx github:hraness/algal#4f61060860a3ccc118b4f3a629bdcddfe0018c6d").split()
 STORE = os.environ.get("ALGAL_STORE", "/tmp/pl-store")
 EXECUTOR = os.environ.get("AGENT_EXECUTOR", "scripts/agent-executor.py")
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
