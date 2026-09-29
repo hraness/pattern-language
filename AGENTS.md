@@ -1,6 +1,7 @@
 # pattern-language conventions
 
-Manifests are data (`algal.organism.v1`). Runtime: `bunx github:hraness/algal`.
+Manifests are data (`algal.organism.v1`). Runtime: `bunx github:hraness/algal#<pin>`,
+with the pin in `ALGAL_PIN` at the top of `scripts/verify.sh`.
 
 ## Adding a pattern
 
@@ -21,19 +22,22 @@ Same shape under `programs/`. If it embeds a sub-manifest by digest
 
 ## Delivery
 
-- GitHub `main_policy=checked-pr`: publish task changes through a pull request,
-  independent review, the full local gate and applicable GitHub checks.
+- GitHub `main_policy=direct`: main has no required check. Run the full local
+  gate before pushing; CI (`.github/workflows/ci.yml`, job `Required`) reruns
+  `bash scripts/verify.sh` on every pull request and main push. Prefer a pull
+  request with a green `Required` for anything beyond a small fix.
 - Historical `habitat/` tournaments are demonstrations: their reused holdout
   and reference-derived feedback do not establish generalization. New design
   claims need frozen code artifacts and independent behavioral evaluation.
 
 ## Gates
 
-- `bash scripts/verify.sh` is the full gate: `check` on every manifest,
+- `bash scripts/verify.sh` is the full gate (Bun, Node, Python 3.11+; no
+  local algal checkout needed, `ALGAL_LOCAL` is an optional override): `check` on every manifest,
   replay of every fixture, village data integrity, and the decompose
   benchmark (historical Rand ≥ 0.6 plus ARI above a fixed size-preserving
   shuffled baseline), metric regression tests, and code-design evaluator checks.
-- `bunx github:hraness/algal check <manifest>` must pass before commit.
+- `algal check <manifest>` (pinned `ALGAL_CMD`) must pass before commit.
 - Deterministic manifests (no agent/decide cells) must run with `--args`
   alone. Judgment manifests must replay with `--responses`.
 - Ensembles use contract `pattern.ensemble.v1`: `{name, context, misfits:

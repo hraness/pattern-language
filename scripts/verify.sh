@@ -4,10 +4,15 @@
 # manifests replay their recorded responses.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-read -r -a ALGAL <<< "${ALGAL_CMD:-bunx github:hraness/algal}"
-# Local algal checkout for search-verify — the bunx pin predates the
-# scorer-propagation fix (hraness/algal 43c9dcf).
-ALGAL_LOCAL="${ALGAL_LOCAL:-$HOME/src/algal/cli.ts}"
+# Pinned algal (v0.2.0-vm.10). Bump deliberately; scripts/evolve-jury.py
+# reads the same ALGAL_CMD. Override with ALGAL_CMD to test another build.
+ALGAL_PIN=4f61060860a3ccc118b4f3a629bdcddfe0018c6d
+export ALGAL_CMD="${ALGAL_CMD:-bunx github:hraness/algal#$ALGAL_PIN}"
+read -r -a ALGAL <<< "$ALGAL_CMD"
+# Generational search needs the scorer-propagation fix (hraness/algal
+# 43c9dcf), which the pin includes. ALGAL_LOCAL optionally points at a local
+# checkout's cli.ts instead.
+if [ -n "${ALGAL_LOCAL:-}" ]; then SEARCH_ALGAL=(bun "$ALGAL_LOCAL"); else SEARCH_ALGAL=("${ALGAL[@]}"); fi
 STORE="${ALGAL_STORE:-/tmp/pl-verify-store}"
 fail=0
 
@@ -86,14 +91,13 @@ prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin);
   || { echo "foundry FAIL gen promoted=$prom"; fail=1; }
 
 # Generational search: two scripted generations over gen-1 seeds under the
-# shifted scorer (executor provenance required). Verifies with the local
-# algal checkout's search-verify (upstream fix 43c9dcf).
-out=$(cd habitat/status-line && bun "$ALGAL_LOCAL" foundry search foundry-search.config.json \
+# shifted scorer (executor provenance required). Needs upstream fix 43c9dcf.
+out=$(cd habitat/status-line && "${SEARCH_ALGAL[@]}" foundry search foundry-search.config.json \
   --responses generator-search.responses.json --dir "$STORE" --out foundry-search.report.json 2>&1 | tail -1)
 prom=$(printf '%s' "$out" | python3 -c 'import json,sys; r=json.load(sys.stdin); print([c["manifestKey"] for c in r["result"]["candidates"] if c["manifestDigest"]==r["result"]["promoted"]][0])' 2>/dev/null)
 [ "$prom" = "organism:g1-bracket" ] && echo "search  OK  gen-1 bracket promoted after feedback" \
   || { echo "search  FAIL promoted=$prom"; fail=1; }
-vout=$(cd habitat/status-line && bun "$ALGAL_LOCAL" foundry search-verify foundry-search.report.json --dir "$STORE" 2>&1 | tail -1)
+vout=$(cd habitat/status-line && "${SEARCH_ALGAL[@]}" foundry search-verify foundry-search.report.json --dir "$STORE" 2>&1 | tail -1)
 vok=$(printf '%s' "$vout" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ok"))' 2>/dev/null)
 [ "$vok" = "True" ] && echo "search  OK  report verifies offline" || { echo "search  FAIL verify"; fail=1; }
 
