@@ -66,8 +66,9 @@ cannot establish that mechanism; it is recorded as the only observed deviation.
 
 This is the second consecutive ceiling-class result on this model: in the
 [design-decision study](../../design-decisions-swe2/results/2026-09-22-study/README.md)
-every arm passed every outcome, and here every arm selected the objective
-optimum at 97%+ including on `commit_pressure`, where the optimal pair
+every arm passed every outcome. Here, 35 of 36 selections were optimal overall:
+12 of 12 each for direct and checklist guidance, and 11 of 12 for pattern
+guidance. This included `commit_pressure`, where the optimal pair
 (replace-snapshot + bounded batching) is not the locally obvious pick.
 
 - The instrument works end to end live: inert artifacts → trusted compilation
