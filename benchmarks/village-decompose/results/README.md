@@ -20,7 +20,7 @@ cross-model checks, and a budget-stopped run.
 **No arm differentiates, on any model.** On the two sonnet runs (the only model
 that produced valid artifacts reliably):
 
-| Arm | valid/48 | valid-ARI | denom-ARI | links-inside |
+| Arm | valid/24 | valid-ARI | denom-ARI | links-inside |
 |---|---:|---:|---:|---:|
 | direct | 19 | 0.104 | 0.082 | 24.3 |
 | checklist | 20 | 0.108 | 0.090 | 24.6 |

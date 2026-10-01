@@ -1,10 +1,10 @@
 # pattern-language
 
 Pattern Language tests whether Christopher Alexander's pattern-language method
-helps AI coding agents design better code. In two controlled comparisons
-across three models, the tested pattern guidance did no better than a direct
-procedure or a design checklist, and on the task that separated the arms it
-did worst. The [September 23 go/no-go review](docs/review-2026-09-23.md)
+helps AI coding agents design better code. In the completed construction and
+decomposition comparisons, the tested pattern guidance showed no advantage
+over a direct procedure or a design checklist. On the decomposition task, it
+produced fewer valid artifacts. The [September 23 go/no-go review](docs/review-2026-09-23.md)
 explains why.
 
 The thesis is that code, like architecture, contains interacting relationships:
@@ -45,8 +45,8 @@ valid input in a passing direct artifact; passing this suite is not a proof of
 complete correctness. The report recommends testing explicit, trace-checkable
 design decisions before expanding a prose pattern catalog.
 
-The implemented [design-decision experiment](benchmarks/design-decisions-v3/README.md)
-now tests that next step: a machine-readable design precedes code, and host-observed
+The [design-decision experiment](benchmarks/design-decisions-v3/README.md)
+tests that next step: a machine-readable design precedes code, and host-observed
 transitions, effects and choices are checked against it. It includes a durable-job
 simulator and a pure batch planner where storage and scheduling must be omitted.
 Behavior, model adequacy and code/design agreement are scored separately. The
@@ -59,15 +59,24 @@ agreement checks. Every arm scored **3/3 on both families**, so no pattern
 advantage was observed. Every request passed the Free-catalog check; billed cost
 is unreported.
 
-The next [executable-construction experiment](benchmarks/executable-constructions/README.md)
+The [executable-construction experiment](benchmarks/executable-constructions/README.md)
 provides ten actual implementations from journal/snapshot storage and immediate
 or bounded-batch commit. A closed JSON design compiles into reusable JavaScript;
 an independent host checks crash recovery and measures writes, retained bytes,
 recovery work and acknowledgement delay. Four contexts change the objective or
-budgets. The [first live attempt](benchmarks/executable-constructions/results/2026-09-22-stopped/README.md)
-stopped when Devin rejected session configuration: one failed admission and no
-model responses. The construction tool and tradeoffs are verified; its pattern
-guidance advantage remains untested in this experiment.
+budgets. In the [completed 36-request study](benchmarks/executable-constructions/results/2026-09-23-study/README.md),
+all artifacts passed the behavior and resource checks. Direct and checklist
+guidance each selected an optimal construction in 12 of 12 attempts; pattern
+guidance did so in 11 of 12. These near-ceiling results did not establish a
+pattern-guidance advantage.
+
+The [village-decomposition study](benchmarks/village-decompose/results/README.md)
+tested grouping 141 requirements into subsystems. Across two Sonnet runs,
+direct, checklist, and pattern guidance produced 19, 20, and 15 valid artifacts,
+respectively, out of 24 attempts per arm. Agreement with the reference grouping
+was similar among valid artifacts; pattern guidance produced fewer valid ones.
+The Opus and GPT-5.2 runs produced too few valid artifacts for a useful
+comparison of guidance.
 
 ## What to keep from the prototype
 
@@ -85,7 +94,8 @@ They do not make the design rationale true or the evaluator independent.
 | `benchmarks/lifecycle-v2/` | Frozen 54-request multi-task study, reviewed sources and reproducible outcomes | No transfer or both-stage pattern advantage was observed. Can explicit, trace-checkable design decisions help? |
 | `benchmarks/design-decisions-v3/` | Executable design artifacts, host traces, two task families, references and fault probes | Contracts largely prescribe the architecture; the original Claude plan remains unrun. |
 | `benchmarks/design-decisions-swe2/` | Completed 36-request qualified XCB/SWE-2 study using the same frozen tasks | All 18 pairs passed; no observed pattern advantage within largely prescribed architectures. |
-| `benchmarks/executable-constructions/` | Closed design language, deterministic JavaScript compiler and independent fault/resource evaluation across ten constructions | First live attempt stopped before any response; procedural effectiveness remains untested. |
+| `benchmarks/executable-constructions/` | Closed design language, deterministic JavaScript compiler and independent fault/resource evaluation across ten constructions | Completed 36-request study selected 35 optimal constructions; no pattern-guidance advantage was established. |
+| `benchmarks/village-decompose/` | Frozen requirement-grouping task with repeated comparisons and recorded model responses | Pattern guidance produced fewer valid artifacts and no better reference agreement among valid artifacts. |
 
 See [the concept map](docs/concepts.md) for the distinctions between a force
 graph, a pattern language, and an implementation's dataflow graph.
@@ -121,8 +131,9 @@ usefulness of Alexander's ideas.
 
 ## Direction
 
-First test patterns on small code with observable behavior and change requests.
-Then transfer successful relationships to simulated system problems such as
+The completed studies do not support expanding the tested pattern guidance.
+A different formulation needs a new comparison on code with observable
+behavior and change requests before transfer to simulated system problems such as
 bounded queues, retries and duplicate delivery. Other promising domains are
 query planning, compiler transformations and constrained layout, where a
 machine can check meaningful outcomes. Human experience and aesthetic quality
