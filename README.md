@@ -102,9 +102,14 @@ graph, a pattern language, and an implementation's dataflow graph.
 
 ## Run the evidence checks
 
-Requires Python 3, Node.js, Bun, and ALGAL. The legacy aggregate also needs an
-ALGAL checkout with `foundry search-verify` (at least the upstream fixes through
-`f899456e497656eb292d97d7c0aef5e06f1437dc`).
+Start with Python 3.11 or later for the partition checks below. They read the
+committed village fixtures and need no model credentials or ALGAL installation.
+The JSON report includes the partition, agreement metrics, and a shuffled
+baseline; it measures agreement with the reference grouping, not code quality.
+
+The full aggregate also requires Node.js and Bun. It downloads the ALGAL revision
+pinned in `scripts/verify.sh` through `bunx`; no local ALGAL checkout is required.
+Use the optional local-runtime commands below only to test an explicit checkout.
 
 ```sh
 python3 scripts/test_partition_metrics.py
