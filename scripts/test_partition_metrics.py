@@ -113,5 +113,29 @@ class BenchmarkCliTests(unittest.TestCase):
             self.assertEqual(invalid.stdout, "")
 
 
+class RequiredRunnerTests(unittest.TestCase):
+    def test_required_is_bash_only_on_slim(self):
+        workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/ci.yml").read_text()
+        block = workflow.split("  required:\n")[1]
+        self.assertEqual(block, '''    name: Required
+    if: always()
+    needs: [verify]
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    steps:
+      - name: Require every blocking job
+        env:
+          VERIFY: ${{ needs.verify.result }}
+        run: |
+          set -euo pipefail
+          [[ "$VERIFY" == success ]]
+''')
+        script = "\n".join(line.removeprefix("          ") for line in block.split("        run: |\n")[1].splitlines())
+        for status in ("success", "failure", "cancelled", "skipped", ""):
+            result = subprocess.run(["/bin/bash", "--noprofile", "--norc", "-eo", "pipefail", "-c", script],
+                                    env={"PATH": "/nonexistent", "VERIFY": status}, capture_output=True, timeout=1)
+            self.assertEqual(result.returncode == 0, status == "success")
+
+
 if __name__ == "__main__":
     unittest.main()
