@@ -63,10 +63,18 @@ Same shape under `programs/`. If it embeds a sub-manifest by digest
   extra criteria in `args` or the scorer); configs reject unknown keys
   like `note`; candidates must run without executors if the report is to
   `foundry verify` offline.
-- Live runs: `decide` cells route to Jev via `route.provider`; `agent`
-  cells go through `--executor-cmd scripts/agent-executor.py` (local
-  `claude -p`). Live receipts are execution evidence — they don't replay
-  deterministically, so keep scripted fixtures for `verify.sh`.
+- New live runs: `decide` cells route to Clef via `route.provider: clef`
+  and ALGAL's `--clef`; supply `CLOUDFLARE_ACCOUNT_ID` and
+  `CLOUDFLARE_API_TOKEN` (or `CLOUDFLARE_AUTH_TOKEN`) in the environment.
+  Use a released ALGAL build that supports Clef via `ALGAL_CMD`; the frozen
+  offline pin predates this adapter. `agent` cells use
+  `--executor-cmd scripts/agent-executor.py` (local `claude -p`).
+  `evolve-jury.py` requires `--live --out NEW_PATH` for paid runs and defaults
+  to `--decision-provider clef`. Explicit `--decision-provider jev` loads
+  byte-identical jury modules from frozen source commit
+  `9318983b5e76a8ec142b0171d093255183ede08d`; never reconstruct historical
+  modules from changed source or overwrite historical receipts or reports.
+  Keep that commit locally available. Scripted fixtures remain the offline gate.
 - Mark proposals as proposals. A manifest that needs a host fn or tool that
   doesn't exist yet is a proposal, not a pattern.
 

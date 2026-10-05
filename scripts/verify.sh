@@ -58,6 +58,7 @@ PY
 # chance-corrected comparison. This is a fixed-fixture regression check,
 # not a fresh significance test or evidence of code-design effectiveness.
 python3 scripts/test_partition_metrics.py
+python3 -B scripts/test_decision_provider.py
 out=$(python3 scripts/decompose-village.py 12 avg --json --baseline-samples 200 --seed 0)
 printf '%s\n' "$out" | python3 -c '
 import json,sys

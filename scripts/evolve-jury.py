@@ -3,7 +3,7 @@
 
 Each generation: the generator organism emits candidate format manifests
 (descriptors -> assembler -> valid organisms), the incumbent champion and
-the newcomers produce subjects on the arena case, and a Jev jury runs the
+the newcomers produce subjects on the arena case, and a Clef jury runs the
 round-robin. The champion survives; standings feed the next writer call.
 
 Alexander: unselfconscious tradition — inherited constraint (the grammar),
@@ -21,6 +21,9 @@ ALGAL = os.environ.get(
 STORE = os.environ.get("ALGAL_STORE", "/tmp/pl-store")
 EXECUTOR = os.environ.get("AGENT_EXECUTOR", "scripts/agent-executor.py")
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FROZEN_SOURCE = "9318983b5e76a8ec142b0171d093255183ede08d"
+HOSTED_KEYS = ("TYPESAFE_API_KEY", "CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN", "CLOUDFLARE_AUTH_TOKEN")
+RUN_ENV = {k: v for k, v in os.environ.items() if k not in HOSTED_KEYS}
 
 def run_algal(args, cwd=None):
     # stdout goes to a file, not a pipe: process.stdout.write to a pipe is
@@ -28,10 +31,23 @@ def run_algal(args, cwd=None):
     # receipts on structural artifacts exceed that routinely.
     with tempfile.NamedTemporaryFile("r", suffix=".out", delete=False) as oh:
         out_path = oh.name
-    with open(out_path, "w") as oh:
-        p = subprocess.run(ALGAL + args, stdout=oh, stderr=subprocess.PIPE,
-                           text=True, cwd=cwd)
-    stdout = open(out_path).read()
+    try:
+        with open(out_path, "w") as oh:
+            p = subprocess.run(ALGAL + args, stdout=oh, stderr=subprocess.PIPE,
+                               text=True, cwd=cwd, env=RUN_ENV, timeout=660)
+        with open(out_path) as oh:
+            stdout = oh.read()
+    except subprocess.TimeoutExpired:
+        raise SystemExit("algal timed out; reconcile the attempt before rerunning")
+    finally:
+        os.unlink(out_path)
+    for key in HOSTED_KEYS:
+        value = RUN_ENV.get(key)
+        if value:
+            stdout = stdout.replace(value, "[redacted]")
+            p.stderr = p.stderr.replace(value, "[redacted]")
+    if p.returncode != 0:
+        raise SystemExit(f"algal failed (exit {p.returncode}); reconcile the attempt before rerunning")
     lines = [l for l in (stdout + p.stderr).splitlines() if l.strip().startswith("{")]
     if not lines:
         raise SystemExit(f"algal produced no JSON: {stdout[-400:]} {p.stderr[-400:]}")
@@ -92,8 +108,17 @@ def jury(habitat, subjects, brief, extra_args, cwd, jury_file='jury.algal.json',
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
         json.dump({"src": args}, fh)
         args_path = fh.name
-    r, _ = run_algal(["run", jury_file, "--args", args_path,
-                      "--modules", ".", "--dir", STORE] + extra_args, cwd)
+    try:
+        if "--jev" in extra_args:
+            with tempfile.TemporaryDirectory(prefix="pl-legacy-jev-") as target:
+                legacy_modules(cwd, target)
+                r, _ = run_algal(["run", os.path.join(target, jury_file), "--args", args_path,
+                                  "--modules", target, "--dir", STORE] + extra_args, cwd)
+        else:
+            r, _ = run_algal(["run", jury_file, "--args", args_path,
+                              "--modules", ".", "--dir", STORE] + extra_args, cwd)
+    finally:
+        os.unlink(args_path)
     if r.get("outcome") != "complete":
         raise SystemExit(f"jury failed: {json.dumps(r)[:500]}")
     return r["cells"]["tally"]["outputs"]["out"], r
@@ -173,6 +198,48 @@ def mechanical(subjects, scorer_prog, src_args, cwd):
                           "failed": [terms[i] for i, b in enumerate(bools) if not b]}
     return mech
 
+def decision_args(live, responses, provider="clef"):
+    if provider not in ("clef", "jev"):
+        raise SystemExit("--decision-provider must be clef or jev")
+    return ["--" + provider] if live else ["--responses", responses]
+
+
+def legacy_modules(habitat, target):
+    relative = os.path.relpath(os.path.realpath(habitat), os.path.realpath(ROOT))
+    if relative != "programs" and not (relative.startswith("habitat" + os.sep) and len(relative.split(os.sep)) == 2):
+        raise SystemExit("historical modules must be a repository program or habitat directory")
+    paths = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", "-z", FROZEN_SOURCE, "--", relative], cwd=ROOT, timeout=10).decode().split("\0")
+    modules = [p for p in paths if p.endswith(".algal.json") and os.path.dirname(p) == relative]
+    if not modules:
+        raise SystemExit("frozen source modules are unavailable; do not reconstruct historical source")
+    for path in modules:
+        blob = subprocess.check_output(["git", "show", FROZEN_SOURCE + ":" + path], cwd=ROOT, timeout=10)
+        with open(os.path.join(target, os.path.basename(path)), "xb") as fh:
+            fh.write(blob)
+
+
+def decision_env(live, provider, source=None):
+    source = os.environ if source is None else source
+    env = {k: v for k, v in source.items() if k not in HOSTED_KEYS}
+    if not live:
+        return env
+    if provider == "clef":
+        import re
+        account = source.get("CLOUDFLARE_ACCOUNT_ID", "")
+        token = source.get("CLOUDFLARE_API_TOKEN", "").strip() or source.get("CLOUDFLARE_AUTH_TOKEN", "").strip()
+        if not re.fullmatch(r"[a-fA-F0-9]{32}", account) or not token:
+            raise SystemExit("set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN (or CLOUDFLARE_AUTH_TOKEN)")
+        env.update(CLOUDFLARE_ACCOUNT_ID=account, CLOUDFLARE_API_TOKEN=token)
+    elif provider == "jev":
+        token = source.get("TYPESAFE_API_KEY", "").strip()
+        if not token:
+            raise SystemExit("legacy reproduction requires TYPESAFE_API_KEY")
+        env["TYPESAFE_API_KEY"] = token
+    else:
+        raise SystemExit("--decision-provider must be clef or jev")
+    return env
+
+
 def main():
     habitat = sys.argv[1]
     generations = int(sys.argv[sys.argv.index("--generations") + 1]) if "--generations" in sys.argv else 2
@@ -181,12 +248,22 @@ def main():
     resp = None
     if "--responses" in sys.argv:
         resp = os.path.abspath(sys.argv[sys.argv.index("--responses") + 1])
-    live = "--live" in sys.argv or resp is None
+    live = "--live" in sys.argv
+    if live == (resp is not None):
+        raise SystemExit("choose --live or --responses FILE")
+    provider = sys.argv[sys.argv.index("--decision-provider") + 1] if "--decision-provider" in sys.argv else "clef"
+    output_path = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else None
+    if live and (not output_path or os.path.lexists(output_path) or os.path.lexists(output_path + ".candidates")):
+        raise SystemExit("live runs require --out with new report and candidate paths")
     # writer + judge answers both come from the same responses fixture
     gen_extra = (["--executor-cmd", os.path.join("..", "..", EXECUTOR),
                   "--executor-timeout-ms", "600000"] if live
                  else ["--responses", resp])
-    jury_extra = ["--jev"] if live else ["--responses", resp]
+    jury_extra = decision_args(live, resp, provider)
+    global RUN_ENV
+    RUN_ENV = decision_env(live, provider)
+    if live and provider == "clef" and not os.environ.get("ALGAL_CMD"):
+        raise SystemExit("Clef requires ALGAL_CMD for a released Clef-capable ALGAL build; the frozen pin has no Clef adapter")
 
     cfg = json.load(open(os.path.join(habitat, "foundry.config.json")))
     arena = [c for c in cfg["cases"] if c["split"] == "holdout"][0]
@@ -303,6 +380,8 @@ def main():
         g, gp = run_algal(["run", "generator.algal.json", "--args", gen_args,
                           "--dir", STORE] + gen_extra, habitat)
         if g.get("outcome") != "complete":
+            if live:
+                raise SystemExit("live generator did not complete; reconcile the attempt before rerunning")
             print(f"gen {gen}: generator failed, incumbent carries on")
             if os.environ.get("EVOLVE_DEBUG"):
                 json.dump(g, open("/tmp/gen-fail.json", "w"), indent=1)
@@ -316,9 +395,10 @@ def main():
             key = m.get("key", "").split(":")[-1]
             if not key or key in seen:
                 continue
-            path = write_manifest(habitat, m)
+            candidate_dir = output_path + ".candidates" if live else habitat
+            path = write_manifest(candidate_dir, m)
             subj = subject_of(os.path.basename(path), case_args,
-                              os.path.join(habitat, "gen-candidates"))
+                              os.path.join(candidate_dir, "gen-candidates"))
             if subj is not None:
                 subjects.append({"key": key, "subject": subj["subject"], "raw": subj["raw"]})
                 seen.add(key)
@@ -332,8 +412,10 @@ def main():
            "judgedChampion": final.get("judgedChampion"),
            "escaped": final.get("escaped"),
            "reconciled": (final.get("mechanical") or {}).get(champion["key"], {}).get("passed")}
-    name = "evolve.live.report.json" if live else "evolve.report.json"
-    with open(os.path.join(habitat, name), "w") as fh:
+    if live:
+        out["decisionProvider"] = provider
+    name = output_path or os.path.join(habitat, "evolve.report.json")
+    with open(name, "x" if live else "w") as fh:
         json.dump(out, fh, indent=1)
         fh.write("\n")
     print(f"final champion: {champion['key']} ({champion['wins']} duels) "
