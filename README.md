@@ -128,6 +128,32 @@ The aggregate replays legacy fixtures and rewrites derived habitat reports;
 run it in a disposable source snapshot when preserving historical reports.
 Live generation is separate and is never needed to replay these fixtures.
 
+### New live jury runs
+
+Current decision manifests route to Cloudflare Clef. Use a released ALGAL
+build that supports `--clef` through `ALGAL_CMD`; the frozen offline pin
+predates that adapter. Supply `CLOUDFLARE_ACCOUNT_ID` and
+`CLOUDFLARE_API_TOKEN` (or `CLOUDFLARE_AUTH_TOKEN`) privately in the environment.
+See [Cloudflare's Clef reference](https://developers.cloudflare.com/workers-ai/models/clef/)
+for the model and authentication requirements. The jury is text-only:
+images are unsupported and are not automatically sent.
+
+Starting `scripts/evolve-jury.py` requires either `--responses FILE` for an
+offline replay, or `--live --out NEW_REPORT_PATH` for an authorized paid run.
+Live runs default to `--decision-provider clef`. An explicit
+`--decision-provider jev` loads the original jury modules byte-for-byte from
+Git commit `9318983b5e76a8ec142b0171d093255183ede08d` and requires
+`TYPESAFE_API_KEY` in the environment. That commit also preserves the original
+programs, embedded digests, and runner for historical source reproduction;
+keep it available in the local clone. Live candidate files are written beside
+the new report, not over the historical candidates. A timeout or incomplete
+live result stops the run without retrying; check the provider outcome before
+starting another attempt.
+
+The original Jev receipts, live evolution results, and experiment history
+keep their original attribution. New Clef runs are separate experiments;
+they do not change the conclusions or provider of those results.
+
 Partition reports include raw Rand agreement, adjusted Rand index (ARI), and
 deterministic size-preserving shuffled baselines. The older raw agreement
 threshold alone was misleading: even singleton partitions score highly.

@@ -12,13 +12,19 @@ import json, os, re, subprocess, sys
 
 AGENT_CMD = os.environ.get("AGENT_CMD", "claude -p --model claude-haiku-4-5")
 
+
+def agent_env(source=None):
+    source = os.environ if source is None else source
+    return {k: v for k, v in source.items() if k not in ("TYPESAFE_API_KEY", "CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN", "CLOUDFLARE_AUTH_TOKEN")}
+
 def build_prompt(req):
     kind = req["kind"]
     out = req.get("output", {})
     head = (
         "You are one cell inside an ALGAL organism — a bounded, replayable "
         "workflow. Answer ONLY with the output value, no prose, no markdown "
-        "fences, no explanation.\n\n"
+        "fences, no explanation.\n"
+        "Images are unsupported and are not automatically sent.\n\n"
         f"Cell: {req['cellId']}  (kind={kind})\n"
         f"Task: {req.get('prompt','')}\n"
         f"Context (JSON): {json.dumps(req.get('context', {}))}\n"
@@ -58,10 +64,12 @@ def extract(text, kind):
 
 def main():
     req = json.load(sys.stdin)
+    if req.get("images"):
+        raise SystemExit("executor: images are unsupported")
     out_kind = "json" if req["kind"] == "decide" else req.get("output", {}).get("kind", "text")
     p = subprocess.run(
         AGENT_CMD.split() + [build_prompt(req)],
-        capture_output=True, text=True, timeout=300,
+        capture_output=True, text=True, timeout=300, env=agent_env(),
     )
     if p.returncode != 0:
         print(p.stderr[:400], file=sys.stderr)

@@ -43,7 +43,7 @@
   {
    "id": "duels",
    "kind": "each",
-   "manifest": "sha256:8436dce370fed01033d32aa4aea75e4dafa138434b0722ac3f45d555441802b2",
+   "manifest": "sha256:d1debdf82c010c3d747f367ba95e82ec92b199b0a72d5bdd54ca066ed945ec69",
    "over": "duel",
    "maxItems": 32
   },
